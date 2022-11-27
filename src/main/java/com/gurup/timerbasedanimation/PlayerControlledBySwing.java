@@ -10,15 +10,15 @@ import java.awt.event.KeyListener;
 
 import javax.swing.JPanel;
 
-public class BallControlledBySwing {
-    Color ballColor;
+public class PlayerControlledBySwing {
+    Color playerColor;
     int xStart, yStart, xLimit, yLimit;
     int x, y;
     private static final int numSteps = 200;
    
-    public BallControlledBySwing(Color ballColor, int xStart, int yStart,
+    public PlayerControlledBySwing(Color playerColor, int xStart, int yStart,
         int xLimit, int yLimit) {
-        this.ballColor = ballColor;
+        this.playerColor = playerColor;
         this.xStart = xStart;
         this.yStart = yStart;
         this.xLimit = xLimit;
@@ -29,19 +29,9 @@ public class BallControlledBySwing {
 
     public void draw(Graphics g) {
         Point pos = new Point(x,y);
-        g.setColor(ballColor);
+        g.setColor(playerColor);
         g.fillOval((int)pos.getX(), (int)pos.getY(), 5, 5);
     }
-    
-    //public void move() {
-    	/*Point pos = myPath.nextPosition();
-    	if (! myPath.hasMoreSteps()) {
-            if (pos.getX() == xStart)
-                myPath = new StraightLinePath(xStart, yStart, xLimit, yLimit, numSteps);
-            else
-                myPath = new StraightLinePath(xLimit, yLimit, xStart, yStart, numSteps);
-        }*/
-    	
-    //}
+
     
 }

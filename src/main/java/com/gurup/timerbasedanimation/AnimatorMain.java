@@ -42,7 +42,7 @@ public class AnimatorMain {
     	JFrame f = new JFrame("Swing Animation Demo");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
        
-        BallControlledBySwing ball2 = new BallControlledBySwing(Color.blue, 20, 20, 450, 450);
+        PlayerControlledBySwing ball2 = new PlayerControlledBySwing(Color.blue, 20, 20, 450, 450);
     	f.add(new AnimationPanel(ball2));
     	
     	f.pack();
