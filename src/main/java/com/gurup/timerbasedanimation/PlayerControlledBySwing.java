@@ -30,7 +30,7 @@ public class PlayerControlledBySwing {
     public void draw(Graphics g) {
         Point pos = new Point(x,y);
         g.setColor(playerColor);
-        g.fillOval((int)pos.getX(), (int)pos.getY(), 5, 5);
+        g.fillOval((int)pos.getX(), (int)pos.getY(), 10, 10);
     }
 
     
