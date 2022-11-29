@@ -13,22 +13,22 @@ import javax.swing.Timer;
 
 public class AnimationPanel extends JPanel implements ActionListener, KeyListener{
 	
-	private PlayerControlledBySwing ball2;
+	private PlayerControlledBySwing player;
 
 	
-	public AnimationPanel(PlayerControlledBySwing ball2) {
+	public AnimationPanel(PlayerControlledBySwing player) {
 		addKeyListener(this);
 		setFocusable(true);
 		setFocusTraversalKeysEnabled(false);
-		this.ball2 = ball2;		
+		this.player = player;
 		new Timer(20, e-> {repaint();} ).start();  
 	}
 	
 	 
 	 public void paintComponent(Graphics g) {
          super.paintComponent(g);      
-         //ball2.move();
-         ball2.draw(g);
+         //player.move();
+         player.draw(g);
 	 }
 	 
 	 public Dimension getPreferredSize() {
@@ -44,35 +44,35 @@ public class AnimationPanel extends JPanel implements ActionListener, KeyListene
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
     	if (e.getKeyCode() == KeyEvent.VK_RIGHT||e.getKeyCode() ==KeyEvent.VK_D) {
-			if (ball2.x >= ball2.xLimit) {
-				ball2.x = ball2.xLimit;
+			if (player.x >= player.xLimit) {
+				player.x = player.xLimit;
 			}
 			else {
-				ball2.x+=3;
+				player.x+=3;
 			}
 		}
 		if (e.getKeyCode() == KeyEvent.VK_LEFT||e.getKeyCode() ==KeyEvent.VK_A) {
-			if (ball2.x <= 0) {
-				ball2.x = 0;
+			if (player.x <= 0) {
+				player.x = 0;
 			}
 			else {
-				ball2.x-=3;
+				player.x-=3;
 			}
 		}
 		if (e.getKeyCode() == KeyEvent.VK_UP||e.getKeyCode() ==KeyEvent.VK_W) {
-			if (ball2.y >= ball2.yLimit) {
-				ball2.y = ball2.yLimit;
+			if (player.y >= player.yLimit) {
+				player.y = player.yLimit;
 			}
 			else {
-				ball2.y-=3;
+				player.y-=3;
 			}
 		}
 		if (e.getKeyCode() == KeyEvent.VK_DOWN||e.getKeyCode() ==KeyEvent.VK_S) {
-			if (ball2.y <= 0) {
-				ball2.y = 0;
+			if (player.y <= 0) {
+				player.y = 0;
 			}
 			else {
-				ball2.y+=3;
+				player.y+=3;
 			}
 		}
 	}
