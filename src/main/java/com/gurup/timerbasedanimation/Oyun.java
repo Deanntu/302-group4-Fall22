@@ -7,7 +7,7 @@ import java.util.TimerTask;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-public class AnimatorMain {
+public class Oyun {
 	
 	
     public static void main(String args[]) {
@@ -42,8 +42,8 @@ public class AnimatorMain {
     	JFrame f = new JFrame("Swing Animation Demo");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
        
-        PlayerControlledBySwing ball2 = new PlayerControlledBySwing(Color.blue, 20, 20, 450, 450);
-    	f.add(new AnimationPanel(ball2));
+        Player ball2 = new Player(Color.blue, 20, 20, 450, 450);
+    	f.add(new Building(ball2));
     	
     	f.pack();
     	f.setVisible(true);

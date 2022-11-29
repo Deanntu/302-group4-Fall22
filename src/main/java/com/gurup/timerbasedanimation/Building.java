@@ -11,12 +11,12 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 
-public class AnimationPanel extends JPanel implements ActionListener, KeyListener{
+public class Building extends JPanel implements ActionListener, KeyListener{
 	
-	private PlayerControlledBySwing player;
+	private Player player;
 
 	
-	public AnimationPanel(PlayerControlledBySwing player) {
+	public Building(Player player) {
 		addKeyListener(this);
 		setFocusable(true);
 		setFocusTraversalKeysEnabled(false);

@@ -10,13 +10,13 @@ import java.awt.event.KeyListener;
 
 import javax.swing.JPanel;
 
-public class PlayerControlledBySwing {
+public class Player {
     Color playerColor;
     int xStart, yStart, xLimit, yLimit;
     int x, y;
     private static final int numSteps = 200;
    
-    public PlayerControlledBySwing(Color playerColor, int xStart, int yStart,
+    public Player(Color playerColor, int xStart, int yStart,
         int xLimit, int yLimit) {
         this.playerColor = playerColor;
         this.xStart = xStart;
