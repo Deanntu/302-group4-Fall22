@@ -33,27 +33,7 @@ public class KeyClickController implements MouseListener{
 			int xMouse = e.getX();
 			int yMouse = e.getY();
 			Rectangle mouseRect = new Rectangle(xMouse, yMouse, 1, 1);
-			BuildingObject keyObj = room.getObject1();
-			int xStartKey = keyObj.getX();
-			int yStartKey = keyObj.getY();
-			int xEndKey = keyObj.getxLimit();
-			int yEndKey = keyObj.getyLimit();
-			BuildingObject nonKeyObj = room.getObject2();
-			int xStartNonKey = nonKeyObj.getX();
-			int yStartNonKey = nonKeyObj.getY();
-			int xEndNonKey = nonKeyObj.getxLimit();
-			int yEndNonKey = nonKeyObj.getyLimit();
-			Rectangle rectKey = new Rectangle(xStartKey, yStartKey, xEndKey, yEndKey);
-			Rectangle rectNonKey = new Rectangle(xStartNonKey, yStartNonKey, xEndNonKey, yEndNonKey);
-			if (rectKey.intersects(mouseRect)) {
-				System.out.println("Key Found");
-			}
-			else if (rectNonKey.intersects(mouseRect)) {
-				System.out.println("Key Not Found");
-			}
-			else {
-				System.out.println("not an object");
-			}
+			room.isKeyFound(mouseRect);
 		}
 	}
 
