@@ -25,7 +25,7 @@ public class Player {
 	public void draw(Graphics g) {
 		Point pos = new Point(getX(), getY());
 		g.setColor(playerColor);
-		g.fillOval((int) pos.getX(), (int) pos.getY(), 10, 10);
+		g.fillOval((int) pos.getX(), (int) pos.getY(), 25, 25);
 	}
 
 	public int getX() {
@@ -59,4 +59,13 @@ public class Player {
 	public void setyLimit(int yLimit) {
 		this.yLimit = yLimit;
 	}
+	
+	public int getstartX() {
+		return xStart;
+	}
+	
+	public int getstartY() {
+		return yStart;
+	}
+	
 }
