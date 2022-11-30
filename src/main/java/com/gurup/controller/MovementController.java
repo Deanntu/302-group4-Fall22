@@ -29,28 +29,28 @@ public class MovementController implements KeyListener{
 			if (player.getX() >= player.getxLimit()) {
 				player.setX(player.getxLimit());
 			} else {
-				player.setX(player.getX() + 3);
+				player.setX(player.getX() + 10);
 			}
 		}
 		if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) {
 			if (player.getX() <= 0) {
 				player.setX(0);
 			} else {
-				player.setX(player.getX() - 3);
+				player.setX(player.getX() - 10);
 			}
 		}
 		if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) {
-			if (player.getY() >= player.getyLimit()) {
-				player.setY(player.getyLimit());
-			} else {
-				player.setY(player.getY() - 3);
-			}
-		}
-		if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) {
 			if (player.getY() <= 0) {
 				player.setY(0);
 			} else {
-				player.setY(player.getY() + 3);
+				player.setY(player.getY() - 10);
+			}
+		}
+		if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) {
+			if (player.getY() >= player.getyLimit()) {
+				player.setY(player.getyLimit());
+			} else {
+				player.setY(player.getY() + 10);
 			}
 		}
 	}
