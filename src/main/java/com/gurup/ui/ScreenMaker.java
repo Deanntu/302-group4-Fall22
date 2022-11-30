@@ -7,11 +7,13 @@ import javax.swing.SwingUtilities;
 
 import com.gurup.controller.MovementController;
 import com.gurup.domain.Player;
+import com.gurup.domain.room.Room;
+import com.gurup.domain.room.buildingobjects.Object;
 import com.gurup.ui.gamescreen.RunningModeScreen;
 
 public class ScreenMaker {
-	public RunningModeScreen createScreen(Player player, MovementController movementController) {
-		RunningModeScreen runningModeScreen = new RunningModeScreen(player, movementController);
+	public RunningModeScreen createScreen(Player player, MovementController movementController, Room room, Object object1, Object object2) {
+		RunningModeScreen runningModeScreen = new RunningModeScreen(player, movementController, room, object1, object2);
 		return runningModeScreen;
 	}
 	public RunningModeScreen createAndShowGUI(RunningModeScreen runningModeScreen) {
