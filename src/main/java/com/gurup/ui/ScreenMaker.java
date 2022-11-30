@@ -19,12 +19,15 @@ public class ScreenMaker {
 		System.out.println(Thread.currentThread().getName() + " Created GUI " + SwingUtilities.isEventDispatchThread());
 
 		JFrame f = new JFrame("OYUN");
+		f.setExtendedState(f.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		//Player player = new Player(Color.blue, 20, 20, 450, 450);
 		f.add(runningModeScreen);
-
+		
 		f.pack();
+		f.setLocationRelativeTo(null);
 		f.setVisible(true);
 		return runningModeScreen;
 	}

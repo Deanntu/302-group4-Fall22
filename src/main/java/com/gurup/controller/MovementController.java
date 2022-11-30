@@ -33,15 +33,15 @@ public class MovementController implements KeyListener{
 			}
 		}
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-			if (player.getX() <= 0) {
-				player.setX(0);
+			if (player.getX() <= player.getstartX()) {
+				player.setX(player.getstartX());
 			} else {
 				player.setX(player.getX() - 10);
 			}
 		}
 		if (e.getKeyCode() == KeyEvent.VK_UP) {
-			if (player.getY() <= 0) {
-				player.setY(0);
+			if (player.getY() <= player.getstartY()) {
+				player.setY(player.getstartY());
 			} else {
 				player.setY(player.getY() - 10);
 			}

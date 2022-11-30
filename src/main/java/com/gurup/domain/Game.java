@@ -1,6 +1,7 @@
 package com.gurup.domain;
 
 import java.awt.Color;
+import java.awt.Toolkit;
 import java.util.Timer;
 
 import javax.swing.SwingUtilities;
@@ -18,7 +19,7 @@ public class Game {
 	
 	public static void main(String[] args) {
 		screenMaker = new ScreenMaker();
-		player = new Player(Color.blue, 20, 20, 450, 450);
+		player = new Player(Color.blue, 25, 25, Toolkit.getDefaultToolkit().getScreenSize().width-50, Toolkit.getDefaultToolkit().getScreenSize().height-125);
 		runningModeScreen = screenMaker.createScreen(player, movementController);
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
