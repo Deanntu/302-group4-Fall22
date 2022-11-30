@@ -120,23 +120,15 @@ public class Room {
 	}
 	public Boolean isKeyFound(Rectangle rectMouseClick) {
 		BuildingObject containerObject = key.getBuildingObject();
-		
-		int keyX = containerObject.getX();
-		int keyXLimit = containerObject.getxLimit();
-		
-		int keyY = containerObject.getY();
-		int keyYLimit = containerObject.getyLimit();
-		
-		Rectangle rectKey = new Rectangle(keyX,keyY,keyXLimit,keyYLimit);
 
 		for (BuildingObject bo : objects) {
-			if(rectKey.intersects(rectMouseClick)) {
-				System.out.println("Key Found");
-				return true;
-			}
 			if (bo.getRectangle().intersects(rectMouseClick)) {
+				if (bo.equals(containerObject)) {
+					System.out.println("Key Found");
+					return true;
+				}
 				System.out.println("Key not found");
-				return false; // will be change to bo.shake() to shake object
+				return false; // will be changed to bo.shake() to shake object
 			}
 		}
 		System.out.println("Not an object!");
