@@ -18,14 +18,14 @@ public class Game {
 	private static Room room;
 	private static MovementController movementController;
 	private static RunningModeScreen runningModeScreen;
-
+	private static final int PLAYER_SIZE = 25;;
 
 
 	
 	
 	public static void main(String[] args) {
 		screenMaker = new ScreenMaker();
-		player = new Player(Color.blue, 50, 50, Toolkit.getDefaultToolkit().getScreenSize().width-100, Toolkit.getDefaultToolkit().getScreenSize().height-150);
+		player = new Player(Color.blue, 50, 50, Toolkit.getDefaultToolkit().getScreenSize().width-100+PLAYER_SIZE, Toolkit.getDefaultToolkit().getScreenSize().height-175+PLAYER_SIZE, PLAYER_SIZE);
 		room = new Room ("Student Center", 50, 50, Toolkit.getDefaultToolkit().getScreenSize().width-100, Toolkit.getDefaultToolkit().getScreenSize().height-175);
 		
 
