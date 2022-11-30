@@ -6,7 +6,7 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 
-import com.gurup.domain.room.buildingobjects.Object;
+import com.gurup.domain.room.buildingobjects.BuildingObject;
 
 
 
@@ -17,7 +17,7 @@ public class Room {
 	private int x;
 	private int y;
 	private String name;
-	private Object object1, object2;
+	private BuildingObject object1, object2;
 
 
 	public Room(String name, int xStart, int yStart, int xLimit, int yLimit) {
@@ -28,8 +28,8 @@ public class Room {
 		this.setyLimit(yLimit);
 		this.setX(xStart);
 		this.setY(yStart);
-		object1 = new Object ("oval", 500, 300, 100, 50);
-		object2 = new Object ("rect", 800, 100, 60, 30);
+		object1 = new BuildingObject ("oval", 500, 300, 100, 50);
+		object2 = new BuildingObject ("rect", 800, 100, 60, 30);
 	}
 
 	public void draw(Graphics g) {
@@ -93,19 +93,19 @@ public class Room {
 		return yStart;
 	}
 
-	public Object getObject1() {
+	public BuildingObject getObject1() {
 		return object1;
 	}
 
-	public void setObject1(Object object1) {
+	public void setObject1(BuildingObject object1) {
 		this.object1 = object1;
 	}
 
-	public Object getObject2() {
+	public BuildingObject getObject2() {
 		return object2;
 	}
 
-	public void setObject2(Object object2) {
+	public void setObject2(BuildingObject object2) {
 		this.object2 = object2;
 	}
 	
