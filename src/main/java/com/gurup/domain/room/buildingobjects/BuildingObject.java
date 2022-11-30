@@ -6,6 +6,7 @@ import com.gurup.domain.Position;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.Rectangle;
 
 
 
@@ -95,6 +96,11 @@ public class BuildingObject {
 	
 	public int getstartY() {
 		return yStart;
+	}
+
+	public Rectangle getRectangle() {
+		// TODO Auto-generated method stub
+		return new Rectangle(x,y,xLimit,yLimit);
 	}
 	
 }
