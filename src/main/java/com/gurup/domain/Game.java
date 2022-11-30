@@ -28,7 +28,7 @@ public class Game {
 	public static void main(String[] args) {
 		screenMaker = new ScreenMaker();
 		player = new Player(Color.blue, 50, 50, Toolkit.getDefaultToolkit().getScreenSize().width-100+PLAYER_SIZE, Toolkit.getDefaultToolkit().getScreenSize().height-175+PLAYER_SIZE, PLAYER_SIZE);
-		room = new Room ("Student Center", 50, 50, Toolkit.getDefaultToolkit().getScreenSize().width-100, Toolkit.getDefaultToolkit().getScreenSize().height-175);
+		room = new Room ("Student Center", 50, 50, Toolkit.getDefaultToolkit().getScreenSize().width-100, Toolkit.getDefaultToolkit().getScreenSize().height-175, player);
 		
 
 		runningModeScreen = screenMaker.createScreen(player, movementController, keyClickController, room);

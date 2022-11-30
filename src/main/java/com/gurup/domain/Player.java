@@ -76,5 +76,12 @@ public class Player {
 	public int getstartY() {
 		return yStart;
 	}
-	
+	public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
 }

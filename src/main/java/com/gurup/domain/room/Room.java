@@ -7,7 +7,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.ArrayList;
-
+import com.gurup.domain.Player;
 import com.gurup.domain.room.buildingobjects.BuildingObject;
 
 
@@ -22,10 +22,11 @@ public class Room {
 	private BuildingObject object1, object2;
 	private ArrayList<BuildingObject> objects;
 	private Key key;
-	
+	private Player player;
 
 
-	public Room(String name, int xStart, int yStart, int xLimit, int yLimit) {
+
+	public Room(String name, int xStart, int yStart, int xLimit, int yLimit, Player player) {
 		this.name = name;
 		this.xStart = xStart;
 		this.yStart = yStart;
@@ -35,6 +36,7 @@ public class Room {
 		this.setY(yStart);
 		this.objects = new ArrayList<>();
 		this.key = new Key();
+		this.player = player;
 		object1 = new BuildingObject ("oval", 500, 300, 100, 50);
 		object2 = new BuildingObject ("rect", 800, 100, 60, 30);
 		objects.add(object1);
@@ -118,11 +120,22 @@ public class Room {
 	public void setObject2(BuildingObject object2) {
 		this.object2 = object2;
 	}
+	public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
 	public Boolean isKeyFound(Rectangle rectMouseClick) {
 		BuildingObject containerObject = key.getBuildingObject();
-
+		Rectangle playerRect = new Rectangle(player.getX(), player.getY(), player.getSize(), player.getSize());
 		for (BuildingObject bo : objects) {
 			if (bo.getRectangle().intersects(rectMouseClick)) {
+				if (!playerRect.intersects(bo.getRectangle())) {
+                    System.out.println("Player is not next to the object");
+                    return false;
+                }
 				if (bo.equals(containerObject)) {
 					System.out.println("Key Found");
 					return true;
