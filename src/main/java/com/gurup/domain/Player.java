@@ -11,8 +11,9 @@ public class Player {
 	private int yLimit;
 	private int x;
 	private int y;
+	private int size;
 
-	public Player(Color playerColor, int xStart, int yStart, int xLimit, int yLimit) {
+	public Player(Color playerColor, int xStart, int yStart, int xLimit, int yLimit, int size) {
 		this.playerColor = playerColor;
 		this.xStart = xStart;
 		this.yStart = yStart;
@@ -20,12 +21,13 @@ public class Player {
 		this.setyLimit(yLimit);
 		this.setX(xStart);
 		this.setY(yStart);
+		this.size = size;
 	}
 
 	public void draw(Graphics g) {
 		Point pos = new Point(getX(), getY());
 		g.setColor(playerColor);
-		g.fillOval((int) pos.getX(), (int) pos.getY(), 25, 25);
+		g.fillOval((int) pos.getX(), (int) pos.getY(), size, size);
 	}
 
 	public int getX() {
