@@ -9,7 +9,7 @@ import java.awt.Point;
 
 
 
-public class Object {
+public class BuildingObject {
 	
 	int xStart, yStart;
 	private int xLimit;
@@ -21,7 +21,7 @@ public class Object {
 	private int yPosition;
 	Position positions;
 
-	public Object(String name, int xStart, int yStart, int xLimit, int yLimit) {
+	public BuildingObject(String name, int xStart, int yStart, int xLimit, int yLimit) {
 		this.name = name;
 		this.xStart = xStart;
 		this.yStart = yStart;

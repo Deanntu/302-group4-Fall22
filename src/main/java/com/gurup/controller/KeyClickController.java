@@ -7,7 +7,7 @@ import java.awt.event.MouseListener;
 import com.gurup.domain.Player;
 import com.gurup.domain.room.Room;
 import com.gurup.ui.gamescreen.RunningModeScreen;
-import com.gurup.domain.room.buildingobjects.Object;
+import com.gurup.domain.room.buildingobjects.BuildingObject;
 
 public class KeyClickController implements MouseListener{
 	
@@ -33,12 +33,12 @@ public class KeyClickController implements MouseListener{
 			int xMouse = e.getX();
 			int yMouse = e.getY();
 			Rectangle mouseRect = new Rectangle(xMouse, yMouse, 1, 1);
-			Object keyObj = room.getObject1();
+			BuildingObject keyObj = room.getObject1();
 			int xStartKey = keyObj.getX();
 			int yStartKey = keyObj.getY();
 			int xEndKey = keyObj.getxLimit();
 			int yEndKey = keyObj.getyLimit();
-			Object nonKeyObj = room.getObject2();
+			BuildingObject nonKeyObj = room.getObject2();
 			int xStartNonKey = nonKeyObj.getX();
 			int yStartNonKey = nonKeyObj.getY();
 			int xEndNonKey = nonKeyObj.getxLimit();
