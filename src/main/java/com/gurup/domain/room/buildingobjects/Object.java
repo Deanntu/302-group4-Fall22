@@ -1,6 +1,8 @@
 package com.gurup.domain.room.buildingobjects;
 
 
+import com.gurup.domain.Position;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -15,6 +17,9 @@ public class Object {
 	private int x;
 	private int y;
 	private String name;
+	private int xPosition;
+	private int yPosition;
+	Position positions;
 
 	public Object(String name, int xStart, int yStart, int xLimit, int yLimit) {
 		this.name = name;
@@ -24,6 +29,10 @@ public class Object {
 		this.setyLimit(yLimit);
 		this.setX(xStart);
 		this.setY(yStart);
+
+		positions = new Position();
+		this.xPosition = positions.getxPosition();
+		this.yPosition = positions.getyPosition();
 	}
 
 	public void draw(Graphics g) {

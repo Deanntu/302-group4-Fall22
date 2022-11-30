@@ -12,6 +12,9 @@ public class Player {
 	private int x;
 	private int y;
 	private int size;
+	private int xPosition;
+	private int yPosition;
+	Position positions;
 
 	public Player(Color playerColor, int xStart, int yStart, int xLimit, int yLimit, int size) {
 		this.playerColor = playerColor;
@@ -22,6 +25,10 @@ public class Player {
 		this.setX(xStart);
 		this.setY(yStart);
 		this.size = size;
+
+		positions = new Position();
+		this.xPosition = positions.getxPosition();
+		this.yPosition = positions.getyPosition();
 	}
 
 	public void draw(Graphics g) {
