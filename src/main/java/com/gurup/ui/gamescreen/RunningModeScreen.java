@@ -5,6 +5,7 @@ import com.gurup.domain.room.Room;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Toolkit;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -39,7 +40,7 @@ public class RunningModeScreen extends JPanel{
 	}
 
 	public Dimension getPreferredSize() {
-		return new Dimension(500, 500);
+		return Toolkit.getDefaultToolkit().getScreenSize();
 	}
 
 	public MovementController getMovementController() {
