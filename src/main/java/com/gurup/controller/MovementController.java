@@ -25,28 +25,28 @@ public class MovementController implements KeyListener{
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) {
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			if (player.getX() >= player.getxLimit()) {
 				player.setX(player.getxLimit());
 			} else {
 				player.setX(player.getX() + 10);
 			}
 		}
-		if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) {
+		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 			if (player.getX() <= 0) {
 				player.setX(0);
 			} else {
 				player.setX(player.getX() - 10);
 			}
 		}
-		if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) {
+		if (e.getKeyCode() == KeyEvent.VK_UP) {
 			if (player.getY() <= 0) {
 				player.setY(0);
 			} else {
 				player.setY(player.getY() - 10);
 			}
 		}
-		if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) {
+		if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 			if (player.getY() >= player.getyLimit()) {
 				player.setY(player.getyLimit());
 			} else {
