@@ -27,10 +27,14 @@ public class Room {
 		this.setxLimit(xLimit);
 		this.setyLimit(yLimit);
 		this.setX(xStart);
-		this.setY(yStart);		
+		this.setY(yStart);
+		object1 = new Object ("oval", 500, 300, 100, 50);
+		object2 = new Object ("rect", 800, 100, 60, 30);
 	}
 
 	public void draw(Graphics g) {
+		object1.draw(g);
+		object2.draw(g);
 		g.setColor(Color.BLACK);
 	    Font font = new Font("Courier New", Font.BOLD, 20);
 	    FontMetrics metrics = g.getFontMetrics(font);
