@@ -1,4 +1,4 @@
-package com.gurup.user.entity;
+package com.gurup.domain.user.entity;
 
 public class User {
 	private long userID;

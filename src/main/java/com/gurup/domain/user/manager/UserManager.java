@@ -1,4 +1,4 @@
-package com.gurup.user.manager;
+package com.gurup.domain.user.manager;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.gurup.user.entity.User;
+import com.gurup.domain.user.entity.User;
 
 public class UserManager {
 	// To be filled after deciding the database.

@@ -1,6 +1,6 @@
-package com.gurup.user.entity;
+package com.gurup.domain.user.entity;
 
-import com.gurup.user.manager.UserManager;
+import com.gurup.domain.user.manager.UserManager;
 
 public class UserTest {
 
