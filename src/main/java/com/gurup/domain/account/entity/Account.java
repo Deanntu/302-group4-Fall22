@@ -1,17 +1,17 @@
-package com.gurup.domain.user.entity;
+package com.gurup.domain.account.entity;
 
-public class User {
-	private long userID;
+public class Account {
+	private long accountID;
 	private String userName;
 	private String userPassword;
 	private String mailAddress;
 
 	public long getUserID() {
-		return userID;
+		return accountID;
 	}
 
 	public void setUserID(long userID) {
-		this.userID = userID;
+		this.accountID = userID;
 	}
 
 	public String getUserName() {
@@ -30,13 +30,12 @@ public class User {
 		this.userPassword = userPassword;
 	}
 
-	public User(long userID, String userName, String userPassword, String mailAddress) {
-		this.userID = userID;
+	public Account(String userName, String userPassword, String mailAddress) {
 		this.userName = userName;
 		this.userPassword = userPassword;
 		this.mailAddress = mailAddress;
 	}
-	public User() {
+	public Account() {
 		
 	}
 
