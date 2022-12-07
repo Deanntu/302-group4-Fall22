@@ -26,10 +26,7 @@ public class KeyClickController implements MouseListener{
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		System.out.println(e.toString());
 		if (e.getButton() == e.BUTTON1) { // left click
-			System.out.println("Leftclick");
 			int xMouse = e.getX();
 			int yMouse = e.getY();
 			Rectangle mouseRect = new Rectangle(xMouse, yMouse, 1, 1);
