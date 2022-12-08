@@ -114,7 +114,18 @@ public class Game {
 		}
 		return false;
 	}
-	// TODO tryUnpauseGame
+    public static Boolean tryUnpauseGame(Rectangle rectMouseClick) {
+        Rectangle pauseRect = room.getPauseButton();
+        if (pauseRect.intersects(rectMouseClick)) {
+            // unpause timer DONE in player.decrementTime()
+            // start checking for clicks in RunningModeScreen DONE in Room.isKeyFound()
+            // TODO show game menu, waiting for UI
+            // start moving the character, DONE in MovementController.keyPressed(), TODO move to Domain layer
+            setIsPaused(false);
+            return true;
+        }
+        return false;
+    }
 	public static Boolean getIsPaused() {
 		return isPaused;
 	}
