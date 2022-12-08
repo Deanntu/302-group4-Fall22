@@ -62,6 +62,10 @@ public class Room {
 		g.drawRect(pauseButton.x, pauseButton.y, pauseButton.width, pauseButton.height);
 	}
 	public Boolean isKeyFound(Rectangle rectMouseClick) {
+		if (!rectMouseClick.intersects(new Rectangle(xStart, yStart, xLimit, yLimit))) {
+			//System.out.println("Did not click inside the room");
+			return false;
+		}
 		if (Game.getIsPaused()) {
 			//System.out.println("Cannot look for key if the game is paused. ");
 			return false;
