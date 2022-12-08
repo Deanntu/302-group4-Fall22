@@ -8,6 +8,7 @@ import com.gurup.controller.MovementController;
 import com.gurup.domain.Player;
 import com.gurup.domain.room.Room;
 import com.gurup.ui.gamescreen.LoginScreen;
+import com.gurup.ui.gamescreen.MainMenuScreen;
 import com.gurup.ui.gamescreen.RunningModeScreen;
 
 public class ScreenMaker {
@@ -24,6 +25,20 @@ public class ScreenMaker {
 		loginScreen.setLocationRelativeTo(null);
 		loginScreen.setVisible(true);
 		return loginScreen;
+	}
+
+	public MainMenuScreen createMainMenuScreen() {
+		MainMenuScreen mainMenuScreen = new MainMenuScreen();
+        mainMenuScreen.setTitle("Main Menu");
+
+        mainMenuScreen.setBounds(10, 10, 370, 600);
+		mainMenuScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		mainMenuScreen.setResizable(false);
+
+        mainMenuScreen.setLocationRelativeTo(null);
+		mainMenuScreen.setVisible(true);
+        return mainMenuScreen;
 	}
 
 	public RunningModeScreen createRunningModeScreen(Player player, MovementController movementController,
