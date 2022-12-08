@@ -33,7 +33,7 @@ public class KeyClickController implements MouseListener{
 			Rectangle mouseRect = new Rectangle(xMouse, yMouse, 1, 1);
 			room.isKeyFound(mouseRect);
 			Boolean pauseButtonClicked = Game.tryPauseGame(mouseRect);
-			System.out.println(pauseButtonClicked ? "Pause Button Clicked" : "");
+			if (pauseButtonClicked) System.out.println("Pause Button Clicked");
 		}
 	}
 
