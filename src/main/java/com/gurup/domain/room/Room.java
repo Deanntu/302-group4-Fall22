@@ -58,6 +58,16 @@ public class Room {
 	    int y = yStart - 5;
 	    g.setFont(font);
 	    g.drawString(name, x, y);
+		//time and life
+		String time = "Remaining time: " + player.getRemainingTime();
+		String life = "Remaining life: " + player.getRemainingLife();
+		int timeX = xStart;
+		int timeY = yStart - 5;;
+		int lifeX = xLimit - metrics.stringWidth(life)+50;
+        int lifeY = yStart - 5;;
+		g.drawString(time, timeX, timeY);
+		g.drawString(life, lifeX, lifeY);
+
 		g.draw3DRect(xStart,  yStart, xLimit, yLimit, true);
 		g.drawRect(pauseButton.x, pauseButton.y, pauseButton.width, pauseButton.height);
 	}

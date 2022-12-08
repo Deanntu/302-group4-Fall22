@@ -17,8 +17,12 @@ public class Player {
 	private int xPosition;
 	private int yPosition;
 	Position positions;
+
 	private int remainingTime;
 	private int timeCounter;
+	private int remainingLife;
+
+
 
 	public Player(Color playerColor, int xStart, int yStart, int xLimit, int yLimit, int size, int startingTime) {
 		this.playerColor = playerColor;
@@ -34,6 +38,7 @@ public class Player {
 		positions = new Position();
 		this.xPosition = positions.getxPosition();
 		this.yPosition = positions.getyPosition();
+		remainingLife = 3;
 	}
 
 	public void draw(Graphics g) {
@@ -141,4 +146,19 @@ public class Player {
         this.size = size;
     }
 
+	public int getRemainingTime() {
+		return remainingTime;
+	}
+
+	public void setRemainingTime(int remainingTime) {
+		this.remainingTime = remainingTime;
+	}
+
+	public int getRemainingLife() {
+		return remainingLife;
+	}
+
+	public void setRemainingLife(int remainingLife) {
+		this.remainingLife = remainingLife;
+	}
 }
