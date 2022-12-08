@@ -43,7 +43,7 @@ public class Game {
 
 		boolean isLoginSuccesful = mainScreen();
 		if (isLoginSuccesful) {
-
+			loginScreen.dispose();
 			mainMenuScreen = screenMaker.createMainMenuScreen();
 			boolean isPlayButtonPressed = mainMenuScreen.showPlayPressed();
 
@@ -53,6 +53,7 @@ public class Game {
 			}while (!isPlayButtonPressed);
 			//System.out.println(isPlayButtonPressed);
 			if (isPlayButtonPressed) {
+				mainMenuScreen.dispose();
 				inGame();
 			}
 		}
