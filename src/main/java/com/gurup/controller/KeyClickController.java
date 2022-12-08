@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import com.gurup.domain.Game;
 import com.gurup.domain.Player;
 import com.gurup.domain.room.Room;
 import com.gurup.ui.gamescreen.RunningModeScreen;
@@ -31,6 +32,8 @@ public class KeyClickController implements MouseListener{
 			int yMouse = e.getY();
 			Rectangle mouseRect = new Rectangle(xMouse, yMouse, 1, 1);
 			room.isKeyFound(mouseRect);
+			Boolean pauseButtonClicked = Game.tryPauseGame(mouseRect);
+			System.out.println(pauseButtonClicked ? "Pause Button Clicked" : "");
 		}
 	}
 

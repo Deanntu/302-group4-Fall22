@@ -19,6 +19,7 @@ public class RunningModeScreen extends JPanel{
 	private MovementController movementController;
 	private KeyClickController keyClickController;
 	private Room room;
+	private int delayMiliSeconds;
 
 	
 	public RunningModeScreen(Player player, MovementController movementController, KeyClickController keyClickController, Room room) {
@@ -28,8 +29,10 @@ public class RunningModeScreen extends JPanel{
 		this.room = room;
 		this.setMovementController(movementController);
 		this.setKeyClickController(keyClickController);
-		new Timer(20, e -> {
+		this.delayMiliSeconds = 20;
+		new Timer(this.delayMiliSeconds, e -> {
 			repaint();
+			player.decrementTime(this.delayMiliSeconds);
 		}).start();
 	}
 	
