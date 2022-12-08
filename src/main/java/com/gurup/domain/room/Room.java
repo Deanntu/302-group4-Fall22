@@ -7,6 +7,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.StringJoiner;
 
 import com.gurup.domain.Game;
 import com.gurup.domain.Player;
@@ -58,6 +59,17 @@ public class Room {
 	    int y = yStart - 5;
 	    g.setFont(font);
 	    g.drawString(name, x, y);
+
+		// life and time edit
+		String remainingTime = "Remaining time: " + player.getRemainingTime();
+		String remainingLife = "Remaining life: " + player.getRemainingLife();
+		int timeX = xStart;
+		int timeY = yStart - 5;;
+		int lifeX = xStart + (xLimit - metrics.stringWidth(remainingLife));
+		int lifeY = yStart - 5;
+		g.drawString(remainingTime,timeX,timeY);
+		g.drawString(remainingLife,lifeX,lifeY);
+
 		g.draw3DRect(xStart,  yStart, xLimit, yLimit, true);
 		g.drawRect(pauseButton.x, pauseButton.y, pauseButton.width, pauseButton.height);
 	}
