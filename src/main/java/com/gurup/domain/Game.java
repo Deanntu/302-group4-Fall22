@@ -16,6 +16,7 @@ import com.gurup.domain.room.Room;
 import com.gurup.ui.ScreenMaker;
 import com.gurup.ui.gamescreen.LoginScreen;
 import com.gurup.ui.gamescreen.MainMenuScreen;
+import com.gurup.ui.gamescreen.PauseAndResumeScreen;
 import com.gurup.ui.gamescreen.RunningModeScreen;
 
 public class Game {
@@ -28,6 +29,8 @@ public class Game {
 	private static RunningModeScreen runningModeScreen;
 	private static LoginScreen loginScreen;
 	private static MainMenuScreen mainMenuScreen;
+
+	private static PauseAndResumeScreen pauseAndResumeScreen;
 	private static final int PLAYER_SIZE = 25;;
 	private static AccountManager accountManager;
 	private static String session;
@@ -50,36 +53,39 @@ public class Game {
 			}while (!isPlayButtonPressed);
 			//System.out.println(isPlayButtonPressed);
 			if (isPlayButtonPressed) {
-				player = new Player(Color.blue, 50, 50,
-						Toolkit.getDefaultToolkit().getScreenSize().width - 100 + PLAYER_SIZE,
-						Toolkit.getDefaultToolkit().getScreenSize().height - 175 + PLAYER_SIZE, PLAYER_SIZE,
-            60);
-				room = new Room("Student Center", 50, 50, Toolkit.getDefaultToolkit().getScreenSize().width - 100,
-						Toolkit.getDefaultToolkit().getScreenSize().height - 175, player);
-
-				runningModeScreen = screenMaker.createRunningModeScreen(player, movementController, keyClickController,
-						room);
-				SwingUtilities.invokeLater(new Runnable() {
-					public void run() {
-						screenMaker.showRunningModeGUI(runningModeScreen);
-					}
-				});
-				movementController = new MovementController(player, runningModeScreen);
-				keyClickController = new KeyClickController(player, runningModeScreen, room);
-				isPaused = false;
-				// running timer task as daemon thread
-				Timer timer = new Timer(true);
-				System.out.println(Thread.currentThread().getName() + " TimerTask started");
-				// cancel after sometime
-				try {
-					Thread.sleep(100000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				timer.cancel();
-
+				inGame();
 			}
 		}
+	}
+
+	private static void inGame() {
+		player = new Player(Color.blue, 50, 50,
+				Toolkit.getDefaultToolkit().getScreenSize().width - 100 + PLAYER_SIZE,
+				Toolkit.getDefaultToolkit().getScreenSize().height - 175 + PLAYER_SIZE, PLAYER_SIZE,
+				60);
+		room = new Room("Student Center", 50, 50, Toolkit.getDefaultToolkit().getScreenSize().width - 100,
+				Toolkit.getDefaultToolkit().getScreenSize().height - 175, player);
+
+		runningModeScreen = screenMaker.createRunningModeScreen(player, movementController, keyClickController,
+				room);
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				screenMaker.showRunningModeGUI(runningModeScreen);
+			}
+		});
+		movementController = new MovementController(player, runningModeScreen);
+		keyClickController = new KeyClickController(player, runningModeScreen, room);
+		isPaused = false;
+		// running timer task as daemon thread
+		Timer timer = new Timer(true);
+		System.out.println(Thread.currentThread().getName() + " TimerTask started");
+		// cancel after sometime
+		try {
+			Thread.sleep(100000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		timer.cancel();
 	}
 
 	private static boolean mainScreen() throws Exception {

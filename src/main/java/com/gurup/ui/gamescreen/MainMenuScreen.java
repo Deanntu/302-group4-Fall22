@@ -64,6 +64,4 @@ public class MainMenuScreen extends JFrame implements ActionListener {
     }
     public void setShowExit(Boolean flag) {showExit = flag;};
 
-
-
 }
