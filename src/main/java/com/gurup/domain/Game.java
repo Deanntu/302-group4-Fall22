@@ -105,9 +105,8 @@ public class Game {
 	public static Boolean tryPauseGame(Rectangle rectMouseClick) {
 		Rectangle pauseRect = room.getPauseButton();
 		if (pauseRect.intersects(rectMouseClick)) {
-			// TODO any other requirement?
-			// TODO pause timer, DONE in player.decrementTime()
-			// TODO stop checking for clicks in RunningModeScreen
+			// pause timer DONE in player.decrementTime()
+			// stop checking for clicks in RunningModeScreen DONE in Room.isKeyFound()
 			// TODO show pause menu, waiting for UI
 			// TODO stop moving the character
 			setIsPaused(true);

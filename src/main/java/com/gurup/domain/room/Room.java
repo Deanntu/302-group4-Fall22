@@ -7,6 +7,8 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.ArrayList;
+
+import com.gurup.domain.Game;
 import com.gurup.domain.Player;
 import com.gurup.domain.room.buildingobjects.BuildingObject;
 
@@ -60,6 +62,10 @@ public class Room {
 		g.drawRect(pauseButton.x, pauseButton.y, pauseButton.width, pauseButton.height);
 	}
 	public Boolean isKeyFound(Rectangle rectMouseClick) {
+		if (Game.getIsPaused()) {
+			//System.out.println("Cannot look for key if the game is paused. ");
+			return false;
+		}
 		BuildingObject containerObject = key.getBuildingObject();
 		Rectangle playerRect = new Rectangle(player.getX(), player.getY(), player.getSize(), player.getSize());
 		for (BuildingObject bo : objects) {
