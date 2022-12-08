@@ -66,6 +66,7 @@ public class Game {
 				});
 				movementController = new MovementController(player, runningModeScreen);
 				keyClickController = new KeyClickController(player, runningModeScreen, room);
+				isPaused = false;
 				// running timer task as daemon thread
 				Timer timer = new Timer(true);
 				System.out.println(Thread.currentThread().getName() + " TimerTask started");
