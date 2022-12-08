@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 
+import javax.swing.Timer;
+
 public class Player {
 	Color playerColor;
 	int xStart, yStart;
@@ -15,8 +17,10 @@ public class Player {
 	private int xPosition;
 	private int yPosition;
 	Position positions;
+	private int remainingTime;
+	private int timeCounter;
 
-	public Player(Color playerColor, int xStart, int yStart, int xLimit, int yLimit, int size) {
+	public Player(Color playerColor, int xStart, int yStart, int xLimit, int yLimit, int size, int startingTime) {
 		this.playerColor = playerColor;
 		this.xStart = xStart;
 		this.yStart = yStart;
@@ -25,7 +29,8 @@ public class Player {
 		this.setX(xStart);
 		this.setY(yStart);
 		this.size = size;
-
+		this.remainingTime = startingTime;
+		timeCounter = 1;
 		positions = new Position();
 		this.xPosition = positions.getxPosition();
 		this.yPosition = positions.getyPosition();
@@ -35,6 +40,25 @@ public class Player {
 		Point pos = new Point(getX(), getY());
 		g.setColor(playerColor);
 		g.fillOval((int) pos.getX(), (int) pos.getY(), size, size);
+	}
+	
+	public TimerOperationResults decrementTime(int delaymiliseconds) {
+		if (Game.getIsPaused()) return TimerOperationResults.PAUSED;
+		if (timeCounter%(1000/delaymiliseconds) == 0) {
+			timeCounter = 1;
+			if (remainingTime <= 0) {
+				// TODO game over
+				return TimerOperationResults.TIME_UP;
+			}
+			else {
+				System.out.println(remainingTime);
+				remainingTime--;
+			}
+		}
+		else {
+			timeCounter++;
+		}
+		return TimerOperationResults.TIME_DECREMENTED;
 	}
 
 	public int getX() {
