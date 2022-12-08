@@ -30,32 +30,16 @@ public class MovementController implements KeyListener{
 			return;
 		}
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-			if (player.getX() >= player.getxLimit()) {
-				player.setX(player.getxLimit());
-			} else {
-				player.setX(player.getX() + 10);
-			}
+			player.moveRight();
 		}
-		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-			if (player.getX() <= player.getstartX()) {
-				player.setX(player.getstartX());
-			} else {
-				player.setX(player.getX() - 10);
-			}
+		else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+			player.moveLeft();
 		}
-		if (e.getKeyCode() == KeyEvent.VK_UP) {
-			if (player.getY() <= player.getstartY()) {
-				player.setY(player.getstartY());
-			} else {
-				player.setY(player.getY() - 10);
-			}
+		else if (e.getKeyCode() == KeyEvent.VK_UP) {
+			player.moveUp();
 		}
-		if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-			if (player.getY() >= player.getyLimit()) {
-				player.setY(player.getyLimit());
-			} else {
-				player.setY(player.getY() + 10);
-			}
+		else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+			player.moveDown();
 		}
 	}
 
