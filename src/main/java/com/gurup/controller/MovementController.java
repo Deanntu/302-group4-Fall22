@@ -3,6 +3,7 @@ package com.gurup.controller;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import com.gurup.domain.Game;
 import com.gurup.domain.Player;
 import com.gurup.ui.gamescreen.RunningModeScreen;
 
@@ -25,6 +26,9 @@ public class MovementController implements KeyListener{
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
+		if (Game.getIsPaused()) {
+			return;
+		}
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			if (player.getX() >= player.getxLimit()) {
 				player.setX(player.getxLimit());

@@ -108,7 +108,7 @@ public class Game {
 			// pause timer DONE in player.decrementTime()
 			// stop checking for clicks in RunningModeScreen DONE in Room.isKeyFound()
 			// TODO show pause menu, waiting for UI
-			// TODO stop moving the character
+			// stop moving the character, DONE in MovementController.keyPressed(), TODO move to Domain layer
 			setIsPaused(true);
 			return true;
 		}
