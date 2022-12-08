@@ -1,6 +1,7 @@
 package com.gurup.domain;
 
 import java.awt.Color;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.util.Scanner;
 import java.util.Timer;
@@ -21,7 +22,7 @@ public class Game {
 
 	private static ScreenMaker screenMaker;
 	private static Player player;
-	private static Room room;
+	private static Room room; // TODO there will be more than one room
 	private static MovementController movementController;
 	private static KeyClickController keyClickController;
 	private static RunningModeScreen runningModeScreen;
@@ -30,17 +31,16 @@ public class Game {
 	private static final int PLAYER_SIZE = 25;;
 	private static AccountManager accountManager;
 	private static String session;
-
+	private static Boolean isPaused;
+  
 	public static void main(String[] args) throws Exception {
 		screenMaker = new ScreenMaker();
 		accountManager = new AccountManager();
 		loginScreen = screenMaker.createMainModeScreen();
 
 		boolean isLoginSuccesful = mainScreen();
-
-
-
 		if (isLoginSuccesful) {
+
 			mainMenuScreen = screenMaker.createMainMenuScreen();
 			boolean isPlayButtonPressed = mainMenuScreen.showPlayPressed();
 
@@ -52,7 +52,8 @@ public class Game {
 			if (isPlayButtonPressed) {
 				player = new Player(Color.blue, 50, 50,
 						Toolkit.getDefaultToolkit().getScreenSize().width - 100 + PLAYER_SIZE,
-						Toolkit.getDefaultToolkit().getScreenSize().height - 175 + PLAYER_SIZE, PLAYER_SIZE);
+						Toolkit.getDefaultToolkit().getScreenSize().height - 175 + PLAYER_SIZE, PLAYER_SIZE,
+            60);
 				room = new Room("Student Center", 50, 50, Toolkit.getDefaultToolkit().getScreenSize().width - 100,
 						Toolkit.getDefaultToolkit().getScreenSize().height - 175, player);
 
@@ -75,6 +76,7 @@ public class Game {
 					e.printStackTrace();
 				}
 				timer.cancel();
+
 			}
 		}
 	}
@@ -111,5 +113,25 @@ public class Game {
 			}
 		}
 		return mainScreen();
+	}
+	
+	public static Boolean tryPauseGame(Rectangle rectMouseClick) {
+		Rectangle pauseRect = room.getPauseButton();
+		if (pauseRect.intersects(rectMouseClick)) {
+			// pause timer DONE in player.decrementTime()
+			// stop checking for clicks in RunningModeScreen DONE in Room.isKeyFound()
+			// TODO show pause menu, waiting for UI
+			// stop moving the character, DONE in MovementController.keyPressed(), TODO move to Domain layer
+			setIsPaused(true);
+			return true;
+		}
+		return false;
+	}
+	// TODO tryUnpauseGame
+	public static Boolean getIsPaused() {
+		return isPaused;
+	}
+	public static void setIsPaused(Boolean isPaused) {
+		Game.isPaused = isPaused;
 	}
 }

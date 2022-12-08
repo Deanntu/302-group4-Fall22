@@ -7,6 +7,8 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.ArrayList;
+
+import com.gurup.domain.Game;
 import com.gurup.domain.Player;
 import com.gurup.domain.room.buildingobjects.BuildingObject;
 
@@ -23,6 +25,7 @@ public class Room {
 	private ArrayList<BuildingObject> objects;
 	private Key key;
 	private Player player;
+	private Rectangle pauseButton;
 
 
 
@@ -42,6 +45,7 @@ public class Room {
 		objects.add(object1);
 		objects.add(object2);
 		key.hideKey(objects);
+		pauseButton = new Rectangle(0,0,50,50);
 	}
 
 	public void draw(Graphics g) {
@@ -55,8 +59,38 @@ public class Room {
 	    g.setFont(font);
 	    g.drawString(name, x, y);
 		g.draw3DRect(xStart,  yStart, xLimit, yLimit, true);
+		g.drawRect(pauseButton.x, pauseButton.y, pauseButton.width, pauseButton.height);
+	}
+	public Boolean isKeyFound(Rectangle rectMouseClick) {
+		if (!rectMouseClick.intersects(new Rectangle(xStart, yStart, xLimit, yLimit))) {
+			//System.out.println("Did not click inside the room");
+			return false;
+		}
+		if (Game.getIsPaused()) {
+			//System.out.println("Cannot look for key if the game is paused. ");
+			return false;
+		}
+		BuildingObject containerObject = key.getBuildingObject();
+		Rectangle playerRect = new Rectangle(player.getX(), player.getY(), player.getSize(), player.getSize());
+		for (BuildingObject bo : objects) {
+			if (bo.getRectangle().intersects(rectMouseClick)) {
+				if (!playerRect.intersects(bo.getRectangle())) {
+                    System.out.println("Player is not next to the object");
+                    return false;
+                }
+				if (bo.equals(containerObject)) {
+					System.out.println("Key Found");
+					return true;
+				}
+				System.out.println("Key not found");
+				return false; // will be changed to bo.shake() to shake object
+			}
+		}
+		System.out.println("Not an object!");
+		return false;
 	}
 	
+	// Getters/Setters
 	public String getName() {
 		return name;
 	}
@@ -127,25 +161,12 @@ public class Room {
     public void setPlayer(Player player) {
         this.player = player;
     }
-	public Boolean isKeyFound(Rectangle rectMouseClick) {
-		BuildingObject containerObject = key.getBuildingObject();
-		Rectangle playerRect = new Rectangle(player.getX(), player.getY(), player.getSize(), player.getSize());
-		for (BuildingObject bo : objects) {
-			if (bo.getRectangle().intersects(rectMouseClick)) {
-				if (!playerRect.intersects(bo.getRectangle())) {
-                    System.out.println("Player is not next to the object");
-                    return false;
-                }
-				if (bo.equals(containerObject)) {
-					System.out.println("Key Found");
-					return true;
-				}
-				System.out.println("Key not found");
-				return false; // will be changed to bo.shake() to shake object
-			}
-		}
-		System.out.println("Not an object!");
-		return false;
-	}
-	
+    
+    public Rectangle getPauseButton() {
+        return pauseButton;
+    }
+
+    public void setPauseButton(Rectangle pauseButton) {
+        this.pauseButton = pauseButton;
+    }
 }
