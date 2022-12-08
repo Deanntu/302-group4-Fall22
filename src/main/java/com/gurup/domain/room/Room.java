@@ -48,7 +48,7 @@ public class Room {
 		pauseButton = new Rectangle(0,0,50,50);
 	}
 
-	public void draw(Graphics g) {
+	public void draw(Graphics g) { // TODO move this into UI layer
 		object1.draw(g);
 		object2.draw(g);
 		g.setColor(Color.BLACK);
