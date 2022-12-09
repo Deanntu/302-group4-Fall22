@@ -50,6 +50,9 @@ public class KeyClickController implements MouseListener{
 			}
 			if (exitButtonClicked) System.out.println("Exit Button Clicked");*/
 		}
+		else if (e.getButton() == e.BUTTON3) {
+			room.checkPowerUp();
+		}
 	}
 
 	@Override

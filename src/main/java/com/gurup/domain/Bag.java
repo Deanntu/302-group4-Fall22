@@ -1,6 +1,7 @@
 package com.gurup.domain;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.gurup.domain.powerups.PowerUp;
@@ -8,18 +9,13 @@ import com.gurup.domain.powerups.PowerUp;
 public class Bag {
 	private Map<PowerUp, Integer> powerUps;
 
-	public Bag(ArrayList<PowerUp> init) {
-		for (PowerUp p : init) {
-			powerUps.put(p, 0);
-		}
+	public Bag(Player player) {
+		powerUps = new HashMap<PowerUp, Integer>();
+		
 	}
 
-	public void collectPowerUp(PowerUp p) {
-		if (p.isStorable()) {
-			powerUps.put(p, powerUps.get(p) + 1);
-		} else {
-			p.usePowerUp();
-		}
+	public void storePowerUp(PowerUp p) {
+		powerUps.put(p, powerUps.get(p) + 1);
 	}
 
 	public void selectPowerUp(int selectedSlotIndex) {
@@ -32,8 +28,13 @@ public class Bag {
 			shakeSlot(selectedSlotIndex);
 		}
 	}
-
+	public void setupBag (ArrayList<PowerUp> powerUpList) {
+		for(PowerUp p: powerUpList) {
+			powerUps.put(p, 0);
+		}
+	}
 	private void shakeSlot(int i) {
 
 	}
+
 }
