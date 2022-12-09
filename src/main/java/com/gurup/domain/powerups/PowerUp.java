@@ -10,4 +10,8 @@ public interface PowerUp {
 	boolean isActive();
 	void setIsActive(boolean b);
 	void draw(Graphics g);
+	void setX(int i);
+	void setxLimit(int i);
+	void setY(int i);
+	void setyLimit(int i);
 }
