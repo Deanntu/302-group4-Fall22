@@ -26,7 +26,6 @@ public class LoginScreen extends JFrame implements ActionListener {
 		setSizeandAdd();
 	}
 
-
 	private void setSizeandAdd() {
 		usernameLabel.setBounds(50, 100, 100, 30);
 		userTextField.setBounds(125, 100, 175, 30);
@@ -65,7 +64,14 @@ public class LoginScreen extends JFrame implements ActionListener {
 			loginPressed = true;
 		}
 
-       // TODO: implement show password
+		if (e.getSource() == showPasswordCheckbox) {
+			if (showPasswordCheckbox.isSelected()) {
+				passwordField.setEchoChar('\u0000');
+			} else {
+				passwordField.setEchoChar('\u25CF');
+			}
+
+		}
 
 	}
 
@@ -95,8 +101,7 @@ public class LoginScreen extends JFrame implements ActionListener {
 	}
 
 	public String getEnteredPassword() {
-		// TODO: fix getText for password fields
-		return passwordField.getText();
+		return String.valueOf(passwordField.getPassword());
 	}
 
 }
