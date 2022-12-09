@@ -1,8 +1,5 @@
 package com.gurup.ui.gamescreen;
 
-import com.gurup.domain.Player;
-import com.gurup.domain.room.Room;
-
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Toolkit;
@@ -12,6 +9,8 @@ import javax.swing.Timer;
 
 import com.gurup.controller.KeyClickController;
 import com.gurup.controller.MovementController;
+import com.gurup.domain.Player;
+import com.gurup.domain.room.Room;
 
 public class RunningModeScreen extends JPanel{
 	
@@ -33,6 +32,7 @@ public class RunningModeScreen extends JPanel{
 		new Timer(this.delayMiliSeconds, e -> {
 			repaint();
 			player.decrementTime(this.delayMiliSeconds);
+			room.createPowerUp(this.delayMiliSeconds);
 		}).start();
 	}
 	

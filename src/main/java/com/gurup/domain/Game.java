@@ -3,7 +3,6 @@ package com.gurup.domain;
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
-import java.util.Scanner;
 import java.util.Timer;
 
 import javax.swing.SwingUtilities;
@@ -24,6 +23,7 @@ public class Game {
 	private static ScreenMaker screenMaker;
 	private static Player player;
 	private static Room room; // TODO there will be more than one room
+	private static Bag bag;
 	private static MovementController movementController;
 	private static KeyClickController keyClickController;
 	private static RunningModeScreen runningModeScreen;
@@ -40,7 +40,7 @@ public class Game {
 		screenMaker = new ScreenMaker();
 		accountManager = new AccountManager();
 		loginScreen = screenMaker.createMainModeScreen();
-
+		
 		boolean isLoginSuccesful = mainScreen();
 		if (isLoginSuccesful) {
 			loginScreen.dispose();
@@ -64,6 +64,7 @@ public class Game {
 				Toolkit.getDefaultToolkit().getScreenSize().width - 100 + PLAYER_SIZE,
 				Toolkit.getDefaultToolkit().getScreenSize().height - 175 + PLAYER_SIZE, PLAYER_SIZE,
 				60);
+		bag = new Bag(player);
 		room = new Room("Student Center", 50, 50, Toolkit.getDefaultToolkit().getScreenSize().width - 100,
 				Toolkit.getDefaultToolkit().getScreenSize().height - 175, player);
 
@@ -152,5 +153,13 @@ public class Game {
 	}
 	public static void setIsPaused(Boolean isPaused) {
 		Game.isPaused = isPaused;
+	}
+
+	public static Bag getBag() {
+		return bag;
+	}
+
+	public static void setBag(Bag bag) {
+		Game.bag = bag;
 	}
 }

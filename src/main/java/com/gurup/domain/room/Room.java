@@ -7,10 +7,13 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.ArrayList;
-import java.util.StringJoiner;
+import java.util.Random;
 
 import com.gurup.domain.Game;
 import com.gurup.domain.Player;
+import com.gurup.domain.powerups.HealthPowerUp;
+import com.gurup.domain.powerups.PowerUp;
+import com.gurup.domain.powerups.TimePowerUp;
 import com.gurup.domain.room.buildingobjects.BuildingObject;
 
 
@@ -24,10 +27,14 @@ public class Room {
 	private String name;
 	private BuildingObject object1, object2;
 	private ArrayList<BuildingObject> objects;
+	private ArrayList<PowerUp> powerUps;
 	private Key key;
 	private Player player;
 	private Rectangle pauseButton;
 	private Rectangle exitButton;
+	private int powerUpCreationCounter = 0;
+	private int timeCounter = 1;
+	private PowerUp created;
 
 
 
@@ -49,11 +56,16 @@ public class Room {
 		key.hideKey(objects);
 		pauseButton = new Rectangle(0,0,50,50);
 		exitButton = new Rectangle(0,0,50,50);
+		initPowerUps();
+		Game.getBag().setupBag(powerUps);
 	}
 
 	public void draw(Graphics g) { // TODO move this into UI layer
 		object1.draw(g);
 		object2.draw(g);
+		if(created != null) {
+			created.draw(g);
+		}
 		g.setColor(Color.BLACK);
 	    Font font = new Font("Courier New", Font.BOLD, 20);
 	    FontMetrics metrics = g.getFontMetrics(font);
@@ -127,7 +139,40 @@ public class Room {
 		System.out.println("Not an object!");
 		return false;
 	}
-	
+	public void checkPowerUp() {
+		for(PowerUp p: powerUps) {
+			if(p.isActive()) {
+				if(p.isStorable()) {
+					Game.getBag().storePowerUp(p);
+				}
+				p.usePowerUp();
+				p.setIsActive(false);
+			}
+		}
+	}
+	public void createPowerUp(int delayMiliSeconds) {
+		if (timeCounter%(1000/delayMiliSeconds) == 0) {
+			timeCounter = 1;
+			if (powerUpCreationCounter == 10) {
+				if(created != null) created.setIsActive(false);
+				Random random = new Random();
+				System.out.println(powerUps.size()+1);
+				int randomIndex = random.nextInt(powerUps.size());
+				System.out.println(randomIndex);
+				created = powerUps.get(randomIndex);
+				created.setIsActive(true);
+				powerUpCreationCounter = 0;
+			}
+			else {
+				
+				powerUpCreationCounter++;
+			}
+		}
+		else {
+			timeCounter++;
+		}
+
+	}
 	// Getters/Setters
 	public String getName() {
 		return name;
@@ -212,5 +257,21 @@ public class Room {
 	}
 	public void setExitButton(Rectangle exitButton) {
 		this.exitButton = exitButton;
+	}
+	// private methods
+	private void initPowerUps() {
+		powerUps = new ArrayList<PowerUp>();
+		TimePowerUp t = new TimePowerUp(player);
+		HealthPowerUp h = new HealthPowerUp(player);
+		t.setX(420);
+		t.setxLimit(50);
+		t.setY(320);
+		t.setxLimit(50);
+		h.setX(420);
+		h.setxLimit(50);
+		h.setY(320);
+		h.setxLimit(50);
+		powerUps.add(t);
+		powerUps.add(h);
 	}
 }
