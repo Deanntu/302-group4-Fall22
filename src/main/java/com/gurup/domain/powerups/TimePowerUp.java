@@ -25,7 +25,6 @@ public class TimePowerUp implements PowerUp {
 	public void usePowerUp() {
 		// TODO Auto-generated method stub
 		activatePowerUp();
-		System.out.println("Used");
 	}
 
 	private void refreshLocations() {
