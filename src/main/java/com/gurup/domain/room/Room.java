@@ -11,6 +11,7 @@ import java.util.Random;
 
 import com.gurup.domain.Game;
 import com.gurup.domain.Player;
+import com.gurup.domain.TimerOperationResults;
 import com.gurup.domain.powerups.HealthPowerUp;
 import com.gurup.domain.powerups.PowerUp;
 import com.gurup.domain.powerups.TimePowerUp;
@@ -150,7 +151,8 @@ public class Room {
 			}
 		}
 	}
-	public void createPowerUp(int delayMiliSeconds) {
+	public TimerOperationResults createPowerUp(int delayMiliSeconds) {
+		if (Game.getIsPaused()) return TimerOperationResults.PAUSED;
 		Random random = new Random();
 		if (timeCounter%(1000/delayMiliSeconds) == 0) {
 			timeCounter = 1;
@@ -184,6 +186,7 @@ public class Room {
 		else {
 			timeCounter++;
 		}
+		return TimerOperationResults.TIME_UP;
 
 	}
 	// Getters/Setters
