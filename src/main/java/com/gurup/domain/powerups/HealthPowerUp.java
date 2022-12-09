@@ -25,7 +25,6 @@ public class HealthPowerUp implements PowerUp {
 	public void usePowerUp() {
 		// TODO Auto-generated method stub
 		activatePowerUp();
-		refreshLocations();
 	}
 
 	private void refreshLocations() {

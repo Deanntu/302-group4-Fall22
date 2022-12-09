@@ -158,12 +158,11 @@ public class Room {
 			timeCounter = 1;
 			if (powerUpCreationCounter == 10) {
 				if(created != null) created.setIsActive(false);
-				System.out.println(powerUps.size()+1);
 				int randomIndex = random.nextInt(powerUps.size());
 				System.out.println(randomIndex);
 				created = powerUps.get(randomIndex);
 				created.setIsActive(true);
-				powerUpCreationCounter = 0;
+				powerUpCreationCounter = 1;
 				/*if(randomIndex == 0) {
 				created = new TimePowerUp(player);
 				created.setIsActive(true);
