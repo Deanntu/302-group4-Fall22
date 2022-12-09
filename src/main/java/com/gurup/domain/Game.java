@@ -15,6 +15,8 @@ import com.gurup.domain.account.manager.AccountManager;
 import com.gurup.domain.room.Room;
 import com.gurup.ui.ScreenMaker;
 import com.gurup.ui.gamescreen.LoginScreen;
+import com.gurup.ui.gamescreen.MainMenuScreen;
+import com.gurup.ui.gamescreen.PauseAndResumeScreen;
 import com.gurup.ui.gamescreen.RunningModeScreen;
 
 public class Game {
@@ -26,6 +28,9 @@ public class Game {
 	private static KeyClickController keyClickController;
 	private static RunningModeScreen runningModeScreen;
 	private static LoginScreen loginScreen;
+	private static MainMenuScreen mainMenuScreen;
+
+	private static PauseAndResumeScreen pauseAndResumeScreen;
 	private static final int PLAYER_SIZE = 25;;
 	private static AccountManager accountManager;
 	private static String session;
@@ -35,37 +40,53 @@ public class Game {
 		screenMaker = new ScreenMaker();
 		accountManager = new AccountManager();
 		loginScreen = screenMaker.createMainModeScreen();
+
 		boolean isLoginSuccesful = mainScreen();
-
 		if (isLoginSuccesful) {
-			player = new Player(Color.blue, 50, 50,
-					Toolkit.getDefaultToolkit().getScreenSize().width - 100 + PLAYER_SIZE,
-					Toolkit.getDefaultToolkit().getScreenSize().height - 175 + PLAYER_SIZE, PLAYER_SIZE,
-					60);
-			room = new Room("Student Center", 50, 50, Toolkit.getDefaultToolkit().getScreenSize().width - 100,
-					Toolkit.getDefaultToolkit().getScreenSize().height - 175, player);
+			loginScreen.dispose();
+			mainMenuScreen = screenMaker.createMainMenuScreen();
+			boolean isPlayButtonPressed = mainMenuScreen.showPlayPressed();
 
-			runningModeScreen = screenMaker.createRunningModeScreen(player, movementController, keyClickController,
-					room);
-			SwingUtilities.invokeLater(new Runnable() {
-				public void run() {
-					screenMaker.showRunningModeGUI(runningModeScreen);
-				}
-			});
-			movementController = new MovementController(player, runningModeScreen);
-			keyClickController = new KeyClickController(player, runningModeScreen, room);
-			// running timer task as daemon thread
-			Timer timer = new Timer(true);
-			System.out.println(Thread.currentThread().getName() + " TimerTask started");
-			setIsPaused(false);
-			// cancel after sometime
-			try {
-				Thread.sleep(100000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+			do{
+				isPlayButtonPressed = mainMenuScreen.showPlayPressed();
+				Thread.sleep(10);
+			}while (!isPlayButtonPressed);
+			//System.out.println(isPlayButtonPressed);
+			if (isPlayButtonPressed) {
+				mainMenuScreen.dispose();
+				inGame();
 			}
-			timer.cancel();
 		}
+	}
+
+	private static void inGame() {
+		player = new Player(Color.blue, 50, 50,
+				Toolkit.getDefaultToolkit().getScreenSize().width - 100 + PLAYER_SIZE,
+				Toolkit.getDefaultToolkit().getScreenSize().height - 175 + PLAYER_SIZE, PLAYER_SIZE,
+				60);
+		room = new Room("Student Center", 50, 50, Toolkit.getDefaultToolkit().getScreenSize().width - 100,
+				Toolkit.getDefaultToolkit().getScreenSize().height - 175, player);
+
+		runningModeScreen = screenMaker.createRunningModeScreen(player, movementController, keyClickController,
+				room);
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				screenMaker.showRunningModeGUI(runningModeScreen);
+			}
+		});
+		movementController = new MovementController(player, runningModeScreen);
+		keyClickController = new KeyClickController(player, runningModeScreen, room);
+		isPaused = false;
+		// running timer task as daemon thread
+		Timer timer = new Timer(true);
+		System.out.println(Thread.currentThread().getName() + " TimerTask started");
+		// cancel after sometime
+		try {
+			Thread.sleep(100000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		timer.cancel();
 	}
 
 	private static boolean mainScreen() throws Exception {
@@ -105,17 +126,27 @@ public class Game {
 	public static Boolean tryPauseGame(Rectangle rectMouseClick) {
 		Rectangle pauseRect = room.getPauseButton();
 		if (pauseRect.intersects(rectMouseClick)) {
-			// TODO any other requirement?
-			// TODO pause timer, DONE in player.decrementTime()
-			// TODO stop checking for clicks in RunningModeScreen
+			// pause timer DONE in player.decrementTime()
+			// stop checking for clicks in RunningModeScreen DONE in Room.isKeyFound()
 			// TODO show pause menu, waiting for UI
-			// TODO stop moving the character
+			// stop moving the character, DONE in MovementController.keyPressed(), TODO move to Domain layer
 			setIsPaused(true);
 			return true;
 		}
 		return false;
 	}
-	// TODO tryUnpauseGame
+    public static Boolean tryUnpauseGame(Rectangle rectMouseClick) {
+        Rectangle pauseRect = room.getPauseButton();
+        if (pauseRect.intersects(rectMouseClick)) {
+            // unpause timer DONE in player.decrementTime()
+            // start checking for clicks in RunningModeScreen DONE in Room.isKeyFound()
+            // TODO show game menu, waiting for UI
+            // start moving the character, DONE in MovementController.keyPressed(), TODO move to Domain layer
+            setIsPaused(false);
+            return true;
+        }
+        return false;
+    }
 	public static Boolean getIsPaused() {
 		return isPaused;
 	}

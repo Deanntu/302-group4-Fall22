@@ -17,8 +17,14 @@ public class Player {
 	private int xPosition;
 	private int yPosition;
 	Position positions;
+
+
+
 	private int remainingTime;
 	private int timeCounter;
+	private int life;
+
+
 
 	public Player(Color playerColor, int xStart, int yStart, int xLimit, int yLimit, int size, int startingTime) {
 		this.playerColor = playerColor;
@@ -34,6 +40,7 @@ public class Player {
 		positions = new Position();
 		this.xPosition = positions.getxPosition();
 		this.yPosition = positions.getyPosition();
+		life = 3;
 	}
 
 	public void draw(Graphics g) {
@@ -60,7 +67,40 @@ public class Player {
 		}
 		return TimerOperationResults.TIME_DECREMENTED;
 	}
-
+	
+	public void moveRight() {
+		if (this.getX() >= this.getxLimit()) {
+			this.setX(this.getxLimit());
+		} else {
+			this.setX(this.getX() + 10);
+		}
+	}
+	
+	public void moveLeft() {
+		if (this.getX() <= this.getstartX()) {
+			this.setX(this.getstartX());
+		} else {
+			this.setX(this.getX() - 10);
+		}
+	}
+	
+	public void moveUp() {
+		if (this.getY() <= this.getstartY()) {
+			this.setY(this.getstartY());
+		} else {
+			this.setY(this.getY() - 10);
+		}
+	}
+	
+	public void moveDown() {
+		if (this.getY() >= this.getyLimit()) {
+			this.setY(this.getyLimit());
+		} else {
+			this.setY(this.getY() + 10);
+		}
+	}
+	
+	
 	public int getX() {
 		return x;
 	}
@@ -107,5 +147,21 @@ public class Player {
     public void setSize(int size) {
         this.size = size;
     }
+
+	public int getRemainingTime() {
+		return remainingTime;
+	}
+
+	public void setRemainingTime(int remainingTime) {
+		this.remainingTime = remainingTime;
+	}
+
+	public int getRemainingLife() {
+		return life;
+	}
+
+	public void setLife(int life) {
+		this.life = life;
+	}
 
 }

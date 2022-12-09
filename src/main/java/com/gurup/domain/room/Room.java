@@ -7,6 +7,9 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.StringJoiner;
+
+import com.gurup.domain.Game;
 import com.gurup.domain.Player;
 import com.gurup.domain.room.buildingobjects.BuildingObject;
 
@@ -24,6 +27,7 @@ public class Room {
 	private Key key;
 	private Player player;
 	private Rectangle pauseButton;
+	private Rectangle exitButton;
 
 
 
@@ -44,9 +48,10 @@ public class Room {
 		objects.add(object2);
 		key.hideKey(objects);
 		pauseButton = new Rectangle(0,0,50,50);
+		exitButton = new Rectangle(0,0,50,50);
 	}
 
-	public void draw(Graphics g) {
+	public void draw(Graphics g) { // TODO move this into UI layer
 		object1.draw(g);
 		object2.draw(g);
 		g.setColor(Color.BLACK);
@@ -56,10 +61,53 @@ public class Room {
 	    int y = yStart - 5;
 	    g.setFont(font);
 	    g.drawString(name, x, y);
+
+		// life and time edit
+		String remainingTime = "Remaining time: " + player.getRemainingTime();
+		String remainingLife = "Remaining life: " + player.getRemainingLife();
+		int timeX = xStart;
+		int timeY = yStart - 5;;
+		int lifeX = xStart + (xLimit - metrics.stringWidth(remainingLife));
+		int lifeY = yStart - 5;
+		g.drawString(remainingTime,timeX,timeY);
+		g.drawString(remainingLife,lifeX,lifeY);
+
+		// pause button
 		g.draw3DRect(xStart,  yStart, xLimit, yLimit, true);
+		pauseButton.height = 20;
+		pauseButton.width = 60;
+		pauseButton.x = xLimit- 2*pauseButton.width;
+		pauseButton.y = yStart-pauseButton.height-20;
+
+		String pause = "Pause";
+		int pauseX = pauseButton.x;
+		int pauseY = pauseButton.y+15;
 		g.drawRect(pauseButton.x, pauseButton.y, pauseButton.width, pauseButton.height);
+		g.drawString(pause, pauseX, pauseY);
+
+		// exit button
+		g.draw3DRect(xStart,  yStart, xLimit, yLimit, true);
+		exitButton.height = 20;
+		exitButton.width = 60;
+		exitButton.x = xLimit- exitButton.width;
+		exitButton.y = yStart-exitButton.height-20;
+
+		String exit = "Exit";
+		int exitX = exitButton.x;
+		int exitY = exitButton.y+15;
+		g.drawRect(exitButton.x, exitButton.y, exitButton.width, exitButton.height);
+		g.drawString(exit, exitX, exitY);
+
 	}
 	public Boolean isKeyFound(Rectangle rectMouseClick) {
+		if (!rectMouseClick.intersects(new Rectangle(xStart, yStart, xLimit, yLimit))) {
+			//System.out.println("Did not click inside the room");
+			return false;
+		}
+		if (Game.getIsPaused()) {
+			//System.out.println("Cannot look for key if the game is paused. ");
+			return false;
+		}
 		BuildingObject containerObject = key.getBuildingObject();
 		Rectangle playerRect = new Rectangle(player.getX(), player.getY(), player.getSize(), player.getSize());
 		for (BuildingObject bo : objects) {
@@ -159,4 +207,10 @@ public class Room {
     public void setPauseButton(Rectangle pauseButton) {
         this.pauseButton = pauseButton;
     }
+	public Rectangle getExirButton() {
+		return exitButton;
+	}
+	public void setExitButton(Rectangle exitButton) {
+		this.exitButton = exitButton;
+	}
 }
