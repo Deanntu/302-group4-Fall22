@@ -8,7 +8,6 @@ import com.gurup.domain.Game;
 import com.gurup.domain.Player;
 import com.gurup.domain.room.Room;
 import com.gurup.ui.gamescreen.RunningModeScreen;
-import com.gurup.domain.room.buildingobjects.BuildingObject;
 
 public class KeyClickController implements MouseListener{
 	
@@ -42,14 +41,14 @@ public class KeyClickController implements MouseListener{
 			if (pauseButtonClicked) System.out.println("Pause Button Clicked");
 
 			// TODO exit button click here
-			Boolean exitButtonClicked = false;
+			/*Boolean exitButtonClicked = false;
 			if (Game.getIsPaused()) {
 				exitButtonClicked = Game.tryUnpauseGame(mouseRect);
 			}
 			else {
 				exitButtonClicked = Game.tryPauseGame(mouseRect);
 			}
-			if (exitButtonClicked) System.out.println("Exit Button Clicked");
+			if (exitButtonClicked) System.out.println("Exit Button Clicked");*/
 		}
 	}
 
