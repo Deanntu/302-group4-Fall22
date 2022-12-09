@@ -27,6 +27,7 @@ public class Room {
 	private Key key;
 	private Player player;
 	private Rectangle pauseButton;
+	private Rectangle exitButton;
 
 
 
@@ -47,6 +48,7 @@ public class Room {
 		objects.add(object2);
 		key.hideKey(objects);
 		pauseButton = new Rectangle(0,0,50,50);
+		exitButton = new Rectangle(0,0,50,50);
 	}
 
 	public void draw(Graphics g) { // TODO move this into UI layer
@@ -70,8 +72,32 @@ public class Room {
 		g.drawString(remainingTime,timeX,timeY);
 		g.drawString(remainingLife,lifeX,lifeY);
 
+		// pause button
 		g.draw3DRect(xStart,  yStart, xLimit, yLimit, true);
+		pauseButton.height = 20;
+		pauseButton.width = 60;
+		pauseButton.x = xLimit- 2*pauseButton.width;
+		pauseButton.y = yStart-pauseButton.height-20;
+
+		String pause = "Pause";
+		int pauseX = pauseButton.x;
+		int pauseY = pauseButton.y+15;
 		g.drawRect(pauseButton.x, pauseButton.y, pauseButton.width, pauseButton.height);
+		g.drawString(pause, pauseX, pauseY);
+
+		// exit button
+		g.draw3DRect(xStart,  yStart, xLimit, yLimit, true);
+		exitButton.height = 20;
+		exitButton.width = 60;
+		exitButton.x = xLimit- exitButton.width;
+		exitButton.y = yStart-exitButton.height-20;
+
+		String exit = "Exit";
+		int exitX = exitButton.x;
+		int exitY = exitButton.y+15;
+		g.drawRect(exitButton.x, exitButton.y, exitButton.width, exitButton.height);
+		g.drawString(exit, exitX, exitY);
+
 	}
 	public Boolean isKeyFound(Rectangle rectMouseClick) {
 		if (!rectMouseClick.intersects(new Rectangle(xStart, yStart, xLimit, yLimit))) {
@@ -181,4 +207,10 @@ public class Room {
     public void setPauseButton(Rectangle pauseButton) {
         this.pauseButton = pauseButton;
     }
+	public Rectangle getExirButton() {
+		return exitButton;
+	}
+	public void setExitButton(Rectangle exitButton) {
+		this.exitButton = exitButton;
+	}
 }
