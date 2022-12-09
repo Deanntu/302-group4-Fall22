@@ -124,7 +124,7 @@ public class Game {
 		return mainScreen();
 	}
 	
-	public static Boolean tryPauseGame(Rectangle rectMouseClick) {
+	private static Boolean tryPauseGame(Rectangle rectMouseClick) {
 		Rectangle pauseRect = room.getPauseButton();
 		if (pauseRect.intersects(rectMouseClick)) {
 			// pause timer DONE in player.decrementTime()
@@ -136,7 +136,7 @@ public class Game {
 		}
 		return false;
 	}
-    public static Boolean tryUnpauseGame(Rectangle rectMouseClick) {
+    private static Boolean tryUnpauseGame(Rectangle rectMouseClick) {
         Rectangle pauseRect = room.getPauseButton();
         if (pauseRect.intersects(rectMouseClick)) {
             // unpause timer DONE in player.decrementTime()
@@ -147,6 +147,16 @@ public class Game {
             return true;
         }
         return false;
+    }
+    public static Boolean pauseUnpause(Rectangle rectMouseClick) {
+    	Boolean pauseButtonClicked;
+    	if (Game.getIsPaused()) {
+            pauseButtonClicked = Game.tryUnpauseGame(rectMouseClick);
+        }
+        else {
+            pauseButtonClicked = Game.tryPauseGame(rectMouseClick);
+        }
+    	return pauseButtonClicked;
     }
 	public static Boolean getIsPaused() {
 		return isPaused;
