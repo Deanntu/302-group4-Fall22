@@ -62,7 +62,7 @@ public class Room {
 
 	public void draw(Graphics g) { // TODO move this into UI layer
 		object1.draw(g);
-		object2.draw(g);
+		object2.draw(g); 
 		if(created != null) {
 			created.draw(g);
 		}
@@ -151,20 +151,33 @@ public class Room {
 		}
 	}
 	public void createPowerUp(int delayMiliSeconds) {
+		Random random = new Random();
 		if (timeCounter%(1000/delayMiliSeconds) == 0) {
 			timeCounter = 1;
 			if (powerUpCreationCounter == 10) {
 				if(created != null) created.setIsActive(false);
-				Random random = new Random();
 				System.out.println(powerUps.size()+1);
 				int randomIndex = random.nextInt(powerUps.size());
 				System.out.println(randomIndex);
 				created = powerUps.get(randomIndex);
 				created.setIsActive(true);
 				powerUpCreationCounter = 0;
+				/*if(randomIndex == 0) {
+				created = new TimePowerUp(player);
+				created.setIsActive(true);
+
+				}
+				else if(randomIndex == 1) {
+					created = new HealthPowerUp(player);
+					created.setIsActive(true);
+				}
+				created.setX(420);
+				created.setxLimit(50);
+				created.setY(320);
+				created.setyLimit(50);
+				powerUps.add(created);*/
 			}
 			else {
-				
 				powerUpCreationCounter++;
 			}
 		}
@@ -266,11 +279,11 @@ public class Room {
 		t.setX(420);
 		t.setxLimit(50);
 		t.setY(320);
-		t.setxLimit(50);
+		t.setyLimit(50);
 		h.setX(420);
 		h.setxLimit(50);
 		h.setY(320);
-		h.setxLimit(50);
+		h.setyLimit(50);
 		powerUps.add(t);
 		powerUps.add(h);
 	}

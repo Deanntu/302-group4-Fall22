@@ -25,7 +25,6 @@ public class TimePowerUp implements PowerUp {
 	public void usePowerUp() {
 		// TODO Auto-generated method stub
 		activatePowerUp();
-		refreshLocations();
 		System.out.println("Used");
 	}
 
@@ -91,6 +90,9 @@ public class TimePowerUp implements PowerUp {
 	}
 
 	public void setIsActive(boolean isActive) {
+		if(isActive) {
+			System.out.println("changed to active");
+		}
 		this.isActive = isActive;
 	}
 
@@ -99,7 +101,7 @@ public class TimePowerUp implements PowerUp {
 		// TODO Auto-generated method stub
 		Point pos = new Point(getX(), getY());
 		if(isActive) {
-			g.setColor(Color.cyan);			
+			g.setColor(Color.black);		
 			g.fillOval((int) pos.getX(), (int) pos.getY(), this.getxLimit(), this.getyLimit());
 		}
 	}
