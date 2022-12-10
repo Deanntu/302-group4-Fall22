@@ -156,7 +156,7 @@ public class Room {
 		Random random = new Random();
 		if (timeCounter%(1000/delayMiliSeconds) == 0) {
 			timeCounter = 1;
-			if (powerUpCreationCounter == 10) {
+			if (powerUpCreationCounter == 12) {
 				if(created != null) created.setIsActive(false);
 				int randomIndex = random.nextInt(powerUps.size());
 				System.out.println(randomIndex);
