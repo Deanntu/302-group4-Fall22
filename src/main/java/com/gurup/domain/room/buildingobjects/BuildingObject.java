@@ -1,12 +1,10 @@
 package com.gurup.domain.room.buildingobjects;
 
 
-import com.gurup.domain.Position;
-
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
+
+import com.gurup.domain.Position;
 
 
 
@@ -36,17 +34,10 @@ public class BuildingObject {
 		this.yPosition = positions.getyPosition();
 	}
 
-	public void draw(Graphics g) {
+	public int[] rectArray() {
 		Point pos = new Point(getX(), getY());
-		if (name.equals("oval")) {
-			g.setColor(Color.MAGENTA);			
-			g.fillOval((int) pos.getX(), (int) pos.getY(), this.getxLimit(), this.getyLimit());
-			
-		}if (name.equals("rect")) {
-			g.setColor(Color.RED);	
-			g.fillRect((int) pos.getX(), (int) pos.getY(), this.getxLimit(), this.getyLimit());
-			
-		}
+		int[] rectValues = {(int) pos.getX(), (int) pos.getY(), this.getxLimit(), this.getyLimit()};
+		return rectValues;
 	
 	}
 	
@@ -102,5 +93,6 @@ public class BuildingObject {
 		// TODO Auto-generated method stub
 		return new Rectangle(x,y,xLimit,yLimit);
 	}
+
 	
 }

@@ -12,6 +12,7 @@ import java.util.Random;
 import com.gurup.domain.Game;
 import com.gurup.domain.Player;
 import com.gurup.domain.TimerOperationResults;
+import com.gurup.domain.drawer.Drawer;
 import com.gurup.domain.powerups.HealthPowerUp;
 import com.gurup.domain.powerups.PowerUp;
 import com.gurup.domain.powerups.TimePowerUp;
@@ -62,10 +63,13 @@ public class Room {
 	}
 
 	public void draw(Graphics g) { // TODO move this into UI layer
-		object1.draw(g);
-		object2.draw(g); 
-		if(created != null) {
-			created.draw(g);
+		Drawer powerUpDrawer = new Drawer("PowerUp");
+		Drawer buildObjectDrawer = new Drawer("Object");
+		if(created != null && created.isActive()) {
+			powerUpDrawer.draw(g, created.rectArray(), created.getName());
+		}
+		for(BuildingObject bo: objects) {
+			buildObjectDrawer.draw(g, bo.rectArray(), bo.getName());
 		}
 		g.setColor(Color.BLACK);
 	    Font font = new Font("Courier New", Font.BOLD, 20);

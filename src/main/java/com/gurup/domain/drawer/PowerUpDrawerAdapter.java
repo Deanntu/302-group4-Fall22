@@ -1,0 +1,17 @@
+package com.gurup.domain.drawer;
+
+import java.awt.Graphics;
+
+public class PowerUpDrawerAdapter implements DrawAdapter {
+	PowerUpDrawer powerDrawer;
+	public PowerUpDrawerAdapter() {
+		powerDrawer = new PowerUpDrawer();
+	}
+
+	@Override
+	public void draw(Graphics g, int[] rectValues, String name) {
+		// TODO Auto-generated method stub
+		powerDrawer.drawPowerUp(g, rectValues, name);
+	}
+
+}
