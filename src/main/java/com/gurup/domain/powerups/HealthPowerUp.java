@@ -9,6 +9,7 @@ import com.gurup.domain.Player;
 
 public class HealthPowerUp implements PowerUp {
 	private Player player;
+	private String name = "health";
 	private int healthIncreaseConstant = 1;
 	private boolean storable = false;
 	private int xLimit;
@@ -88,6 +89,12 @@ public class HealthPowerUp implements PowerUp {
 	public void setIsActive(boolean isActive) {
 		this.isActive = isActive;
 	}
+	public int[] rectArray() {
+		Point pos = new Point(getX(), getY());
+		int[] rectValues = {(int) pos.getX(), (int) pos.getY(), this.getxLimit(), this.getyLimit()};
+		return rectValues;
+	
+	}
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
 		Point pos = new Point(getX(), getY());
@@ -95,6 +102,14 @@ public class HealthPowerUp implements PowerUp {
 			g.setColor(Color.cyan);			
 			g.fillOval((int) pos.getX(), (int) pos.getY(), this.getxLimit(), this.getyLimit());
 		}
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }
