@@ -144,8 +144,9 @@ public class Room {
 		System.out.println("Not an object!");
 		return false;
 	}
-	public void checkPowerUp() {
+	public void checkPowerUp(Rectangle mouseRect) {
 		for(PowerUp p: powerUps) {
+			if(!p.getRectangle().intersects(mouseRect)) continue;
 			if(p.isActive()) {
 				if(p.isStorable()) {
 					Game.getBag().storePowerUp(p);
