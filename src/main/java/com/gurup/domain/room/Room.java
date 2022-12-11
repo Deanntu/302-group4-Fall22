@@ -11,6 +11,7 @@ import com.gurup.domain.TimerOperationResults;
 import com.gurup.domain.powerups.HealthPowerUp;
 import com.gurup.domain.powerups.PowerUp;
 import com.gurup.domain.powerups.TimePowerUp;
+import com.gurup.domain.room.buildingobjects.BuildingObjectFactory;
 import com.gurup.domain.room.buildingobjects.BuildingObject;
 
 public class Room {
@@ -42,8 +43,11 @@ public class Room {
 		this.objects = new ArrayList<>();
 		this.key = new Key();
 		this.player = player;
-		object1 = new BuildingObject("oval", 500, 300, 100, 50);
-		object2 = new BuildingObject("rect", 800, 100, 60, 30);
+
+
+		BuildingObjectFactory buildingObjectFactory = new BuildingObjectFactory();
+		BuildingObject object1 = buildingObjectFactory.createBuildingObject("BIN", 500, 300, 100, 50);
+		BuildingObject object2 = buildingObjectFactory.createBuildingObject("TABLE", 800, 100, 60, 30);
 		objects.add(object1);
 		objects.add(object2);
 		key.hideKey(objects);
