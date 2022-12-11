@@ -7,14 +7,15 @@ public class ObjectDrawer {
 
 	public void drawObject(Graphics g, int[] rectValues, String name) {
 		// TODO Auto-generated method stub
-		if (name.equals("oval")) {
+
+		if (name.equals("Bin")) {
 			g.setColor(Color.MAGENTA);
 			g.fillOval(rectValues[0],rectValues[1],rectValues[2],rectValues[3]);
 
-		} else if (name.equals("rect")) {
+		}
+		if (name.equals("Table")) {
 			g.setColor(Color.RED);
 			g.fillRect(rectValues[0],rectValues[1],rectValues[2],rectValues[3]);
 		}
 	}
-
 }
