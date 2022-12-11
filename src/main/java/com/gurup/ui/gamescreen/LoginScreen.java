@@ -1,9 +1,15 @@
 package com.gurup.ui.gamescreen;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 public class LoginScreen extends JFrame implements ActionListener {
 
@@ -16,9 +22,11 @@ public class LoginScreen extends JFrame implements ActionListener {
 	private JPasswordField passwordField = new JPasswordField("");
 	private JButton loginButton = new JButton("LOGIN");
 	private JButton registerButton = new JButton("REGISTER");
+	JButton withoutLoginButton = new JButton("PLAY WITHOUT LOGIN");
 	private JCheckBox showPasswordCheckbox;
 	private boolean loginPressed = false;
 	private boolean registerPressed = false;
+	private boolean withoutLoginPressed = false;
 
 	public LoginScreen() {
 		loginContainer.setLayout(null);
@@ -36,6 +44,7 @@ public class LoginScreen extends JFrame implements ActionListener {
 		showPasswordCheckbox.setBounds(125, 250, 150, 30);
 		registerButton.setBounds(50, 300, 100, 30);
 		loginButton.setBounds(200, 300, 100, 30);
+		withoutLoginButton.setBounds(50, 340, 250, 30);
 
 		loginContainer.add(usernameLabel);
 		loginContainer.add(mailLabel);
@@ -46,10 +55,12 @@ public class LoginScreen extends JFrame implements ActionListener {
 		loginContainer.add(showPasswordCheckbox);
 		loginContainer.add(registerButton);
 		loginContainer.add(loginButton);
+		loginContainer.add(withoutLoginButton);
 
 		registerButton.addActionListener(this);
 		loginButton.addActionListener(this);
 		showPasswordCheckbox.addActionListener(this);
+		withoutLoginButton.addActionListener(this);
 
 	}
 
@@ -72,7 +83,11 @@ public class LoginScreen extends JFrame implements ActionListener {
 			}
 
 		}
+		if (e.getSource() == withoutLoginButton) {
 
+			withoutLoginPressed = true;
+
+		}
 	}
 
 	public boolean isLoginPressed() {
@@ -104,4 +119,11 @@ public class LoginScreen extends JFrame implements ActionListener {
 		return String.valueOf(passwordField.getPassword());
 	}
 
+	public boolean isWithoutLoginPressed() {
+		return withoutLoginPressed;
+	}
+
+	public void setWithoutLoginPressed(boolean withoutLoginPressed) {
+		this.withoutLoginPressed = withoutLoginPressed;
+	}
 }
