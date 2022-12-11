@@ -1,9 +1,5 @@
 package com.gurup.domain.room;
 
-
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.ArrayList;
@@ -17,8 +13,6 @@ import com.gurup.domain.powerups.PowerUp;
 import com.gurup.domain.powerups.TimePowerUp;
 import com.gurup.domain.room.buildingobjects.BuildingObject;
 import com.gurup.domain.room.buildingobjects.BuildingObjectFactory;
-
-
 
 public class Room {
 	int xStart, yStart;
@@ -38,8 +32,6 @@ public class Room {
 	private int timeCounter = 1;
 	private PowerUp created;
 
-
-
 	public Room(String name, int xStart, int yStart, int xLimit, int yLimit, Player player) {
 		this.name = name;
 		this.xStart = xStart;
@@ -51,75 +43,50 @@ public class Room {
 		this.objects = new ArrayList<>();
 		this.key = new Key();
 		this.player = player;
-		object1 = new BuildingObject ("oval", 500, 300, 100, 50);
-		object2 = new BuildingObject ("rect", 800, 100, 60, 30);
+
+
+		BuildingObjectFactory buildingObjectFactory = new BuildingObjectFactory();
+		BuildingObject object1 = buildingObjectFactory.createBuildingObject("BIN", 500, 300, 100, 50);
+		BuildingObject object2 = buildingObjectFactory.createBuildingObject("TABLE", 800, 100, 60, 30);
 		objects.add(object1);
 		objects.add(object2);
 		key.hideKey(objects);
-		pauseButton = new Rectangle(0,0,50,50);
-		exitButton = new Rectangle(0,0,50,50);
+		pauseButton = new Rectangle(0, 0, 50, 50);
+		exitButton = new Rectangle(0, 0, 50, 50);
 		initPowerUps();
 		Game.getBag().setupBag(powerUps);
 	}
 
-	public void draw(Graphics g) { // TODO move this into UI layer
-		object1.draw(g);
-		object2.draw(g); 
-		if(created != null) {
-			created.draw(g);
-		}
-		g.setColor(Color.BLACK);
-	    Font font = new Font("Courier New", Font.BOLD, 20);
-	    FontMetrics metrics = g.getFontMetrics(font);
-	    int x = xStart + (xLimit - metrics.stringWidth(name)) / 2;
-	    int y = yStart - 5;
-	    g.setFont(font);
-	    g.drawString(name, x, y);
+	public void draw(Graphics g) { // TODO move this into UI layer //MOVED BY TUGRA KEPT FOR BACKUP
 
-		// life and time edit
-		String remainingTime = "Remaining time: " + player.getRemainingTime();
-		String remainingLife = "Remaining life: " + player.getRemainingLife();
-		int timeX = xStart;
-		int timeY = yStart - 5;;
-		int lifeX = xStart + (xLimit - metrics.stringWidth(remainingLife));
-		int lifeY = yStart - 5;
-		g.drawString(remainingTime,timeX,timeY);
-		g.drawString(remainingLife,lifeX,lifeY);
-
-		// pause button
-		g.draw3DRect(xStart,  yStart, xLimit, yLimit, true);
-		pauseButton.height = 20;
-		pauseButton.width = 60;
-		pauseButton.x = xLimit- 2*pauseButton.width;
-		pauseButton.y = yStart-pauseButton.height-20;
-
-		String pause = "Pause";
-		int pauseX = pauseButton.x;
-		int pauseY = pauseButton.y+15;
-		g.drawRect(pauseButton.x, pauseButton.y, pauseButton.width, pauseButton.height);
-		g.drawString(pause, pauseX, pauseY);
-
-		// exit button
-		g.draw3DRect(xStart,  yStart, xLimit, yLimit, true);
-		exitButton.height = 20;
-		exitButton.width = 60;
-		exitButton.x = xLimit- exitButton.width;
-		exitButton.y = yStart-exitButton.height-20;
-
-		String exit = "Exit";
-		int exitX = exitButton.x;
-		int exitY = exitButton.y+15;
-		g.drawRect(exitButton.x, exitButton.y, exitButton.width, exitButton.height);
-		g.drawString(exit, exitX, exitY);
+		
+		  
+		  // pause button g.draw3DRect(xStart, yStart, xLimit, yLimit, true);
+		  pauseButton.height = 20; pauseButton.width = 60; pauseButton.x = xLimit-
+		  2*pauseButton.width; pauseButton.y = yStart-pauseButton.height-20;
+		  
+		  String pause = "Pause"; int pauseX = pauseButton.x; int pauseY =
+		  pauseButton.y+15; g.drawRect(pauseButton.x, pauseButton.y, pauseButton.width,
+		  pauseButton.height); g.drawString(pause, pauseX, pauseY);
+		  
+		  // exit button g.draw3DRect(xStart, yStart, xLimit, yLimit, true);
+		  exitButton.height = 20; exitButton.width = 60; exitButton.x = xLimit-
+		  exitButton.width; exitButton.y = yStart-exitButton.height-20;
+		  
+		  String exit = "Exit"; int exitX = exitButton.x; int exitY = exitButton.y+15;
+		  g.drawRect(exitButton.x, exitButton.y, exitButton.width, exitButton.height);
+		  g.drawString(exit, exitX, exitY);
+		 
 
 	}
+
 	public Boolean isKeyFound(Rectangle rectMouseClick) {
 		if (!rectMouseClick.intersects(new Rectangle(xStart, yStart, xLimit, yLimit))) {
-			//System.out.println("Did not click inside the room");
+			// System.out.println("Did not click inside the room");
 			return false;
 		}
 		if (Game.getIsPaused()) {
-			//System.out.println("Cannot look for key if the game is paused. ");
+			// System.out.println("Cannot look for key if the game is paused. ");
 			return false;
 		}
 		BuildingObject containerObject = key.getBuildingObject();
@@ -127,9 +94,9 @@ public class Room {
 		for (BuildingObject bo : objects) {
 			if (bo.getRectangle().intersects(rectMouseClick)) {
 				if (!playerRect.intersects(bo.getRectangle())) {
-                    System.out.println("Player is not next to the object");
-                    return false;
-                }
+					System.out.println("Player is not next to the object");
+					return false;
+				}
 				if (bo.equals(containerObject)) {
 					System.out.println("Key Found");
 					return true;
@@ -141,7 +108,7 @@ public class Room {
 		System.out.println("Not an object!");
 		return false;
 	}
-  
+
 	public void checkPowerUp(Rectangle mouseRect) {
 		if(Game.getIsPaused()) return;
 		for (PowerUp p : powerUps) {
@@ -156,47 +123,44 @@ public class Room {
 			}
 		}
 	}
+
 	public TimerOperationResults createPowerUp(int delayMiliSeconds) {
-		if (Game.getIsPaused()) return TimerOperationResults.PAUSED;
+		if (Game.getIsPaused())
+			return TimerOperationResults.PAUSED;
 		Random random = new Random();
-		if (timeCounter%(1000/delayMiliSeconds) == 0) {
+		if (timeCounter % (1000 / delayMiliSeconds) == 0) {
 			timeCounter = 1;
-			if (powerUpCreationCounter == 10) {
-				if(created != null) created.setIsActive(false);
+			if (powerUpCreationCounter == 12) {
+				if (created != null)
+					created.setIsActive(false);
 				int randomIndex = random.nextInt(powerUps.size());
 				System.out.println(randomIndex);
 				created = powerUps.get(randomIndex);
 				created.setIsActive(true);
 				powerUpCreationCounter = 1;
-				/*if(randomIndex == 0) {
-				created = new TimePowerUp(player);
-				created.setIsActive(true);
-
-				}
-				else if(randomIndex == 1) {
-					created = new HealthPowerUp(player);
-					created.setIsActive(true);
-				}
-				created.setX(420);
-				created.setxLimit(50);
-				created.setY(320);
-				created.setyLimit(50);
-				powerUps.add(created);*/
-			}
-			else {
+				/*
+				 * if(randomIndex == 0) { created = new TimePowerUp(player);
+				 * created.setIsActive(true);
+				 * 
+				 * } else if(randomIndex == 1) { created = new HealthPowerUp(player);
+				 * created.setIsActive(true); } created.setX(420); created.setxLimit(50);
+				 * created.setY(320); created.setyLimit(50); powerUps.add(created);
+				 */
+			} else {
 				powerUpCreationCounter++;
 			}
-		}
-		else {
+		} else {
 			timeCounter++;
 		}
 		return TimerOperationResults.TIME_UP;
 
 	}
+
 	// Getters/Setters
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -204,7 +168,6 @@ public class Room {
 	public int getX() {
 		return x;
 	}
-	
 
 	public void setX(int x) {
 		this.x = x;
@@ -233,11 +196,11 @@ public class Room {
 	public void setyLimit(int yLimit) {
 		this.yLimit = yLimit;
 	}
-	
+
 	public int getstartX() {
 		return xStart;
 	}
-	
+
 	public int getstartY() {
 		return yStart;
 	}
@@ -257,27 +220,37 @@ public class Room {
 	public void setObject2(BuildingObject object2) {
 		this.object2 = object2;
 	}
+	public ArrayList<BuildingObject> getObjects() {
+		return objects;
+	}
 	public Player getPlayer() {
-        return player;
-    }
+		return player;
+	}
 
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
-    
-    public Rectangle getPauseButton() {
-        return pauseButton;
-    }
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
 
-    public void setPauseButton(Rectangle pauseButton) {
-        this.pauseButton = pauseButton;
-    }
+	public Rectangle getPauseButton() {
+		return pauseButton;
+	}
+
+	public void setPauseButton(Rectangle pauseButton) {
+		this.pauseButton = pauseButton;
+	}
+
 	public Rectangle getExirButton() {
 		return exitButton;
 	}
+
 	public void setExitButton(Rectangle exitButton) {
 		this.exitButton = exitButton;
 	}
+
+	public PowerUp getCreated() {
+		return created;
+	}
+
 	// private methods
 	private void initPowerUps() {
 		powerUps = new ArrayList<PowerUp>();
@@ -294,4 +267,7 @@ public class Room {
 		powerUps.add(t);
 		powerUps.add(h);
 	}
+
+
+
 }
