@@ -55,6 +55,7 @@ public class RunningModeScreen extends JPanel {
 			}
 		});
 		add(pauseButton);
+		pauseButton.setFocusable(false);
 		new Timer(this.delayMiliSeconds, e -> {
 			repaint();
 			player.decrementTime(this.delayMiliSeconds);
