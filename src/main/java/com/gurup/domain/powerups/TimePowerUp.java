@@ -90,9 +90,6 @@ public class TimePowerUp implements PowerUp {
 	}
 
 	public void setIsActive(boolean isActive) {
-		if(isActive) {
-			System.out.println("changed to active");
-		}
 		this.isActive = isActive;
 	}
 	public int[] rectArray() {

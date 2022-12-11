@@ -11,8 +11,8 @@ import com.gurup.domain.TimerOperationResults;
 import com.gurup.domain.powerups.HealthPowerUp;
 import com.gurup.domain.powerups.PowerUp;
 import com.gurup.domain.powerups.TimePowerUp;
-import com.gurup.domain.room.buildingobjects.BuildingObjectFactory;
 import com.gurup.domain.room.buildingobjects.BuildingObject;
+import com.gurup.domain.room.buildingobjects.BuildingObjectFactory;
 
 public class Room {
 	int xStart, yStart;
@@ -110,6 +110,7 @@ public class Room {
 	}
 
 	public void checkPowerUp(Rectangle mouseRect) {
+		if(Game.getIsPaused()) return;
 		for (PowerUp p : powerUps) {
 			if (!p.getRectangle().intersects(mouseRect))
 				continue;
