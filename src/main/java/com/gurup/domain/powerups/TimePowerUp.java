@@ -9,7 +9,6 @@ import com.gurup.domain.Player;
 
 public class TimePowerUp implements PowerUp {
 	private Player player;
-	private String name = "time";
 	private int timeIncreaseConstant = 5;
 	private boolean storable = false;
 	private int xLimit;
@@ -92,12 +91,7 @@ public class TimePowerUp implements PowerUp {
 	public void setIsActive(boolean isActive) {
 		this.isActive = isActive;
 	}
-	public int[] rectArray() {
-		Point pos = new Point(getX(), getY());
-		int[] rectValues = {(int) pos.getX(), (int) pos.getY(), this.getxLimit(), this.getyLimit()};
-		return rectValues;
-	
-	}
+
 	@Override
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
@@ -106,13 +100,5 @@ public class TimePowerUp implements PowerUp {
 			g.setColor(Color.black);		
 			g.fillOval((int) pos.getX(), (int) pos.getY(), this.getxLimit(), this.getyLimit());
 		}
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 }

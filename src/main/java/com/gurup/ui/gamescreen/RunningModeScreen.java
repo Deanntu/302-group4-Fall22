@@ -1,11 +1,7 @@
 package com.gurup.ui.gamescreen;
 
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
-import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,8 +15,6 @@ import com.gurup.controller.MovementController;
 import com.gurup.domain.Game;
 import com.gurup.domain.Player;
 import com.gurup.domain.room.Room;
-import com.gurup.domain.room.buildingobjects.BuildingObject;
-import com.gurup.ui.drawer.Drawer;
 
 public class RunningModeScreen extends JPanel {
 
@@ -29,12 +23,11 @@ public class RunningModeScreen extends JPanel {
 	private KeyClickController keyClickController;
 	private Room room;
 	private int delayMiliSeconds;
-	FontMetrics metrics;
-	Font font;
+
 
 	public RunningModeScreen(Game game, Player player, MovementController movementController,
 			KeyClickController keyClickController, Room room) {
-
+      
 		setFocusable(true);
 		setFocusTraversalKeysEnabled(false);
 		this.player = player;
@@ -119,6 +112,7 @@ public class RunningModeScreen extends JPanel {
 	private void paintWall(Graphics g) {
 		g.setColor(Color.BLACK);
 		g.draw3DRect(room.getstartX(), room.getstartY(), room.getxLimit(), room.getyLimit(), true);
+
 	}
 
 	public Dimension getPreferredSize() {
