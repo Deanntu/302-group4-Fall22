@@ -1,4 +1,4 @@
-package com.gurup.domain.drawer;
+package com.gurup.ui.drawer;
 
 import java.awt.Graphics;
 
