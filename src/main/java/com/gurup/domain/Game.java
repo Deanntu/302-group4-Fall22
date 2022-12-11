@@ -104,13 +104,15 @@ public class Game {
 	private static boolean registerAndLoginScreen() throws Exception {
 		boolean registerFlag = loginScreen.isRegisterPressed();
 		boolean loginFlag = loginScreen.isLoginPressed();
+		boolean withoutLoginFlag = loginScreen.isWithoutLoginPressed();
 
 		do {
 			registerFlag = loginScreen.isRegisterPressed();
 			loginFlag = loginScreen.isLoginPressed();
+			withoutLoginFlag = loginScreen.isWithoutLoginPressed();
 			Thread.sleep(10);
 
-		} while (!registerFlag && !loginFlag);
+		} while (!registerFlag && !loginFlag && !withoutLoginFlag);
 
 		String username = loginScreen.getEnteredUsermame();
 		String password1 = loginScreen.getEnteredPassword();
@@ -131,6 +133,9 @@ public class Game {
 			} else {
 				System.out.println(res);
 			}
+		} else if (withoutLoginFlag) {
+			session = "DEFAULT";
+			return true;
 		}
 		return registerAndLoginScreen();
 	}
