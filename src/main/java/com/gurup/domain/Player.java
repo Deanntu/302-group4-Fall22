@@ -2,6 +2,9 @@ package com.gurup.domain;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
+
+import javax.swing.Timer;
 
 public class Player {
 	Color playerColor;
@@ -41,9 +44,9 @@ public class Player {
 	}
 
 	public void draw(Graphics g) {
-	/*	Point pos = new Point(getX(), getY());
+		Point pos = new Point(getX(), getY());
 		g.setColor(playerColor);
-		g.fillOval((int) pos.getX(), (int) pos.getY(), size, size);*/
+		g.fillOval((int) pos.getX(), (int) pos.getY(), size, size);
 	}
 	
 	public TimerOperationResults decrementTime(int delaymiliseconds) {
@@ -159,11 +162,6 @@ public class Player {
 
 	public void setLife(int life) {
 		this.life = life;
-	}
-
-	public Color getPlayerColor() {
-		// TODO Auto-generated method stub
-		return playerColor;
 	}
 
 }
