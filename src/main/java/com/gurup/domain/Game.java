@@ -1,7 +1,6 @@
 package com.gurup.domain;
 
 import java.awt.Color;
-import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.util.Timer;
 
@@ -19,7 +18,7 @@ import com.gurup.ui.gamescreen.PauseAndResumeScreen;
 import com.gurup.ui.gamescreen.RunningModeScreen;
 
 public class Game {
-
+	private static Game game;
 	private static ScreenMaker screenMaker;
 	private static Player player;
 	private static Room room; // TODO there will be more than one room
@@ -36,26 +35,38 @@ public class Game {
 	private static String session;
 	private static Boolean isPaused;
   
-	public static void main(String[] args) throws Exception {
-		screenMaker = new ScreenMaker();
-		accountManager = new AccountManager();
-		loginScreen = screenMaker.createMainModeScreen();
+	public Game() {
 		
-		boolean isLoginSuccesful = mainScreen();
-		if (isLoginSuccesful) {
-			loginScreen.dispose();
-			mainMenuScreen = screenMaker.createMainMenuScreen();
-			boolean isPlayButtonPressed = mainMenuScreen.showPlayPressed();
+	}
+	public static Game getInstance() {
+		if (game == null) {
+			game = new Game();
+		}
+		return game;
+	}
+	public static void play() {
+		Game.screenMaker = new ScreenMaker();
+		Game.accountManager = new AccountManager();
+		loginScreen = screenMaker.createMainModeScreen();
+		try {
+			boolean isLoginSuccesful = registerAndLoginScreen();
+			if (isLoginSuccesful) {
+				loginScreen.dispose();
+				mainMenuScreen = screenMaker.createMainMenuScreen();
+				boolean isPlayButtonPressed = mainMenuScreen.showPlayPressed();
 
-			do{
-				isPlayButtonPressed = mainMenuScreen.showPlayPressed();
-				Thread.sleep(10);
-			}while (!isPlayButtonPressed);
-			//System.out.println(isPlayButtonPressed);
-			if (isPlayButtonPressed) {
-				mainMenuScreen.dispose();
-				inGame();
+				do {
+					isPlayButtonPressed = mainMenuScreen.showPlayPressed();
+					Thread.sleep(10);
+				} while (!isPlayButtonPressed);
+				// System.out.println(isPlayButtonPressed);
+				if (isPlayButtonPressed) {
+					mainMenuScreen.dispose();
+					inGame();
+				}
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -68,7 +79,7 @@ public class Game {
 		room = new Room("Student Center", 50, 50, Toolkit.getDefaultToolkit().getScreenSize().width - 100,
 				Toolkit.getDefaultToolkit().getScreenSize().height - 175, player);
 
-		runningModeScreen = screenMaker.createRunningModeScreen(player, movementController, keyClickController,
+		runningModeScreen = screenMaker.createRunningModeScreen(game, player, movementController, keyClickController,
 				room);
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
@@ -90,7 +101,7 @@ public class Game {
 		timer.cancel();
 	}
 
-	private static boolean mainScreen() throws Exception {
+	private static boolean registerAndLoginScreen() throws Exception {
 		boolean registerFlag = loginScreen.isRegisterPressed();
 		boolean loginFlag = loginScreen.isLoginPressed();
 
@@ -121,12 +132,11 @@ public class Game {
 				System.out.println(res);
 			}
 		}
-		return mainScreen();
+		return registerAndLoginScreen();
 	}
 	
-	private static Boolean tryPauseGame(Rectangle rectMouseClick) {
-		Rectangle pauseRect = room.getPauseButton();
-		if (pauseRect.intersects(rectMouseClick)) {
+	private static Boolean tryPauseGame() {
+		try {
 			// pause timer DONE in player.decrementTime()
 			// stop checking for clicks in RunningModeScreen DONE in Room.isKeyFound()
 			// TODO show pause menu, waiting for UI
@@ -134,11 +144,13 @@ public class Game {
 			setIsPaused(true);
 			return true;
 		}
+		catch(Exception e) {
+			
+		}
 		return false;
 	}
-    private static Boolean tryUnpauseGame(Rectangle rectMouseClick) {
-        Rectangle pauseRect = room.getPauseButton();
-        if (pauseRect.intersects(rectMouseClick)) {
+    private static Boolean tryUnpauseGame() {
+        try {
             // unpause timer DONE in player.decrementTime()
             // start checking for clicks in RunningModeScreen DONE in Room.isKeyFound()
             // TODO show game menu, waiting for UI
@@ -146,15 +158,18 @@ public class Game {
             setIsPaused(false);
             return true;
         }
+		catch(Exception e) {
+			
+		}
         return false;
     }
-    public static Boolean pauseUnpause(Rectangle rectMouseClick) {
+    public static Boolean pauseUnpause() {
     	Boolean pauseButtonClicked;
     	if (Game.getIsPaused()) {
-            pauseButtonClicked = Game.tryUnpauseGame(rectMouseClick);
+            pauseButtonClicked = Game.tryUnpauseGame();
         }
         else {
-            pauseButtonClicked = Game.tryPauseGame(rectMouseClick);
+            pauseButtonClicked = Game.tryPauseGame();
         }
     	return pauseButtonClicked;
     }
