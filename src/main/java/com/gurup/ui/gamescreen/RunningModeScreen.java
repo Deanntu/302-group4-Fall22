@@ -80,6 +80,10 @@ public class RunningModeScreen extends JPanel{
 		g.setColor(player.getPlayerColor());
 		g.fillOval((int) pos.getX(), (int) pos.getY(), player.getSize(), player.getSize());
 	}
+	private void paintWall(Graphics g) {
+		g.setColor(Color.BLACK);
+		g.draw3DRect(room.getstartX(),  room.getstartY(), room.getxLimit(), room.getyLimit(), true);
+	}
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		// player.move();
@@ -88,6 +92,7 @@ public class RunningModeScreen extends JPanel{
 		paintLifeAndTime(g);
 		paintPlayer(g);
 		drawObjects(g);
+		paintWall(g);
 	}
 	
 	public Dimension getPreferredSize() {
