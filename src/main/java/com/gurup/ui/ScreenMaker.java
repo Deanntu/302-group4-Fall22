@@ -5,6 +5,7 @@ import javax.swing.SwingUtilities;
 
 import com.gurup.controller.KeyClickController;
 import com.gurup.controller.MovementController;
+import com.gurup.domain.Game;
 import com.gurup.domain.Player;
 import com.gurup.domain.room.Room;
 import com.gurup.ui.gamescreen.LoginScreen;
@@ -41,9 +42,9 @@ public class ScreenMaker {
         return mainMenuScreen;
 	}
 
-	public RunningModeScreen createRunningModeScreen(Player player, MovementController movementController,
+	public RunningModeScreen createRunningModeScreen(Game game, Player player, MovementController movementController,
 			KeyClickController keyClickController, Room room) {
-		RunningModeScreen runningModeScreen = new RunningModeScreen(player, movementController, keyClickController,
+		RunningModeScreen runningModeScreen = new RunningModeScreen(game, player, movementController, keyClickController,
 				room);
 		return runningModeScreen;
 	}

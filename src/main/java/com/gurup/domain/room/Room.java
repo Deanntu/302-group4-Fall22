@@ -16,6 +16,7 @@ import com.gurup.domain.powerups.HealthPowerUp;
 import com.gurup.domain.powerups.PowerUp;
 import com.gurup.domain.powerups.TimePowerUp;
 import com.gurup.domain.room.buildingobjects.BuildingObject;
+import com.gurup.domain.room.buildingobjects.BuildingObjectFactory;
 
 
 
@@ -140,10 +141,14 @@ public class Room {
 		System.out.println("Not an object!");
 		return false;
 	}
-	public void checkPowerUp() {
-		for(PowerUp p: powerUps) {
-			if(p.isActive()) {
-				if(p.isStorable()) {
+  
+	public void checkPowerUp(Rectangle mouseRect) {
+		if(Game.getIsPaused()) return;
+		for (PowerUp p : powerUps) {
+			if (!p.getRectangle().intersects(mouseRect))
+				continue;
+			if (p.isActive()) {
+				if (p.isStorable()) {
 					Game.getBag().storePowerUp(p);
 				}
 				p.usePowerUp();
