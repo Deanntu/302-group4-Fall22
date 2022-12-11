@@ -25,10 +25,10 @@ public class KeyClickController implements MouseListener{
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		int xMouse = e.getX();
+		int yMouse = e.getY();
+		Rectangle mouseRect = new Rectangle(xMouse, yMouse, 1, 1);
 		if (e.getButton() == e.BUTTON1) { // left click
-			int xMouse = e.getX();
-			int yMouse = e.getY();
-			Rectangle mouseRect = new Rectangle(xMouse, yMouse, 1, 1);
 			room.isKeyFound(mouseRect);
             //Boolean pauseButtonClicked = false;
             //pauseButtonClicked = Game.pauseUnpause(mouseRect);
@@ -51,7 +51,7 @@ public class KeyClickController implements MouseListener{
 			if (exitButtonClicked) System.out.println("Exit Button Clicked");*/
 		}
 		else if (e.getButton() == e.BUTTON3) {
-			room.checkPowerUp();
+			room.checkPowerUp(mouseRect);
 		}
 	}
 

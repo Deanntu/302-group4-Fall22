@@ -14,4 +14,6 @@ public interface PowerUp {
 	void setxLimit(int i);
 	void setY(int i);
 	void setyLimit(int i);
+	int[] rectArray();
+	String getName();
 }
