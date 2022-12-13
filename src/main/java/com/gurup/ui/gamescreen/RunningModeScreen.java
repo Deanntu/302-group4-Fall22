@@ -96,6 +96,12 @@ public class RunningModeScreen extends JPanel {
 		g.fillOval(slotStartX+slotSizeX/2-itemSize/2-slotSizeX, slotStartY+slotSizeY/2-itemSize/2, itemSize, itemSize);
 		g.setColor(Color.DARK_GRAY);
 		g.fillOval(slotStartX+slotSizeX/2-itemSize/2+slotSizeX, slotStartY+slotSizeY/2-itemSize/2, itemSize, itemSize);
+		g.setFont(new Font("Courier New", Font.BOLD, fontSize));
+		g.drawString("0", slotStartX+slotSizeX-numberOffsetX, slotStartY+numberOffsetY);
+		g.drawString("3", slotStartX+slotSizeX-numberOffsetX-slotSizeX, slotStartY+numberOffsetY);
+		g.drawString("99", slotStartX+slotSizeX-numberOffsetX+slotSizeX, slotStartY+numberOffsetY);
+		// TODO get power up counts from the bag
+		setFont(g);
 	}
 	private void drawObjects(Graphics g) {
 		Drawer powerUpDrawer = new Drawer("PowerUp");
