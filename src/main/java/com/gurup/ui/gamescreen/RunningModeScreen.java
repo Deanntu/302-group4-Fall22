@@ -21,6 +21,7 @@ import com.gurup.domain.Player;
 import com.gurup.domain.room.Room;
 import com.gurup.domain.room.buildingobjects.BuildingObject;
 import com.gurup.ui.drawer.Drawer;
+import com.gurup.domain.Bag;
 
 public class RunningModeScreen extends JPanel {
 
@@ -31,7 +32,7 @@ public class RunningModeScreen extends JPanel {
 	private int delayMiliSeconds;
 	FontMetrics metrics;
 	Font font;
-
+	Bag bag;
 	public RunningModeScreen(Game game, Player player, MovementController movementController,
 			KeyClickController keyClickController, Room room) {
 
@@ -39,6 +40,7 @@ public class RunningModeScreen extends JPanel {
 		setFocusTraversalKeysEnabled(false);
 		this.player = player;
 		this.room = room;
+		this.bag= Game.getBag();
 		this.setMovementController(movementController);
 		this.setKeyClickController(keyClickController);
 		this.delayMiliSeconds = 20;
