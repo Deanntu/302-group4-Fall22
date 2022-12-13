@@ -74,8 +74,12 @@ public class RunningModeScreen extends JPanel {
 		paintPlayer(g);
 		drawObjects(g);
 		paintWall(g);
+		drawBag(g);
 	}
 
+	private void drawBag(Graphics g) { 
+	//TODO
+	}
 	private void drawObjects(Graphics g) {
 		Drawer powerUpDrawer = new Drawer("PowerUp");
 		Drawer buildObjectDrawer = new Drawer("Object");
