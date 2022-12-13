@@ -78,7 +78,14 @@ public class RunningModeScreen extends JPanel {
 	}
 
 	private void drawBag(Graphics g) { 
-	//TODO
+		int slotSizeX = 140;
+		int slotSizeY = 45;
+		int itemSize = 30;
+		int slotStartX = room.getstartX()+room.getxLimit()/2-slotSizeX/2;
+		int slotStartY = room.getstartY()+room.getyLimit();
+		int fontSize = 14;
+		int numberOffsetX = 25;
+		int numberOffsetY = 14;
 	}
 	private void drawObjects(Graphics g) {
 		Drawer powerUpDrawer = new Drawer("PowerUp");
