@@ -21,6 +21,7 @@ import com.gurup.domain.Player;
 import com.gurup.domain.room.Room;
 import com.gurup.domain.room.buildingobjects.BuildingObject;
 import com.gurup.ui.drawer.Drawer;
+import com.gurup.domain.Bag;
 
 public class RunningModeScreen extends JPanel {
 
@@ -31,7 +32,7 @@ public class RunningModeScreen extends JPanel {
 	private int delayMiliSeconds;
 	FontMetrics metrics;
 	Font font;
-
+	Bag bag;
 	public RunningModeScreen(Game game, Player player, MovementController movementController,
 			KeyClickController keyClickController, Room room) {
 
@@ -39,6 +40,7 @@ public class RunningModeScreen extends JPanel {
 		setFocusTraversalKeysEnabled(false);
 		this.player = player;
 		this.room = room;
+		this.bag= Game.getBag();
 		this.setMovementController(movementController);
 		this.setKeyClickController(keyClickController);
 		this.delayMiliSeconds = 20;
@@ -72,8 +74,35 @@ public class RunningModeScreen extends JPanel {
 		paintPlayer(g);
 		drawObjects(g);
 		paintWall(g);
+		drawBag(g);
 	}
 
+	private void drawBag(Graphics g) { 
+		int slotSizeX = 140;
+		int slotSizeY = 45;
+		int itemSize = 30;
+		int slotStartX = room.getstartX()+room.getxLimit()/2-slotSizeX/2;
+		int slotStartY = room.getstartY()+room.getyLimit();
+		int fontSize = 14;
+		int numberOffsetX = 25;
+		int numberOffsetY = 14;
+		g.setColor(Color.BLACK);
+		g.draw3DRect(slotStartX, slotStartY, slotSizeX, slotSizeY, true);
+		g.draw3DRect(slotStartX-slotSizeX, slotStartY, slotSizeX, slotSizeY, true);
+		g.draw3DRect(slotStartX+slotSizeX, slotStartY, slotSizeX, slotSizeY, true);
+		g.setColor(Color.PINK );
+		g.fillOval(slotStartX+slotSizeX/2-itemSize/2, slotStartY+slotSizeY/2-itemSize/2, itemSize, itemSize);
+		g.setColor(Color.ORANGE);
+		g.fillOval(slotStartX+slotSizeX/2-itemSize/2-slotSizeX, slotStartY+slotSizeY/2-itemSize/2, itemSize, itemSize);
+		g.setColor(Color.DARK_GRAY);
+		g.fillOval(slotStartX+slotSizeX/2-itemSize/2+slotSizeX, slotStartY+slotSizeY/2-itemSize/2, itemSize, itemSize);
+		g.setFont(new Font("Courier New", Font.BOLD, fontSize));
+		g.drawString("0", slotStartX+slotSizeX-numberOffsetX, slotStartY+numberOffsetY);
+		g.drawString("3", slotStartX+slotSizeX-numberOffsetX-slotSizeX, slotStartY+numberOffsetY);
+		g.drawString("99", slotStartX+slotSizeX-numberOffsetX+slotSizeX, slotStartY+numberOffsetY);
+		// TODO get power up counts from the bag
+		setFont(g);
+	}
 	private void drawObjects(Graphics g) {
 		Drawer powerUpDrawer = new Drawer("PowerUp");
 		Drawer buildObjectDrawer = new Drawer("Object");
