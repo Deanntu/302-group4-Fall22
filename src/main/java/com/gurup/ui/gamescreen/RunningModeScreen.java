@@ -86,6 +86,10 @@ public class RunningModeScreen extends JPanel {
 		int fontSize = 14;
 		int numberOffsetX = 25;
 		int numberOffsetY = 14;
+		g.setColor(Color.BLACK);
+		g.draw3DRect(slotStartX, slotStartY, slotSizeX, slotSizeY, true);
+		g.draw3DRect(slotStartX-slotSizeX, slotStartY, slotSizeX, slotSizeY, true);
+		g.draw3DRect(slotStartX+slotSizeX, slotStartY, slotSizeX, slotSizeY, true);
 	}
 	private void drawObjects(Graphics g) {
 		Drawer powerUpDrawer = new Drawer("PowerUp");
