@@ -10,6 +10,8 @@ public class PowerUpDrawer {
 			g.setColor(Color.cyan);
 		} else if (name.equals("time")) {
 			g.setColor(Color.black);
+		} else if (name.equals("vest")) {
+			g.setColor(Color.orange);
 		}
 		g.fillOval(rectValues[0],rectValues[1],rectValues[2],rectValues[3]);
 	}
