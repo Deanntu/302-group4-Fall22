@@ -8,6 +8,7 @@ import javax.swing.SwingUtilities;
 
 import com.gurup.controller.KeyClickController;
 import com.gurup.controller.MovementController;
+import com.gurup.controller.PowerUpController;
 import com.gurup.domain.account.entity.AccountOperationResults;
 import com.gurup.domain.account.manager.AccountManager;
 import com.gurup.domain.room.Room;
@@ -25,6 +26,7 @@ public class Game {
 	private static Bag bag;
 	private static MovementController movementController;
 	private static KeyClickController keyClickController;
+	private static PowerUpController powerUpController;
 	private static RunningModeScreen runningModeScreen;
 	private static LoginScreen loginScreen;
 	private static MainMenuScreen mainMenuScreen;
@@ -79,7 +81,7 @@ public class Game {
 		room = new Room("Student Center", 50, 50, Toolkit.getDefaultToolkit().getScreenSize().width - 100,
 				Toolkit.getDefaultToolkit().getScreenSize().height - 175, player);
 
-		runningModeScreen = screenMaker.createRunningModeScreen(game, player, movementController, keyClickController,
+		runningModeScreen = screenMaker.createRunningModeScreen(game, player, movementController, keyClickController, powerUpController,
 				room);
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
@@ -88,6 +90,7 @@ public class Game {
 		});
 		movementController = new MovementController(player, runningModeScreen);
 		keyClickController = new KeyClickController(player, runningModeScreen, room);
+		powerUpController = new PowerUpController(bag, runningModeScreen);
 		isPaused = false;
 		// running timer task as daemon thread
 		Timer timer = new Timer(true);
