@@ -18,23 +18,32 @@ public class Bag {
 		powerUps.put(p, powerUps.get(p) + 1);
 	}
 
-	public void selectPowerUp(int selectedSlotIndex) {
-		PowerUp selectedPowerUp = new ArrayList<PowerUp>(powerUps.keySet()).get(selectedSlotIndex);
-		Integer powerUpCount = powerUps.get(selectedPowerUp);
+	public void selectPowerUp(PowerUp powerUp) {
+		if (powerUp == null || powerUp.isStorable() == false) {
+			System.out.println("Null/non-storable power up"); // should be unreachable
+			return;
+		}
+		Integer powerUpCount = powerUps.get(powerUp);
 		if (powerUpCount > 0) {
-			powerUps.put(selectedPowerUp, powerUpCount - 1);
-			selectedPowerUp.usePowerUp();
+			powerUps.put(powerUp, powerUpCount - 1);
+			powerUp.usePowerUp();
 		} else {
-			shakeSlot(selectedSlotIndex);
+			shakeSlot(powerUp.getSlotId());
 		}
 	}
 	public void setupBag (ArrayList<PowerUp> powerUpList) {
 		for(PowerUp p: powerUpList) {
-			powerUps.put(p, 0);
+			if (p.isStorable()) {
+				powerUps.put(p, 0);
+			}
 		}
 	}
-	private void shakeSlot(int i) {
+	private void shakeSlot(int slot) {
 
+	}
+	
+	public Map<PowerUp, Integer> getPowerUps(){
+		return powerUps;
 	}
 
 }
