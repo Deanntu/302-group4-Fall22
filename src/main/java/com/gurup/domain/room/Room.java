@@ -11,6 +11,7 @@ import com.gurup.domain.TimerOperationResults;
 import com.gurup.domain.powerups.HealthPowerUp;
 import com.gurup.domain.powerups.PowerUp;
 import com.gurup.domain.powerups.TimePowerUp;
+import com.gurup.domain.powerups.VestPowerUp;
 import com.gurup.domain.room.buildingobjects.BuildingObject;
 import com.gurup.domain.room.buildingobjects.BuildingObjectFactory;
 
@@ -258,6 +259,7 @@ public class Room {
 		powerUps = new ArrayList<PowerUp>();
 		TimePowerUp t = TimePowerUp.getInstance(player);
 		HealthPowerUp h = HealthPowerUp.getInstance(player);
+		VestPowerUp v = VestPowerUp.getInstance(player);
 		t.setX(420);
 		t.setxLimit(50);
 		t.setY(320);
@@ -266,8 +268,13 @@ public class Room {
 		h.setxLimit(50);
 		h.setY(320);
 		h.setyLimit(50);
+		v.setX(420);
+		v.setxLimit(50);
+		v.setY(320);
+		v.setyLimit(50);
 		powerUps.add(t);
 		powerUps.add(h);
+		powerUps.add(v);
 	}
 
 
