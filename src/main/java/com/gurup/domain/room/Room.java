@@ -118,7 +118,9 @@ public class Room {
 				if (p.isStorable()) {
 					Game.getBag().storePowerUp(p);
 				}
-				p.usePowerUp();
+				else {
+					p.usePowerUp();
+				}
 				p.setIsActive(false);
 			}
 		}
@@ -254,8 +256,8 @@ public class Room {
 	// private methods
 	private void initPowerUps() {
 		powerUps = new ArrayList<PowerUp>();
-		TimePowerUp t = new TimePowerUp(player);
-		HealthPowerUp h = new HealthPowerUp(player);
+		TimePowerUp t = TimePowerUp.getInstance(player);
+		HealthPowerUp h = HealthPowerUp.getInstance(player);
 		t.setX(420);
 		t.setxLimit(50);
 		t.setY(320);

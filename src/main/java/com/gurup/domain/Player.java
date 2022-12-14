@@ -55,7 +55,7 @@ public class Player {
 				return TimerOperationResults.TIME_UP;
 			}
 			else {
-				System.out.println(remainingTime);
+				// System.out.println(remainingTime);
 				remainingTime--;
 			}
 		}
@@ -162,7 +162,6 @@ public class Player {
 	}
 
 	public Color getPlayerColor() {
-		// TODO Auto-generated method stub
 		return playerColor;
 	}
 
