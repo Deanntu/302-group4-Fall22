@@ -4,14 +4,16 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class PowerUpDrawer {
-	public void drawPowerUp(Graphics g, int[] rectValues, String name) {
+	public static void drawPowerUp(Graphics g, int[] rectValues, String name) {
 		// TODO Auto-generated method stub
 		if (name.equals("health")) {
-			g.setColor(Color.cyan);
+			g.setColor(Color.CYAN);
 		} else if (name.equals("time")) {
 			g.setColor(Color.black);
 		} else if (name.equals("vest")) {
-			g.setColor(Color.orange);
+			g.setColor(Color.ORANGE);
+		} else if (name.equals("bottle")) {
+			g.setColor(Color.GREEN);
 		}
 		g.fillOval(rectValues[0],rectValues[1],rectValues[2],rectValues[3]);
 	}
