@@ -19,6 +19,7 @@ import com.gurup.controller.MovementController;
 import com.gurup.controller.PowerUpController;
 import com.gurup.domain.Game;
 import com.gurup.domain.Player;
+import com.gurup.domain.powerups.BottlePowerUp;
 import com.gurup.domain.powerups.VestPowerUp;
 import com.gurup.domain.room.Room;
 import com.gurup.domain.room.buildingobjects.BuildingObject;
@@ -98,13 +99,15 @@ public class RunningModeScreen extends JPanel {
 		g.fillOval(slotStartX+slotSizeX/2-itemSize/2, slotStartY+slotSizeY/2-itemSize/2, itemSize, itemSize);
 		g.setColor(Color.ORANGE);
 		g.fillOval(slotStartX+slotSizeX/2-itemSize/2-slotSizeX, slotStartY+slotSizeY/2-itemSize/2, itemSize, itemSize);
-		g.setColor(Color.DARK_GRAY);
+		g.setColor(Color.GREEN);
 		g.fillOval(slotStartX+slotSizeX/2-itemSize/2+slotSizeX, slotStartY+slotSizeY/2-itemSize/2, itemSize, itemSize);
+		g.setColor(Color.DARK_GRAY );
 		g.setFont(new Font("Courier New", Font.BOLD, fontSize));
 		g.drawString("0", slotStartX+slotSizeX-numberOffsetX, slotStartY+numberOffsetY);
 		Integer vestCount = bag.getPowerUps().get(VestPowerUp.getInstance(player));
+		Integer bottleCount = bag.getPowerUps().get(BottlePowerUp.getInstance(player));
 		g.drawString(vestCount.toString(), slotStartX+slotSizeX-numberOffsetX-slotSizeX, slotStartY+numberOffsetY);
-		g.drawString("99", slotStartX+slotSizeX-numberOffsetX+slotSizeX, slotStartY+numberOffsetY);
+		g.drawString(bottleCount.toString(), slotStartX+slotSizeX-numberOffsetX+slotSizeX, slotStartY+numberOffsetY);
 		// TODO get other power up counts from the bag
 		setFont(g);
 	}
