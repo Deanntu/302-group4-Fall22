@@ -16,6 +16,7 @@ import javax.swing.Timer;
 
 import com.gurup.controller.KeyClickController;
 import com.gurup.controller.MovementController;
+import com.gurup.controller.PowerUpController;
 import com.gurup.domain.Game;
 import com.gurup.domain.Player;
 import com.gurup.domain.room.Room;
@@ -28,13 +29,14 @@ public class RunningModeScreen extends JPanel {
 	private Player player;
 	private MovementController movementController;
 	private KeyClickController keyClickController;
+	private PowerUpController powerUpController;
 	private Room room;
 	private int delayMiliSeconds;
 	FontMetrics metrics;
 	Font font;
 	Bag bag;
 	public RunningModeScreen(Game game, Player player, MovementController movementController,
-			KeyClickController keyClickController, Room room) {
+			KeyClickController keyClickController, PowerUpController powerUpController, Room room) {
 
 		setFocusable(true);
 		setFocusTraversalKeysEnabled(false);
@@ -43,6 +45,7 @@ public class RunningModeScreen extends JPanel {
 		this.bag= Game.getBag();
 		this.setMovementController(movementController);
 		this.setKeyClickController(keyClickController);
+		this.setPowerUpController(powerUpController);
 		this.delayMiliSeconds = 20;
 		
 		JButton pauseButton = new JButton("Pause");
@@ -77,7 +80,7 @@ public class RunningModeScreen extends JPanel {
 		drawBag(g);
 	}
 
-	private void drawBag(Graphics g) { 
+	private void drawBag(Graphics g) {
 		int slotSizeX = 140;
 		int slotSizeY = 45;
 		int itemSize = 30;
@@ -168,5 +171,13 @@ public class RunningModeScreen extends JPanel {
 
 	public void setKeyClickController(KeyClickController keyClickController) {
 		this.keyClickController = keyClickController;
+	}
+
+	public PowerUpController getPowerUpController() {
+		return powerUpController;
+	}
+
+	public void setPowerUpController(PowerUpController powerUpController) {
+		this.powerUpController = powerUpController;
 	}
 }
