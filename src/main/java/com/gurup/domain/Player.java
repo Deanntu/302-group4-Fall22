@@ -20,6 +20,7 @@ public class Player {
 	private int remainingTime;
 	private int timeCounter;
 	private int life;
+	private boolean isProtected;
 
 
 
@@ -38,6 +39,7 @@ public class Player {
 		this.xPosition = positions.getxPosition();
 		this.yPosition = positions.getyPosition();
 		life = 3;
+		setProtected(false);
 	}
 
 	public void draw(Graphics g) {
@@ -56,6 +58,7 @@ public class Player {
 			}
 			else {
 				// System.out.println(remainingTime);
+				System.out.println(isProtected);
 				remainingTime--;
 			}
 		}
@@ -163,6 +166,14 @@ public class Player {
 
 	public Color getPlayerColor() {
 		return playerColor;
+	}
+
+	public boolean getIsProtected() {
+		return isProtected;
+	}
+
+	public void setProtected(boolean isProtected) {
+		this.isProtected = isProtected;
 	}
 
 }
