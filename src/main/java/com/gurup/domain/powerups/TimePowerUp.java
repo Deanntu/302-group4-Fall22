@@ -8,6 +8,8 @@ import java.awt.Rectangle;
 import com.gurup.domain.Player;
 
 public class TimePowerUp implements PowerUp {
+	
+	private static TimePowerUp timePowerUp;
 	private Player player;
 	private String name = "time";
 	private int timeIncreaseConstant = 5;
@@ -17,9 +19,17 @@ public class TimePowerUp implements PowerUp {
 	private int x;
 	private int y;
 	private boolean isActive = false;
+	private Integer slotId = null;
 
-	public TimePowerUp(Player player) {
+	private TimePowerUp(Player player) {
 		this.player = player;
+	}
+	
+	public static TimePowerUp getInstance(Player player) {
+		if (timePowerUp == null) {
+			timePowerUp = new TimePowerUp(player);
+		}
+		return timePowerUp;
 	}
 
 	@Override
@@ -98,7 +108,7 @@ public class TimePowerUp implements PowerUp {
 		return rectValues;
 	
 	}
-	@Override
+	/*@Override
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
 		Point pos = new Point(getX(), getY());
@@ -106,7 +116,7 @@ public class TimePowerUp implements PowerUp {
 			g.setColor(Color.black);		
 			g.fillOval((int) pos.getX(), (int) pos.getY(), this.getxLimit(), this.getyLimit());
 		}
-	}
+	}*/
 
 	public String getName() {
 		return name;
@@ -114,5 +124,9 @@ public class TimePowerUp implements PowerUp {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	@Override
+	public int getSlotId() {
+		return slotId;
 	}
 }

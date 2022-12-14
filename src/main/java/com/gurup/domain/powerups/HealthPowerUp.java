@@ -8,6 +8,8 @@ import java.awt.Rectangle;
 import com.gurup.domain.Player;
 
 public class HealthPowerUp implements PowerUp {
+	
+	private static HealthPowerUp healthPowerUp;
 	private Player player;
 	private String name = "health";
 	private int healthIncreaseConstant = 1;
@@ -17,9 +19,17 @@ public class HealthPowerUp implements PowerUp {
 	private int x;
 	private int y;
 	private boolean isActive = false;
+	private Integer slotId = null;
 
-	public HealthPowerUp(Player player) {
+	private HealthPowerUp(Player player) {
 		this.player = player;
+	}
+	
+	public static HealthPowerUp getInstance(Player player) {
+		if (healthPowerUp == null) {
+			healthPowerUp = new HealthPowerUp(player);
+		}
+		return healthPowerUp;
 	}
 
 	@Override
@@ -95,14 +105,14 @@ public class HealthPowerUp implements PowerUp {
 		return rectValues;
 	
 	}
-	public void draw(Graphics g) {
+	/*public void draw(Graphics g) {
 		// TODO Auto-generated method stub
 		Point pos = new Point(getX(), getY());
 		if(isActive) {
 			g.setColor(Color.cyan);			
 			g.fillOval((int) pos.getX(), (int) pos.getY(), this.getxLimit(), this.getyLimit());
 		}
-	}
+	}*/
 
 	public String getName() {
 		return name;
@@ -110,6 +120,11 @@ public class HealthPowerUp implements PowerUp {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	@Override
+	public int getSlotId() {
+		return slotId;
 	}
 
 }
