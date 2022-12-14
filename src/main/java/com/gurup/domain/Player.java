@@ -3,6 +3,8 @@ package com.gurup.domain;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import com.gurup.domain.powerups.VestPowerUp;
+
 public class Player {
 	Color playerColor;
 	int xStart, yStart;
@@ -21,6 +23,7 @@ public class Player {
 	private int timeCounter;
 	private int life;
 	private boolean isProtected;
+	private int remainingProtectionSeconds;
 
 
 
@@ -57,8 +60,22 @@ public class Player {
 				return TimerOperationResults.TIME_UP;
 			}
 			else {
+				if (!isProtected) {
+					remainingProtectionSeconds = Integer.MIN_VALUE;
+				}
+				else {
+					if (remainingProtectionSeconds == Integer.MIN_VALUE) {
+						remainingProtectionSeconds = VestPowerUp.getInstance(this).getProtectionDurationSeconds();
+					}
+					else {
+						remainingProtectionSeconds--;
+					}
+					if (remainingProtectionSeconds < 0) {
+						isProtected = false;
+					}
+				}
 				// System.out.println(remainingTime);
-				System.out.println(isProtected);
+				System.out.printf("Is protected: %b%n",isProtected);
 				remainingTime--;
 			}
 		}
