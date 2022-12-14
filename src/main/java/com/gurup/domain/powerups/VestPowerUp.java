@@ -120,4 +120,8 @@ public class VestPowerUp implements PowerUp {
 		return slotId;
 	}
 
+	public int getProtectionDurationSeconds() {
+		return protectionDurationSeconds;
+	}
+
 }
