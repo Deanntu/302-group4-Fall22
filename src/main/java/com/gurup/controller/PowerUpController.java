@@ -8,7 +8,9 @@ import com.gurup.domain.Bag;
 import com.gurup.domain.Game;
 import com.gurup.domain.powerups.BottlePowerUp;
 import com.gurup.domain.powerups.VestPowerUp;
+import com.gurup.ui.drawer.PowerUpDrawer;
 import com.gurup.ui.gamescreen.RunningModeScreen;
+
 
 public class PowerUpController implements KeyListener{
 	
@@ -16,6 +18,7 @@ public class PowerUpController implements KeyListener{
 
 	private RunningModeScreen runningModeScreen;
 	private boolean bottleFlag = false;
+	private Graphics g;
 	
 	public PowerUpController(Bag bag, RunningModeScreen runningModeScreen) {
 		this.runningModeScreen = runningModeScreen;
@@ -42,6 +45,8 @@ public class PowerUpController implements KeyListener{
 		// TODO Movement of Bottle;
 		if (bottleFlag == true){
 			if (e.getKeyCode() == KeyEvent.VK_A) {
+				PowerUpDrawer.drawPowerUp(g, BottlePowerUp.getInstance(null).rectArray(), BottlePowerUp.getInstance(null).getName());
+				BottlePowerUp.getInstance(null).moveLeft();
 				bottleFlag = false;
 			}
 		}
