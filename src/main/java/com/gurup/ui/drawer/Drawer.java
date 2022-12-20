@@ -10,6 +10,8 @@ public class Drawer {
 		}
 		else if(type.equals("Object")) {
 			drawAdapter = new ObjectDrawerAdapter();
+		}else if(type.equals("Alien")) {
+			drawAdapter = new AlienDrawerAdapter();
 		}
 	}
 	public void draw(Graphics g, int[] rectValues, String name) {

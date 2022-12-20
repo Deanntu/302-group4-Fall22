@@ -37,6 +37,7 @@ public class RunningModeScreen extends JPanel {
 	private int delayMiliSeconds;
 	private Drawer powerUpDrawer = new Drawer("PowerUp");
 	private Drawer buildObjectDrawer = new Drawer("Object");
+	private Drawer alienDrawer = new Drawer("Alien");
 	private int[] throwDestination;
 	private int[] throwSource;
 	FontMetrics metrics;
@@ -72,6 +73,7 @@ public class RunningModeScreen extends JPanel {
 			repaint();
 			player.decrementTime(this.delayMiliSeconds);
 			room.createPowerUp(this.delayMiliSeconds);
+			room.createAlien(this.delayMiliSeconds);
 		}).start();
 	}
 
@@ -121,6 +123,9 @@ public class RunningModeScreen extends JPanel {
 		if (room.getCreated() != null && room.getCreated().isActive()) {
 			powerUpDrawer.draw(g, room.getCreated().rectArray(), room.getCreated().getName());
 		}
+		if (room.getCreatedAlien() != null && room.getCreatedAlien().isActive()) {
+			alienDrawer.draw(g, room.getCreatedAlien().rectArray() , room.getCreatedAlien().getName());
+		}
 		for (BuildingObject bo : room.getObjects()) {
 			buildObjectDrawer.draw(g, bo.rectArray(), bo.getName());
 		}
@@ -164,10 +169,9 @@ public class RunningModeScreen extends JPanel {
 	private void animateBottle(Graphics g) {
 		if(ThrownBottlePowerUp.getInstance(null).isUsed()) {
 			powerUpDrawer.draw(g, ThrownBottlePowerUp.getInstance(null).rectArray(), ThrownBottlePowerUp.getInstance(null).getName());
-			System.out.println("ThrownDrawn");
 		}
 	}
-	
+
 	public Dimension getPreferredSize() {
 		return Toolkit.getDefaultToolkit().getScreenSize();
 	}

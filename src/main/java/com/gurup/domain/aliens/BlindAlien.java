@@ -1,18 +1,26 @@
 package com.gurup.domain.aliens;
 
-import java.awt.*;
+import java.awt.Color;
 
-public class BlindAlien {
+import com.gurup.domain.Position;
 
-    Color alienColor;
-    int xStart, yStart;
-    private int xLimit, yLimit;
+public class BlindAlien implements Alien{
 
-    int x,y;
-    private int size;
-    private int xPosition,yPosition;
-    Position positions;
-    private int remainingTime;
+	Color alienColor;
+	private String name = "Blind";
+	private int xStart;
+	private int yStart;
+	private int xLimit = 40;
+	private int yLimit = 40;
+	
+	private int x;
+	private int y;
+	private int size;
+	private int xPosition;
+	private int yPosition;
+	Position positions;
+	private int remainingTime;
+	private boolean isActive = false;
 
     public BlindAlien(int xStart, int yStart, int xLimit, int yLimit, int size, int startingTime) {
         this.alienColor = alienColor;
@@ -27,9 +35,13 @@ public class BlindAlien {
         positions = new Position();
         this.xPosition = positions.getxPosition();
         this.yPosition = positions.getyPosition();
-    };
+    }
 
-    public void moveRight() {
+    public BlindAlien() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public void moveRight() {
         if (this.getX() >= this.getxLimit()) {
             this.setX(this.getxLimit());
         } else {
@@ -60,7 +72,11 @@ public class BlindAlien {
             this.setY(this.getY() + 10);
         }
     }
-
+    
+	public int[] rectArray() {
+		int[] rectValues = { getX(), getY(), this.getxLimit(), this.getyLimit() };
+		return rectValues;
+	}
     public int getX() {
         return x;
     }
@@ -116,4 +132,20 @@ public class BlindAlien {
     public Color getAlienColor() {
         return alienColor;
     }
+
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 }
