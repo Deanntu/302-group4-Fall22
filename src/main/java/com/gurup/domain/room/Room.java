@@ -157,7 +157,7 @@ public class Room {
 		Random random = new Random();
 		if (timeCounter % (1000 / delayMiliSeconds) == 0) {
 			timeCounter = 1;
-			if (alienCreationCounter == 3) {
+			if (alienCreationCounter == 10) {
 				int randomIndex = random.nextInt(2);
 				int[] newXandY = getRandomLocation();
 				switch(randomIndex){
