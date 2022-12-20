@@ -17,14 +17,15 @@ import javax.swing.Timer;
 import com.gurup.controller.KeyClickController;
 import com.gurup.controller.MovementController;
 import com.gurup.controller.PowerUpController;
+import com.gurup.domain.Bag;
 import com.gurup.domain.Game;
 import com.gurup.domain.Player;
 import com.gurup.domain.powerups.BottlePowerUp;
+import com.gurup.domain.powerups.ThrownBottlePowerUp;
 import com.gurup.domain.powerups.VestPowerUp;
 import com.gurup.domain.room.Room;
 import com.gurup.domain.room.buildingobjects.BuildingObject;
 import com.gurup.ui.drawer.Drawer;
-import com.gurup.domain.Bag;
 
 public class RunningModeScreen extends JPanel {
 
@@ -34,6 +35,10 @@ public class RunningModeScreen extends JPanel {
 	private PowerUpController powerUpController;
 	private Room room;
 	private int delayMiliSeconds;
+	private Drawer powerUpDrawer = new Drawer("PowerUp");
+	private Drawer buildObjectDrawer = new Drawer("Object");
+	private int[] throwDestination;
+	private int[] throwSource;
 	FontMetrics metrics;
 	Font font;
 	Bag bag;
@@ -80,6 +85,7 @@ public class RunningModeScreen extends JPanel {
 		drawObjects(g);
 		paintWall(g);
 		drawBag(g);
+		animateBottle(g);
 	}
 
 	private void drawBag(Graphics g) {
@@ -112,8 +118,6 @@ public class RunningModeScreen extends JPanel {
 		setFont(g);
 	}
 	private void drawObjects(Graphics g) {
-		Drawer powerUpDrawer = new Drawer("PowerUp");
-		Drawer buildObjectDrawer = new Drawer("Object");
 		if (room.getCreated() != null && room.getCreated().isActive()) {
 			powerUpDrawer.draw(g, room.getCreated().rectArray(), room.getCreated().getName());
 		}
@@ -157,7 +161,13 @@ public class RunningModeScreen extends JPanel {
 		g.setColor(Color.BLACK);
 		g.draw3DRect(room.getstartX(), room.getstartY(), room.getxLimit(), room.getyLimit(), true);
 	}
-
+	private void animateBottle(Graphics g) {
+		if(ThrownBottlePowerUp.getInstance(null).isUsed()) {
+			powerUpDrawer.draw(g, ThrownBottlePowerUp.getInstance(null).rectArray(), ThrownBottlePowerUp.getInstance(null).getName());
+			System.out.println("ThrownDrawn");
+		}
+	}
+	
 	public Dimension getPreferredSize() {
 		return Toolkit.getDefaultToolkit().getScreenSize();
 	}

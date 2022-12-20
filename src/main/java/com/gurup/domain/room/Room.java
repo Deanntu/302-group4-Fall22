@@ -1,13 +1,19 @@
 package com.gurup.domain.room;
 
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Random;
 
 import com.gurup.domain.Game;
 import com.gurup.domain.Player;
 import com.gurup.domain.TimerOperationResults;
-import com.gurup.domain.powerups.*;
+import com.gurup.domain.powerups.BottlePowerUp;
+import com.gurup.domain.powerups.HealthPowerUp;
+import com.gurup.domain.powerups.PowerUp;
+import com.gurup.domain.powerups.ThrownBottlePowerUp;
+import com.gurup.domain.powerups.TimePowerUp;
+import com.gurup.domain.powerups.VestPowerUp;
 import com.gurup.domain.room.buildingobjects.BuildingObject;
 import com.gurup.domain.room.buildingobjects.BuildingObjectFactory;
 
@@ -257,6 +263,7 @@ public class Room {
 		HealthPowerUp h = HealthPowerUp.getInstance(player);
 		VestPowerUp v = VestPowerUp.getInstance(player);
 		BottlePowerUp b = BottlePowerUp.getInstance(player);
+		ThrownBottlePowerUp tbp = ThrownBottlePowerUp.getInstance(player);
 		t.setX(420);
 		t.setxLimit(50);
 		t.setY(320);
@@ -281,6 +288,7 @@ public class Room {
 		powerUps.add(h);
 		powerUps.add(v);
 		powerUps.add(b);
+		powerUps.add(tbp);
 
 	}
 
