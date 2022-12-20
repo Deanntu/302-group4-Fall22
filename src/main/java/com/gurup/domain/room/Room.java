@@ -1,13 +1,16 @@
 package com.gurup.domain.room;
 
-import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.Random;
 
 import com.gurup.domain.Game;
 import com.gurup.domain.Player;
 import com.gurup.domain.TimerOperationResults;
+import com.gurup.domain.aliens.Alien;
+import com.gurup.domain.aliens.BlindAlien;
+import com.gurup.domain.aliens.ShooterAlien;
 import com.gurup.domain.powerups.BottlePowerUp;
 import com.gurup.domain.powerups.HealthPowerUp;
 import com.gurup.domain.powerups.PowerUp;
@@ -34,6 +37,8 @@ public class Room {
 	private int powerUpCreationCounter = 0;
 	private int timeCounter = 1;
 	private PowerUp created;
+	private Alien createdAlien;
+	private int alienCreationCounter;
 
 	public Room(String name, int xStart, int yStart, int xLimit, int yLimit, Player player) {
 		this.name = name;
@@ -47,7 +52,6 @@ public class Room {
 		this.key = new Key();
 		this.player = player;
 
-
 		BuildingObjectFactory buildingObjectFactory = new BuildingObjectFactory();
 		BuildingObject object1 = buildingObjectFactory.createBuildingObject("BIN", 500, 300, 100, 50);
 		BuildingObject object2 = buildingObjectFactory.createBuildingObject("TABLE", 800, 100, 60, 30);
@@ -58,29 +62,6 @@ public class Room {
 		exitButton = new Rectangle(0, 0, 50, 50);
 		initPowerUps();
 		Game.getBag().setupBag(powerUps);
-	}
-
-	public void draw(Graphics g) { // TODO move this into UI layer //MOVED BY TUGRA KEPT FOR BACKUP
-
-		
-		  
-		  // pause button g.draw3DRect(xStart, yStart, xLimit, yLimit, true);
-		  pauseButton.height = 20; pauseButton.width = 60; pauseButton.x = xLimit-
-		  2*pauseButton.width; pauseButton.y = yStart-pauseButton.height-20;
-		  
-		  String pause = "Pause"; int pauseX = pauseButton.x; int pauseY =
-		  pauseButton.y+15; g.drawRect(pauseButton.x, pauseButton.y, pauseButton.width,
-		  pauseButton.height); g.drawString(pause, pauseX, pauseY);
-		  
-		  // exit button g.draw3DRect(xStart, yStart, xLimit, yLimit, true);
-		  exitButton.height = 20; exitButton.width = 60; exitButton.x = xLimit-
-		  exitButton.width; exitButton.y = yStart-exitButton.height-20;
-		  
-		  String exit = "Exit"; int exitX = exitButton.x; int exitY = exitButton.y+15;
-		  g.drawRect(exitButton.x, exitButton.y, exitButton.width, exitButton.height);
-		  g.drawString(exit, exitX, exitY);
-		 
-
 	}
 
 	public Boolean isKeyFound(Rectangle rectMouseClick) {
@@ -113,15 +94,15 @@ public class Room {
 	}
 
 	public void checkPowerUp(Rectangle mouseRect) {
-		if(Game.getIsPaused()) return;
+		if (Game.getIsPaused())
+			return;
 		for (PowerUp p : powerUps) {
 			if (!p.getRectangle().intersects(mouseRect))
 				continue;
 			if (p.isActive()) {
 				if (p.isStorable()) {
 					Game.getBag().storePowerUp(p);
-				}
-				else {
+				} else {
 					p.usePowerUp();
 				}
 				p.setIsActive(false);
@@ -133,14 +114,18 @@ public class Room {
 		if (Game.getIsPaused())
 			return TimerOperationResults.PAUSED;
 		Random random = new Random();
+		
 		if (timeCounter % (1000 / delayMiliSeconds) == 0) {
 			timeCounter = 1;
 			if (powerUpCreationCounter == 12) {
+				int[] newXandY = getRandomLocation();
 				if (created != null)
 					created.setIsActive(false);
 				int randomIndex = random.nextInt(powerUps.size());
 				System.out.println(randomIndex);
 				created = powerUps.get(randomIndex);
+				created.setX(newXandY[0]);
+				created.setY(newXandY[1]);
 				created.setIsActive(true);
 				powerUpCreationCounter = 1;
 				/*
@@ -158,7 +143,38 @@ public class Room {
 			timeCounter++;
 		}
 		return TimerOperationResults.TIME_UP;
-
+	}
+	private int[] getRandomLocation() {
+		Random random = new Random();
+		int tempX = random.nextInt(Toolkit.getDefaultToolkit().getScreenSize().width-100);
+		int tempY = random.nextInt(Toolkit.getDefaultToolkit().getScreenSize().height-100);
+		int[] locations = {tempX,tempY};
+		return locations;
+	}
+	public TimerOperationResults createAlien(int delayMiliSeconds) {
+		if (Game.getIsPaused())
+			return TimerOperationResults.PAUSED;
+		Random random = new Random();
+		if (timeCounter % (1000 / delayMiliSeconds) == 0) {
+			if (alienCreationCounter == 10) {
+				int randomIndex = random.nextInt(2);
+				int[] newXandY = getRandomLocation();
+				switch(randomIndex){
+					case 0:
+						createdAlien = new BlindAlien();
+						break;
+					case 1:
+						createdAlien = new ShooterAlien();
+				}
+				createdAlien.setX(newXandY[0]);
+				createdAlien.setY(newXandY[1]);
+				createdAlien.setActive(true);
+				alienCreationCounter = 1;
+			} else {
+				alienCreationCounter++;
+			}
+		}
+		return TimerOperationResults.TIME_UP;
 	}
 
 	// Getters/Setters
@@ -225,9 +241,11 @@ public class Room {
 	public void setObject2(BuildingObject object2) {
 		this.object2 = object2;
 	}
+
 	public ArrayList<BuildingObject> getObjects() {
 		return objects;
 	}
+
 	public Player getPlayer() {
 		return player;
 	}
@@ -292,5 +310,9 @@ public class Room {
 
 	}
 
+	public Alien getCreatedAlien() {
+		// TODO Auto-generated method stub
+		return createdAlien;
+	}
 
 }

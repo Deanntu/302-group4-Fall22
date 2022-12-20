@@ -1,22 +1,30 @@
 package com.gurup.domain.aliens;
 
-import java.awt.*;
+import java.awt.Color;
 
-public class ShooterAlien {
+import com.gurup.domain.Position;
+
+public class ShooterAlien implements Alien {
 
     Color alienColor;
-    int xStart, yStart;
-    private int xLimit, yLimit;
+    private String name = "Shooter";
+    private int xStart;
+    private int yStart;
+	private int xLimit = 40;
+	private int yLimit = 40;
 
-    int x,y;
+    private int x;
+    private int y;
     private int size;
-    private int xPosition,yPosition;
+    private int xPosition;
+    private int yPosition;
     Position positions;
     private int remainingTime;
+    private boolean isActive = false;
 
 
     public ShooterAlien(int xStart, int yStart, int xLimit, int yLimit, int size, int startingTime) {
-        this.alienColor = alienColor;
+      //  this.alienColor = alienColor;
         this.xStart = xStart;
         this.yStart = yStart;
         this.setxLimit(xLimit);
@@ -28,9 +36,16 @@ public class ShooterAlien {
         positions = new Position();
         this.xPosition = positions.getxPosition();
         this.yPosition = positions.getyPosition();
-    };
+    }
 
+	public ShooterAlien() {
+		// TODO Auto-generated constructor stub
+	}
 
+	public int[] rectArray() {
+		int[] rectValues = { getX(), getY(), this.getxLimit(), this.getyLimit() };
+		return rectValues;
+	}
     public int getX() {
         return x;
     }
@@ -86,4 +101,20 @@ public class ShooterAlien {
     public Color getAlienColor() {
         return alienColor;
     }
+
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 }
