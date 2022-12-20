@@ -156,7 +156,6 @@ public class Room {
 			return TimerOperationResults.PAUSED;
 		Random random = new Random();
 		if (timeCounter % (1000 / delayMiliSeconds) == 0) {
-			timeCounter = 1;
 			if (alienCreationCounter == 10) {
 				int randomIndex = random.nextInt(2);
 				int[] newXandY = getRandomLocation();
@@ -174,8 +173,6 @@ public class Room {
 			} else {
 				alienCreationCounter++;
 			}
-		} else {
-			timeCounter++;
 		}
 		return TimerOperationResults.TIME_UP;
 	}
