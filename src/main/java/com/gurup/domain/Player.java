@@ -75,7 +75,7 @@ public class Player {
 					}
 				}
 				// System.out.println(remainingTime);
-				System.out.printf("Is protected: %b%n",isProtected);
+				//System.out.printf("Is protected: %b%n",isProtected);
 				remainingTime--;
 			}
 		}
