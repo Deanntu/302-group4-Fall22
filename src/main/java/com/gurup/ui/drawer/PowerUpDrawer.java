@@ -6,6 +6,10 @@ import java.awt.Graphics;
 public class PowerUpDrawer {
 	public void drawPowerUp(Graphics g, int[] rectValues, String name) {
 		// TODO Auto-generated method stub
+		if(!name.equals("thrownbottle")) {
+			g.setColor(Color.YELLOW);
+	        g.fillOval(rectValues[0],rectValues[1],rectValues[2],rectValues[3]);
+		}
 		if (name.equals("health")) {
 			g.setColor(Color.CYAN);
 		} else if (name.equals("time")) {
@@ -16,8 +20,11 @@ public class PowerUpDrawer {
 			g.setColor(Color.GREEN);
 		} else if (name.equals("thrownbottle")) {
 			g.setColor(Color.red);
+			g.fillOval(rectValues[0],rectValues[1],rectValues[2],rectValues[3]);
+			return;
 		}
-		g.fillOval(rectValues[0],rectValues[1],rectValues[2],rectValues[3]);
+		
+		g.fillOval(rectValues[0]+4,rectValues[1]+4,rectValues[2]-8,rectValues[3]-8);
 	}
 
 }

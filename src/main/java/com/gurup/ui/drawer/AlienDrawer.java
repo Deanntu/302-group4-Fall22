@@ -13,6 +13,6 @@ public class AlienDrawer {
         if (name.equals("Shooter")) {
             g.setColor(Color.PINK);
         }
-        g.fillOval(rectValues[0],rectValues[1],rectValues[2],rectValues[3]);
+        g.fillRoundRect(rectValues[0],rectValues[1],rectValues[2],rectValues[3],10,10);
     }
 }
