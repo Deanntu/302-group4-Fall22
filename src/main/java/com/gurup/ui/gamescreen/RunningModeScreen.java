@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
-import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,6 +24,7 @@ import com.gurup.domain.powerups.ThrownBottlePowerUp;
 import com.gurup.domain.powerups.VestPowerUp;
 import com.gurup.domain.room.Room;
 import com.gurup.domain.room.buildingobjects.BuildingObject;
+import com.gurup.ui.ImageLoader;
 import com.gurup.ui.drawer.Drawer;
 
 public class RunningModeScreen extends JPanel {
@@ -105,10 +105,9 @@ public class RunningModeScreen extends JPanel {
 		g.draw3DRect(slotStartX+slotSizeX, slotStartY, slotSizeX, slotSizeY, true);
 		g.setColor(Color.PINK );
 		g.fillOval(slotStartX+slotSizeX/2-itemSize/2, slotStartY+slotSizeY/2-itemSize/2, itemSize, itemSize);
-		g.setColor(Color.ORANGE);
-		g.fillOval(slotStartX+slotSizeX/2-itemSize/2-slotSizeX, slotStartY+slotSizeY/2-itemSize/2, itemSize, itemSize);
-		g.setColor(Color.GREEN);
-		g.fillOval(slotStartX+slotSizeX/2-itemSize/2+slotSizeX, slotStartY+slotSizeY/2-itemSize/2, itemSize, itemSize);
+		g.drawImage(ImageLoader.vest_image,slotStartX+slotSizeX/2-itemSize/2-slotSizeX, slotStartY+slotSizeY/2-itemSize/2, itemSize, itemSize, null);
+		// TODO: update bottle image in bag
+		g.drawImage(ImageLoader.plastic_bottle_image,slotStartX+slotSizeX/2-itemSize/2+slotSizeX, slotStartY+slotSizeY/2-itemSize/2, itemSize/2, itemSize, null);
 		g.setColor(Color.DARK_GRAY );
 		g.setFont(new Font("Courier New", Font.BOLD, fontSize));
 		g.drawString("0", slotStartX+slotSizeX-numberOffsetX, slotStartY+numberOffsetY);
@@ -157,9 +156,7 @@ public class RunningModeScreen extends JPanel {
 	}
 
 	private void paintPlayer(Graphics g) {
-		Point pos = new Point(player.getX(), player.getY());
-		g.setColor(player.getPlayerColor());
-		g.fillOval((int) pos.getX(), (int) pos.getY(), player.getSize(), player.getSize());
+		g.drawImage(ImageLoader.player_image, player.getX(), player.getY(), player.getSize(), player.getSize(), null);
 	}
 
 	private void paintWall(Graphics g) {

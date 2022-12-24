@@ -53,8 +53,8 @@ public class Room {
 		this.player = player;
 
 		BuildingObjectFactory buildingObjectFactory = new BuildingObjectFactory();
-		BuildingObject object1 = buildingObjectFactory.createBuildingObject("BIN", 500, 300, 100, 50);
-		BuildingObject object2 = buildingObjectFactory.createBuildingObject("TABLE", 800, 100, 60, 30);
+		BuildingObject object1 = buildingObjectFactory.createBuildingObject("Bin", 500, 300, 30, 35);
+		BuildingObject object2 = buildingObjectFactory.createBuildingObject("Table", 800, 100, 60, 40);
 		objects.add(object1);
 		objects.add(object2);
 		key.hideKey(objects);
@@ -146,8 +146,8 @@ public class Room {
 	}
 	private int[] getRandomLocation() {
 		Random random = new Random();
-		int tempX = random.nextInt(Toolkit.getDefaultToolkit().getScreenSize().width-100);
-		int tempY = random.nextInt(Toolkit.getDefaultToolkit().getScreenSize().height-100);
+		int tempX = random.nextInt(Toolkit.getDefaultToolkit().getScreenSize().width-100+10);
+		int tempY = random.nextInt(Toolkit.getDefaultToolkit().getScreenSize().height-175+10);
 		int[] locations = {tempX,tempY};
 		return locations;
 	}
@@ -161,10 +161,10 @@ public class Room {
 				int[] newXandY = getRandomLocation();
 				switch(randomIndex){
 					case 0:
-						createdAlien = new BlindAlien();
+						createdAlien = new BlindAlien(10, 10, 40, 40);
 						break;
 					case 1:
-						createdAlien = new ShooterAlien();
+						createdAlien = new ShooterAlien(10, 10, 40, 40);
 				}
 				createdAlien.setX(newXandY[0]);
 				createdAlien.setY(newXandY[1]);

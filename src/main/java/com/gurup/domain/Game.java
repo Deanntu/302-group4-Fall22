@@ -32,7 +32,7 @@ public class Game {
 	private static MainMenuScreen mainMenuScreen;
 
 	private static PauseAndResumeScreen pauseAndResumeScreen;
-	private static final int PLAYER_SIZE = 25;;
+	private static final int PLAYER_SIZE = 50;;
 	private static AccountManager accountManager;
 	private static String session;
 	private static Boolean isPaused;
@@ -75,7 +75,7 @@ public class Game {
 	private static void inGame() {
 		player = new Player(Color.blue, 50, 50,
 				Toolkit.getDefaultToolkit().getScreenSize().width - 100 + PLAYER_SIZE,
-				Toolkit.getDefaultToolkit().getScreenSize().height - 175 + PLAYER_SIZE, PLAYER_SIZE,
+				Toolkit.getDefaultToolkit().getScreenSize().height - 125 - PLAYER_SIZE, PLAYER_SIZE,
 				60);
 		bag = new Bag(player);
 		room = new Room("Student Center", 50, 50, Toolkit.getDefaultToolkit().getScreenSize().width - 100,
