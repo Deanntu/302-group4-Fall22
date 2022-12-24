@@ -1,9 +1,13 @@
 package com.gurup.domain;
 
-import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 import com.gurup.domain.powerups.VestPowerUp;
+
+import javax.imageio.ImageIO;
 
 public class Player {
 	Color playerColor;
@@ -16,6 +20,7 @@ public class Player {
 	private int xPosition;
 	private int yPosition;
 	Position positions;
+	BufferedImage student_image;
 
 
 
@@ -193,4 +198,12 @@ public class Player {
 		this.isProtected = isProtected;
 	}
 
+	public BufferedImage getImage() {
+		try {
+			student_image = ImageIO.read(new File("src/assets/", "player.png"));
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		return student_image;
+	}
 }

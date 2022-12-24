@@ -6,35 +6,20 @@ import com.gurup.domain.Position;
 
 public class BlindAlien implements Alien{
 
-	Color alienColor;
 	private String name = "Blind";
 	private int xStart;
 	private int yStart;
-	private int xLimit = 40;
-	private int yLimit = 40;
-	
+	private int xLimit;
+	private int yLimit;
 	private int x;
 	private int y;
-	private int size;
-	private int xPosition;
-	private int yPosition;
-	Position positions;
-	private int remainingTime;
 	private boolean isActive = false;
 
-    public BlindAlien(int xStart, int yStart, int xLimit, int yLimit, int size, int startingTime) {
-        this.alienColor = alienColor;
+    public BlindAlien(int xStart, int yStart, int xLimit, int yLimit) {
         this.xStart = xStart;
         this.yStart = yStart;
-        this.setxLimit(xLimit);
-        this.setyLimit(yLimit);
-        this.setX(xStart);
-        this.setY(yStart);
-        this.size = size;
-        this.remainingTime = startingTime;
-        positions = new Position();
-        this.xPosition = positions.getxPosition();
-        this.yPosition = positions.getyPosition();
+        this.xLimit = xLimit;
+        this.yLimit = yLimit;
     }
 
     public BlindAlien() {
@@ -114,23 +99,6 @@ public class BlindAlien implements Alien{
 
     public int getstartY() {
         return yStart;
-    }
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    public int getRemainingTime() {
-        return remainingTime;
-    }
-    public void setRemainingTime(int remainingTime) {
-        this.remainingTime = remainingTime;
-    }
-    public Color getAlienColor() {
-        return alienColor;
     }
 
 	public boolean isActive() {
