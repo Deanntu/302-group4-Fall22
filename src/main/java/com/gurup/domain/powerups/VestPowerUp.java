@@ -25,7 +25,7 @@ public class VestPowerUp implements PowerUp {
 		this.player = player;
 	}
 	
-	public static VestPowerUp getInstance(Player player) {
+	public static synchronized VestPowerUp getInstance(Player player) {
 		if (vestPowerUp == null) {
 			vestPowerUp = new VestPowerUp(player);
 		}

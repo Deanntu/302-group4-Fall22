@@ -25,7 +25,7 @@ public class HealthPowerUp implements PowerUp {
 		this.player = player;
 	}
 	
-	public static HealthPowerUp getInstance(Player player) {
+	public static synchronized HealthPowerUp getInstance(Player player) {
 		if (healthPowerUp == null) {
 			healthPowerUp = new HealthPowerUp(player);
 		}
