@@ -146,8 +146,8 @@ public class Room {
 	}
 	private int[] getRandomLocation() {
 		Random random = new Random();
-		int tempX = random.nextInt(Toolkit.getDefaultToolkit().getScreenSize().width-100+10);
-		int tempY = random.nextInt(Toolkit.getDefaultToolkit().getScreenSize().height-175+10);
+		int tempX = random.nextInt(50, Toolkit.getDefaultToolkit().getScreenSize().width-100);
+		int tempY = random.nextInt(50, Toolkit.getDefaultToolkit().getScreenSize().height-175);
 		int[] locations = {tempX,tempY};
 		return locations;
 	}
