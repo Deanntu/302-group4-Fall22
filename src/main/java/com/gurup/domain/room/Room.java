@@ -146,8 +146,10 @@ public class Room {
 	}
 	private int[] getRandomLocation() {
 		Random random = new Random();
-		int tempX = random.nextInt(50, Toolkit.getDefaultToolkit().getScreenSize().width-100);
-		int tempY = random.nextInt(50, Toolkit.getDefaultToolkit().getScreenSize().height-175);
+		int tempX = random.nextInt(Toolkit.getDefaultToolkit().getScreenSize().width-100-50);
+		int tempY = random.nextInt(Toolkit.getDefaultToolkit().getScreenSize().height-175-50);
+		tempX+=50; // These are added since random.nextInt with 2 arguments does not work on older versions of Java. 
+		tempY+=50;
 		int[] locations = {tempX,tempY};
 		return locations;
 	}
