@@ -25,7 +25,7 @@ public class BottlePowerUp implements PowerUp {
 		this.player = player;
 	}
 
-	public static BottlePowerUp getInstance(Player player) {
+	public static synchronized BottlePowerUp getInstance(Player player) {
 		if (bottlePowerUp == null) {
 			bottlePowerUp = new BottlePowerUp(player);
 		}

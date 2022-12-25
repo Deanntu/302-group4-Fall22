@@ -23,7 +23,7 @@ public class ThrownBottlePowerUp implements PowerUp {
 		this.player = player;
 	}
 
-	public static ThrownBottlePowerUp getInstance(Player player) {
+	public static synchronized ThrownBottlePowerUp getInstance(Player player) {
 		if (thrownBottlePowerUp == null) {
 			thrownBottlePowerUp = new ThrownBottlePowerUp(player);
 		}

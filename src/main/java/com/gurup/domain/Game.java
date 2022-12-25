@@ -37,10 +37,10 @@ public class Game {
 	private static String session;
 	private static Boolean isPaused;
   
-	public Game() {
+	private Game() {
 		
 	}
-	public static Game getInstance() {
+	public static synchronized Game getInstance() {
 		if (game == null) {
 			game = new Game();
 		}

@@ -25,7 +25,7 @@ public class TimePowerUp implements PowerUp {
 		this.player = player;
 	}
 	
-	public static TimePowerUp getInstance(Player player) {
+	public static synchronized TimePowerUp getInstance(Player player) {
 		if (timePowerUp == null) {
 			timePowerUp = new TimePowerUp(player);
 		}
