@@ -133,8 +133,6 @@ public class Game {
 			if (res.equals(AccountOperationResults.SUCCESS)) {
 				session = username;
 				return true;
-			} else {
-				System.out.println(res);
 			}
 		} else if (withoutLoginFlag) {
 			session = "DEFAULT";
