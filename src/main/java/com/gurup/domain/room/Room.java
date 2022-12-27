@@ -308,7 +308,6 @@ public class Room {
 		powerUps.add(h);
 		powerUps.add(v);
 		powerUps.add(b);
-		powerUps.add(tbp);
 
 	}
 
