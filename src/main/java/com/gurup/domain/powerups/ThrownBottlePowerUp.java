@@ -93,7 +93,7 @@ public class ThrownBottlePowerUp implements PowerUp {
 		} else {
 			this.setY(player.getY() - 100);
 		}
-		this.setY(player.getX());
+		this.setX(player.getX());
 	}
 
 	public void moveDown() {
@@ -102,7 +102,7 @@ public class ThrownBottlePowerUp implements PowerUp {
 		} else {
 			this.setY(player.getY() + 100);
 		}
-		this.setY(player.getX());
+		this.setX(player.getX());
 	}
 
 	@Override
