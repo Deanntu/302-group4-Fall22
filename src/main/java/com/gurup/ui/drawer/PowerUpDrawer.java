@@ -17,7 +17,7 @@ public class PowerUpDrawer {
 		} else if (name.equals("bottle")) {
 			g.drawImage(ImageLoader.plastic_bottle_image, rectValues[0], rectValues[1], rectValues[2], rectValues[3], null);
 		} else if (name.equals("thrownbottle")) {
-			g.drawImage(ImageLoader.plastic_bottle_image, rectValues[0], rectValues[1], rectValues[2], rectValues[3], null);
+			g.drawImage(ImageLoader.thrown_plastic_bottle_image, rectValues[0], rectValues[1], rectValues[2], rectValues[3], null);
 		}
 	}
 }

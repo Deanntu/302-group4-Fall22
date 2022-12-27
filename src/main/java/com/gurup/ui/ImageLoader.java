@@ -17,7 +17,8 @@ public class ImageLoader {
     private static final String HEALTH = "health.png";
     private static final String TIME = "time.png";
     private static final String VEST = "vest.png";
-    public static final BufferedImage table_image, bin_image, player_image, shooter_alien_image, blind_alien_image, plastic_bottle_image, health_image, time_image, vest_image;
+    private static final String THROWN_PLASTIC_BOTTLE = "thrown_plastic_bottle.png";
+    public static final BufferedImage table_image, bin_image, player_image, shooter_alien_image, blind_alien_image, plastic_bottle_image, health_image, time_image, vest_image, thrown_plastic_bottle_image;
 
     static {
         try {
@@ -30,6 +31,7 @@ public class ImageLoader {
             health_image = ImageIO.read(new File(PARENT_PATH, HEALTH));
             time_image = ImageIO.read(new File(PARENT_PATH, TIME));
             vest_image = ImageIO.read(new File(PARENT_PATH, VEST));
+            thrown_plastic_bottle_image = ImageIO.read(new File(PARENT_PATH, THROWN_PLASTIC_BOTTLE));
 
         } catch (IOException e) {
             throw new RuntimeException(e);

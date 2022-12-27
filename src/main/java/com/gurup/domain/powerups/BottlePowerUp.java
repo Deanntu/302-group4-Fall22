@@ -10,7 +10,7 @@ public class BottlePowerUp implements PowerUp {
 
 	private static BottlePowerUp bottlePowerUp;
 	private Player player;
-	private String name = "thrownbottle";
+	private String name = "bottle";
 	private boolean storable = true;
 	private int xLimit;
 	private int yLimit;
