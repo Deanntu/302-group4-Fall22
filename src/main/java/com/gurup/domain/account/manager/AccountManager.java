@@ -52,7 +52,7 @@ public class AccountManager {
 		return username.equals(emptyEntry) || password.equals(emptyEntry) || mail.equals(emptyEntry);
 	}
 	private boolean checkProperMail(String mail) {
-		String regexPattern = "^[\\w!#$%&'*+=?`{|}~^-]+(?:.[w!#$%&'*+=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+.)+[a-zA-Z]{1,6}$";
+		String regexPattern = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{1,6}$";
 		return patternMatches(mail, regexPattern);
 	}
 	private static boolean patternMatches(String emailAddress, String regexPattern) {
