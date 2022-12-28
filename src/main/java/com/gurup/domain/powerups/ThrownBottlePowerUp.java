@@ -72,8 +72,8 @@ public class ThrownBottlePowerUp implements PowerUp {
 	}
 
 	public void moveRight() {
-		if (player.getX() >= this.getstartX()) {
-			this.setX(player.getX());
+		if (player.getX() + 100 >= this.getstartX()) {
+			this.setX(player.getxLimit());
 		} else {
 			this.setX(player.getX() + 100);
 		}
@@ -81,8 +81,8 @@ public class ThrownBottlePowerUp implements PowerUp {
 	}
 
 	public void moveLeft() {
-		if (player.getX() <= this.getxLimit()) {
-			this.setX(this.getxLimit());
+		if (player.getX() - 100 <= this.getxLimit()) {
+			this.setX(player.getstartX());
 		} else {
 			this.setX(player.getX() - 100);
 		}
@@ -91,8 +91,8 @@ public class ThrownBottlePowerUp implements PowerUp {
 	}
 
 	public void moveUp() {
-		if (player.getY() <= this.getyLimit()) {
-			this.setY(this.getyLimit());
+		if (player.getY() - 100 <= this.getyLimit()) {
+			this.setY(player.getstartY());
 		} else {
 			this.setY(player.getY() - 100);
 		}
@@ -100,8 +100,8 @@ public class ThrownBottlePowerUp implements PowerUp {
 	}
 
 	public void moveDown() {
-		if (player.getY() >= this.getstartY()) {
-			this.setY(player.getY());
+		if (player.getY() + 100 >= this.getstartY()) {
+			this.setY(player.getyLimit());
 		} else {
 			this.setY(player.getY() + 100);
 		}
@@ -222,6 +222,10 @@ public class ThrownBottlePowerUp implements PowerUp {
 
 	public int[] getThrowSource() {
 		return throwSource;
+	}
+	
+	public static void setNull() {
+		thrownBottlePowerUp = null;
 	}
 
 }
