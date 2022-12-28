@@ -31,6 +31,9 @@ public class ThrownBottlePowerUp implements PowerUp {
 	}
 
 	public void usePowerUp(String direction) {
+		// EFFECTS: if not used yet, create a thrown bottle at the target direction
+		// else, do nothing
+		// if the range extends further than a wall, put it within the borders of the room
 		if (isUsable) {
 			setThrowDestinationAndSource();
 			switch (direction) {
