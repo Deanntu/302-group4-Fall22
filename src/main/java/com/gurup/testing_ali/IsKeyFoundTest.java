@@ -11,12 +11,12 @@ import java.awt.*;
 
 public class IsKeyFoundTest {
 
-    Room room;
-    Player player;
-    int mouseWidth, mouseHeight, right_wall_x, bottom_wall_y;
+    private Room room;
+    private Player player;
+    private int mouseWidth, mouseHeight, right_wall_x, bottom_wall_y;
 
     @BeforeEach
-    void setUp() {
+    public void setRoom() {
         // Initialize mouse width and height
         mouseWidth = 1;
         mouseHeight = 1;
