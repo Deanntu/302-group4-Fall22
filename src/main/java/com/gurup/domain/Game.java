@@ -80,7 +80,7 @@ public class Game {
 		bag = new Bag(player);
 		room = new Room("Student Center", 50, 50, Toolkit.getDefaultToolkit().getScreenSize().width - 100,
 				Toolkit.getDefaultToolkit().getScreenSize().height - 175, player);
-
+		Game.getBag().setupBag(room.getPowerUps());
 		runningModeScreen = screenMaker.createRunningModeScreen(game, player, movementController, keyClickController, powerUpController,
 				room);
 		SwingUtilities.invokeLater(new Runnable() {

@@ -61,7 +61,6 @@ public class Room {
 		pauseButton = new Rectangle(0, 0, 50, 50);
 		exitButton = new Rectangle(0, 0, 50, 50);
 		initPowerUps();
-		Game.getBag().setupBag(powerUps);
 	}
 
 	public Boolean isKeyFound(Rectangle rectMouseClick) {
@@ -69,10 +68,7 @@ public class Room {
 			// System.out.println("Did not click inside the room");
 			return false;
 		}
-		if (Game.getIsPaused()) {
-			// System.out.println("Cannot look for key if the game is paused. ");
-			return false;
-		}
+
 		BuildingObject containerObject = key.getBuildingObject();
 		Rectangle playerRect = new Rectangle(player.getX(), player.getY(), player.getSize(), player.getSize());
 		for (BuildingObject bo : objects) {
@@ -274,6 +270,10 @@ public class Room {
 
 	public PowerUp getCreated() {
 		return created;
+	}
+
+	public ArrayList <PowerUp> getPowerUps() {
+		return powerUps;
 	}
 
 	// private methods
