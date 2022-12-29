@@ -54,7 +54,7 @@ public class BottleUsePowerUpTest {
 				60);
 		//player.setX(player.getxLimit()/2);
 		player.setY(player.getyLimit()/2);
-		for (int i = player.getstartX(); i < player.getstartX()+49; i++) {
+		for (int i = player.getstartX(); i < player.getstartX()+49; i++) { // fails when tested for values until player.getstartX()+99
 			player.setX(i);
 			ThrownBottlePowerUp bottle = ThrownBottlePowerUp.getInstance(player);
 			System.out.println(i);
