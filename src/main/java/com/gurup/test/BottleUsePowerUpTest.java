@@ -5,6 +5,10 @@ import static org.junit.Assert.*;
 import java.awt.Color;
 import java.awt.Toolkit;
 
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.gurup.domain.Player;
@@ -23,15 +27,36 @@ public class BottleUsePowerUpTest {
 	 * behavior when not usable
 	 * behavior when usable but we try to use it multiple times
 	 */
-	@Test
-	public void fullRange() {
-		Player player = new Player(Color.blue, 50, 50,
+	
+	private Player player;
+	private ThrownBottlePowerUp bottle;
+	@Before
+	public void runsBeforeEachTest() {
+		player = new Player(Color.blue, 50, 50,
 				Toolkit.getDefaultToolkit().getScreenSize().width - 100,
 				Toolkit.getDefaultToolkit().getScreenSize().height - 175, 50,
 				60);
 		player.setX(player.getxLimit()/2);
 		player.setY(player.getyLimit()/2);
-		ThrownBottlePowerUp bottle = ThrownBottlePowerUp.getInstance(player);
+		bottle = ThrownBottlePowerUp.getInstance(player);
+	}
+	@After
+	public void runsAfterEachTest() {
+		ThrownBottlePowerUp.setNull();
+	}
+	@BeforeClass
+	public static void runsOnceAtStartup() {
+		
+	}
+	@AfterClass
+	public static void runsOnceAtTheEnd() {
+		
+	}
+	
+	
+	
+	@Test
+	public void fullRange() {
 		bottle.setUsable(true);
 		bottle.usePowerUp("up");
 		assertTrue(bottle.getX() == player.getX() && bottle.getY() == player.getY() - 100);
@@ -44,20 +69,13 @@ public class BottleUsePowerUpTest {
 		bottle.setUsable(true);
 		bottle.usePowerUp("right");
 		assertTrue(bottle.getX() == player.getX() + 100 && bottle.getY() == player.getY());
-		ThrownBottlePowerUp.setNull();
 	}
 	@Test
 	public void nearLeftWall() {
-		Player player = new Player(Color.blue, 50, 50,
-				Toolkit.getDefaultToolkit().getScreenSize().width - 100,
-				Toolkit.getDefaultToolkit().getScreenSize().height - 175, 50,
-				60);
-		//player.setX(player.getxLimit()/2);
-		player.setY(player.getyLimit()/2);
-		for (int i = player.getstartX(); i < player.getstartX()+49; i++) { // fails when tested for values until player.getstartX()+99
+		for (int i = player.getstartX(); i < player.getstartX()+100; i++) {
 			player.setX(i);
 			ThrownBottlePowerUp bottle = ThrownBottlePowerUp.getInstance(player);
-			System.out.println(i);
+			//System.out.printf("i: %d%n", i);
 			bottle.setUsable(true);
 			bottle.usePowerUp("up");
 			assertTrue(bottle.getX() == player.getX() && bottle.getY() == player.getY() - 100);
@@ -66,9 +84,9 @@ public class BottleUsePowerUpTest {
 			assertTrue(bottle.getX() == player.getX() && bottle.getY() == player.getY() + 100);
 			bottle.setUsable(true);
 			bottle.usePowerUp("left");
-			System.out.println(player.getstartX());
-			System.out.println(bottle.getX());
-			System.out.println("sdohkahokofhjaofnmsdlhmfdh");
+			//System.out.printf("player startx: %d%n", player.getstartX());
+			//System.out.printf("bottle x: %d%n", bottle.getX());
+			//System.out.println("sdohkahokofhjaofnmsdlhmfdh");
 			assertTrue(bottle.getX() == player.getstartX() && bottle.getY() == player.getY());
 			bottle.setUsable(true);
 			bottle.usePowerUp("right");
@@ -78,33 +96,7 @@ public class BottleUsePowerUpTest {
 	}
 	@Test
 	public void nearRightWall() {
-		/*Player player = new Player(Color.blue, 50, 50,
-				Toolkit.getDefaultToolkit().getScreenSize().width - 100,
-				Toolkit.getDefaultToolkit().getScreenSize().height - 175, 50,
-				60);
-		//player.setX(player.getxLimit()/2);
-		player.setY(player.getyLimit()/2);
-		for (int i = player.getxLimit(); i < player.getxLimit()-99; i--) {
-			player.setX(i);
-			ThrownBottlePowerUp bottle = ThrownBottlePowerUp.getInstance(player);
-			System.out.println(i);
-			bottle.setUsable(true);
-			bottle.usePowerUp("up");
-			assertTrue(bottle.getX() == player.getX() && bottle.getY() == player.getY() - 100);
-			bottle.setUsable(true);
-			bottle.usePowerUp("down");
-			assertTrue(bottle.getX() == player.getX() && bottle.getY() == player.getY() + 100);
-			bottle.setUsable(true);
-			bottle.usePowerUp("left");
-			System.out.println(player.getstartX());
-			System.out.println(bottle.getX());
-			System.out.println("sdohkahokofhjaofnmsdlhmfdh");
-			assertTrue(bottle.getX() == player.getstartX() - 100 && bottle.getY() == player.getY());
-			bottle.setUsable(true);
-			bottle.usePowerUp("right");
-			assertTrue(bottle.getX() == player.getX() && bottle.getY() == player.getY());
-		}
-		ThrownBottlePowerUp.setNull();*/
+		
 	}
 	@Test
 	public void nearTopWall() {
