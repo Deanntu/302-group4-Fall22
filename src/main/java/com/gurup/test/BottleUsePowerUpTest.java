@@ -25,7 +25,6 @@ public class BottleUsePowerUpTest {
 	 * behavior when thrown to the top wall, when close and far
 	 * behavior when thrown to the bottom wall, when close and far
 	 * behavior when not usable
-	 * behavior when usable but we try to use it multiple times
 	 */
 	
 	private Player player;
