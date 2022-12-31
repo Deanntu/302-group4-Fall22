@@ -112,7 +112,23 @@ public class BottleUsePowerUpTest {
 	}
 	@Test
 	public void nearTopWall() {
-		
+		for (int i = player.getstartY(); i < player.getstartY()+100; i++) {
+			player.setY(i);
+			ThrownBottlePowerUp bottle = ThrownBottlePowerUp.getInstance(player);
+			bottle.setUsable(true);
+			bottle.usePowerUp("up");
+			assertTrue(bottle.getX() == player.getX() && bottle.getY() == player.getstartY());
+			bottle.setUsable(true);
+			bottle.usePowerUp("down");
+			assertTrue(bottle.getX() == player.getX() && bottle.getY() == player.getY() + 100);
+			bottle.setUsable(true);
+			bottle.usePowerUp("left");
+			assertTrue(bottle.getX() == player.getX() - 100 && bottle.getY() == player.getY());
+			bottle.setUsable(true);
+			bottle.usePowerUp("right");
+			assertTrue(bottle.getX() == player.getX() + 100 && bottle.getY() == player.getY());
+			ThrownBottlePowerUp.setNull();
+		}
 	}
 	@Test
 	public void nearBottomWall() {
