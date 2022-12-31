@@ -265,8 +265,4 @@ public class BottleUsePowerUpTest {
 		bottle.usePowerUp("right");
 		assertTrue(bottle.getX() == player.getX() && bottle.getY() == player.getY() - 100);
 	}
-	@Test
-	public void multipleUses() {
-		
-	}
 }
