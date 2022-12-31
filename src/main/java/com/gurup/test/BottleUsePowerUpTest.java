@@ -232,7 +232,38 @@ public class BottleUsePowerUpTest {
 	}
 	@Test
 	public void notUsable() {
+		// try to use it when you cannot
+		bottle.setUsable(false);
+		bottle.usePowerUp("up");
+		assertFalse(bottle.isUsed());
+		bottle.setUsable(false);
+		bottle.usePowerUp("down");
+		assertFalse(bottle.isUsed());
+		bottle.setUsable(false);
+		bottle.usePowerUp("left");
+		assertFalse(bottle.isUsed());
+		bottle.setUsable(false);
+		bottle.usePowerUp("right");
+		assertFalse(bottle.isUsed());
 		
+		// then use it when you can
+		bottle.setUsable(true);
+		bottle.usePowerUp("up");
+		assertTrue(bottle.getX() == player.getX() && bottle.getY() == player.getY() - 100);
+		
+		// then when you try to use it when you cannot, the position cannot change
+		bottle.setUsable(false);
+		bottle.usePowerUp("up");
+		assertTrue(bottle.getX() == player.getX() && bottle.getY() == player.getY() - 100);
+		bottle.setUsable(false);
+		bottle.usePowerUp("down");
+		assertTrue(bottle.getX() == player.getX() && bottle.getY() == player.getY() - 100);
+		bottle.setUsable(false);
+		bottle.usePowerUp("left");
+		assertTrue(bottle.getX() == player.getX() && bottle.getY() == player.getY() - 100);
+		bottle.setUsable(false);
+		bottle.usePowerUp("right");
+		assertTrue(bottle.getX() == player.getX() && bottle.getY() == player.getY() - 100);
 	}
 	@Test
 	public void multipleUses() {
