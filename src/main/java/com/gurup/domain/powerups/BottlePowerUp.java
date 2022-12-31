@@ -52,7 +52,7 @@ public class BottlePowerUp implements PowerUp {
 				break;
 			case "left":
 				moveLeft();
-				System.out.println("Moved to left");
+				//System.out.println("Moved to left");
 				isUsable = false;
 				isUsed = true;
 				break;
