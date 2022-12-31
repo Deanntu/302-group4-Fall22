@@ -75,7 +75,6 @@ public class BottleUsePowerUpTest {
 		for (int i = player.getstartX(); i < player.getstartX()+100; i++) {
 			player.setX(i);
 			ThrownBottlePowerUp bottle = ThrownBottlePowerUp.getInstance(player);
-			//System.out.printf("i: %d%n", i);
 			bottle.setUsable(true);
 			bottle.usePowerUp("up");
 			assertTrue(bottle.getX() == player.getX() && bottle.getY() == player.getY() - 100);
@@ -84,9 +83,6 @@ public class BottleUsePowerUpTest {
 			assertTrue(bottle.getX() == player.getX() && bottle.getY() == player.getY() + 100);
 			bottle.setUsable(true);
 			bottle.usePowerUp("left");
-			//System.out.printf("player startx: %d%n", player.getstartX());
-			//System.out.printf("bottle x: %d%n", bottle.getX());
-			//System.out.println("sdohkahokofhjaofnmsdlhmfdh");
 			assertTrue(bottle.getX() == player.getstartX() && bottle.getY() == player.getY());
 			bottle.setUsable(true);
 			bottle.usePowerUp("right");
