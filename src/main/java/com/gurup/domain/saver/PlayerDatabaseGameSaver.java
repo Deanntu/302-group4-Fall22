@@ -3,6 +3,7 @@ package com.gurup.domain.saver;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import com.gurup.domain.DatabaseRequirements;
 import com.gurup.domain.Game;
@@ -37,11 +38,11 @@ public class PlayerDatabaseGameSaver {
 		yLocation = player.getY();
 		bottlecount = Game.getBag().getPowerUps().get(BottlePowerUp.getInstance(player));
 		vestcount = Game.getBag().getPowerUps().get(VestPowerUp.getInstance(player));
-
-		return trySavePlayer(username);
+		
+		return findByUserName(username) ? update(username) : trySavePlayer(username);
 	}
 
-	private GameSaverOperationResults trySavePlayer(String username) throws Exception {
+	public GameSaverOperationResults trySavePlayer(String username) throws Exception {
 		// TODO Auto-generated method stub
 		Connection connection = DriverManager.getConnection(DatabaseRequirements.url.getValue(),
 				DatabaseRequirements.username.getValue(), DatabaseRequirements.password.getValue());
@@ -60,4 +61,40 @@ public class PlayerDatabaseGameSaver {
 		connection.close();
 		return affected > 0 ? GameSaverOperationResults.SUCCESS : GameSaverOperationResults.FAIL;
 	}
+
+	private Boolean findByUserName(String username) throws Exception {
+		Connection connection = DriverManager.getConnection(DatabaseRequirements.url.getValue(),
+				DatabaseRequirements.username.getValue(), DatabaseRequirements.password.getValue());
+		String sql = "select * from public.player where username = ?";
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setString(1, username);
+		ResultSet resultSet = statement.executeQuery();
+		if (resultSet.next()) {
+			connection.close();
+			return true;
+		}
+		return false;
+	}
+
+	private GameSaverOperationResults update(String username) throws Exception {
+		Connection connection = DriverManager.getConnection(DatabaseRequirements.url.getValue(),
+				DatabaseRequirements.username.getValue(), DatabaseRequirements.password.getValue());
+
+		String sql = "UPDATE public.player SET isprotected=?, remainingtime=?, remaininglife=?, xlocation=?, ylocation=?, bottle=?, vest=?, username=? WHERE username = ?";
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setBoolean(1, isProtected);
+		statement.setInt(2, remainingTime);
+		statement.setInt(3, remainingLife);
+		statement.setInt(4, xLocation);
+		statement.setInt(5, yLocation);
+		statement.setInt(6, bottlecount);
+		statement.setInt(7, vestcount);
+		statement.setString(8, username);
+		statement.setString(9, username);
+		int affected = statement.executeUpdate();
+
+		connection.close();
+		return affected > 0 ? GameSaverOperationResults.SUCCESS : GameSaverOperationResults.FAIL;
+	}
+
 }
