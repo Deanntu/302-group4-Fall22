@@ -24,15 +24,26 @@ public class Bag {
 	
 	// constructors
 	public Bag(Player player) {
+		// EFFECTS: Initializes this with an empty HashMap as powerUps
 		powerUps = new HashMap<PowerUp, Integer>();
-		
 	}
-
+	
+	// methods
 	public void storePowerUp(PowerUp p) {
+		// MODIFIES: this
+		// REQUIRES: p is a storable powerUp &&
+		//           setupBag was previously called
+		// EFFECTS: Increments the Integer corresponding to the PowerUp in powerUps
 		powerUps.put(p, powerUps.get(p) + 1);
 	}
 
 	public void selectPowerUp(PowerUp powerUp) {
+		// MODIFIES: this
+		// REQUIRES: powerUp is a storable powerUp &&
+		//           setupBag was previously called
+		// EFFECTS: Calls usePowerUp if powerUp is available in the Bag.
+		//          Decrements the Integer corresponding to the PowerUp in powerUps if powerUp is available in the Bag.
+		//          Otherwise, does nothing (so far)
 		if (powerUp == null || powerUp.isStorable() == false) {
 			System.out.println("Null/non-storable power up"); // should be unreachable
 			return;
@@ -45,7 +56,10 @@ public class Bag {
 			shakeSlot(powerUp.getSlotId());
 		}
 	}
+	
 	public void setupBag (ArrayList<PowerUp> powerUpList) {
+		// MODIFIES: this
+		// EFFECTS: Initializes this so that the storable powerUps are put as the keys of powerUps
 		for(PowerUp p: powerUpList) {
 			if (p.isStorable()) {
 				powerUps.put(p, 0);
@@ -53,10 +67,11 @@ public class Bag {
 		}
 	}
 	private void shakeSlot(int slot) {
-
+		// EFFECTS: none (so far)
 	}
 	
 	public Map<PowerUp, Integer> getPowerUps(){
+		// EFFECTS: returns the Map called powerUps
 		return powerUps;
 	}
 
