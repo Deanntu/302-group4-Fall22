@@ -1,7 +1,5 @@
 package com.gurup.test;
 
-import org.junit.Test;
-
 import com.gurup.domain.Bag;
 import com.gurup.domain.Player;
 import com.gurup.domain.powerups.BottlePowerUp;
@@ -11,23 +9,21 @@ import com.gurup.domain.powerups.ThrownBottlePowerUp;
 import com.gurup.domain.powerups.TimePowerUp;
 import com.gurup.domain.powerups.VestPowerUp;
 
-import org.junit.Before;
-
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 
-import org.junit.After;
-import org.junit.BeforeClass;
-import org.junit.AfterClass;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class BagTest {
 	static Bag bag;
 	static Player player;
 	static ArrayList<PowerUp> setupPowerUps = new ArrayList<PowerUp>();
 	
-	@BeforeClass
-	public static void setUp() {
+	@BeforeEach
+	public void setUp() {
 		player = new Player(Color.blue, 50, 50,
 				Toolkit.getDefaultToolkit().getScreenSize().width - 100,
 				Toolkit.getDefaultToolkit().getScreenSize().height - 175, 50,
@@ -63,5 +59,103 @@ public class BagTest {
 		setupPowerUps.add(v);
 		setupPowerUps.add(b);
 		bag.setupBag(setupPowerUps);
+	}
+
+	@Test
+	public void testStorePowerUp() {
+		// Store two vest powerups and one bottle power up
+		bag.storePowerUp(setupPowerUps.get(2));
+		bag.storePowerUp(setupPowerUps.get(2));
+		bag.storePowerUp(setupPowerUps.get(3));
+
+		// Get the number of powerups in the bag
+		int numVestPowerUps = bag.getPowerUps().get(setupPowerUps.get(2));
+		int numBottlePowerUps = bag.getPowerUps().get(setupPowerUps.get(3));
+
+		// Check if the number of powerups in the bag is correct
+		assertEquals(2, numVestPowerUps);
+		assertEquals(1, numBottlePowerUps);
+	}
+
+	@Test
+	public void testSelectExistingPowerUp() {
+		// Store two vest powerups and one bottle power up
+		bag.storePowerUp(setupPowerUps.get(2));
+		bag.storePowerUp(setupPowerUps.get(2));
+		bag.storePowerUp(setupPowerUps.get(3));
+
+
+		// Select two vest powerups
+		bag.selectPowerUp(setupPowerUps.get(2));
+		bag.selectPowerUp(setupPowerUps.get(2));
+
+		// Get the number of powerups in the bag
+		int numVestPowerUps = bag.getPowerUps().get(setupPowerUps.get(2));
+		int numBottlePowerUps = bag.getPowerUps().get(setupPowerUps.get(3));
+
+		// Check if the number of powerups in the bag is correct
+		assertEquals(0, numVestPowerUps);
+		assertEquals(1, numBottlePowerUps);
+
+	}
+
+	@Test
+	public void testSelectNonExistingPowerUp() {
+		// Store two vest powerups
+		bag.storePowerUp(setupPowerUps.get(2));
+		bag.storePowerUp(setupPowerUps.get(2));
+
+		// Select non-existing bottle powerup
+		bag.selectPowerUp(setupPowerUps.get(3));
+
+		// Get the number of powerups in the bag
+		int numVestPowerUps = bag.getPowerUps().get(setupPowerUps.get(2));
+		int numBottlePowerUps = bag.getPowerUps().get(setupPowerUps.get(3));
+
+		// Check if the number of powerups in the bag is correct
+		assertEquals(2, numVestPowerUps);
+		assertEquals(0, numBottlePowerUps);
+	}
+
+	@Test
+	public void testSelectNull() {
+		// Store two vest powerups and one bottle power up
+		bag.storePowerUp(setupPowerUps.get(2));
+		bag.storePowerUp(setupPowerUps.get(2));
+		bag.storePowerUp(setupPowerUps.get(3));
+
+
+		// Select null
+		bag.selectPowerUp(null);
+
+
+		// Get the number of powerups in the bag
+		int numVestPowerUps = bag.getPowerUps().get(setupPowerUps.get(2));
+		int numBottlePowerUps = bag.getPowerUps().get(setupPowerUps.get(3));
+
+		// Check if the number of powerups in the bag is correct
+		assertEquals(2, numVestPowerUps);
+		assertEquals(1, numBottlePowerUps);
+	}
+
+	@Test
+	public void testSelectNonStorablePowerUp() {
+		// Store two vest powerups and one bottle power up
+		bag.storePowerUp(setupPowerUps.get(2));
+		bag.storePowerUp(setupPowerUps.get(2));
+		bag.storePowerUp(setupPowerUps.get(3));
+
+		// Select non-storable time powerup
+		bag.selectPowerUp(setupPowerUps.get(0));
+		// Select non-storable health powerup
+		bag.selectPowerUp(setupPowerUps.get(1));
+
+		// Get the number of powerups in the bag
+		int numVestPowerUps = bag.getPowerUps().get(setupPowerUps.get(2));
+		int numBottlePowerUps = bag.getPowerUps().get(setupPowerUps.get(3));
+
+		// Check if the number of powerups in the bag is correct
+		assertEquals(2, numVestPowerUps);
+		assertEquals(1, numBottlePowerUps);
 	}
 }
