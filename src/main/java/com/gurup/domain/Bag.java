@@ -74,5 +74,34 @@ public class Bag {
 		// EFFECTS: returns the Map called powerUps
 		return powerUps;
 	}
+	
+	public boolean repOk() {
+		if (powerUps == null) {
+			System.out.println("powerUps is null");
+			return false;
+		}
+		for (Object value : powerUps.values()) {
+			if (!(value instanceof Integer)) {
+				System.out.println("value is not Integer");
+				return false;
+			}
+			if ((Integer)value < 0) {
+				System.out.println("value < 0");
+				return false;
+			}
+		}
+		ArrayList<PowerUp> duplicateCheck = new ArrayList<PowerUp>();
+		for (PowerUp key : powerUps.keySet()) {
+			duplicateCheck.add(key);
+		}
+		for (int i = 0; i < duplicateCheck.size(); i++) {
+			for (int j = i+1; j < duplicateCheck.size(); j++) {
+				if (duplicateCheck.get(i).equals(duplicateCheck.get(j))) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
 
 }
