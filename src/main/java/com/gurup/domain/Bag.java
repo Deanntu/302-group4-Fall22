@@ -7,8 +7,22 @@ import java.util.Map;
 import com.gurup.domain.powerups.PowerUp;
 
 public class Bag {
+	// OVERVIEW: Bag wraps a Map that has PowerUps as keys 
+	// and Integers (that show how many of said PowerUps are stored) as values
+	
+	// the rep
 	private Map<PowerUp, Integer> powerUps;
-
+	
+	// AF: The Bag is made out of key-value pairs where the key-value pair <p, i> represents
+	//     that there are i PowerUps of type p available to the player. 
+	
+	// The rep invariant is
+	// c.powerUps not null &&
+	// all elements of c.powerUps.values() are Integers &&
+	// all elements of c.powerUps.values() are nonnegative &&
+	// there are no duplicates in c.powerUps.keySet()
+	
+	// constructors
 	public Bag(Player player) {
 		powerUps = new HashMap<PowerUp, Integer>();
 		
