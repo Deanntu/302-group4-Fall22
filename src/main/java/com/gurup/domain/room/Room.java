@@ -61,7 +61,7 @@ public class Room {
 		pauseButton = new Rectangle(0, 0, 50, 50);
 		exitButton = new Rectangle(0, 0, 50, 50);
 		initPowerUps();
-		Game.getBag().setupBag(powerUps);
+
 	}
 
 	public Boolean isKeyFound(Rectangle rectMouseClick) {
@@ -114,7 +114,7 @@ public class Room {
 		if (Game.getIsPaused())
 			return TimerOperationResults.PAUSED;
 		Random random = new Random();
-		
+
 		if (timeCounter % (1000 / delayMiliSeconds) == 0) {
 			timeCounter = 1;
 			if (powerUpCreationCounter == 12) {
@@ -131,7 +131,7 @@ public class Room {
 				/*
 				 * if(randomIndex == 0) { created = new TimePowerUp(player);
 				 * created.setIsActive(true);
-				 * 
+				 *
 				 * } else if(randomIndex == 1) { created = new HealthPowerUp(player);
 				 * created.setIsActive(true); } created.setX(420); created.setxLimit(50);
 				 * created.setY(320); created.setyLimit(50); powerUps.add(created);
@@ -148,7 +148,7 @@ public class Room {
 		Random random = new Random();
 		int tempX = random.nextInt(Toolkit.getDefaultToolkit().getScreenSize().width-100-50);
 		int tempY = random.nextInt(Toolkit.getDefaultToolkit().getScreenSize().height-175-50);
-		tempX+=50; // These are added since random.nextInt with 2 arguments does not work on older versions of Java. 
+		tempX+=50; // These are added since random.nextInt with 2 arguments does not work on older versions of Java.
 		tempY+=50;
 		int[] locations = {tempX,tempY};
 		return locations;
@@ -316,4 +316,7 @@ public class Room {
 		return createdAlien;
 	}
 
+	public ArrayList <PowerUp> getPowerUps() {
+		return powerUps;
+	}
 }

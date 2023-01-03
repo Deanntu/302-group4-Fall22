@@ -36,9 +36,9 @@ public class Game {
 	private static AccountManager accountManager;
 	private static String session;
 	private static Boolean isPaused;
-  
+
 	private Game() {
-		
+
 	}
 	public static synchronized Game getInstance() {
 		if (game == null) {
@@ -80,7 +80,7 @@ public class Game {
 		bag = new Bag(player);
 		room = new Room("Student Center", 50, 50, Toolkit.getDefaultToolkit().getScreenSize().width - 100,
 				Toolkit.getDefaultToolkit().getScreenSize().height - 175, player);
-
+		Game.getBag().setupBag(room.getPowerUps());
 		runningModeScreen = screenMaker.createRunningModeScreen(game, player, movementController, keyClickController, powerUpController,
 				room);
 		SwingUtilities.invokeLater(new Runnable() {
@@ -140,7 +140,7 @@ public class Game {
 		}
 		return registerAndLoginScreen();
 	}
-	
+
 	private static Boolean tryPauseGame() {
 		try {
 			// pause timer DONE in player.decrementTime()
@@ -151,34 +151,34 @@ public class Game {
 			return true;
 		}
 		catch(Exception e) {
-			
+
 		}
 		return false;
 	}
-    private static Boolean tryUnpauseGame() {
-        try {
-            // unpause timer DONE in player.decrementTime()
-            // start checking for clicks in RunningModeScreen DONE in Room.isKeyFound()
-            // TODO show game menu, waiting for UI
-            // start moving the character, DONE in MovementController.keyPressed(), TODO move to Domain layer
-            setIsPaused(false);
-            return true;
-        }
-		catch(Exception e) {
-			
+	private static Boolean tryUnpauseGame() {
+		try {
+			// unpause timer DONE in player.decrementTime()
+			// start checking for clicks in RunningModeScreen DONE in Room.isKeyFound()
+			// TODO show game menu, waiting for UI
+			// start moving the character, DONE in MovementController.keyPressed(), TODO move to Domain layer
+			setIsPaused(false);
+			return true;
 		}
-        return false;
-    }
-    public static Boolean pauseUnpause() {
-    	Boolean pauseButtonClicked;
-    	if (Game.getIsPaused()) {
-            pauseButtonClicked = Game.tryUnpauseGame();
-        }
-        else {
-            pauseButtonClicked = Game.tryPauseGame();
-        }
-    	return pauseButtonClicked;
-    }
+		catch(Exception e) {
+
+		}
+		return false;
+	}
+	public static Boolean pauseUnpause() {
+		Boolean pauseButtonClicked;
+		if (Game.getIsPaused()) {
+			pauseButtonClicked = Game.tryUnpauseGame();
+		}
+		else {
+			pauseButtonClicked = Game.tryPauseGame();
+		}
+		return pauseButtonClicked;
+	}
 	public static Boolean getIsPaused() {
 		return isPaused;
 	}
