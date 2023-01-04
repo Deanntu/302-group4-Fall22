@@ -1,8 +1,10 @@
 package com.gurup.domain.aliens;
 
 import java.awt.Color;
+import java.util.Random;
 
 import com.gurup.domain.Position;
+import com.gurup.domain.powerups.BottlePowerUp;
 
 public class BlindAlien implements Alien{
 
@@ -15,6 +17,8 @@ public class BlindAlien implements Alien{
 	private int y;
 	private boolean isActive = false;
 
+    private boolean bottleDetect = false;
+
     public BlindAlien(int xStart, int yStart, int xLimit, int yLimit) {
         this.xStart = xStart;
         this.yStart = yStart;
@@ -24,6 +28,15 @@ public class BlindAlien implements Alien{
 
     public BlindAlien() {
 		// TODO Auto-generated constructor stub
+        while(isActive && !bottleDetect) {
+            if(!bottleDetect) {
+                moveRandom();
+            }
+            //moveToBottle(destinationX,destinationY);
+
+        }
+
+
 	}
 
 	public void moveRight() {
@@ -116,4 +129,35 @@ public class BlindAlien implements Alien{
 	public void setName(String name) {
 		this.name = name;
 	}
+    public void moveToBottle(int destinationX, int destinationY) {
+        int currentX = this.getX();
+        int currentY = this.getY();
+
+
+    }
+    public void moveRandom(){
+        while (isActive) {
+            Random random = new Random();
+            int randomDirection = random.nextInt(4);
+
+            switch (randomDirection) {
+                case 0:
+                    moveUp();
+                case 1:
+                    moveDown();
+                case 2:
+                    moveLeft();
+                case 3:
+                    moveRight();
+            }
+        }
+    }
+
+    public boolean isBottleDetect() {
+        return bottleDetect;
+    }
+
+    public void setBottleDetect(boolean bottleDetect) {
+        this.bottleDetect = bottleDetect;
+    }
 }
