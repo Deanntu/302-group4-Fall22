@@ -116,4 +116,8 @@ public class ShooterAlien implements Alien{
     public void setName(String name) {
         this.name = name;
     }
+
+    public void shoot(){
+    //TODO
+    }
 }
