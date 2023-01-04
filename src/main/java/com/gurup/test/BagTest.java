@@ -64,13 +64,19 @@ public class BagTest {
 	@Test
 	public void testStorePowerUp() {
 		// Store two vest powerups and one bottle power up
+		assertTrue(bag.repOk());
 		bag.storePowerUp(setupPowerUps.get(2));
+		assertTrue(bag.repOk());
 		bag.storePowerUp(setupPowerUps.get(2));
+		assertTrue(bag.repOk());
 		bag.storePowerUp(setupPowerUps.get(3));
+		assertTrue(bag.repOk());
 
 		// Get the number of powerups in the bag
 		int numVestPowerUps = bag.getPowerUps().get(setupPowerUps.get(2));
+		assertTrue(bag.repOk());
 		int numBottlePowerUps = bag.getPowerUps().get(setupPowerUps.get(3));
+		assertTrue(bag.repOk());
 
 		// Check if the number of powerups in the bag is correct
 		assertEquals(2, numVestPowerUps);
@@ -80,18 +86,27 @@ public class BagTest {
 	@Test
 	public void testSelectExistingPowerUp() {
 		// Store two vest powerups and one bottle power up
+		assertTrue(bag.repOk());
 		bag.storePowerUp(setupPowerUps.get(2));
+		assertTrue(bag.repOk());
 		bag.storePowerUp(setupPowerUps.get(2));
+		assertTrue(bag.repOk());
 		bag.storePowerUp(setupPowerUps.get(3));
+		assertTrue(bag.repOk());
 
 
 		// Select two vest powerups
 		bag.selectPowerUp(setupPowerUps.get(2));
+		assertTrue(bag.repOk());
 		bag.selectPowerUp(setupPowerUps.get(2));
+		assertTrue(bag.repOk());
 
 		// Get the number of powerups in the bag
 		int numVestPowerUps = bag.getPowerUps().get(setupPowerUps.get(2));
+		assertTrue(bag.repOk());
 		int numBottlePowerUps = bag.getPowerUps().get(setupPowerUps.get(3));
+		assertTrue(bag.repOk());
+		
 
 		// Check if the number of powerups in the bag is correct
 		assertEquals(0, numVestPowerUps);
@@ -102,15 +117,21 @@ public class BagTest {
 	@Test
 	public void testSelectNonExistingPowerUp() {
 		// Store two vest powerups
+		assertTrue(bag.repOk());
 		bag.storePowerUp(setupPowerUps.get(2));
+		assertTrue(bag.repOk());
 		bag.storePowerUp(setupPowerUps.get(2));
 
 		// Select non-existing bottle powerup
+		assertTrue(bag.repOk());
 		bag.selectPowerUp(setupPowerUps.get(3));
 
 		// Get the number of powerups in the bag
+		assertTrue(bag.repOk());
 		int numVestPowerUps = bag.getPowerUps().get(setupPowerUps.get(2));
+		assertTrue(bag.repOk());
 		int numBottlePowerUps = bag.getPowerUps().get(setupPowerUps.get(3));
+		assertTrue(bag.repOk());
 
 		// Check if the number of powerups in the bag is correct
 		assertEquals(2, numVestPowerUps);
@@ -120,18 +141,25 @@ public class BagTest {
 	@Test
 	public void testSelectNull() {
 		// Store two vest powerups and one bottle power up
+		assertTrue(bag.repOk());
 		bag.storePowerUp(setupPowerUps.get(2));
+		assertTrue(bag.repOk());
 		bag.storePowerUp(setupPowerUps.get(2));
+		assertTrue(bag.repOk());
 		bag.storePowerUp(setupPowerUps.get(3));
+		assertTrue(bag.repOk());
 
 
 		// Select null
 		bag.selectPowerUp(null);
+		assertTrue(bag.repOk());
 
 
 		// Get the number of powerups in the bag
 		int numVestPowerUps = bag.getPowerUps().get(setupPowerUps.get(2));
+		assertTrue(bag.repOk());
 		int numBottlePowerUps = bag.getPowerUps().get(setupPowerUps.get(3));
+		assertTrue(bag.repOk());
 
 		// Check if the number of powerups in the bag is correct
 		assertEquals(2, numVestPowerUps);
@@ -141,18 +169,26 @@ public class BagTest {
 	@Test
 	public void testSelectNonStorablePowerUp() {
 		// Store two vest powerups and one bottle power up
+		assertTrue(bag.repOk());
 		bag.storePowerUp(setupPowerUps.get(2));
+		assertTrue(bag.repOk());
 		bag.storePowerUp(setupPowerUps.get(2));
+		assertTrue(bag.repOk());
 		bag.storePowerUp(setupPowerUps.get(3));
+		assertTrue(bag.repOk());
 
 		// Select non-storable time powerup
 		bag.selectPowerUp(setupPowerUps.get(0));
+		assertTrue(bag.repOk());
 		// Select non-storable health powerup
 		bag.selectPowerUp(setupPowerUps.get(1));
+		assertTrue(bag.repOk());
 
 		// Get the number of powerups in the bag
 		int numVestPowerUps = bag.getPowerUps().get(setupPowerUps.get(2));
+		assertTrue(bag.repOk());
 		int numBottlePowerUps = bag.getPowerUps().get(setupPowerUps.get(3));
+		assertTrue(bag.repOk());
 
 		// Check if the number of powerups in the bag is correct
 		assertEquals(2, numVestPowerUps);
