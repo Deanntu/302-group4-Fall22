@@ -106,12 +106,10 @@ public class AccountManager {
 
 	public boolean delete(String username) throws Exception {
 		Connection connection = DriverManager.getConnection(url, this.username, password);
-
 		String sql = "delete from useraccount where username =?";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setString(1, username);
 		int affected = statement.executeUpdate();
-
 		connection.close();
 		return affected > 0;
 	}
