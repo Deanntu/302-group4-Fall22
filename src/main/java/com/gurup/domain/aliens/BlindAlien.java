@@ -1,21 +1,25 @@
 package com.gurup.domain.aliens;
 
+import java.awt.Rectangle;
+
+import com.gurup.domain.room.Room;
+
 public class BlindAlien implements Alien {
 
 	private String name = "Blind";
 	private int xStart;
 	private int yStart;
-	private int xLimit;
-	private int yLimit;
-	private int x;
-	private int y;
+	private int xLen;
+	private int yLen;
+	private int xCurrent;
+	private int yCurrent;
 	private boolean isActive = false;
 
-	public BlindAlien(int xStart, int yStart, int xLimit, int yLimit) {
+	public BlindAlien(int xStart, int yStart, int xLen, int yLen) {
 		this.xStart = xStart;
 		this.yStart = yStart;
-		this.xLimit = xLimit;
-		this.yLimit = yLimit;
+		this.xLen = xLen;
+		this.yLen = yLen;
 	}
 
 	public BlindAlien() {
@@ -23,80 +27,47 @@ public class BlindAlien implements Alien {
 	}
 
 	public void moveRight() {
-		if (this.getX() >= this.getxLimit()) {
-			this.setX(this.getxLimit());
+		if (this.xCurrent >= Room.getXLimit()) {
+			this.xCurrent = (Room.getXLimit());
 		} else {
-			this.setX(this.getX() + 10);
+			this.xCurrent = (this.xCurrent + 10);
 		}
 	}
-
+	
 	public void moveLeft() {
-		if (this.getX() <= this.getstartX()) {
-			this.setX(this.getstartX());
+		if (this.xCurrent <= Room.getstartX()) {
+			this.xCurrent = (Room.getstartX());
 		} else {
-			this.setX(this.getX() - 10);
+			this.xCurrent = (this.xCurrent - 10);
 		}
 	}
-
+	
 	public void moveUp() {
-		if (this.getY() <= this.getstartY()) {
-			this.setY(this.getstartY());
+		if (this.yCurrent <= Room.getstartY()) {
+			this.yCurrent = (Room.getstartY());
 		} else {
-			this.setY(this.getY() - 10);
+			this.yCurrent = (this.yCurrent - 10);
 		}
 	}
-
+	
 	public void moveDown() {
-		if (this.getY() >= this.getyLimit()) {
-			this.setY(this.getyLimit());
+		if (this.yCurrent >= Room.getYLimit()) {
+			this.yCurrent = (Room.getYLimit());
 		} else {
-			this.setY(this.getY() + 10);
+			this.yCurrent = (this.yCurrent + 10);
 		}
 	}
 
-	public int[] rectArray() {
-		int[] rectValues = { getX(), getY(), this.getxLimit(), this.getyLimit() };
-		return rectValues;
+	public Rectangle getRectangle() {
+		return new Rectangle(xCurrent, yCurrent, xLen, yLen);
 	}
 
-	public int getX() {
-		return x;
+	public String getName() {
+		return name;
 	}
 
-	public void setX(int x) {
-		this.x = x;
-	}
-
-	public int getxLimit() {
-		return xLimit;
-	}
-
-	public void setxLimit(int xLimit) {
-		this.xLimit = xLimit;
-	}
-
-	public int getY() {
-		return y;
-	}
-
-	public void setY(int y) {
-		this.y = y;
-	}
-
-	public int getyLimit() {
-		return yLimit;
-	}
-
-	public void setyLimit(int yLimit) {
-		this.yLimit = yLimit;
-	}
-
-	public int getstartX() {
-		return xStart;
-	}
-
-	public int getstartY() {
-		return yStart;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public boolean isActive() {
@@ -107,11 +78,57 @@ public class BlindAlien implements Alien {
 		this.isActive = isActive;
 	}
 
-	public String getName() {
-		return name;
+	public int getXStart() {
+		return xStart;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setXStart(int xStart) {
+		this.xStart = xStart;
+	}
+
+	public int getYStart() {
+		return yStart;
+	}
+
+	public void setYStart(int yStart) {
+		this.yStart = yStart;
+	}
+
+	public int getXLen() {
+		return xLen;
+	}
+
+	public void setXLen(int xLen) {
+		this.xLen = xLen;
+	}
+
+	public int getYLen() {
+		return yLen;
+	}
+
+	public void setYLen(int yLen) {
+		this.yLen = yLen;
+	}
+
+	public int getXCurrent() {
+		return xCurrent;
+	}
+
+	public void setXCurrent(int xCurrent) {
+		this.xCurrent = xCurrent;
+	}
+
+	public int getYCurrent() {
+		return yCurrent;
+	}
+
+	public void setYCurrent(int yCurrent) {
+		this.yCurrent = yCurrent;
+	}
+
+	@Override
+	public int[] rectArray() {
+		int[] rectValues = {xCurrent, yCurrent, xLen, yLen};
+		return rectValues;
 	}
 }

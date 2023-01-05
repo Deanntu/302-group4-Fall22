@@ -83,8 +83,8 @@ public class Player {
 	}
 	
 	public void moveRight() {
-		if (this.xCurrent >= Room.getxLimit()) {
-			this.xCurrent = (Room.getxLimit());
+		if (this.xCurrent >= Room.getXLimit()) {
+			this.xCurrent = (Room.getXLimit());
 		} else {
 			this.xCurrent = (this.xCurrent + 10);
 		}
@@ -107,8 +107,8 @@ public class Player {
 	}
 	
 	public void moveDown() {
-		if (this.yCurrent >= Room.getyLimit()) {
-			this.yCurrent = (Room.getyLimit());
+		if (this.yCurrent >= Room.getYLimit()) {
+			this.yCurrent = (Room.getYLimit());
 		} else {
 			this.yCurrent = (this.yCurrent + 10);
 		}

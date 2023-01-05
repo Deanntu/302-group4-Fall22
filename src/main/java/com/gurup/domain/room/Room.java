@@ -9,6 +9,7 @@ import com.gurup.domain.Game;
 import com.gurup.domain.Player;
 import com.gurup.domain.TimerOperationResults;
 import com.gurup.domain.aliens.Alien;
+import com.gurup.domain.aliens.AlienConstants;
 import com.gurup.domain.aliens.BlindAlien;
 import com.gurup.domain.aliens.ShooterAlien;
 import com.gurup.domain.powerups.BottlePowerUp;
@@ -165,13 +166,13 @@ public class Room {
 				int[] newXandY = getRandomLocation();
 				switch (randomIndex) {
 				case 0:
-					createdAlien = new BlindAlien(10, 10, 40, 40);
+					createdAlien = new BlindAlien(10, 10, AlienConstants.xLen.getValue(), AlienConstants.yLen.getValue());
 					break;
 				case 1:
-					createdAlien = new ShooterAlien(10, 10, 40, 40);
+					createdAlien = new ShooterAlien(10, 10, AlienConstants.xLen.getValue(), AlienConstants.yLen.getValue());
 				}
-				createdAlien.setX(newXandY[0]);
-				createdAlien.setY(newXandY[1]);
+				createdAlien.setXCurrent(newXandY[0]);
+				createdAlien.setYCurrent(newXandY[1]);
 				createdAlien.setActive(true);
 				alienCreationCounter = 1;
 			} else {
@@ -192,19 +193,19 @@ public class Room {
 
 
 
-	public static int getxLimit() {
+	public static int getXLimit() {
 		return xLimit;
 	}
 
-	public void setxLimit(int xLimit) {
+	public void setXLimit(int xLimit) {
 		Room.xLimit = xLimit;
 	}
 
-	public static int getyLimit() {
+	public static int getYLimit() {
 		return yLimit;
 	}
 
-	public void setyLimit(int yLimit) {
+	public void setYLimit(int yLimit) {
 		Room.yLimit = yLimit;
 	}
 
