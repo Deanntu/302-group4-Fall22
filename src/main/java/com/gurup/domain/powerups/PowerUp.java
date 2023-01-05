@@ -9,10 +9,10 @@ public interface PowerUp {
 	boolean isActive();
 	void setIsActive(boolean b);
 	//void draw(Graphics g);
-	void setX(int i);
-	void setXLimit(int i);
-	void setY(int i);
-	void setYLimit(int i);
+	void setXCurrent(int i);
+	void setXLen(int i);
+	void setYCurrent(int i);
+	void setYLen(int i);
 	int[] rectArray();
 	String getName();
 	int getSlotId();

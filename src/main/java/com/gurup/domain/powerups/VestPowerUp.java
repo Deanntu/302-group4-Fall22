@@ -1,6 +1,5 @@
 package com.gurup.domain.powerups;
 
-import java.awt.Point;
 import java.awt.Rectangle;
 
 import com.gurup.domain.Player;
@@ -10,12 +9,12 @@ public class VestPowerUp implements PowerUp {
 	private static VestPowerUp vestPowerUp;
 	private Player player;
 	private String name = "vest";
-	private int protectionDurationSeconds = 20;
+	private final int protectionDurationSeconds = 20;
 	private boolean storable = true;
-	private int xLimit;
-	private int yLimit;
-	private int x;
-	private int y;
+	private int xLen;
+	private int yLen;
+	private int xCurrent;
+	private int yCurrent;
 	private boolean isActive = false;
 	private Integer slotId = 0;
 
@@ -47,7 +46,7 @@ public class VestPowerUp implements PowerUp {
 
 	@Override
 	public Rectangle getRectangle() {
-		return new Rectangle(x, y, xLimit, yLimit);
+		return new Rectangle(xCurrent, yCurrent, xLen, yLen);
 	}
 
 	@Override
@@ -60,48 +59,41 @@ public class VestPowerUp implements PowerUp {
 		isActive = b;
 	}
 
-	/*
-	 * @Override public void draw(Graphics g) { Point pos = new Point(getX(),
-	 * getY()); if(isActive) { g.setColor(Color.ORANGE); g.fillOval((int)
-	 * pos.getX(), (int) pos.getY(), this.getxLimit(), this.getyLimit()); } }
-	 */
-
-	public int getxLimit() {
-		return xLimit;
+	public int getXLen() {
+		return xLen;
 	}
 
-	public void setXLimit(int xLimit) {
-		this.xLimit = xLimit;
+	public void setXLen(int xLen) {
+		this.xLen = xLen;
 	}
 
-	public int getyLimit() {
-		return yLimit;
+	public int getYLen() {
+		return yLen;
 	}
 
-	public void setYLimit(int yLimit) {
-		this.yLimit = yLimit;
+	public void setYLen(int yLen) {
+		this.yLen = yLen;
 	}
 
-	public int getX() {
-		return x;
+	public int getXCurrent() {
+		return xCurrent;
 	}
 
-	public void setX(int x) {
-		this.x = x;
+	public void setXCurrent(int x) {
+		this.xCurrent = x;
 	}
 
-	public int getY() {
-		return y;
+	public int getYCurrent() {
+		return yCurrent;
 	}
 
-	public void setY(int y) {
-		this.y = y;
+	public void setYCurrent(int y) {
+		this.yCurrent = y;
 	}
 
 	@Override
 	public int[] rectArray() {
-		Point pos = new Point(getX(), getY());
-		int[] rectValues = { (int) pos.getX(), (int) pos.getY(), this.getxLimit(), this.getyLimit() };
+		int[] rectValues = { this.xCurrent, this.yCurrent, this.xLen, this.yLen };
 		return rectValues;
 	}
 

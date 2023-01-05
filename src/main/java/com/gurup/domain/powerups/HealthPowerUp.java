@@ -1,6 +1,5 @@
 package com.gurup.domain.powerups;
 
-import java.awt.Point;
 import java.awt.Rectangle;
 
 import com.gurup.domain.Player;
@@ -10,12 +9,12 @@ public class HealthPowerUp implements PowerUp {
 	private static HealthPowerUp healthPowerUp;
 	private Player player;
 	private String name = "health";
-	private int healthIncreaseConstant = 1;
+	private final int healthIncreaseConstant = 1;
 	private boolean storable = false;
-	private int xLimit;
-	private int yLimit;
-	private int x;
-	private int y;
+	private int xLen;
+	private int yLen;
+	private int xCurrent;
+	private int yCurrent;
 	private boolean isActive = false;
 	private Integer slotId = null;
 
@@ -43,74 +42,65 @@ public class HealthPowerUp implements PowerUp {
 
 	@Override
 	public boolean isStorable() {
-		// TODO Auto-generated method stub
 		return storable;
 	}
 
+	@Override
 	public Rectangle getRectangle() {
-		// TODO Auto-generated method stub
-		return new Rectangle(x, y, xLimit, yLimit);
+		return new Rectangle(xCurrent, yCurrent, xLen, yLen);
 	}
 
-	public int getxLimit() {
-		return xLimit;
-	}
-
-	public void setXLimit(int xLimit) {
-		this.xLimit = xLimit;
-	}
-
-	public int getyLimit() {
-		return yLimit;
-	}
-
-	public void setYLimit(int yLimit) {
-		this.yLimit = yLimit;
-	}
-
-	public int getX() {
-		return x;
-	}
-
-	public void setX(int x) {
-		this.x = x;
-	}
-
-	public int getY() {
-		return y;
-	}
-
-	public void setY(int y) {
-		this.y = y;
-	}
-
+	@Override
 	public boolean isActive() {
 		return isActive;
 	}
 
-	public void setIsActive(boolean isActive) {
-		this.isActive = isActive;
+	@Override
+	public void setIsActive(boolean b) {
+		isActive = b;
 	}
 
+	public int getXLen() {
+		return xLen;
+	}
+
+	public void setXLen(int xLen) {
+		this.xLen = xLen;
+	}
+
+	public int getYLen() {
+		return yLen;
+	}
+
+	public void setYLen(int yLen) {
+		this.yLen = yLen;
+	}
+
+	public int getXCurrent() {
+		return xCurrent;
+	}
+
+	public void setXCurrent(int x) {
+		this.xCurrent = x;
+	}
+
+	public int getYCurrent() {
+		return yCurrent;
+	}
+
+	public void setYCurrent(int y) {
+		this.yCurrent = y;
+	}
+
+	@Override
 	public int[] rectArray() {
-		Point pos = new Point(getX(), getY());
-		int[] rectValues = { (int) pos.getX(), (int) pos.getY(), this.getxLimit(), this.getyLimit() };
+		int[] rectValues = { this.xCurrent, this.yCurrent, this.xLen, this.yLen };
 		return rectValues;
-
 	}
-	/*
-	 * public void draw(Graphics g) { // TODO Auto-generated method stub Point pos =
-	 * new Point(getX(), getY()); if(isActive) { g.setColor(Color.cyan);
-	 * g.fillOval((int) pos.getX(), (int) pos.getY(), this.getxLimit(),
-	 * this.getyLimit()); } }
-	 */
 
+	@Override
 	public String getName() {
 		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	@Override

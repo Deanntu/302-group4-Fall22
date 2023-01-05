@@ -117,15 +117,16 @@ public class Room {
 
 		if (timeCounter % (1000 / delayMiliSeconds) == 0) {
 			timeCounter = 1;
-			if (powerUpCreationCounter == 12) {
+			if (powerUpCreationCounter == 2) {
 				int[] newXandY = getRandomLocation();
 				if (created != null)
 					created.setIsActive(false);
 				int randomIndex = random.nextInt(powerUps.size());
+				randomIndex = 3;
 				System.out.println(randomIndex);
 				created = powerUps.get(randomIndex);
-				created.setX(newXandY[0]);
-				created.setY(newXandY[1]);
+				created.setXCurrent(newXandY[0]);
+				created.setYCurrent(newXandY[1]);
 				created.setIsActive(true);
 				powerUpCreationCounter = 1;
 				/*
@@ -277,25 +278,25 @@ public class Room {
 		VestPowerUp v = VestPowerUp.getInstance(player);
 		BottlePowerUp b = BottlePowerUp.getInstance(player);
 		ThrownBottlePowerUp.getInstance(player);
-		t.setX(420);
-		t.setXLimit(50);
-		t.setY(320);
-		t.setYLimit(50);
+		t.setXCurrent(420);
+		t.setXLen(50);
+		t.setYCurrent(320);
+		t.setYLen(50);
 
-		h.setX(420);
-		h.setXLimit(50);
-		h.setY(320);
-		h.setYLimit(50);
+		h.setXCurrent(420);
+		h.setXLen(50);
+		h.setYCurrent(320);
+		h.setYLen(50);
 
-		v.setX(420);
-		v.setXLimit(50);
-		v.setY(320);
-		v.setYLimit(50);
+		v.setXCurrent(420);
+		v.setXLen(50);
+		v.setYCurrent(320);
+		v.setYLen(50);
 
-		b.setX(420);
-		b.setXLimit(30);
-		b.setY(320);
-		b.setYLimit(50);
+		b.setXCurrent(420);
+		b.setXLen(50);
+		b.setYCurrent(320);
+		b.setYLen(50);
 
 		powerUps.add(t);
 		powerUps.add(h);

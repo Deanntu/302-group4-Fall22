@@ -35,7 +35,14 @@ public class PowerUpController implements KeyListener{
 		if (e.getKeyCode() == KeyEvent.VK_B) {
 			bag.selectPowerUp(BottlePowerUp.getInstance(null));
 			if(BottlePowerUp.getInstance(null).isUsable()) {
+				boolean temp = false;// TODO
+				if(BottlePowerUp.getInstance(null).isActive()) { // TODO
+					temp = true;// TODO
+				}// TODO
 				BottlePowerUp.getInstance(null).usePowerUp();
+				if(temp) { //TODO
+					BottlePowerUp.getInstance(null).setIsActive(temp);// TODO
+				}// TODO
 			}
 		}
 		// TODO Movement of Bottle;
