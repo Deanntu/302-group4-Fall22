@@ -170,30 +170,30 @@ public class Game {
 		}
 		return false;
 	}
-    private static Boolean tryUnpauseGame() {
-        try {
-            // unpause timer DONE in player.decrementTime()
-            // start checking for clicks in RunningModeScreen DONE in Room.isKeyFound()
-            // TODO show game menu, waiting for UI
-            // start moving the character, DONE in MovementController.keyPressed(), TODO move to Domain layer
-            setIsPaused(false);
-            return true;
-        }
+	private static Boolean tryUnpauseGame() {
+		try {
+			// unpause timer DONE in player.decrementTime()
+			// start checking for clicks in RunningModeScreen DONE in Room.isKeyFound()
+			// TODO show game menu, waiting for UI
+			// start moving the character, DONE in MovementController.keyPressed(), TODO move to Domain layer
+			setIsPaused(false);
+			return true;
+		}
 		catch(Exception e) {
 
 		}
-        return false;
-    }
-    public static Boolean pauseUnpause() {
-    	Boolean pauseButtonClicked;
-    	if (Game.getIsPaused()) {
-            pauseButtonClicked = Game.tryUnpauseGame();
-        }
-        else {
-            pauseButtonClicked = Game.tryPauseGame();
-        }
-    	return pauseButtonClicked;
-    }
+		return false;
+	}
+	public static Boolean pauseUnpause() {
+		Boolean pauseButtonClicked;
+		if (Game.getIsPaused()) {
+			pauseButtonClicked = Game.tryUnpauseGame();
+		}
+		else {
+			pauseButtonClicked = Game.tryPauseGame();
+		}
+		return pauseButtonClicked;
+	}
 	public static Boolean getIsPaused() {
 		return isPaused;
 	}
