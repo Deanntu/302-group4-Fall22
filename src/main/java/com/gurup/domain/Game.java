@@ -161,7 +161,7 @@ public class Game {
 			// stop checking for clicks in RunningModeScreen DONE in Room.isKeyFound()
 			// TODO show pause menu, waiting for UI
 			// stop moving the character, DONE in MovementController.keyPressed(), TODO move to Domain layer
-			saveGame();//TODO Game will be saved in pause screen by user request please change and delete this line
+			//saveGame();//TODO Game will be saved in pause screen by user request please change and delete this line
 			setIsPaused(true);
 			return true;
 		}
