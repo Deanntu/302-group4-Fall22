@@ -1,14 +1,12 @@
 package com.gurup.domain.powerups;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 
 import com.gurup.domain.Player;
 
 public class VestPowerUp implements PowerUp {
-	
+
 	private static VestPowerUp vestPowerUp;
 	private Player player;
 	private String name = "vest";
@@ -20,18 +18,18 @@ public class VestPowerUp implements PowerUp {
 	private int y;
 	private boolean isActive = false;
 	private Integer slotId = 0;
-	
+
 	private VestPowerUp(Player player) {
 		this.player = player;
 	}
-	
+
 	public static synchronized VestPowerUp getInstance(Player player) {
 		if (vestPowerUp == null) {
 			vestPowerUp = new VestPowerUp(player);
 		}
 		return vestPowerUp;
 	}
-	
+
 	@Override
 	public void usePowerUp() {
 		activatePowerUp();
@@ -62,20 +60,17 @@ public class VestPowerUp implements PowerUp {
 		isActive = b;
 	}
 
-	/*@Override
-	public void draw(Graphics g) {
-		Point pos = new Point(getX(), getY());
-		if(isActive) {
-			g.setColor(Color.ORANGE);
-			g.fillOval((int) pos.getX(), (int) pos.getY(), this.getxLimit(), this.getyLimit());
-		}
-	}*/
+	/*
+	 * @Override public void draw(Graphics g) { Point pos = new Point(getX(),
+	 * getY()); if(isActive) { g.setColor(Color.ORANGE); g.fillOval((int)
+	 * pos.getX(), (int) pos.getY(), this.getxLimit(), this.getyLimit()); } }
+	 */
 
 	public int getxLimit() {
 		return xLimit;
 	}
 
-	public void setxLimit(int xLimit) {
+	public void setXLimit(int xLimit) {
 		this.xLimit = xLimit;
 	}
 
@@ -83,7 +78,7 @@ public class VestPowerUp implements PowerUp {
 		return yLimit;
 	}
 
-	public void setyLimit(int yLimit) {
+	public void setYLimit(int yLimit) {
 		this.yLimit = yLimit;
 	}
 
@@ -106,7 +101,7 @@ public class VestPowerUp implements PowerUp {
 	@Override
 	public int[] rectArray() {
 		Point pos = new Point(getX(), getY());
-		int[] rectValues = {(int) pos.getX(), (int) pos.getY(), this.getxLimit(), this.getyLimit()};
+		int[] rectValues = { (int) pos.getX(), (int) pos.getY(), this.getxLimit(), this.getyLimit() };
 		return rectValues;
 	}
 

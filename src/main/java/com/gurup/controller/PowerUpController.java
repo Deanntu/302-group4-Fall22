@@ -1,6 +1,5 @@
 package com.gurup.controller;
 
-import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -15,13 +14,8 @@ import com.gurup.ui.gamescreen.RunningModeScreen;
 public class PowerUpController implements KeyListener{
 	
 	private Bag bag;
-
-	private RunningModeScreen runningModeScreen;
-	private boolean bottleFlag = false;
-	private Graphics g;
 	
 	public PowerUpController(Bag bag, RunningModeScreen runningModeScreen) {
-		this.runningModeScreen = runningModeScreen;
 		this.bag = bag;
 		runningModeScreen.addKeyListener(this);
 	}

@@ -1,7 +1,6 @@
 package com.gurup.domain.powerups;
 
 import java.awt.Rectangle;
-import java.awt.Toolkit;
 
 import com.gurup.domain.Player;
 
@@ -29,7 +28,9 @@ public class ThrownBottlePowerUp implements PowerUp {
 		minY = player.getstartY();
 		maxX = player.getxLimit();
 		maxY = player.getyLimit();
-		//System.out.printf("player's minx: %d, miny: %d, maxx: %d, maxy: %d%n", player.getstartX(), player.getstartY(), player.getxLimit(), player.getyLimit());
+		// System.out.printf("player's minx: %d, miny: %d, maxx: %d, maxy: %d%n",
+		// player.getstartX(), player.getstartY(), player.getxLimit(),
+		// player.getyLimit());
 	}
 
 	public static synchronized ThrownBottlePowerUp getInstance(Player player) {
@@ -42,7 +43,8 @@ public class ThrownBottlePowerUp implements PowerUp {
 	public void usePowerUp(String direction) {
 		// EFFECTS: if not used yet, create a thrown bottle at the target direction
 		// else, do nothing
-		// if the range extends further than a wall, put it within the borders of the room
+		// if the range extends further than a wall, put it within the borders of the
+		// room
 		if (isUsable) {
 			setThrowDestinationAndSource();
 			switch (direction) {
@@ -58,7 +60,7 @@ public class ThrownBottlePowerUp implements PowerUp {
 				break;
 			case "left":
 				moveLeft();
-				//System.out.println("Moved to left");
+				// System.out.println("Moved to left");
 				setUsable(false);
 				setUsed(true);
 				break;
@@ -69,7 +71,7 @@ public class ThrownBottlePowerUp implements PowerUp {
 				break;
 			}
 		}
-		
+
 	}
 
 	public boolean isUsable() {
@@ -96,7 +98,8 @@ public class ThrownBottlePowerUp implements PowerUp {
 			this.setX(player.getX() - 100);
 		}
 		this.setY(player.getY());
-		//System.out.printf("bottle x: %d , bottle y: %d, bottle xlimit: %d, bottle ylimit: %d%n", this.x, this.y, this.xLimit, this.yLimit);
+		// System.out.printf("bottle x: %d , bottle y: %d, bottle xlimit: %d, bottle
+		// ylimit: %d%n", this.x, this.y, this.xLimit, this.yLimit);
 	}
 
 	public void moveUp() {
@@ -146,19 +149,11 @@ public class ThrownBottlePowerUp implements PowerUp {
 
 	}
 
-	private int getstartX() {
-		return Toolkit.getDefaultToolkit().getScreenSize().width - 100 + 50;
-	}
-
-	private int getstartY() {
-		return Toolkit.getDefaultToolkit().getScreenSize().height - 175 + 50;
-	}
-
 	public int getxLimit() {
 		return xLimit;
 	}
 
-	public void setxLimit(int xLimit) {
+	public void setXLimit(int xLimit) {
 		this.xLimit = xLimit;
 	}
 
@@ -166,7 +161,7 @@ public class ThrownBottlePowerUp implements PowerUp {
 		return yLimit;
 	}
 
-	public void setyLimit(int yLimit) {
+	public void setYLimit(int yLimit) {
 		this.yLimit = yLimit;
 	}
 
@@ -232,7 +227,7 @@ public class ThrownBottlePowerUp implements PowerUp {
 	public int[] getThrowSource() {
 		return throwSource;
 	}
-	
+
 	public static void setNull() {
 		thrownBottlePowerUp = null;
 	}

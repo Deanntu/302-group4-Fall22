@@ -103,7 +103,7 @@ public class BottlePowerUp implements PowerUp {
 		return xLimit;
 	}
 
-	public void setxLimit(int xLimit) {
+	public void setXLimit(int xLimit) {
 		this.xLimit = xLimit;
 	}
 
@@ -111,7 +111,7 @@ public class BottlePowerUp implements PowerUp {
 		return yLimit;
 	}
 
-	public void setyLimit(int yLimit) {
+	public void setYLimit(int yLimit) {
 		this.yLimit = yLimit;
 	}
 

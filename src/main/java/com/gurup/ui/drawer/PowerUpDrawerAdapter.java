@@ -4,6 +4,7 @@ import java.awt.Graphics;
 
 public class PowerUpDrawerAdapter implements DrawAdapter {
 	PowerUpDrawer powerDrawer;
+
 	public PowerUpDrawerAdapter() {
 		powerDrawer = new PowerUpDrawer();
 	}

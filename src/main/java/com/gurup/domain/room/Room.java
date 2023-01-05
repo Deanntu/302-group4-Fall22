@@ -119,7 +119,7 @@ public class Room {
 
 		if (timeCounter % (1000 / delayMiliSeconds) == 0) {
 			timeCounter = 1;
-			if (powerUpCreationCounter == 12) {
+			if (powerUpCreationCounter == 2) {
 				int[] newXandY = getRandomLocation();
 				if (created != null)
 					created.setIsActive(false);
@@ -146,29 +146,32 @@ public class Room {
 		}
 		return TimerOperationResults.TIME_UP;
 	}
+
 	private int[] getRandomLocation() {
 		Random random = new Random();
-		int tempX = random.nextInt(Toolkit.getDefaultToolkit().getScreenSize().width-100-50);
-		int tempY = random.nextInt(Toolkit.getDefaultToolkit().getScreenSize().height-175-50);
-		tempX+=50; // These are added since random.nextInt with 2 arguments does not work on older versions of Java.
-		tempY+=50;
-		int[] locations = {tempX,tempY};
+		int tempX = random.nextInt(Toolkit.getDefaultToolkit().getScreenSize().width - 100 - 50);
+		int tempY = random.nextInt(Toolkit.getDefaultToolkit().getScreenSize().height - 175 - 50);
+		tempX += 50; // These are added since random.nextInt with 2 arguments does not work on older
+						// versions of Java.
+		tempY += 50;
+		int[] locations = { tempX, tempY };
 		return locations;
 	}
+
 	public TimerOperationResults createAlien(int delayMiliSeconds) {
 		if (Game.getIsPaused())
 			return TimerOperationResults.PAUSED;
 		Random random = new Random();
 		if (timeCounter % (1000 / delayMiliSeconds) == 0) {
-			if (alienCreationCounter == 10) {
+			if (alienCreationCounter == 3) {
 				int randomIndex = random.nextInt(2);
 				int[] newXandY = getRandomLocation();
-				switch(randomIndex){
-					case 0:
-						createdAlien = new BlindAlien(10, 10, 40, 40);
-						break;
-					case 1:
-						createdAlien = new ShooterAlien(10, 10, 40, 40);
+				switch (randomIndex) {
+				case 0:
+					createdAlien = new BlindAlien(10, 10, 40, 40);
+					break;
+				case 1:
+					createdAlien = new ShooterAlien(10, 10, 40, 40);
 				}
 				createdAlien.setX(newXandY[0]);
 				createdAlien.setY(newXandY[1]);
@@ -278,7 +281,7 @@ public class Room {
 		return created;
 	}
 
-	public ArrayList <PowerUp> getPowerUps() {
+	public ArrayList<PowerUp> getPowerUps() {
 		return powerUps;
 	}
 
@@ -289,26 +292,26 @@ public class Room {
 		HealthPowerUp h = HealthPowerUp.getInstance(player);
 		VestPowerUp v = VestPowerUp.getInstance(player);
 		BottlePowerUp b = BottlePowerUp.getInstance(player);
-		ThrownBottlePowerUp tbp = ThrownBottlePowerUp.getInstance(player);
+		ThrownBottlePowerUp.getInstance(player);
 		t.setX(420);
-		t.setxLimit(50);
+		t.setXLimit(50);
 		t.setY(320);
-		t.setyLimit(50);
+		t.setYLimit(50);
 
 		h.setX(420);
-		h.setxLimit(50);
+		h.setXLimit(50);
 		h.setY(320);
-		h.setyLimit(50);
+		h.setYLimit(50);
 
 		v.setX(420);
-		v.setxLimit(50);
+		v.setXLimit(50);
 		v.setY(320);
-		v.setyLimit(50);
+		v.setYLimit(50);
 
 		b.setX(420);
-		b.setxLimit(30);
+		b.setXLimit(30);
 		b.setY(320);
-		b.setyLimit(50);
+		b.setYLimit(50);
 
 		powerUps.add(t);
 		powerUps.add(h);
@@ -321,6 +324,7 @@ public class Room {
 		// TODO Auto-generated method stub
 		return createdAlien;
 	}
+
 	public Key getKey() {
 		return key;
 	}
@@ -328,6 +332,5 @@ public class Room {
 	public void setKey(Key key) {
 		this.key = key;
 	}
-
 
 }

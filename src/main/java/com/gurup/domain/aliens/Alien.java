@@ -2,7 +2,6 @@ package com.gurup.domain.aliens;
 
 public interface Alien {
 
-
 	void setActive(boolean b);
 
 	void setX(int i);

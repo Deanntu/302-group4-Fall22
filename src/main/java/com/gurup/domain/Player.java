@@ -17,9 +17,6 @@ public class Player {
 	private int x;
 	private int y;
 	private int size;
-	private int xPosition;
-	private int yPosition;
-	Position positions;
 	BufferedImage student_image;
 
 
@@ -43,9 +40,6 @@ public class Player {
 		this.size = size;
 		this.remainingTime = startingTime;
 		timeCounter = 1;
-		positions = new Position();
-		this.xPosition = positions.getxPosition();
-		this.yPosition = positions.getyPosition();
 		life = 3;
 		setProtected(false);
 	}

@@ -32,7 +32,7 @@ public class Game {
 	private static RunningModeScreen runningModeScreen;
 	private static LoginScreen loginScreen;
 	private static MainMenuScreen mainMenuScreen;
-	
+
 	private static PauseAndResumeScreen pauseAndResumeScreen;
 	private static final int PLAYER_SIZE = 50;;
 	private static AccountManager accountManager;
@@ -42,12 +42,14 @@ public class Game {
 	private Game() {
 
 	}
+
 	public static synchronized Game getInstance() {
 		if (game == null) {
 			game = new Game();
 		}
 		return game;
 	}
+
 	public static void play() {
 		Game.screenMaker = new ScreenMaker();
 		Game.accountManager = new AccountManager();
@@ -73,9 +75,10 @@ public class Game {
 			e.printStackTrace();
 		}
 	}
-	private static void saveGame() {
-		
-		//TODO Change SaverType DATABASE to Variable
+
+	private static void saveGame() { // TODO i am used, do not delete me
+
+		// TODO Change SaverType DATABASE to Variable
 		GameSaver roomSaver = new GameSaver(SaverType.DATABASE, SaverType.ROOM);
 		GameSaver playerSaver = new GameSaver(SaverType.DATABASE, SaverType.PLAYER);
 		try {
@@ -86,24 +89,23 @@ public class Game {
 			e1.printStackTrace();
 		}
 	}
+
 	private static void inGame() {
-		player = new Player(Color.blue, 50, 50,
-				Toolkit.getDefaultToolkit().getScreenSize().width - 100,
-				Toolkit.getDefaultToolkit().getScreenSize().height - 175, PLAYER_SIZE,
-				60);
+		player = new Player(Color.blue, 50, 50, Toolkit.getDefaultToolkit().getScreenSize().width - 100,
+				Toolkit.getDefaultToolkit().getScreenSize().height - 175, PLAYER_SIZE, 60);
 		bag = new Bag(player);
 		room = new Room("Student Center", 50, 50, Toolkit.getDefaultToolkit().getScreenSize().width - 100,
 				Toolkit.getDefaultToolkit().getScreenSize().height - 175, player);
 		Game.getBag().setupBag(room.getPowerUps());
-		runningModeScreen = screenMaker.createRunningModeScreen(game, player, movementController, keyClickController, powerUpController,
-				room);
+		runningModeScreen = screenMaker.createRunningModeScreen(game, player, movementController, keyClickController,
+				powerUpController, room);
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				screenMaker.showRunningModeGUI(runningModeScreen);
 			}
 		});
 		movementController = new MovementController(player, runningModeScreen);
-		keyClickController = new KeyClickController(player, runningModeScreen, room);
+		keyClickController = new KeyClickController(runningModeScreen, room);
 		powerUpController = new PowerUpController(bag, runningModeScreen);
 		isPaused = false;
 		// running timer task as daemon thread
@@ -160,43 +162,47 @@ public class Game {
 			// pause timer DONE in player.decrementTime()
 			// stop checking for clicks in RunningModeScreen DONE in Room.isKeyFound()
 			// TODO show pause menu, waiting for UI
-			// stop moving the character, DONE in MovementController.keyPressed(), TODO move to Domain layer
-			//saveGame();//TODO Game will be saved in pause screen by user request please change and delete this line
+			// stop moving the character, DONE in MovementController.keyPressed(), TODO move
+			// to Domain layer
+			// saveGame();//TODO Game will be saved in pause screen by user request please
+			// change and delete this line
 			setIsPaused(true);
 			return true;
-		}
-		catch(Exception e) {
+		} catch (Exception e) {
 
 		}
 		return false;
 	}
+
 	private static Boolean tryUnpauseGame() {
 		try {
 			// unpause timer DONE in player.decrementTime()
 			// start checking for clicks in RunningModeScreen DONE in Room.isKeyFound()
 			// TODO show game menu, waiting for UI
-			// start moving the character, DONE in MovementController.keyPressed(), TODO move to Domain layer
+			// start moving the character, DONE in MovementController.keyPressed(), TODO
+			// move to Domain layer
 			setIsPaused(false);
 			return true;
-		}
-		catch(Exception e) {
+		} catch (Exception e) {
 
 		}
 		return false;
 	}
+
 	public static Boolean pauseUnpause() {
 		Boolean pauseButtonClicked;
 		if (Game.getIsPaused()) {
 			pauseButtonClicked = Game.tryUnpauseGame();
-		}
-		else {
+		} else {
 			pauseButtonClicked = Game.tryPauseGame();
 		}
 		return pauseButtonClicked;
 	}
+
 	public static Boolean getIsPaused() {
 		return isPaused;
 	}
+
 	public static void setIsPaused(Boolean isPaused) {
 		Game.isPaused = isPaused;
 	}

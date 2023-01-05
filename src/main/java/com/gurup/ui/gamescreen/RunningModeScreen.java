@@ -38,11 +38,10 @@ public class RunningModeScreen extends JPanel {
 	private Drawer powerUpDrawer = new Drawer("PowerUp");
 	private Drawer buildObjectDrawer = new Drawer("Object");
 	private Drawer alienDrawer = new Drawer("Alien");
-	private int[] throwDestination;
-	private int[] throwSource;
 	FontMetrics metrics;
 	Font font;
 	Bag bag;
+
 	public RunningModeScreen(Game game, Player player, MovementController movementController,
 			KeyClickController keyClickController, PowerUpController powerUpController, Room room) {
 
@@ -50,18 +49,19 @@ public class RunningModeScreen extends JPanel {
 		setFocusTraversalKeysEnabled(false);
 		this.player = player;
 		this.room = room;
-		this.bag= Game.getBag();
+		this.bag = Game.getBag();
 		this.setMovementController(movementController);
 		this.setKeyClickController(keyClickController);
 		this.setPowerUpController(powerUpController);
 		this.delayMiliSeconds = 20;
-		
+
 		JButton pauseButton = new JButton("Pause");
-		
+
 		pauseButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Game.pauseUnpause();
-				if(Game.getIsPaused()) pauseButton.setText("Resume");
+				if (Game.getIsPaused())
+					pauseButton.setText("Resume");
 				else {
 					pauseButton.setText("Pause");
 				}
@@ -94,36 +94,42 @@ public class RunningModeScreen extends JPanel {
 		int slotSizeX = 140;
 		int slotSizeY = 45;
 		int itemSize = 30;
-		int slotStartX = room.getstartX()+room.getxLimit()/2-slotSizeX/2;
-		int slotStartY = room.getstartY()+room.getyLimit();
+		int slotStartX = room.getstartX() + room.getxLimit() / 2 - slotSizeX / 2;
+		int slotStartY = room.getstartY() + room.getyLimit();
 		int fontSize = 14;
 		int numberOffsetX = 25;
 		int numberOffsetY = 14;
 		g.setColor(Color.BLACK);
 		g.draw3DRect(slotStartX, slotStartY, slotSizeX, slotSizeY, true);
-		g.draw3DRect(slotStartX-slotSizeX, slotStartY, slotSizeX, slotSizeY, true);
-		g.draw3DRect(slotStartX+slotSizeX, slotStartY, slotSizeX, slotSizeY, true);
-		g.setColor(Color.PINK );
-		g.fillOval(slotStartX+slotSizeX/2-itemSize/2, slotStartY+slotSizeY/2-itemSize/2, itemSize, itemSize);
-		g.drawImage(ImageLoader.vest_image,slotStartX+slotSizeX/2-itemSize/2-slotSizeX, slotStartY+slotSizeY/2-itemSize/2, itemSize, itemSize, null);
+		g.draw3DRect(slotStartX - slotSizeX, slotStartY, slotSizeX, slotSizeY, true);
+		g.draw3DRect(slotStartX + slotSizeX, slotStartY, slotSizeX, slotSizeY, true);
+		g.setColor(Color.PINK);
+		g.fillOval(slotStartX + slotSizeX / 2 - itemSize / 2, slotStartY + slotSizeY / 2 - itemSize / 2, itemSize,
+				itemSize);
+		g.drawImage(ImageLoader.vest_image, slotStartX + slotSizeX / 2 - itemSize / 2 - slotSizeX,
+				slotStartY + slotSizeY / 2 - itemSize / 2, itemSize, itemSize, null);
 		// TODO: update bottle image in bag
-		g.drawImage(ImageLoader.plastic_bottle_image,slotStartX+slotSizeX/2-itemSize/2+slotSizeX, slotStartY+slotSizeY/2-itemSize/2, itemSize/2, itemSize, null);
-		g.setColor(Color.DARK_GRAY );
+		g.drawImage(ImageLoader.plastic_bottle_image, slotStartX + slotSizeX / 2 - itemSize / 2 + slotSizeX,
+				slotStartY + slotSizeY / 2 - itemSize / 2, itemSize / 2, itemSize, null);
+		g.setColor(Color.DARK_GRAY);
 		g.setFont(new Font("Courier New", Font.BOLD, fontSize));
-		g.drawString("0", slotStartX+slotSizeX-numberOffsetX, slotStartY+numberOffsetY);
+		g.drawString("0", slotStartX + slotSizeX - numberOffsetX, slotStartY + numberOffsetY);
 		Integer vestCount = bag.getPowerUps().get(VestPowerUp.getInstance(player));
 		Integer bottleCount = bag.getPowerUps().get(BottlePowerUp.getInstance(player));
-		g.drawString(vestCount.toString(), slotStartX+slotSizeX-numberOffsetX-slotSizeX, slotStartY+numberOffsetY);
-		g.drawString(bottleCount.toString(), slotStartX+slotSizeX-numberOffsetX+slotSizeX, slotStartY+numberOffsetY);
+		g.drawString(vestCount.toString(), slotStartX + slotSizeX - numberOffsetX - slotSizeX,
+				slotStartY + numberOffsetY);
+		g.drawString(bottleCount.toString(), slotStartX + slotSizeX - numberOffsetX + slotSizeX,
+				slotStartY + numberOffsetY);
 		// TODO get other power up counts from the bag
 		setFont(g);
 	}
+
 	private void drawObjects(Graphics g) {
 		if (room.getCreated() != null && room.getCreated().isActive()) {
 			powerUpDrawer.draw(g, room.getCreated().rectArray(), room.getCreated().getName());
 		}
 		if (room.getCreatedAlien() != null && room.getCreatedAlien().isActive()) {
-			alienDrawer.draw(g, room.getCreatedAlien().rectArray() , room.getCreatedAlien().getName());
+			alienDrawer.draw(g, room.getCreatedAlien().rectArray(), room.getCreatedAlien().getName());
 		}
 		for (BuildingObject bo : room.getObjects()) {
 			buildObjectDrawer.draw(g, bo.rectArray(), bo.getName());
@@ -163,9 +169,11 @@ public class RunningModeScreen extends JPanel {
 		g.setColor(Color.BLACK);
 		g.draw3DRect(room.getstartX(), room.getstartY(), room.getxLimit(), room.getyLimit(), true);
 	}
+
 	private void animateBottle(Graphics g) {
-		if(ThrownBottlePowerUp.getInstance(null).isUsed()) {
-			powerUpDrawer.draw(g, ThrownBottlePowerUp.getInstance(null).rectArray(), ThrownBottlePowerUp.getInstance(null).getName());
+		if (ThrownBottlePowerUp.getInstance(null).isUsed()) {
+			powerUpDrawer.draw(g, ThrownBottlePowerUp.getInstance(null).rectArray(),
+					ThrownBottlePowerUp.getInstance(null).getName());
 		}
 	}
 

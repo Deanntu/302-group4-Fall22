@@ -1,14 +1,12 @@
 package com.gurup.domain.powerups;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 
 import com.gurup.domain.Player;
 
 public class TimePowerUp implements PowerUp {
-	
+
 	private static TimePowerUp timePowerUp;
 	private Player player;
 	private String name = "time";
@@ -24,7 +22,7 @@ public class TimePowerUp implements PowerUp {
 	private TimePowerUp(Player player) {
 		this.player = player;
 	}
-	
+
 	public static synchronized TimePowerUp getInstance(Player player) {
 		if (timePowerUp == null) {
 			timePowerUp = new TimePowerUp(player);
@@ -38,15 +36,6 @@ public class TimePowerUp implements PowerUp {
 		activatePowerUp();
 	}
 
-	private void refreshLocations() {
-		// TODO Auto-generated method stub
-		xLimit = 0;
-		yLimit = 0;
-		x = 0;
-		y = 0;
-	}
-
-
 	private void activatePowerUp() {
 		// TODO Auto-generated method stub
 		player.setRemainingTime(player.getRemainingTime() + timeIncreaseConstant);
@@ -56,7 +45,7 @@ public class TimePowerUp implements PowerUp {
 		return xLimit;
 	}
 
-	public void setxLimit(int xLimit) {
+	public void setXLimit(int xLimit) {
 		this.xLimit = xLimit;
 	}
 
@@ -64,7 +53,7 @@ public class TimePowerUp implements PowerUp {
 		return yLimit;
 	}
 
-	public void setyLimit(int yLimit) {
+	public void setYLimit(int yLimit) {
 		this.yLimit = yLimit;
 	}
 
@@ -102,21 +91,19 @@ public class TimePowerUp implements PowerUp {
 	public void setIsActive(boolean isActive) {
 		this.isActive = isActive;
 	}
+
 	public int[] rectArray() {
 		Point pos = new Point(getX(), getY());
-		int[] rectValues = {(int) pos.getX(), (int) pos.getY(), this.getxLimit(), this.getyLimit()};
+		int[] rectValues = { (int) pos.getX(), (int) pos.getY(), this.getxLimit(), this.getyLimit() };
 		return rectValues;
-	
+
 	}
-	/*@Override
-	public void draw(Graphics g) {
-		// TODO Auto-generated method stub
-		Point pos = new Point(getX(), getY());
-		if(isActive) {
-			g.setColor(Color.black);		
-			g.fillOval((int) pos.getX(), (int) pos.getY(), this.getxLimit(), this.getyLimit());
-		}
-	}*/
+	/*
+	 * @Override public void draw(Graphics g) { // TODO Auto-generated method stub
+	 * Point pos = new Point(getX(), getY()); if(isActive) {
+	 * g.setColor(Color.black); g.fillOval((int) pos.getX(), (int) pos.getY(),
+	 * this.getxLimit(), this.getyLimit()); } }
+	 */
 
 	public String getName() {
 		return name;
@@ -125,6 +112,7 @@ public class TimePowerUp implements PowerUp {
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	@Override
 	public int getSlotId() {
 		return slotId;

@@ -1,5 +1,15 @@
 package com.gurup.test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.awt.Color;
+import java.awt.Toolkit;
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import com.gurup.domain.Bag;
 import com.gurup.domain.Player;
 import com.gurup.domain.powerups.BottlePowerUp;
@@ -8,14 +18,6 @@ import com.gurup.domain.powerups.PowerUp;
 import com.gurup.domain.powerups.ThrownBottlePowerUp;
 import com.gurup.domain.powerups.TimePowerUp;
 import com.gurup.domain.powerups.VestPowerUp;
-
-import java.awt.Color;
-import java.awt.Toolkit;
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 public class BagTest {
 	static Bag bag;
@@ -33,26 +35,26 @@ public class BagTest {
 		HealthPowerUp h = HealthPowerUp.getInstance(player);
 		VestPowerUp v = VestPowerUp.getInstance(player);
 		BottlePowerUp b = BottlePowerUp.getInstance(player);
-		ThrownBottlePowerUp tbp = ThrownBottlePowerUp.getInstance(player);
+		ThrownBottlePowerUp.getInstance(player);
 		t.setX(420);
-		t.setxLimit(50);
+		t.setXLimit(50);
 		t.setY(320);
-		t.setyLimit(50);
+		t.setYLimit(50);
 
 		h.setX(420);
-		h.setxLimit(50);
+		h.setXLimit(50);
 		h.setY(320);
-		h.setyLimit(50);
+		h.setYLimit(50);
 
 		v.setX(420);
-		v.setxLimit(50);
+		v.setXLimit(50);
 		v.setY(320);
-		v.setyLimit(50);
+		v.setYLimit(50);
 
 		b.setX(420);
-		b.setxLimit(50);
+		b.setXLimit(30);
 		b.setY(320);
-		b.setyLimit(50);
+		b.setYLimit(50);
 
 		setupPowerUps.add(t);
 		setupPowerUps.add(h);
