@@ -69,10 +69,12 @@ public class Room {
 			// System.out.println("Did not click inside the room");
 			return false;
 		}
+
 		if (Game.getIsPaused()) {
 			// System.out.println("Cannot look for key if the game is paused. ");
 			return false;
 		}
+
 		BuildingObject containerObject = key.getBuildingObject();
 		Rectangle playerRect = new Rectangle(player.getX(), player.getY(), player.getSize(), player.getSize());
 		for (BuildingObject bo : objects) {
@@ -117,11 +119,12 @@ public class Room {
 
 		if (timeCounter % (1000 / delayMiliSeconds) == 0) {
 			timeCounter = 1;
-			if (powerUpCreationCounter == 12) {
+			if (powerUpCreationCounter == 2) {
 				int[] newXandY = getRandomLocation();
 				if (created != null)
 					created.setIsActive(false);
 				int randomIndex = random.nextInt(powerUps.size());
+				randomIndex = 3; // TODO delete me
 				System.out.println(randomIndex);
 				created = powerUps.get(randomIndex);
 				created.setX(newXandY[0]);
@@ -276,6 +279,10 @@ public class Room {
 		return created;
 	}
 
+	public ArrayList <PowerUp> getPowerUps() {
+		return powerUps;
+	}
+
 	// private methods
 	private void initPowerUps() {
 		powerUps = new ArrayList<PowerUp>();
@@ -315,6 +322,15 @@ public class Room {
 		// TODO Auto-generated method stub
 		return createdAlien;
 	}
+	public Key getKey() {
+		return key;
+	}
+
+	public void setKey(Key key) {
+		this.key = key;
+	}
+
+
 
 	public ArrayList <PowerUp> getPowerUps() {
 		return powerUps;
