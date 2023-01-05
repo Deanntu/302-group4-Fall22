@@ -6,5 +6,7 @@ public enum AccountOperationResults {
 	MAIL_EXISTS,
 	SUCCESS,
 	WRONG_CREDENTIAL,
-	FAILED
+	FAILED,
+	WRONG_MAIL_FORMAT,
+	EMPTY_FIELD
 }

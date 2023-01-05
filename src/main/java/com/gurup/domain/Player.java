@@ -1,7 +1,13 @@
 package com.gurup.domain;
 
-import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import com.gurup.domain.powerups.VestPowerUp;
+
+import javax.imageio.ImageIO;
 
 public class Player {
 	Color playerColor;
@@ -14,12 +20,15 @@ public class Player {
 	private int xPosition;
 	private int yPosition;
 	Position positions;
+	BufferedImage student_image;
 
 
 
 	private int remainingTime;
 	private int timeCounter;
 	private int life;
+	private boolean isProtected;
+	private int remainingProtectionSeconds;
 
 
 
@@ -38,6 +47,7 @@ public class Player {
 		this.xPosition = positions.getxPosition();
 		this.yPosition = positions.getyPosition();
 		life = 3;
+		setProtected(false);
 	}
 
 	public void draw(Graphics g) {
@@ -55,7 +65,22 @@ public class Player {
 				return TimerOperationResults.TIME_UP;
 			}
 			else {
-				System.out.println(remainingTime);
+				if (!isProtected) {
+					remainingProtectionSeconds = Integer.MIN_VALUE;
+				}
+				else {
+					if (remainingProtectionSeconds == Integer.MIN_VALUE) {
+						remainingProtectionSeconds = VestPowerUp.getInstance(this).getProtectionDurationSeconds();
+					}
+					else {
+						remainingProtectionSeconds--;
+					}
+					if (remainingProtectionSeconds < 0) {
+						isProtected = false;
+					}
+				}
+				// System.out.println(remainingTime);
+				//System.out.printf("Is protected: %b%n",isProtected);
 				remainingTime--;
 			}
 		}
@@ -162,8 +187,23 @@ public class Player {
 	}
 
 	public Color getPlayerColor() {
-		// TODO Auto-generated method stub
 		return playerColor;
 	}
 
+	public boolean getIsProtected() {
+		return isProtected;
+	}
+
+	public void setProtected(boolean isProtected) {
+		this.isProtected = isProtected;
+	}
+
+	public BufferedImage getImage() {
+		try {
+			student_image = ImageIO.read(new File("src/assets/", "player.png"));
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		return student_image;
+	}
 }

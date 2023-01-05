@@ -13,7 +13,7 @@ public class KeyClickController implements MouseListener{
 	private Player player;
 	
 	private RunningModeScreen runningModeScreen;
-	
+
 	private Room room;
 	
 	public KeyClickController(Player player, RunningModeScreen runningModeScreen, Room room) {
@@ -72,5 +72,5 @@ public class KeyClickController implements MouseListener{
 		// TODO Auto-generated method stub
 		
 	}
-	
+
 }

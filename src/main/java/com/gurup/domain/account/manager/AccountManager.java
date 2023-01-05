@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import com.gurup.domain.account.entity.Account;
 import com.gurup.domain.account.entity.AccountOperationResults;
@@ -16,7 +17,7 @@ public class AccountManager {
 	private String username = "postgres";
 	private String password = "123456";
 	private String driver = "org.postgresql.Driver";
-
+	private String emptyEntry = "";
 	public AccountManager() {
 		try {
 			Class.forName(driver);
@@ -28,7 +29,8 @@ public class AccountManager {
 	public AccountOperationResults loginAccount(String username, String password1, String password2, String mail) throws Exception {
 		Account account = new Account();
 		if(!password1.equals(password2)) return AccountOperationResults.PASSWORD_MISMATCH;
-		
+		if(isEmptyField(username,password1,mail)) return AccountOperationResults.EMPTY_FIELD;
+		if(!checkProperMail(mail)) return AccountOperationResults.WRONG_MAIL_FORMAT;
 		account.setUserName(username);
 		account.setUserPassword(password1);
 		account.setMailAddress(mail);
@@ -38,12 +40,25 @@ public class AccountManager {
 	public AccountOperationResults createAccount(String username, String password1, String password2, String mail) throws Exception{
 		Account account = new Account();
 		if(!password1.equals(password2)) return AccountOperationResults.PASSWORD_MISMATCH;
-		
+		if(isEmptyField(username,password1,mail)) return AccountOperationResults.EMPTY_FIELD;
+		if(!checkProperMail(mail)) return AccountOperationResults.WRONG_MAIL_FORMAT;
 		account.setUserName(username);
 		account.setUserPassword(password1);
 		account.setMailAddress(mail);
 		
 		return tryCreateAccount(account);
+	}
+	private boolean isEmptyField(String username, String password, String mail) {
+		return username.equals(emptyEntry) || password.equals(emptyEntry) || mail.equals(emptyEntry);
+	}
+	private boolean checkProperMail(String mail) {
+		String regexPattern = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{1,6}$";
+		return patternMatches(mail, regexPattern);
+	}
+	private static boolean patternMatches(String emailAddress, String regexPattern) {
+	    return Pattern.compile(regexPattern)
+	      .matcher(emailAddress)
+	      .matches();
 	}
 	private AccountOperationResults tryLoginAccount(Account account) throws Exception {
 		
@@ -89,14 +104,12 @@ public class AccountManager {
 		return affected > 0;
 	}
 
-	private boolean delete(String username) throws Exception {
-		Connection connection = DriverManager.getConnection(url, username, password);
-
+	public boolean delete(String username) throws Exception {
+		Connection connection = DriverManager.getConnection(url, this.username, password);
 		String sql = "delete from useraccount where username =?";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setString(1, username);
 		int affected = statement.executeUpdate();
-
 		connection.close();
 		return affected > 0;
 	}

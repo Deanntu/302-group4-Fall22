@@ -8,9 +8,12 @@ import javax.swing.SwingUtilities;
 
 import com.gurup.controller.KeyClickController;
 import com.gurup.controller.MovementController;
+import com.gurup.controller.PowerUpController;
 import com.gurup.domain.account.entity.AccountOperationResults;
 import com.gurup.domain.account.manager.AccountManager;
 import com.gurup.domain.room.Room;
+import com.gurup.domain.saver.GameSaver;
+import com.gurup.domain.saver.SaverType;
 import com.gurup.ui.ScreenMaker;
 import com.gurup.ui.gamescreen.LoginScreen;
 import com.gurup.ui.gamescreen.MainMenuScreen;
@@ -25,20 +28,21 @@ public class Game {
 	private static Bag bag;
 	private static MovementController movementController;
 	private static KeyClickController keyClickController;
+	private static PowerUpController powerUpController;
 	private static RunningModeScreen runningModeScreen;
 	private static LoginScreen loginScreen;
 	private static MainMenuScreen mainMenuScreen;
-
+	
 	private static PauseAndResumeScreen pauseAndResumeScreen;
-	private static final int PLAYER_SIZE = 25;;
+	private static final int PLAYER_SIZE = 50;;
 	private static AccountManager accountManager;
 	private static String session;
 	private static Boolean isPaused;
-  
-	public Game() {
-		
+
+	private Game() {
+
 	}
-	public static Game getInstance() {
+	public static synchronized Game getInstance() {
 		if (game == null) {
 			game = new Game();
 		}
@@ -69,17 +73,29 @@ public class Game {
 			e.printStackTrace();
 		}
 	}
-
+	private static void saveGame() {
+		
+		//TODO Change SaverType DATABASE to Variable
+		GameSaver roomSaver = new GameSaver(SaverType.DATABASE, SaverType.ROOM);
+		GameSaver playerSaver = new GameSaver(SaverType.DATABASE, SaverType.PLAYER);
+		try {
+			roomSaver.save("deantu", room);
+			playerSaver.save("deantu", player);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
 	private static void inGame() {
 		player = new Player(Color.blue, 50, 50,
-				Toolkit.getDefaultToolkit().getScreenSize().width - 100 + PLAYER_SIZE,
-				Toolkit.getDefaultToolkit().getScreenSize().height - 175 + PLAYER_SIZE, PLAYER_SIZE,
+				Toolkit.getDefaultToolkit().getScreenSize().width - 100,
+				Toolkit.getDefaultToolkit().getScreenSize().height - 175, PLAYER_SIZE,
 				60);
 		bag = new Bag(player);
 		room = new Room("Student Center", 50, 50, Toolkit.getDefaultToolkit().getScreenSize().width - 100,
 				Toolkit.getDefaultToolkit().getScreenSize().height - 175, player);
-
-		runningModeScreen = screenMaker.createRunningModeScreen(game, player, movementController, keyClickController,
+		Game.getBag().setupBag(room.getPowerUps());
+		runningModeScreen = screenMaker.createRunningModeScreen(game, player, movementController, keyClickController, powerUpController,
 				room);
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
@@ -88,6 +104,7 @@ public class Game {
 		});
 		movementController = new MovementController(player, runningModeScreen);
 		keyClickController = new KeyClickController(player, runningModeScreen, room);
+		powerUpController = new PowerUpController(bag, runningModeScreen);
 		isPaused = false;
 		// running timer task as daemon thread
 		Timer timer = new Timer(true);
@@ -130,8 +147,6 @@ public class Game {
 			if (res.equals(AccountOperationResults.SUCCESS)) {
 				session = username;
 				return true;
-			} else {
-				System.out.println(res);
 			}
 		} else if (withoutLoginFlag) {
 			session = "DEFAULT";
@@ -139,45 +154,46 @@ public class Game {
 		}
 		return registerAndLoginScreen();
 	}
-	
+
 	private static Boolean tryPauseGame() {
 		try {
 			// pause timer DONE in player.decrementTime()
 			// stop checking for clicks in RunningModeScreen DONE in Room.isKeyFound()
 			// TODO show pause menu, waiting for UI
 			// stop moving the character, DONE in MovementController.keyPressed(), TODO move to Domain layer
+			//saveGame();//TODO Game will be saved in pause screen by user request please change and delete this line
 			setIsPaused(true);
 			return true;
 		}
 		catch(Exception e) {
-			
+
 		}
 		return false;
 	}
-    private static Boolean tryUnpauseGame() {
-        try {
-            // unpause timer DONE in player.decrementTime()
-            // start checking for clicks in RunningModeScreen DONE in Room.isKeyFound()
-            // TODO show game menu, waiting for UI
-            // start moving the character, DONE in MovementController.keyPressed(), TODO move to Domain layer
-            setIsPaused(false);
-            return true;
-        }
-		catch(Exception e) {
-			
+	private static Boolean tryUnpauseGame() {
+		try {
+			// unpause timer DONE in player.decrementTime()
+			// start checking for clicks in RunningModeScreen DONE in Room.isKeyFound()
+			// TODO show game menu, waiting for UI
+			// start moving the character, DONE in MovementController.keyPressed(), TODO move to Domain layer
+			setIsPaused(false);
+			return true;
 		}
-        return false;
-    }
-    public static Boolean pauseUnpause() {
-    	Boolean pauseButtonClicked;
-    	if (Game.getIsPaused()) {
-            pauseButtonClicked = Game.tryUnpauseGame();
-        }
-        else {
-            pauseButtonClicked = Game.tryPauseGame();
-        }
-    	return pauseButtonClicked;
-    }
+		catch(Exception e) {
+
+		}
+		return false;
+	}
+	public static Boolean pauseUnpause() {
+		Boolean pauseButtonClicked;
+		if (Game.getIsPaused()) {
+			pauseButtonClicked = Game.tryUnpauseGame();
+		}
+		else {
+			pauseButtonClicked = Game.tryPauseGame();
+		}
+		return pauseButtonClicked;
+	}
 	public static Boolean getIsPaused() {
 		return isPaused;
 	}
