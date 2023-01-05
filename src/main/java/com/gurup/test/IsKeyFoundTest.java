@@ -1,6 +1,8 @@
 package com.gurup.test;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import com.gurup.domain.Game;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import com.gurup.domain.Player;
@@ -23,6 +25,8 @@ public class IsKeyFoundTest {
         // Create a new room and a new player
         right_wall_x = Toolkit.getDefaultToolkit().getScreenSize().width - 100;
         bottom_wall_y = Toolkit.getDefaultToolkit().getScreenSize().width - 175;
+        Game.getInstance();
+        Game.setIsPaused(false);
         player = new Player(Color.blue, 10, 10, right_wall_x, bottom_wall_y, 50, 60);
         room = new Room("Student Center", 50, 50, right_wall_x, bottom_wall_y, player);
     }

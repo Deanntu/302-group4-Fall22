@@ -36,9 +36,9 @@ public class Game {
 	private static AccountManager accountManager;
 	private static String session;
 	private static Boolean isPaused;
-  
+
 	private Game() {
-		
+
 	}
 	public static synchronized Game getInstance() {
 		if (game == null) {
@@ -140,7 +140,7 @@ public class Game {
 		}
 		return registerAndLoginScreen();
 	}
-	
+
 	private static Boolean tryPauseGame() {
 		try {
 			// pause timer DONE in player.decrementTime()
@@ -151,7 +151,7 @@ public class Game {
 			return true;
 		}
 		catch(Exception e) {
-			
+
 		}
 		return false;
 	}
@@ -165,7 +165,7 @@ public class Game {
             return true;
         }
 		catch(Exception e) {
-			
+
 		}
         return false;
     }

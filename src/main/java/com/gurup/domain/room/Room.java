@@ -69,6 +69,11 @@ public class Room {
 			return false;
 		}
 
+		if (Game.getIsPaused()) {
+			// System.out.println("Cannot look for key if the game is paused. ");
+			return false;
+		}
+
 		BuildingObject containerObject = key.getBuildingObject();
 		Rectangle playerRect = new Rectangle(player.getX(), player.getY(), player.getSize(), player.getSize());
 		for (BuildingObject bo : objects) {
@@ -315,5 +320,6 @@ public class Room {
 		// TODO Auto-generated method stub
 		return createdAlien;
 	}
+
 
 }
