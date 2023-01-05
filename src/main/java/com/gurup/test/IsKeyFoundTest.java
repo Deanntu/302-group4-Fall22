@@ -3,7 +3,6 @@ package com.gurup.test;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 
@@ -12,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import com.gurup.domain.Game;
 import com.gurup.domain.Player;
+import com.gurup.domain.PlayerConstants;
 import com.gurup.domain.room.Room;
 import com.gurup.domain.room.buildingobjects.BuildingObject;
 
@@ -31,7 +31,8 @@ public class IsKeyFoundTest {
 		bottom_wall_y = Toolkit.getDefaultToolkit().getScreenSize().width - 175;
 		Game.getInstance();
 		Game.setIsPaused(false);
-		player = new Player(Color.blue, 10, 10, right_wall_x, bottom_wall_y, 50, 60);
+		player = new Player(PlayerConstants.xStart.getValue(), PlayerConstants.yStart.getValue(),
+				PlayerConstants.xLen.getValue(), PlayerConstants.xLen.getValue(), 60);
 		room = new Room("Student Center", 50, 50, right_wall_x, bottom_wall_y, player);
 	}
 
@@ -42,8 +43,8 @@ public class IsKeyFoundTest {
 		BuildingObject object2 = room.getObjects().get(1);
 
 		// Case - 1.1: Player is near to object 1
-		player.setX(object1.getstartX());
-		player.setY(object1.getstartY());
+		player.setXCurrent(object1.getstartX());
+		player.setYCurrent(object1.getstartY());
 		// Case - 1.2: Player clicks on object 1
 		Rectangle object1Area = new Rectangle(object1.getstartX(), object1.getstartY(), mouseWidth, mouseHeight);
 		/*
@@ -54,8 +55,8 @@ public class IsKeyFoundTest {
 		boolean isKeyFoundInObject1WhileNear = room.isKeyFound(object1Area);
 
 		// Case - 2.1: Player is near to object 2
-		player.setX(object2.getstartX());
-		player.setY(object2.getstartY());
+		player.setXCurrent(object2.getstartX());
+		player.setYCurrent(object2.getstartY());
 		// Case - 2.2: Player clicks on object 2
 		Rectangle object2Area = new Rectangle(object2.getstartX(), object2.getstartY(), mouseWidth, mouseHeight);
 		/*
@@ -77,8 +78,8 @@ public class IsKeyFoundTest {
 		BuildingObject object2 = room.getObjects().get(1);
 
 		// Case - 1.1: Player is near to object 1
-		player.setX(object1.getstartX());
-		player.setY(object1.getstartY());
+		player.setXCurrent(object1.getstartX());
+		player.setYCurrent(object1.getstartY());
 		// Case - 1.2: Player clicks on object 1
 		Rectangle object1Area = new Rectangle(object1.getstartX(), object1.getstartY(), mouseWidth, mouseHeight);
 		/*
@@ -89,8 +90,8 @@ public class IsKeyFoundTest {
 		boolean isKeyFoundInObject1WhileNear = room.isKeyFound(object1Area);
 
 		// Case - 2.1: Player is near to object 2
-		player.setX(object2.getstartX());
-		player.setY(object2.getstartY());
+		player.setXCurrent(object2.getstartX());
+		player.setYCurrent(object2.getstartY());
 		// Case - 2.2: Player clicks on object 2
 		Rectangle object2Area = new Rectangle(object2.getstartX(), object2.getstartY(), mouseWidth, mouseHeight);
 		/*
@@ -114,8 +115,8 @@ public class IsKeyFoundTest {
 		BuildingObject object2 = room.getObjects().get(1);
 
 		// Case - 1.1: Player is far from object 1
-		player.setX(object1.getstartX() - 100);
-		player.setY(object1.getstartY() - 100);
+		player.setXCurrent(object1.getstartX() - 100);
+		player.setYCurrent(object1.getstartY() - 100);
 		// Case - 1.2: Player clicks on object 1
 		Rectangle object1Area = new Rectangle(object1.getstartX(), object1.getstartY(), mouseWidth, mouseHeight);
 		/*
@@ -125,8 +126,8 @@ public class IsKeyFoundTest {
 		boolean isKeyFoundInObject1WhileFar = room.isKeyFound(object1Area);
 
 		// Case - 2.1: Player is far from object 2
-		player.setX(object2.getstartX() - 100);
-		player.setY(object2.getstartY() - 100);
+		player.setXCurrent(object2.getstartX() - 100);
+		player.setYCurrent(object2.getstartY() - 100);
 		// Case - 2.2: Player clicks on object 2
 		Rectangle object2Area = new Rectangle(object2.getstartX(), object2.getstartY(), mouseWidth, mouseHeight);
 		/*
@@ -147,8 +148,8 @@ public class IsKeyFoundTest {
 		BuildingObject object2 = room.getObjects().get(1);
 
 		// Case - 1.1: Player is far from object 1
-		player.setX(object1.getstartX() - 100);
-		player.setY(object1.getstartY() - 100);
+		player.setXCurrent(object1.getstartX() - 100);
+		player.setYCurrent(object1.getstartY() - 100);
 		// Case - 1.2: Player clicks on object 1
 		Rectangle object1Area = new Rectangle(object1.getstartX(), object1.getstartY(), mouseWidth, mouseHeight);
 		/*
@@ -158,8 +159,8 @@ public class IsKeyFoundTest {
 		boolean isKeyFoundInObject1WhileFar = room.isKeyFound(object1Area);
 
 		// Case - 2.1: Player is far from object 2
-		player.setX(object2.getstartX() - 100);
-		player.setY(object2.getstartY() - 100);
+		player.setXCurrent(object2.getstartX() - 100);
+		player.setYCurrent(object2.getstartY() - 100);
 		// Case - 2.2: Player clicks on object 2
 		Rectangle object2Area = new Rectangle(object2.getstartX(), object2.getstartY(), mouseWidth, mouseHeight);
 		/*

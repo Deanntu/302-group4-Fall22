@@ -151,7 +151,7 @@ public class RunningModeScreen extends JPanel {
 
 	private void paintLifeAndTime(Graphics g) {
 		String remainingTime = "Remaining time: " + player.getRemainingTime();
-		String remainingLife = "Remaining life: " + player.getRemainingLife();
+		String remainingLife = "Remaining life: " + player.getLife();
 		int timeX = room.getstartX();
 		int timeY = room.getstartY() - 5;
 		;
@@ -162,7 +162,7 @@ public class RunningModeScreen extends JPanel {
 	}
 
 	private void paintPlayer(Graphics g) {
-		g.drawImage(ImageLoader.player_image, player.getX(), player.getY(), player.getSize(), player.getSize(), null);
+		g.drawImage(ImageLoader.player_image, player.getXCurrent(), player.getYCurrent(), player.getXLen(), player.getYLen(), null);
 	}
 
 	private void paintWall(Graphics g) {

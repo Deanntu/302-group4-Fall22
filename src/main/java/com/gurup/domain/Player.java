@@ -1,24 +1,24 @@
 package com.gurup.domain;
 
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import com.gurup.domain.powerups.VestPowerUp;
-
 import javax.imageio.ImageIO;
 
-public class Player {
-	Color playerColor;
-	int xStart, yStart;
-	private int xLimit;
-	private int yLimit;
-	private int x;
-	private int y;
-	private int size;
-	BufferedImage student_image;
+import com.gurup.domain.powerups.VestPowerUp;
+import com.gurup.domain.room.Room;
 
+public class Player {
+	private int xStart;
+	private int yStart;
+	private int xLen;
+	private int yLen;
+	private int xCurrent;
+	private int yCurrent;
+	BufferedImage student_image;
 
 
 	private int remainingTime;
@@ -29,15 +29,13 @@ public class Player {
 
 
 
-	public Player(Color playerColor, int xStart, int yStart, int xLimit, int yLimit, int size, int startingTime) {
-		this.playerColor = playerColor;
+	public Player(int xStart, int yStart, int xLen, int yLen, int startingTime) {
 		this.xStart = xStart;
 		this.yStart = yStart;
-		this.setxLimit(xLimit);
-		this.setyLimit(yLimit);
-		this.setX(xStart);
-		this.setY(yStart);
-		this.size = size;
+		this.xLen = xLen;
+		this.yLen = yLen;
+		this.xCurrent = xStart;
+		this.yCurrent = yStart;
 		this.remainingTime = startingTime;
 		timeCounter = 1;
 		life = 3;
@@ -85,84 +83,85 @@ public class Player {
 	}
 	
 	public void moveRight() {
-		if (this.getX() >= this.getxLimit()) {
-			this.setX(this.getxLimit());
+		if (this.xCurrent >= Room.getxLimit()) {
+			this.xCurrent = (Room.getxLimit());
 		} else {
-			this.setX(this.getX() + 10);
+			this.xCurrent = (this.xCurrent + 10);
 		}
 	}
 	
 	public void moveLeft() {
-		if (this.getX() <= this.getstartX()) {
-			this.setX(this.getstartX());
+		if (this.xCurrent <= Room.getstartX()) {
+			this.xCurrent = (Room.getstartX());
 		} else {
-			this.setX(this.getX() - 10);
+			this.xCurrent = (this.xCurrent - 10);
 		}
 	}
 	
 	public void moveUp() {
-		if (this.getY() <= this.getstartY()) {
-			this.setY(this.getstartY());
+		if (this.yCurrent <= Room.getstartY()) {
+			this.yCurrent = (Room.getstartY());
 		} else {
-			this.setY(this.getY() - 10);
+			this.yCurrent = (this.yCurrent - 10);
 		}
 	}
 	
 	public void moveDown() {
-		if (this.getY() >= this.getyLimit()) {
-			this.setY(this.getyLimit());
+		if (this.yCurrent >= Room.getyLimit()) {
+			this.yCurrent = (Room.getyLimit());
 		} else {
-			this.setY(this.getY() + 10);
+			this.yCurrent = (this.yCurrent + 10);
 		}
 	}
 	
 	
-	public int getX() {
-		return x;
-	}
-
-	public void setX(int x) {
-		this.x = x;
-	}
-
-	public int getxLimit() {
-		return xLimit;
-	}
-
-	public void setxLimit(int xLimit) {
-		this.xLimit = xLimit;
-	}
-
-	public int getY() {
-		return y;
-	}
-
-	public void setY(int y) {
-		this.y = y;
-	}
-
-	public int getyLimit() {
-		return yLimit;
-	}
-
-	public void setyLimit(int yLimit) {
-		this.yLimit = yLimit;
-	}
-	
-	public int getstartX() {
+	public int getXStart() {
 		return xStart;
 	}
-	
-	public int getstartY() {
+
+	public void setXStart(int xStart) {
+		this.xStart = xStart;
+	}
+
+	public int getYStart() {
 		return yStart;
 	}
-	public int getSize() {
-        return size;
-    }
 
-    public void setSize(int size) {
-        this.size = size;
-    }
+	public void setYStart(int yStart) {
+		this.yStart = yStart;
+	}
+
+	public int getXLen() {
+		return xLen;
+	}
+
+	public void setXLen(int xLen) {
+		this.xLen = xLen;
+	}
+
+	public int getYLen() {
+		return yLen;
+	}
+
+	public void setYLen(int yLen) {
+		this.yLen = yLen;
+	}
+
+	public int getXCurrent() {
+		return xCurrent;
+	}
+
+	public void setXCurrent(int xCurrent) {
+		this.xCurrent = xCurrent;
+	}
+
+	public int getYCurrent() {
+		return yCurrent;
+	}
+
+	public void setYCurrent(int yCurrent) {
+		this.yCurrent = yCurrent;
+	}
 
 	public int getRemainingTime() {
 		return remainingTime;
@@ -172,7 +171,15 @@ public class Player {
 		this.remainingTime = remainingTime;
 	}
 
-	public int getRemainingLife() {
+	public int getTimeCounter() {
+		return timeCounter;
+	}
+
+	public void setTimeCounter(int timeCounter) {
+		this.timeCounter = timeCounter;
+	}
+
+	public int getLife() {
 		return life;
 	}
 
@@ -180,16 +187,24 @@ public class Player {
 		this.life = life;
 	}
 
-	public Color getPlayerColor() {
-		return playerColor;
-	}
-
-	public boolean getIsProtected() {
+	public boolean isProtected() {
 		return isProtected;
 	}
 
 	public void setProtected(boolean isProtected) {
 		this.isProtected = isProtected;
+	}
+
+	public int getRemainingProtectionSeconds() {
+		return remainingProtectionSeconds;
+	}
+
+	public void setRemainingProtectionSeconds(int remainingProtectionSeconds) {
+		this.remainingProtectionSeconds = remainingProtectionSeconds;
+	}
+
+	public Rectangle getRectangle() {
+		return new Rectangle(xCurrent, yCurrent, xLen, yLen);
 	}
 
 	public BufferedImage getImage() {

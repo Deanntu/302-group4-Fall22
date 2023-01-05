@@ -21,9 +21,10 @@ import com.gurup.domain.room.buildingobjects.BuildingObject;
 import com.gurup.domain.room.buildingobjects.BuildingObjectFactory;
 
 public class Room {
-	int xStart, yStart;
-	private int xLimit;
-	private int yLimit;
+	private static int xStart;
+	private static int yStart;
+	private static int xLimit;
+	private static int yLimit;
 	private int x;
 	private int y;
 	private String name;
@@ -76,7 +77,7 @@ public class Room {
 		}
 
 		BuildingObject containerObject = key.getBuildingObject();
-		Rectangle playerRect = new Rectangle(player.getX(), player.getY(), player.getSize(), player.getSize());
+		Rectangle playerRect = player.getRectangle();
 		for (BuildingObject bo : objects) {
 			if (bo.getRectangle().intersects(rectMouseClick)) {
 				if (!playerRect.intersects(bo.getRectangle())) {
@@ -201,12 +202,12 @@ public class Room {
 		this.x = x;
 	}
 
-	public int getxLimit() {
+	public static int getxLimit() {
 		return xLimit;
 	}
 
 	public void setxLimit(int xLimit) {
-		this.xLimit = xLimit;
+		Room.xLimit = xLimit;
 	}
 
 	public int getY() {
@@ -217,19 +218,19 @@ public class Room {
 		this.y = y;
 	}
 
-	public int getyLimit() {
+	public static int getyLimit() {
 		return yLimit;
 	}
 
 	public void setyLimit(int yLimit) {
-		this.yLimit = yLimit;
+		Room.yLimit = yLimit;
 	}
 
-	public int getstartX() {
+	public static int getstartX() {
 		return xStart;
 	}
 
-	public int getstartY() {
+	public static int getstartY() {
 		return yStart;
 	}
 
@@ -332,5 +333,6 @@ public class Room {
 	public void setKey(Key key) {
 		this.key = key;
 	}
+	
 
 }

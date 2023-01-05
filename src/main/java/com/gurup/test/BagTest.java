@@ -3,8 +3,6 @@ package com.gurup.test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.awt.Color;
-import java.awt.Toolkit;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -12,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import com.gurup.domain.Bag;
 import com.gurup.domain.Player;
+import com.gurup.domain.PlayerConstants;
 import com.gurup.domain.powerups.BottlePowerUp;
 import com.gurup.domain.powerups.HealthPowerUp;
 import com.gurup.domain.powerups.PowerUp;
@@ -26,10 +25,8 @@ public class BagTest {
 	
 	@BeforeEach
 	public void setUp() {
-		player = new Player(Color.blue, 50, 50,
-				Toolkit.getDefaultToolkit().getScreenSize().width - 100,
-				Toolkit.getDefaultToolkit().getScreenSize().height - 175, 50,
-				60);
+		player = new Player(PlayerConstants.xStart.getValue(), PlayerConstants.yStart.getValue(),
+				PlayerConstants.xLen.getValue(), PlayerConstants.xLen.getValue(), 60);
 		bag = new Bag(player);
 		TimePowerUp t = TimePowerUp.getInstance(player);
 		HealthPowerUp h = HealthPowerUp.getInstance(player);

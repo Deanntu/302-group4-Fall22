@@ -38,7 +38,7 @@ public class HealthPowerUp implements PowerUp {
 
 	private void activatePowerUp() {
 		// TODO Auto-generated method stub
-		player.setLife(player.getRemainingLife() + healthIncreaseConstant);
+		player.setLife(player.getLife() + healthIncreaseConstant);
 	}
 
 	@Override

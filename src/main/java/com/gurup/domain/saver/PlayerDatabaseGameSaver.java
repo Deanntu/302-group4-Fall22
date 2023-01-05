@@ -40,11 +40,11 @@ public class PlayerDatabaseGameSaver {
 
 	public GameSaverOperationResults trySavePlayer(String username, Player player) throws Exception {
 		// TODO Create table according to the requirements below.
-		isProtected = player.getIsProtected();
+		isProtected = player.isProtected();
 		remainingTime = player.getRemainingTime();
-		remainingLife = player.getRemainingLife();
-		xLocation = player.getX();
-		yLocation = player.getY();
+		remainingLife = player.getLife();
+		xLocation = player.getXCurrent();
+		yLocation = player.getYCurrent();
 		bottlecount = Game.getBag().getPowerUps().get(BottlePowerUp.getInstance(player));
 		vestcount = Game.getBag().getPowerUps().get(VestPowerUp.getInstance(player));
 

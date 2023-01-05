@@ -3,6 +3,7 @@ package com.gurup.domain.powerups;
 import java.awt.Rectangle;
 
 import com.gurup.domain.Player;
+import com.gurup.domain.room.RoomConstants;
 
 public class ThrownBottlePowerUp implements PowerUp {
 
@@ -24,10 +25,10 @@ public class ThrownBottlePowerUp implements PowerUp {
 
 	private ThrownBottlePowerUp(Player player) {
 		this.player = player;
-		minX = player.getstartX();
-		minY = player.getstartY();
-		maxX = player.getxLimit();
-		maxY = player.getyLimit();
+		minX = RoomConstants.xStart.getValue();
+		minY = RoomConstants.yStart.getValue();
+		maxX = RoomConstants.xLimit.getValue();
+		maxY = RoomConstants.yLimit.getValue();
 		// System.out.printf("player's minx: %d, miny: %d, maxx: %d, maxy: %d%n",
 		// player.getstartX(), player.getstartY(), player.getxLimit(),
 		// player.getyLimit());
@@ -83,41 +84,41 @@ public class ThrownBottlePowerUp implements PowerUp {
 	}
 
 	public void moveRight() {
-		if (player.getX() + 100 >= this.maxX) {
-			this.setX(player.getxLimit());
+		if (player.getXCurrent() + 100 >= this.maxX) {
+			this.setX(RoomConstants.xLimit.getValue());
 		} else {
-			this.setX(player.getX() + 100);
+			this.setX(player.getXCurrent() + 100);
 		}
-		this.setY(player.getY());
+		this.setY(player.getYCurrent());
 	}
 
 	public void moveLeft() {
-		if (player.getX() - 100 <= this.minX) {
-			this.setX(player.getstartX());
+		if (player.getXCurrent() - 100 <= this.minX) {
+			this.setX(RoomConstants.xStart.getValue());
 		} else {
-			this.setX(player.getX() - 100);
+			this.setX(player.getXCurrent() - 100);
 		}
-		this.setY(player.getY());
+		this.setY(player.getYCurrent());
 		// System.out.printf("bottle x: %d , bottle y: %d, bottle xlimit: %d, bottle
 		// ylimit: %d%n", this.x, this.y, this.xLimit, this.yLimit);
 	}
 
 	public void moveUp() {
-		if (player.getY() - 100 <= this.minY) {
-			this.setY(player.getstartY());
+		if (player.getYCurrent() - 100 <= this.minY) {
+			this.setY(RoomConstants.yStart.getValue());
 		} else {
-			this.setY(player.getY() - 100);
+			this.setY(player.getYCurrent() - 100);
 		}
-		this.setX(player.getX());
+		this.setX(player.getXCurrent());
 	}
 
 	public void moveDown() {
-		if (player.getY() + 100 >= this.maxY) {
-			this.setY(player.getyLimit());
+		if (player.getYCurrent() + 100 >= this.maxY) {
+			this.setY(RoomConstants.yLimit.getValue());
 		} else {
-			this.setY(player.getY() + 100);
+			this.setY(player.getYCurrent() + 100);
 		}
-		this.setX(player.getX());
+		this.setX(player.getXCurrent());
 	}
 
 	@Override
@@ -201,8 +202,8 @@ public class ThrownBottlePowerUp implements PowerUp {
 
 	private void setThrowDestinationAndSource() {
 		this.throwDestination = rectArray();
-		this.x = player.getX();
-		this.y = player.getY();
+		this.x = player.getXCurrent();
+		this.y = player.getYCurrent();
 		this.xLimit = BottlePowerUp.getInstance(null).getxLimit();
 		this.yLimit = BottlePowerUp.getInstance(null).getyLimit();
 		this.throwSource = new int[] { x, y, xLimit, yLimit };

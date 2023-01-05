@@ -149,40 +149,40 @@ public class BottlePowerUp implements PowerUp {
 	}
 
 	public void moveRight() {
-		if (player.getX() >= this.getstartX()) {
-			this.setX(player.getX());
+		if (player.getXCurrent() >= this.getstartX()) {
+			this.setX(player.getXCurrent());
 		} else {
-			this.setX(player.getX() + 100);
+			this.setX(player.getXCurrent() + 100);
 		}
-		this.setY(player.getY());
+		this.setY(player.getYCurrent());
 	}
 
 	public void moveLeft() {
-		if (player.getX() <= this.getxLimit()) {
+		if (player.getXCurrent() <= this.getxLimit()) {
 			this.setX(this.getxLimit());
 		} else {
-			this.setX(player.getX() - 100);
+			this.setX(player.getXCurrent() - 100);
 		}
-		this.setY(player.getY());
+		this.setY(player.getYCurrent());
 		System.out.printf("%d , %d, %d, %d",this.x,this.y,this.xLimit,this.yLimit);
 	}
 
 	public void moveUp() {
-		if (player.getY()  <= this.getyLimit()) {
+		if (player.getYCurrent()  <= this.getyLimit()) {
 			this.setY(this.getyLimit());
 		} else {
-			this.setY(player.getY() - 100);
+			this.setY(player.getYCurrent() - 100);
 		}
-		this.setY(player.getX());
+		this.setY(player.getXCurrent());
 	}
 
 	public void moveDown() {
-		if (player.getY()  >= this.getstartY()) {
-			this.setY(player.getY());
+		if (player.getYCurrent()  >= this.getstartY()) {
+			this.setY(player.getYCurrent());
 		} else {
-			this.setY(player.getY() + 100);
+			this.setY(player.getYCurrent() + 100);
 		}
-		this.setY(player.getX());
+		this.setY(player.getXCurrent());
 	}
 
 	public boolean isUsed() {

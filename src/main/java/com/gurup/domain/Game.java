@@ -1,7 +1,5 @@
 package com.gurup.domain;
 
-import java.awt.Color;
-import java.awt.Toolkit;
 import java.util.Timer;
 
 import javax.swing.SwingUtilities;
@@ -12,6 +10,7 @@ import com.gurup.controller.PowerUpController;
 import com.gurup.domain.account.entity.AccountOperationResults;
 import com.gurup.domain.account.manager.AccountManager;
 import com.gurup.domain.room.Room;
+import com.gurup.domain.room.RoomConstants;
 import com.gurup.domain.saver.GameSaver;
 import com.gurup.domain.saver.SaverType;
 import com.gurup.ui.ScreenMaker;
@@ -34,7 +33,6 @@ public class Game {
 	private static MainMenuScreen mainMenuScreen;
 
 	private static PauseAndResumeScreen pauseAndResumeScreen;
-	private static final int PLAYER_SIZE = 50;;
 	private static AccountManager accountManager;
 	private static String session;
 	private static Boolean isPaused;
@@ -91,11 +89,12 @@ public class Game {
 	}
 
 	private static void inGame() {
-		player = new Player(Color.blue, 50, 50, Toolkit.getDefaultToolkit().getScreenSize().width - 100,
-				Toolkit.getDefaultToolkit().getScreenSize().height - 175, PLAYER_SIZE, 60);
+		player = new Player(PlayerConstants.xStart.getValue(), PlayerConstants.yStart.getValue(),
+				PlayerConstants.xLen.getValue(), PlayerConstants.xLen.getValue(), 60);
+		System.out.println();
 		bag = new Bag(player);
-		room = new Room("Student Center", 50, 50, Toolkit.getDefaultToolkit().getScreenSize().width - 100,
-				Toolkit.getDefaultToolkit().getScreenSize().height - 175, player);
+		room = new Room("Student Center", RoomConstants.xStart.getValue(), RoomConstants.yStart.getValue(), RoomConstants.xLimit.getValue(),
+				RoomConstants.yLimit.getValue(), player);
 		Game.getBag().setupBag(room.getPowerUps());
 		runningModeScreen = screenMaker.createRunningModeScreen(game, player, movementController, keyClickController,
 				powerUpController, room);

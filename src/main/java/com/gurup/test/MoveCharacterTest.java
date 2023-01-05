@@ -2,7 +2,6 @@ package com.gurup.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.awt.Color;
 import java.awt.Toolkit;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -10,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import com.gurup.domain.Game;
 import com.gurup.domain.Player;
+import com.gurup.domain.PlayerConstants;
 import com.gurup.domain.room.Room;
 
 public class MoveCharacterTest {
@@ -26,64 +26,65 @@ public class MoveCharacterTest {
 		bottom_wall_y = Toolkit.getDefaultToolkit().getScreenSize().width - 175;
 		Game.getInstance();
 		Game.setIsPaused(false);
-		player = new Player(Color.blue, 10, 10, right_wall_x, bottom_wall_y, 50, 60);
+		player = new Player(PlayerConstants.xStart.getValue(), PlayerConstants.yStart.getValue(),
+				PlayerConstants.xLen.getValue(), PlayerConstants.xLen.getValue(), 60);
 		room = new Room("Student Center", 50, 50, right_wall_x, bottom_wall_y, player);
 	}
 
 	@Test
 	public void regularMoveTest() {
-		int initialX = player.getX();
-		int initialY = player.getY();
+		int initialX = player.getXCurrent();
+		int initialY = player.getYCurrent();
 		player.moveDown();
-		assertEquals(initialX, player.getX());
-		assertEquals(initialY + 10, player.getY());
+		assertEquals(initialX, player.getXCurrent());
+		assertEquals(initialY + 10, player.getYCurrent());
 
-		initialX = player.getX();
-		initialY = player.getY();
+		initialX = player.getXCurrent();
+		initialY = player.getYCurrent();
 
 		player.moveRight();
-		assertEquals(initialX + 10, player.getX());
-		assertEquals(initialY, player.getY());
+		assertEquals(initialX + 10, player.getXCurrent());
+		assertEquals(initialY, player.getYCurrent());
 	}
 
 	@Test
 	public void rightWallMoveTest() {
-		player.setX(right_wall_x);
-		int initialX = player.getX();
-		int initialY = player.getY();
+		player.setXCurrent(right_wall_x);
+		int initialX = player.getXCurrent();
+		int initialY = player.getYCurrent();
 		player.moveRight();
-		assertEquals(initialX, player.getX());
-		assertEquals(initialY, player.getY());
+		assertEquals(initialX, player.getXCurrent());
+		assertEquals(initialY, player.getYCurrent());
 	}
 
 	@Test
 	public void leftWallMoveTest() {
-		int initialX = player.getX();
-		int initialY = player.getY();
+		int initialX = player.getXCurrent();
+		int initialY = player.getYCurrent();
 		player.moveLeft();
-		assertEquals(initialX, player.getX());
-		assertEquals(initialY, player.getY());
+		assertEquals(initialX, player.getXCurrent());
+		assertEquals(initialY, player.getYCurrent());
 
 	}
 
 	@Test
 	public void topWallMoveTest() {
-		int initialX = player.getX();
-		int initialY = player.getY();
+		int initialX = player.getXCurrent();
+		int initialY = player.getYCurrent();
 		player.moveUp();
-		assertEquals(initialX, player.getX());
-		assertEquals(initialY, player.getY());
+		assertEquals(initialX, player.getXCurrent());
+		assertEquals(initialY, player.getYCurrent());
 
 	}
 
 	@Test
 	public void bottomWallMoveTest() {
-		player.setY(bottom_wall_y);
-		int initialX = player.getX();
-		int initialY = player.getY();
+		player.setYCurrent(bottom_wall_y);
+		int initialX = player.getXCurrent();
+		int initialY = player.getYCurrent();
 		player.moveDown();
-		assertEquals(initialX, player.getX());
-		assertEquals(initialY, player.getY());
+		assertEquals(initialX, player.getXCurrent());
+		assertEquals(initialY, player.getYCurrent());
 
 	}
 }
