@@ -57,7 +57,6 @@ public class RunningModeScreen extends JPanel {
 		this.delayMiliSeconds = 20;
 		
 		JButton pauseButton = new JButton("Pause");
-		JButton helpButton = new JButton("Help");
 		
 		pauseButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -70,24 +69,6 @@ public class RunningModeScreen extends JPanel {
 		});
 		add(pauseButton);
 		pauseButton.setFocusable(false);
-		new Timer(this.delayMiliSeconds, e -> {
-			repaint();
-			player.decrementTime(this.delayMiliSeconds);
-			room.createPowerUp(this.delayMiliSeconds);
-			room.createAlien(this.delayMiliSeconds);
-		}).start();
-
-		helpButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Game.pauseUnpause();
-				if(Game.getIsPaused()) pauseButton.setText("Resume");
-				else {
-					pauseButton.setText("Pause");
-				}
-			}
-		});
-		add(helpButton);
-		helpButton.setFocusable(false);
 		new Timer(this.delayMiliSeconds, e -> {
 			repaint();
 			player.decrementTime(this.delayMiliSeconds);
