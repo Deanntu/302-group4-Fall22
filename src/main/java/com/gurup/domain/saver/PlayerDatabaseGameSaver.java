@@ -36,7 +36,7 @@ public class PlayerDatabaseGameSaver {
 		createPlayer.executeUpdate();
 		connection.close();
 	}
-	public GameSaverOperationResults savePlayer(String username, Player player) throws Exception {
+	public GameSaverOperationResults trySavePlayer(String username, Player player) throws Exception {
 		// TODO Create table according to the requirements below.
 		isProtected = player.getIsProtected();
 		remainingTime = player.getRemainingTime();
@@ -46,10 +46,10 @@ public class PlayerDatabaseGameSaver {
 		bottlecount = Game.getBag().getPowerUps().get(BottlePowerUp.getInstance(player));
 		vestcount = Game.getBag().getPowerUps().get(VestPowerUp.getInstance(player));
 		
-		return findByUserName(username) ? update(username) : trySavePlayer(username);
+		return findByUserName(username) ? update(username) : savePlayer(username);
 	}
 
-	public GameSaverOperationResults trySavePlayer(String username) throws Exception {
+	private GameSaverOperationResults savePlayer(String username) throws Exception {
 		// TODO Auto-generated method stub
 		Connection connection = DriverManager.getConnection(DatabaseRequirements.url.getValue(),
 				DatabaseRequirements.username.getValue(), DatabaseRequirements.password.getValue());

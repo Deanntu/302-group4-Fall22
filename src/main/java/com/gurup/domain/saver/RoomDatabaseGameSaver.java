@@ -36,7 +36,7 @@ public class RoomDatabaseGameSaver {
 		createPowerUp.executeUpdate();
 		connection.close();
 	}
-	public GameSaverOperationResults saveRoom(String username, Room room) throws Exception {
+	public GameSaverOperationResults trySaveRoom(String username, Room room) throws Exception {
 		// TODO Create table according to the requirements below.
 		truncate("object");
 		truncate("alien");

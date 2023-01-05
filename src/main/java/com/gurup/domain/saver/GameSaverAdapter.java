@@ -2,6 +2,6 @@ package com.gurup.domain.saver;
 
 public interface GameSaverAdapter {
 
-	void save();
+	void save(String username, Object o) throws Exception;
 
 }
