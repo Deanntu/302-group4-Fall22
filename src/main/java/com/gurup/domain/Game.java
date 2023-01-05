@@ -38,9 +38,9 @@ public class Game {
 	private static AccountManager accountManager;
 	private static String session;
 	private static Boolean isPaused;
-  
+
 	private Game() {
-		
+
 	}
 	public static synchronized Game getInstance() {
 		if (game == null) {
@@ -94,7 +94,7 @@ public class Game {
 		bag = new Bag(player);
 		room = new Room("Student Center", 50, 50, Toolkit.getDefaultToolkit().getScreenSize().width - 100,
 				Toolkit.getDefaultToolkit().getScreenSize().height - 175, player);
-
+		Game.getBag().setupBag(room.getPowerUps());
 		runningModeScreen = screenMaker.createRunningModeScreen(game, player, movementController, keyClickController, powerUpController,
 				room);
 		SwingUtilities.invokeLater(new Runnable() {
@@ -154,7 +154,7 @@ public class Game {
 		}
 		return registerAndLoginScreen();
 	}
-	
+
 	private static Boolean tryPauseGame() {
 		try {
 			// pause timer DONE in player.decrementTime()
@@ -166,7 +166,7 @@ public class Game {
 			return true;
 		}
 		catch(Exception e) {
-			
+
 		}
 		return false;
 	}
@@ -180,7 +180,7 @@ public class Game {
             return true;
         }
 		catch(Exception e) {
-			
+
 		}
         return false;
     }
