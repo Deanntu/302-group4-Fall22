@@ -25,8 +25,6 @@ public class Room {
 	private static int yStart;
 	private static int xLimit;
 	private static int yLimit;
-	private int x;
-	private int y;
 	private String name;
 	private BuildingObject object1, object2;
 	private ArrayList<BuildingObject> objects;
@@ -43,12 +41,10 @@ public class Room {
 
 	public Room(String name, int xStart, int yStart, int xLimit, int yLimit, Player player) {
 		this.name = name;
-		this.xStart = xStart;
-		this.yStart = yStart;
-		this.setxLimit(xLimit);
-		this.setyLimit(yLimit);
-		this.setX(xStart);
-		this.setY(yStart);
+		Room.xStart = xStart;
+		Room.yStart = yStart;
+		Room.xLimit = xLimit;
+		Room.yLimit = yLimit;
 		this.objects = new ArrayList<>();
 		this.key = new Key();
 		this.player = player;
@@ -194,13 +190,7 @@ public class Room {
 		this.name = name;
 	}
 
-	public int getX() {
-		return x;
-	}
 
-	public void setX(int x) {
-		this.x = x;
-	}
 
 	public static int getxLimit() {
 		return xLimit;
@@ -208,14 +198,6 @@ public class Room {
 
 	public void setxLimit(int xLimit) {
 		Room.xLimit = xLimit;
-	}
-
-	public int getY() {
-		return y;
-	}
-
-	public void setY(int y) {
-		this.y = y;
 	}
 
 	public static int getyLimit() {
