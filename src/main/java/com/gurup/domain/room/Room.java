@@ -120,7 +120,7 @@ public class Room {
 
 		if (timeCounter % (1000 / delayMiliSeconds) == 0) {
 			timeCounter = 1;
-			if (powerUpCreationCounter == 2) {
+			if (powerUpCreationCounter == 12) {
 				int[] newXandY = getRandomLocation();
 				if (created != null)
 					created.setIsActive(false);
@@ -164,7 +164,7 @@ public class Room {
 			return TimerOperationResults.PAUSED;
 		Random random = new Random();
 		if (timeCounter % (1000 / delayMiliSeconds) == 0) {
-			if (alienCreationCounter == 3) {
+			if (alienCreationCounter == 10) {
 				int randomIndex = random.nextInt(2);
 				int[] newXandY = getRandomLocation();
 				switch (randomIndex) {
