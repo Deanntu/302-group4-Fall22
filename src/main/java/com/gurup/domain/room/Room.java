@@ -331,8 +331,4 @@ public class Room {
 	}
 
 
-
-	public ArrayList <PowerUp> getPowerUps() {
-		return powerUps;
-	}
 }
