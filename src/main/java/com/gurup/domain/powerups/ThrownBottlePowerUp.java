@@ -9,7 +9,7 @@ public class ThrownBottlePowerUp implements PowerUp {
 
 	private static ThrownBottlePowerUp thrownBottlePowerUp;
 	private Player player;
-	private String name = "bottle";
+	private String name = "thrownbottle";
 	private int xLimit;
 	private int yLimit;
 	private int x;
@@ -93,7 +93,7 @@ public class ThrownBottlePowerUp implements PowerUp {
 		} else {
 			this.setY(player.getY() - 100);
 		}
-		this.setY(player.getX());
+		this.setX(player.getX());
 	}
 
 	public void moveDown() {
@@ -102,7 +102,7 @@ public class ThrownBottlePowerUp implements PowerUp {
 		} else {
 			this.setY(player.getY() + 100);
 		}
-		this.setY(player.getX());
+		this.setX(player.getX());
 	}
 
 	@Override

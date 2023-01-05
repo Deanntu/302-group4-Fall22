@@ -12,6 +12,8 @@ import com.gurup.controller.PowerUpController;
 import com.gurup.domain.account.entity.AccountOperationResults;
 import com.gurup.domain.account.manager.AccountManager;
 import com.gurup.domain.room.Room;
+import com.gurup.domain.saver.GameSaver;
+import com.gurup.domain.saver.SaverType;
 import com.gurup.ui.ScreenMaker;
 import com.gurup.ui.gamescreen.LoginScreen;
 import com.gurup.ui.gamescreen.MainMenuScreen;
@@ -30,7 +32,7 @@ public class Game {
 	private static RunningModeScreen runningModeScreen;
 	private static LoginScreen loginScreen;
 	private static MainMenuScreen mainMenuScreen;
-
+	
 	private static PauseAndResumeScreen pauseAndResumeScreen;
 	private static final int PLAYER_SIZE = 50;;
 	private static AccountManager accountManager;
@@ -71,7 +73,19 @@ public class Game {
 			e.printStackTrace();
 		}
 	}
-
+	private static void saveGame() {
+		
+		//TODO Change SaverType DATABASE to Variable
+		GameSaver roomSaver = new GameSaver(SaverType.DATABASE, SaverType.ROOM);
+		GameSaver playerSaver = new GameSaver(SaverType.DATABASE, SaverType.PLAYER);
+		try {
+			roomSaver.save("deantu", room);
+			playerSaver.save("deantu", player);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
 	private static void inGame() {
 		player = new Player(Color.blue, 50, 50,
 				Toolkit.getDefaultToolkit().getScreenSize().width - 100,
@@ -147,6 +161,7 @@ public class Game {
 			// stop checking for clicks in RunningModeScreen DONE in Room.isKeyFound()
 			// TODO show pause menu, waiting for UI
 			// stop moving the character, DONE in MovementController.keyPressed(), TODO move to Domain layer
+			//saveGame();//TODO Game will be saved in pause screen by user request please change and delete this line
 			setIsPaused(true);
 			return true;
 		}

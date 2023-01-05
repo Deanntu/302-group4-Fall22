@@ -308,7 +308,6 @@ public class Room {
 		powerUps.add(h);
 		powerUps.add(v);
 		powerUps.add(b);
-		powerUps.add(tbp);
 
 	}
 
@@ -316,5 +315,13 @@ public class Room {
 		// TODO Auto-generated method stub
 		return createdAlien;
 	}
+	public Key getKey() {
+		return key;
+	}
+
+	public void setKey(Key key) {
+		this.key = key;
+	}
+
 
 }
