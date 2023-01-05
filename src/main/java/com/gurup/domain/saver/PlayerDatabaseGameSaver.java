@@ -23,12 +23,19 @@ public class PlayerDatabaseGameSaver {
 	public PlayerDatabaseGameSaver() {
 		try {
 			Class.forName(DatabaseRequirements.driver.getValue());
-
+			init();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
+	private void init() throws Exception {
+		Connection connection = DriverManager.getConnection(DatabaseRequirements.url.getValue(),
+				DatabaseRequirements.username.getValue(), DatabaseRequirements.password.getValue());
+		String sql = "CREATE TABLE IF NOT EXISTS public.player ( isprotected boolean, remainingtime integer, remaininglife integer, xlocation integer, ylocation integer, bottle integer, vest integer, username text COLLATE pg_catalog.\"default\" ) TABLESPACE pg_default;";
+		PreparedStatement createPlayer = connection.prepareStatement(sql);
+		createPlayer.executeUpdate();
+		connection.close();
+	}
 	public GameSaverOperationResults savePlayer(String username, Player player) throws Exception {
 		// TODO Create table according to the requirements below.
 		isProtected = player.getIsProtected();
