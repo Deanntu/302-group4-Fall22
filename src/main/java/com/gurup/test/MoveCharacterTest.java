@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 
-public class MoveCharacter {
+public class MoveCharacterTest {
 
     private Room room;
     private Player player;
