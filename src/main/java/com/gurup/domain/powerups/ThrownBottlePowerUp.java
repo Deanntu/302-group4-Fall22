@@ -14,6 +14,10 @@ public class ThrownBottlePowerUp implements PowerUp {
 	private int yLimit;
 	private int x;
 	private int y;
+	private int minX;
+	private int minY;
+	private int maxX;
+	private int maxY;
 	private boolean isUsable = false;
 	private boolean isUsed = false;
 	private int[] throwDestination;
@@ -21,6 +25,11 @@ public class ThrownBottlePowerUp implements PowerUp {
 
 	private ThrownBottlePowerUp(Player player) {
 		this.player = player;
+		minX = player.getstartX();
+		minY = player.getstartY();
+		maxX = player.getxLimit();
+		maxY = player.getyLimit();
+		//System.out.printf("player's minx: %d, miny: %d, maxx: %d, maxy: %d%n", player.getstartX(), player.getstartY(), player.getxLimit(), player.getyLimit());
 	}
 
 	public static synchronized ThrownBottlePowerUp getInstance(Player player) {
@@ -31,6 +40,9 @@ public class ThrownBottlePowerUp implements PowerUp {
 	}
 
 	public void usePowerUp(String direction) {
+		// EFFECTS: if not used yet, create a thrown bottle at the target direction
+		// else, do nothing
+		// if the range extends further than a wall, put it within the borders of the room
 		if (isUsable) {
 			setThrowDestinationAndSource();
 			switch (direction) {
@@ -46,7 +58,7 @@ public class ThrownBottlePowerUp implements PowerUp {
 				break;
 			case "left":
 				moveLeft();
-				System.out.println("Moved to left");
+				//System.out.println("Moved to left");
 				setUsable(false);
 				setUsed(true);
 				break;
@@ -69,8 +81,8 @@ public class ThrownBottlePowerUp implements PowerUp {
 	}
 
 	public void moveRight() {
-		if (player.getX() >= this.getstartX()) {
-			this.setX(player.getX());
+		if (player.getX() + 100 >= this.maxX) {
+			this.setX(player.getxLimit());
 		} else {
 			this.setX(player.getX() + 100);
 		}
@@ -78,18 +90,18 @@ public class ThrownBottlePowerUp implements PowerUp {
 	}
 
 	public void moveLeft() {
-		if (player.getX() <= this.getxLimit()) {
-			this.setX(this.getxLimit());
+		if (player.getX() - 100 <= this.minX) {
+			this.setX(player.getstartX());
 		} else {
 			this.setX(player.getX() - 100);
 		}
 		this.setY(player.getY());
-		System.out.printf("%d , %d, %d, %d", this.x, this.y, this.xLimit, this.yLimit);
+		//System.out.printf("bottle x: %d , bottle y: %d, bottle xlimit: %d, bottle ylimit: %d%n", this.x, this.y, this.xLimit, this.yLimit);
 	}
 
 	public void moveUp() {
-		if (player.getY() <= this.getyLimit()) {
-			this.setY(this.getyLimit());
+		if (player.getY() - 100 <= this.minY) {
+			this.setY(player.getstartY());
 		} else {
 			this.setY(player.getY() - 100);
 		}
@@ -97,8 +109,8 @@ public class ThrownBottlePowerUp implements PowerUp {
 	}
 
 	public void moveDown() {
-		if (player.getY() >= this.getstartY()) {
-			this.setY(player.getY());
+		if (player.getY() + 100 >= this.maxY) {
+			this.setY(player.getyLimit());
 		} else {
 			this.setY(player.getY() + 100);
 		}
@@ -219,6 +231,10 @@ public class ThrownBottlePowerUp implements PowerUp {
 
 	public int[] getThrowSource() {
 		return throwSource;
+	}
+	
+	public static void setNull() {
+		thrownBottlePowerUp = null;
 	}
 
 }

@@ -117,11 +117,12 @@ public class Room {
 		
 		if (timeCounter % (1000 / delayMiliSeconds) == 0) {
 			timeCounter = 1;
-			if (powerUpCreationCounter == 12) {
+			if (powerUpCreationCounter == 2) {
 				int[] newXandY = getRandomLocation();
 				if (created != null)
 					created.setIsActive(false);
 				int randomIndex = random.nextInt(powerUps.size());
+				randomIndex = 3; // TODO delete me
 				System.out.println(randomIndex);
 				created = powerUps.get(randomIndex);
 				created.setX(newXandY[0]);
