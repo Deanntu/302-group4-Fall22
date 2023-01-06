@@ -22,6 +22,7 @@ public class RoomDatabaseGameSaver {
 			e.printStackTrace();
 		}
 	}
+
 	private void init() throws Exception {
 		Connection connection = DriverManager.getConnection(DatabaseRequirements.url.getValue(),
 				DatabaseRequirements.username.getValue(), DatabaseRequirements.password.getValue());
@@ -36,6 +37,7 @@ public class RoomDatabaseGameSaver {
 		createPowerUp.executeUpdate();
 		connection.close();
 	}
+
 	public GameSaverOperationResults trySaveRoom(String username, Room room) throws Exception {
 		// TODO Create table according to the requirements below.
 		truncate("object");
@@ -43,42 +45,46 @@ public class RoomDatabaseGameSaver {
 		truncate("powerup");
 		for (BuildingObject b : room.getObjects()) {
 			// Save Object
-			saveObject(b,room.getKey());
+			saveObject(b, room.getKey());
 		}
 		savePowerUp(room.getCreated());
 		saveAlien(room.getCreatedAlien());
 		return null;
 	}
+
 	private void truncate(String tableName) throws Exception {
 		Connection connection = DriverManager.getConnection(DatabaseRequirements.url.getValue(),
 				DatabaseRequirements.username.getValue(), DatabaseRequirements.password.getValue());
-		String sql ="TRUNCATE TABLE public."+ tableName +";";
+		String sql = "TRUNCATE TABLE public." + tableName + ";";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.executeUpdate();
 		connection.close();
 	}
+
 	private GameSaverOperationResults saveObject(BuildingObject b, Key key) throws Exception {
 		// String name, int xStart, int yStart, int xLimit, int yLimit
 		Connection connection = DriverManager.getConnection(DatabaseRequirements.url.getValue(),
 				DatabaseRequirements.username.getValue(), DatabaseRequirements.password.getValue());
-		String sql ="INSERT INTO public.object(name, xstart, ystart, xlimit, ylimit, iskeyholder)VALUES (?, ?, ?, ?, ?,?);";
+		String sql = "INSERT INTO public.object(name, xstart, ystart, xlimit, ylimit, iskeyholder)VALUES (?, ?, ?, ?, ?,?);";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setString(1, b.getName());
 		statement.setInt(2, b.getstartX());
 		statement.setInt(3, b.getstartY());
 		statement.setInt(4, b.getxLimit());
 		statement.setInt(5, b.getyLimit());
-		statement.setBoolean(6, key.getBuildingObject().equals(b)); 
+		statement.setBoolean(6, key.getBuildingObject().equals(b));
 		int affected = statement.executeUpdate();
 
 		connection.close();
 		return affected > 0 ? GameSaverOperationResults.SUCCESS : GameSaverOperationResults.FAIL;
 	}
+
 	private GameSaverOperationResults saveAlien(Alien a) throws Exception {
-		if(a == null) return GameSaverOperationResults.SUCCESS;
+		if (a == null)
+			return GameSaverOperationResults.SUCCESS;
 		Connection connection = DriverManager.getConnection(DatabaseRequirements.url.getValue(),
 				DatabaseRequirements.username.getValue(), DatabaseRequirements.password.getValue());
-		String sql ="INSERT INTO public.alien(name, xstart, ystart, xlimit, ylimit)VALUES (?, ?, ?, ?, ?);";
+		String sql = "INSERT INTO public.alien(name, xstart, ystart, xlimit, ylimit)VALUES (?, ?, ?, ?, ?);";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setString(1, a.getName());
 
@@ -91,11 +97,13 @@ public class RoomDatabaseGameSaver {
 		connection.close();
 		return affected > 0 ? GameSaverOperationResults.SUCCESS : GameSaverOperationResults.FAIL;
 	}
+
 	private GameSaverOperationResults savePowerUp(PowerUp p) throws Exception {
-		if(p == null) return GameSaverOperationResults.SUCCESS;
+		if (p == null)
+			return GameSaverOperationResults.SUCCESS;
 		Connection connection = DriverManager.getConnection(DatabaseRequirements.url.getValue(),
 				DatabaseRequirements.username.getValue(), DatabaseRequirements.password.getValue());
-		String sql ="INSERT INTO public.powerup(name, xstart, ystart, xlimit, ylimit)VALUES (?, ?, ?, ?, ?);";
+		String sql = "INSERT INTO public.powerup(name, xstart, ystart, xlimit, ylimit)VALUES (?, ?, ?, ?, ?);";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setString(1, p.getName());
 		statement.setInt(2, p.rectArray()[0]);
