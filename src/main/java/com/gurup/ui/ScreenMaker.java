@@ -55,15 +55,13 @@ public class ScreenMaker {
 
 	public RunningModeScreen showRunningModeGUI(RunningModeScreen runningModeScreen) {
 
-		System.out.println(
-				Thread.currentThread().getName() + " Created GUI for Run " + SwingUtilities.isEventDispatchThread());
+		System.out.println(Thread.currentThread().getName() + " Created GUI for Run " + SwingUtilities.isEventDispatchThread());
 
 		JFrame f = new JFrame("OYUN");
 		f.setExtendedState(f.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		// Player player = new Player(Color.blue, 20, 20, 450, 450);
 		f.add(runningModeScreen);
 
 		f.pack();
@@ -80,17 +78,14 @@ public class ScreenMaker {
 
 	public BuildingModeScreen showBuildingModeGUI(BuildingModeScreen buildingModeScreen) {
 
-		System.out.println(
-				Thread.currentThread().getName() + " Created GUI for Run " + SwingUtilities.isEventDispatchThread());
+		System.out.println(Thread.currentThread().getName() + " Created GUI for Run " + SwingUtilities.isEventDispatchThread());
 
 		JFrame f = new JFrame("OYUN");
 		f.setExtendedState(f.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		// Player player = new Player(Color.blue, 20, 20, 450, 450);
 		f.add(buildingModeScreen);
-
 		f.pack();
 		f.setLocationRelativeTo(null);
 		f.setVisible(true);

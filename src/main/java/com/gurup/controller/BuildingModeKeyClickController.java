@@ -45,4 +45,6 @@ public class BuildingModeKeyClickController implements MouseListener {
 
     }
 
+    public void setObjectToBuild(String table) {
+    }
 }

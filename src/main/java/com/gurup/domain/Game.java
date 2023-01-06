@@ -107,12 +107,13 @@ public class Game {
 			}
 		});
 
+
 		// running timer task as daemon thread
 		Timer timer = new Timer(true);
 		System.out.println(Thread.currentThread().getName() + " TimerTask started");
 		// cancel after sometime
 		try {
-			Thread.sleep(100000);
+			Thread.sleep(1000000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -144,7 +145,7 @@ public class Game {
 		System.out.println(Thread.currentThread().getName() + " TimerTask started");
 		// cancel after sometime
 		try {
-			Thread.sleep(100000);
+			Thread.sleep(10000000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
