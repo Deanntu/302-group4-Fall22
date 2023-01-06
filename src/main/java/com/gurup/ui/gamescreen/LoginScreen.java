@@ -4,12 +4,7 @@ import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 public class LoginScreen extends JFrame implements ActionListener {
 
@@ -24,6 +19,12 @@ public class LoginScreen extends JFrame implements ActionListener {
 	private JButton registerButton = new JButton("REGISTER");
 	JButton withoutLoginButton = new JButton("PLAY WITHOUT LOGIN");
 	private JCheckBox showPasswordCheckbox;
+
+	private JRadioButton databaseRadioButton;
+	private JRadioButton fileRadioButton;
+	private JLabel saveToWhereLabel;
+
+
 	private boolean loginPressed = false;
 	private boolean registerPressed = false;
 	private boolean withoutLoginPressed = false;
@@ -31,10 +32,19 @@ public class LoginScreen extends JFrame implements ActionListener {
 	public LoginScreen() {
 		loginContainer.setLayout(null);
 		showPasswordCheckbox = new JCheckBox("Show Password");
+		databaseRadioButton = new JRadioButton("Database");
+		fileRadioButton = new JRadioButton("File");
+		saveToWhereLabel = new JLabel("Save Game to: ");
 		setSizeandAdd();
 	}
 
 	private void setSizeandAdd() {
+		saveToWhereLabel.setBounds(50, 50, 100, 30);
+		databaseRadioButton.setBounds(150, 50, 100, 30);
+		fileRadioButton.setBounds(250, 50, 100, 30);
+		ButtonGroup buttonGroup = new ButtonGroup();
+		buttonGroup.add(databaseRadioButton);
+		buttonGroup.add(fileRadioButton);
 		usernameLabel.setBounds(50, 100, 100, 30);
 		userTextField.setBounds(125, 100, 175, 30);
 		mailLabel.setBounds(50, 150, 100, 30);
@@ -56,11 +66,16 @@ public class LoginScreen extends JFrame implements ActionListener {
 		loginContainer.add(registerButton);
 		loginContainer.add(loginButton);
 		loginContainer.add(withoutLoginButton);
+		loginContainer.add(saveToWhereLabel);
+		loginContainer.add(databaseRadioButton);
+		loginContainer.add(fileRadioButton);
 
 		registerButton.addActionListener(this);
 		loginButton.addActionListener(this);
 		showPasswordCheckbox.addActionListener(this);
 		withoutLoginButton.addActionListener(this);
+		databaseRadioButton.addActionListener(this);
+		fileRadioButton.addActionListener(this);
 
 	}
 
