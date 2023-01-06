@@ -117,7 +117,7 @@ public class Room {
 
 		if (timeCounter % (1000 / delayMiliSeconds) == 0) {
 			timeCounter = 1;
-			if (powerUpCreationCounter == 2) {
+			if (powerUpCreationCounter == 12) {
 				int[] newXandY = getRandomLocation();
 				if (created != null)
 					created.setIsActive(false);
