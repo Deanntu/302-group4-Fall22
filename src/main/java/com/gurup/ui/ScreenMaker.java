@@ -31,22 +31,22 @@ public class ScreenMaker {
 
 	public MainMenuScreen createMainMenuScreen() {
 		MainMenuScreen mainMenuScreen = new MainMenuScreen();
-        mainMenuScreen.setTitle("Main Menu");
+		mainMenuScreen.setTitle("Main Menu");
 
-        mainMenuScreen.setBounds(10, 10, 370, 600);
+		mainMenuScreen.setBounds(10, 10, 370, 600);
 		mainMenuScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		mainMenuScreen.setResizable(false);
 
-        mainMenuScreen.setLocationRelativeTo(null);
+		mainMenuScreen.setLocationRelativeTo(null);
 		mainMenuScreen.setVisible(true);
-        return mainMenuScreen;
+		return mainMenuScreen;
 	}
 
 	public RunningModeScreen createRunningModeScreen(Game game, Player player, MovementController movementController,
 			KeyClickController keyClickController, PowerUpController powerUpController, Room room) {
-		RunningModeScreen runningModeScreen = new RunningModeScreen(game, player, movementController, keyClickController, powerUpController, 
-				room);
+		RunningModeScreen runningModeScreen = new RunningModeScreen(game, player, movementController,
+				keyClickController, powerUpController, room);
 		return runningModeScreen;
 	}
 

@@ -1,6 +1,5 @@
 package com.gurup.domain.powerups;
 
-import java.awt.Graphics;
 import java.awt.Rectangle;
 
 public interface PowerUp {
@@ -10,10 +9,10 @@ public interface PowerUp {
 	boolean isActive();
 	void setIsActive(boolean b);
 	//void draw(Graphics g);
-	void setX(int i);
-	void setxLimit(int i);
-	void setY(int i);
-	void setyLimit(int i);
+	void setXCurrent(int i);
+	void setXLen(int i);
+	void setYCurrent(int i);
+	void setYLen(int i);
 	int[] rectArray();
 	String getName();
 	int getSlotId();
