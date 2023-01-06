@@ -42,7 +42,7 @@ public class BuildingModeScreen extends JPanel {
         this.buildingModeRoom = buildingModeRoom;
         this.buildingModeKeyClickController = buildingModeKeyClickController;
         this.delayMiliSeconds = 20;
-        this.setLayout(null);
+        this.setLayout(null); // absolute layout for the buttons
 
 
         tableButton.setBounds(RoomConstants.xLimit.getValue()/2, RoomConstants.yLimit.getValue()+RoomConstants.yStart.getValue(), 30, 30);
