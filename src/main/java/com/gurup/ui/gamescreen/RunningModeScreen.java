@@ -94,8 +94,8 @@ public class RunningModeScreen extends JPanel {
 		int slotSizeX = 140;
 		int slotSizeY = 45;
 		int itemSize = 30;
-		int slotStartX = room.getstartX() + room.getXLimit() / 2 - slotSizeX / 2;
-		int slotStartY = room.getstartY() + room.getYLimit();
+		int slotStartX = Room.getstartX() + Room.getXLimit() / 2 - slotSizeX / 2;
+		int slotStartY = Room.getstartY() + Room.getYLimit();
 		int fontSize = 14;
 		int numberOffsetX = 25;
 		int numberOffsetY = 14;
@@ -143,8 +143,8 @@ public class RunningModeScreen extends JPanel {
 
 	private void paintRoomName(Graphics g) {
 		g.setColor(Color.BLACK);
-		int x = room.getstartX() + (room.getXLimit() - metrics.stringWidth(room.getName())) / 2;
-		int y = room.getstartY() - 5;
+		int x = Room.getstartX() + (Room.getXLimit() - metrics.stringWidth(room.getName())) / 2;
+		int y = Room.getstartY() - 5;
 		g.setFont(font);
 		g.drawString(room.getName(), x, y);
 	}
@@ -152,11 +152,11 @@ public class RunningModeScreen extends JPanel {
 	private void paintLifeAndTime(Graphics g) {
 		String remainingTime = "Remaining time: " + player.getRemainingTime();
 		String remainingLife = "Remaining life: " + player.getLife();
-		int timeX = room.getstartX();
-		int timeY = room.getstartY() - 5;
+		int timeX = Room.getstartX();
+		int timeY = Room.getstartY() - 5;
 		;
-		int lifeX = room.getstartX() + (room.getXLimit() - metrics.stringWidth(remainingLife));
-		int lifeY = room.getstartY() - 5;
+		int lifeX = Room.getstartX() + (Room.getXLimit() - metrics.stringWidth(remainingLife));
+		int lifeY = Room.getstartY() - 5;
 		g.drawString(remainingTime, timeX, timeY);
 		g.drawString(remainingLife, lifeX, lifeY);
 	}
@@ -167,7 +167,7 @@ public class RunningModeScreen extends JPanel {
 
 	private void paintWall(Graphics g) {
 		g.setColor(Color.BLACK);
-		g.draw3DRect(room.getstartX(), room.getstartY(), room.getXLimit(), room.getYLimit(), true);
+		g.draw3DRect(Room.getstartX(), Room.getstartY(), Room.getXLimit(), Room.getYLimit(), true);
 	}
 
 	private void animateBottle(Graphics g) {

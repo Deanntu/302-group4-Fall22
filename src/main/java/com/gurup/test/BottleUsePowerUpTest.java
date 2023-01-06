@@ -26,7 +26,8 @@ public class BottleUsePowerUpTest {
 
 	private Player player;
 	private ThrownBottlePowerUp bottle;
-	private Room room;
+	@SuppressWarnings("unused")
+	private Room room; // Room needs to be initialized for the PowerUp to function properly
 
 	@Before
 	public void runsBeforeEachTest() {
