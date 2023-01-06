@@ -1,5 +1,7 @@
 package com.gurup.ui.gamescreen;
 
+import com.gurup.domain.saver.SaverType;
+
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,13 +14,15 @@ public class LoginScreen extends JFrame implements ActionListener {
 	private final JLabel usernameLabel = new JLabel("Username");
 	private final JLabel mailLabel = new JLabel("Mail");
 	private final JLabel pswrdLabel = new JLabel("Password");
+	private final ButtonGroup buttonGroup;
 	private JTextField userTextField = new JTextField("");
 	private JTextField mailTextField = new JTextField("");
 	private JPasswordField passwordField = new JPasswordField("");
 	private JButton loginButton = new JButton("LOGIN");
 	private JButton registerButton = new JButton("REGISTER");
-	JButton withoutLoginButton = new JButton("PLAY WITHOUT LOGIN");
+	private JButton withoutLoginButton = new JButton("PLAY WITHOUT LOGIN");
 	private JCheckBox showPasswordCheckbox;
+
 
 	private JRadioButton databaseRadioButton;
 	private JRadioButton fileRadioButton;
@@ -36,6 +40,9 @@ public class LoginScreen extends JFrame implements ActionListener {
 		fileRadioButton = new JRadioButton("File");
 		saveToWhereLabel = new JLabel("Save Game to: ");
 		setSizeandAdd();
+		buttonGroup = new ButtonGroup();
+		buttonGroup.add(databaseRadioButton);
+		buttonGroup.add(fileRadioButton);
 	}
 
 	private void setSizeandAdd() {
@@ -85,9 +92,14 @@ public class LoginScreen extends JFrame implements ActionListener {
 		if (e.getSource() == registerButton) {
 			registerPressed = true;
 
+
 		}
 		if (e.getSource() == loginButton) {
 			loginPressed = true;
+
+
+
+
 		}
 
 		if (e.getSource() == showPasswordCheckbox) {
@@ -99,11 +111,20 @@ public class LoginScreen extends JFrame implements ActionListener {
 
 		}
 		if (e.getSource() == withoutLoginButton) {
-
 			withoutLoginPressed = true;
-
 		}
 	}
+
+	public SaverType getSaverType() {
+		 if (databaseRadioButton.isSelected()) {
+			return SaverType.DATABASE;
+		} else if (fileRadioButton.isSelected()) {
+			 return SaverType.TXT;
+	}
+		return SaverType.NOTINITIALIZED;
+
+	}
+
 
 	public boolean isLoginPressed() {
 		return loginPressed;
