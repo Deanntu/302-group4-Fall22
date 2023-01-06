@@ -4,20 +4,19 @@ import java.util.Timer;
 
 import javax.swing.SwingUtilities;
 
+import com.gurup.controller.BuildingModeKeyClickController;
 import com.gurup.controller.KeyClickController;
 import com.gurup.controller.MovementController;
 import com.gurup.controller.PowerUpController;
 import com.gurup.domain.account.entity.AccountOperationResults;
 import com.gurup.domain.account.manager.AccountManager;
+import com.gurup.domain.buildingmode.BuildingModeRoom;
 import com.gurup.domain.room.Room;
 import com.gurup.domain.room.RoomConstants;
 import com.gurup.domain.saver.GameSaver;
 import com.gurup.domain.saver.SaverType;
 import com.gurup.ui.ScreenMaker;
-import com.gurup.ui.gamescreen.LoginScreen;
-import com.gurup.ui.gamescreen.MainMenuScreen;
-import com.gurup.ui.gamescreen.PauseAndResumeScreen;
-import com.gurup.ui.gamescreen.RunningModeScreen;
+import com.gurup.ui.gamescreen.*;
 
 public class Game {
 	private static Game game;
@@ -33,10 +32,16 @@ public class Game {
 	private static MainMenuScreen mainMenuScreen;
 	private static SaverType saverType = SaverType.NOTINITIALIZED;
 
-	private static PauseAndResumeScreen pauseAndResumeScreen;
+
 	private static AccountManager accountManager;
 	private static String session;
 	private static Boolean isPaused;
+
+	private static BuildingModeRoom buildingModeRoom;
+	private static BuildingModeScreen buildingModeScreen;
+	private static PauseAndResumeScreen pauseAndResumeScreen;
+	private static BuildingModeKeyClickController buildingModeKeyClickController;
+
 
 	private Game() {
 
@@ -67,6 +72,9 @@ public class Game {
 				// System.out.println(isPlayButtonPressed);
 				if (isPlayButtonPressed) {
 					mainMenuScreen.dispose();
+					player = new Player(PlayerConstants.xStart.getValue(), PlayerConstants.yStart.getValue(),
+							PlayerConstants.xLen.getValue(), PlayerConstants.xLen.getValue(), 60);
+					buildMode();
 					inGame();
 				}
 			}
@@ -89,11 +97,34 @@ public class Game {
 		}
 	}
 
+	private static void buildMode(){
+		buildingModeRoom = new BuildingModeRoom("Student Center", RoomConstants.xStart.getValue(), RoomConstants.yStart.getValue(), RoomConstants.xLimit.getValue(),
+				RoomConstants.yLimit.getValue(), player);
+		buildingModeScreen = screenMaker.createBuildingModeScreen(game, player, buildingModeKeyClickController, buildingModeRoom);
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				screenMaker.showBuildingModeGUI(buildingModeScreen);
+			}
+		});
+
+		// running timer task as daemon thread
+		Timer timer = new Timer(true);
+		System.out.println(Thread.currentThread().getName() + " TimerTask started");
+		// cancel after sometime
+		try {
+			Thread.sleep(100000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		timer.cancel();
+
+	}
+
 	private static void inGame() {
-		player = new Player(PlayerConstants.xStart.getValue(), PlayerConstants.yStart.getValue(),
-				PlayerConstants.xLen.getValue(), PlayerConstants.xLen.getValue(), 60);
 		System.out.println();
-		bag = new Bag(player);
+		if (bag == null) {
+			bag = new Bag(player);
+		}
 		room = new Room("Student Center", RoomConstants.xStart.getValue(), RoomConstants.yStart.getValue(), RoomConstants.xLimit.getValue(),
 				RoomConstants.yLimit.getValue(), player);
 		Game.getBag().setupBag(room.getPowerUps());
