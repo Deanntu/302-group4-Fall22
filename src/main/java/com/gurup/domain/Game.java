@@ -14,10 +14,7 @@ import com.gurup.domain.room.RoomConstants;
 import com.gurup.domain.saver.GameSaver;
 import com.gurup.domain.saver.SaverType;
 import com.gurup.ui.ScreenMaker;
-import com.gurup.ui.gamescreen.LoginScreen;
-import com.gurup.ui.gamescreen.MainMenuScreen;
-import com.gurup.ui.gamescreen.PauseAndResumeScreen;
-import com.gurup.ui.gamescreen.RunningModeScreen;
+import com.gurup.ui.gamescreen.*;
 
 public class Game {
 	private static Game game;
@@ -31,6 +28,7 @@ public class Game {
 	private static RunningModeScreen runningModeScreen;
 	private static LoginScreen loginScreen;
 	private static MainMenuScreen mainMenuScreen;
+	private static HelpScreen helpScreen;
 	private static SaverType saverType = SaverType.NOTINITIALIZED;
 
 	private static PauseAndResumeScreen pauseAndResumeScreen;
@@ -59,15 +57,21 @@ public class Game {
 				loginScreen.dispose();
 				mainMenuScreen = screenMaker.createMainMenuScreen();
 				boolean isPlayButtonPressed = mainMenuScreen.showPlayPressed();
+				boolean isHelpButtonPressed = mainMenuScreen.showHelpPressed();
 
 				do {
 					isPlayButtonPressed = mainMenuScreen.showPlayPressed();
+					isHelpButtonPressed = mainMenuScreen.showHelpPressed();
 					Thread.sleep(10);
-				} while (!isPlayButtonPressed);
+				} while (!isPlayButtonPressed && !isHelpButtonPressed);
 				// System.out.println(isPlayButtonPressed);
 				if (isPlayButtonPressed) {
 					mainMenuScreen.dispose();
 					inGame();
+				}
+				if (isHelpButtonPressed) {
+					mainMenuScreen.dispose();
+					helpScreen = screenMaker.createHelpScreen();
 				}
 			}
 		} catch (Exception e) {
@@ -76,7 +80,6 @@ public class Game {
 	}
 
 	private static void saveGame() { // TODO i am used, do not delete me
-
 		// TODO Change SaverType DATABASE to Variable
 		GameSaver roomSaver = new GameSaver(SaverType.DATABASE, SaverType.ROOM);
 		GameSaver playerSaver = new GameSaver(SaverType.DATABASE, SaverType.PLAYER);
