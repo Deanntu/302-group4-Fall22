@@ -31,6 +31,7 @@ public class Game {
 	private static RunningModeScreen runningModeScreen;
 	private static LoginScreen loginScreen;
 	private static MainMenuScreen mainMenuScreen;
+	private static SaverType saverType = SaverType.NOTINITIALIZED;
 
 	private static PauseAndResumeScreen pauseAndResumeScreen;
 	private static AccountManager accountManager;
@@ -136,6 +137,10 @@ public class Game {
 		String password1 = loginScreen.getEnteredPassword();
 		String password2 = loginScreen.getEnteredPassword();
 		String mail = loginScreen.getEnteredMail();
+		saverType = loginScreen.getSaverType();
+
+
+
 
 		if (registerFlag) {
 			loginScreen.setRegisterPressed(false);
