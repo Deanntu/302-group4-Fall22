@@ -83,6 +83,11 @@ public class Player {
 	}
 	
 	public void moveRight() {
+		// MODIFIES: this
+		// REQUIRES: none
+		//
+		// EFFECTS: Decrements the Integer corresponding to the players current y position
+		// if new position outside the room does nothing
 		if (this.xCurrent >= Room.getXLimit()) {
 			this.xCurrent = (Room.getXLimit());
 		} else {
@@ -91,6 +96,11 @@ public class Player {
 	}
 	
 	public void moveLeft() {
+		// MODIFIES: this
+		// REQUIRES: none
+		//
+		// EFFECTS: Increments the Integer corresponding to the players current x position
+		// if new position outside the room does nothing
 		if (this.xCurrent <= Room.getstartX()) {
 			this.xCurrent = (Room.getstartX());
 		} else {
@@ -99,6 +109,11 @@ public class Player {
 	}
 	
 	public void moveUp() {
+		// MODIFIES: this
+		// REQUIRES: none
+		//
+		// EFFECTS: Decrements the Integer corresponding to the players current y position
+		// if new position outside the room does nothing
 		if (this.yCurrent <= Room.getstartY()) {
 			this.yCurrent = (Room.getstartY());
 		} else {
@@ -107,6 +122,11 @@ public class Player {
 	}
 	
 	public void moveDown() {
+		// MODIFIES: this
+		// REQUIRES: none
+		//
+		// EFFECTS: Increments the Integer corresponding to the players current y position
+		// if new position outside the room does nothing
 		if (this.yCurrent >= Room.getYLimit()) {
 			this.yCurrent = (Room.getYLimit());
 		} else {
