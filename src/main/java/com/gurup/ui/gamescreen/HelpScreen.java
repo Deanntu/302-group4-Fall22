@@ -35,4 +35,8 @@ public class HelpScreen extends JFrame implements ActionListener {
         }
 
     }
+
+    public boolean showBackPressed() {
+        return showBack;
+    }
 }

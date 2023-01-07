@@ -59,19 +59,28 @@ public class Game {
 				boolean isPlayButtonPressed = mainMenuScreen.showPlayPressed();
 				boolean isHelpButtonPressed = mainMenuScreen.showHelpPressed();
 
-				do {
-					isPlayButtonPressed = mainMenuScreen.showPlayPressed();
-					isHelpButtonPressed = mainMenuScreen.showHelpPressed();
-					Thread.sleep(10);
-				} while (!isPlayButtonPressed && !isHelpButtonPressed);
-				// System.out.println(isPlayButtonPressed);
-				if (isPlayButtonPressed) {
-					mainMenuScreen.dispose();
-					inGame();
-				}
-				if (isHelpButtonPressed) {
-					mainMenuScreen.dispose();
-					helpScreen = screenMaker.createHelpScreen();
+				while(!isPlayButtonPressed){
+					do {
+						isPlayButtonPressed = mainMenuScreen.showPlayPressed();
+						isHelpButtonPressed = mainMenuScreen.showHelpPressed();
+						Thread.sleep(10);
+					} while (!isPlayButtonPressed && !isHelpButtonPressed);
+					if (isPlayButtonPressed) {
+						mainMenuScreen.dispose();
+						inGame();
+					}
+					if (isHelpButtonPressed) {
+						mainMenuScreen.dispose();
+						helpScreen = screenMaker.createHelpScreen();
+						boolean isBackButtonPressed;
+						do {
+							isBackButtonPressed = helpScreen.showBackPressed();
+							Thread.sleep(10);
+						} while (!isBackButtonPressed);
+						helpScreen.dispose();
+						mainMenuScreen = screenMaker.createMainMenuScreen();
+
+					}
 				}
 			}
 		} catch (Exception e) {
