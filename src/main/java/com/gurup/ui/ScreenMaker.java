@@ -9,6 +9,7 @@ import com.gurup.controller.PowerUpController;
 import com.gurup.domain.Game;
 import com.gurup.domain.Player;
 import com.gurup.domain.room.Room;
+import com.gurup.ui.gamescreen.HelpScreen;
 import com.gurup.ui.gamescreen.LoginScreen;
 import com.gurup.ui.gamescreen.MainMenuScreen;
 import com.gurup.ui.gamescreen.RunningModeScreen;
@@ -41,6 +42,21 @@ public class ScreenMaker {
 		mainMenuScreen.setLocationRelativeTo(null);
 		mainMenuScreen.setVisible(true);
 		return mainMenuScreen;
+	}
+
+	public HelpScreen createHelpScreen() {
+		HelpScreen helpScreen = new HelpScreen();
+		helpScreen.setTitle("Help");
+
+		helpScreen.setBounds(10, 10, 1000, 800);
+		helpScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		helpScreen.setResizable(false);
+
+		helpScreen.setLocationRelativeTo(null);
+		helpScreen.setVisible(true);
+
+		return helpScreen;
 	}
 
 	public RunningModeScreen createRunningModeScreen(Game game, Player player, MovementController movementController,
