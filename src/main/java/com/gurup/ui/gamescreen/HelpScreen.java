@@ -31,7 +31,6 @@ public class HelpScreen extends JFrame implements ActionListener {
 
         // png file
         JLabel pngFile1 = new JLabel(new ImageIcon(help_screen1));
-
         pngFile1.setVerticalAlignment(JLabel.CENTER);
         pngFile1.setBounds(100,100,1000,1000);
         //pngFile1.resize(helpScreenContainer.getWidth(),helpScreenContainer.getHeight());
