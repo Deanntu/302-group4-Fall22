@@ -64,6 +64,13 @@ public class Room {
 	}
 
 	public Boolean isKeyFound(Rectangle rectMouseClick) {
+		// MODIFIES: nothing
+		// REQUIRES: rectangle that represents the mouse click
+		// EFFECTS: Returns true if the key is found, false otherwise:
+		// If the mouseRectangle does not intersect with the key, return false
+		// If the game is paused, return false
+		// If the mouseRectangle intersects with the key and player is near to object that contains the key, return true
+		// If the mouseRectangle intersects with the key and player is not near to object that contains the key, return false
 		if (!rectMouseClick.intersects(new Rectangle(xStart, yStart, xLimit, yLimit))) {
 			// System.out.println("Did not click inside the room");
 			return false;
