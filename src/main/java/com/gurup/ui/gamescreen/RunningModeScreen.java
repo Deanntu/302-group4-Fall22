@@ -38,6 +38,7 @@ public class RunningModeScreen extends JPanel {
 	private Drawer powerUpDrawer = new Drawer("PowerUp");
 	private Drawer buildObjectDrawer = new Drawer("Object");
 	private Drawer alienDrawer = new Drawer("Alien");
+	private final int magicBagNumber = 5; // this is needed to make the bottle in the bag appear in correct position
 	FontMetrics metrics;
 	Font font;
 	Bag bag;
@@ -109,7 +110,7 @@ public class RunningModeScreen extends JPanel {
 		g.drawImage(ImageLoader.vest_image, slotStartX + slotSizeX / 2 - itemSize / 2 - slotSizeX,
 				slotStartY + slotSizeY / 2 - itemSize / 2, itemSize, itemSize, null);
 		// TODO: update bottle image in bag
-		g.drawImage(ImageLoader.plastic_bottle_image, slotStartX + slotSizeX / 2 - itemSize / 2 + slotSizeX,
+		g.drawImage(ImageLoader.plastic_bottle_image, slotStartX + slotSizeX / 2 - itemSize / 2 + slotSizeX + magicBagNumber,
 				slotStartY + slotSizeY / 2 - itemSize / 2, itemSize / 2, itemSize, null);
 		g.setColor(Color.DARK_GRAY);
 		g.setFont(new Font("Courier New", Font.BOLD, fontSize));

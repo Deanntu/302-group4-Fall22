@@ -290,24 +290,31 @@ public class Room {
 		BottlePowerUp b = BottlePowerUp.getInstance(player);
 		ThrownBottlePowerUp.getInstance(player);
 		t.setXCurrent(420);
-		t.setXLen(50);
 		t.setYCurrent(320);
-		t.setYLen(50);
+
+		t.setXLen(RoomConstants.timePowerUpXLen.getValue());
+		t.setYLen(RoomConstants.timePowerUpYLen.getValue());
 
 		h.setXCurrent(420);
-		h.setXLen(50);
 		h.setYCurrent(320);
-		h.setYLen(50);
+
+		h.setXLen(RoomConstants.healthPowerUpXLen.getValue());
+		h.setYLen(RoomConstants.healthPowerUpYLen.getValue());
+
 
 		v.setXCurrent(420);
-		v.setXLen(50);
 		v.setYCurrent(320);
-		v.setYLen(50);
+
+		v.setXLen(RoomConstants.vestPowerUpXLen.getValue());
+		v.setYLen(RoomConstants.vestPowerUpYLen.getValue());
 
 		b.setXCurrent(420);
-		b.setXLen(50);
 		b.setYCurrent(320);
-		b.setYLen(50);
+
+		b.setXLen(RoomConstants.bottlePowerUpXLen.getValue());
+		b.setYLen(RoomConstants.bottlePowerUpYLen.getValue());
+
+
 
 		powerUps.add(t);
 		powerUps.add(h);
