@@ -4,61 +4,66 @@ import java.awt.Rectangle;
 
 public class Bin implements BuildingObject {
 
-	int xStart, yStart;
-	private int xLimit;
-	private int yLimit;
-	private static int counter = 0;
-	private final String BIN = "Bin";
+    private int xCurrent, yCurrent;
+    private int xLen, yLen;
+    private final String NAME = "Bin";
 
-	public Bin(int xStart, int yStart, int xLimit, int yLimit) {
-		this.xStart = xStart;
-		this.yStart = yStart;
-		this.xLimit = xLimit;
-		this.yLimit = yLimit;
-		counter++;
-	}
+    public Bin(int xCurrent, int yCurrent, int xLen, int yLen) {
+        this.xCurrent = xCurrent;
+        this.yCurrent = yCurrent;
+        this.xLen = xLen;
+        this.yLen = yLen;
+    }
 
-	public static int getCounter() {
-		return counter;
-	}
 
-	@Override
-	public String getName() {
-		return BIN;
-	}
+    @Override
+    public String getName() {
+        return NAME;
+    }
 
-	@Override
-	public int[] rectArray() {
-		int[] rectValues = { xStart, yStart, xLimit, yLimit };
-		return rectValues;
-	}
+    @Override
+    public int[] rectArray() {
+        int[] rectValues = {xCurrent, yCurrent, xLen, yLen};
+        return rectValues;
+    }
 
-	public int getxLimit() {
-		return xLimit;
-	}
+    public int getXLen() {
+        return xLen;
+    }
 
-	public void setxLimit(int xLimit) {
-		this.xLimit = xLimit;
-	}
+    public void setXLen(int xLen) {
+        this.xLen = xLen;
+    }
 
-	public int getyLimit() {
-		return yLimit;
-	}
+    public int getYLen() {
+        return yLen;
+    }
 
-	public void setyLimit(int yLimit) {
-		this.yLimit = yLimit;
-	}
+    public void setYLen(int yLen) {
+        this.yLen = yLen;
+    }
 
-	public int getstartX() {
-		return xStart;
-	}
+    public int getXCurrent() {
+        return xCurrent;
+    }
 
-	public int getstartY() {
-		return yStart;
-	}
+    public int getYCurrent() {
+        return yCurrent;
+    }
 
-	public Rectangle getRectangle() {
-		// TODO Auto-generated method stub
-		return new Rectangle(xStart, yStart, xLimit, yLimit);
-	}
+    @Override
+    public void setXCurrent(int xCurrent) {
+        this.xCurrent = xCurrent;
+    }
+
+    @Override
+    public void setYCurrent(int yCurrent) {
+        this.yCurrent = yCurrent;
+
+    }
+
+    public Rectangle getRectangle() {
+        // TODO Auto-generated method stub
+        return new Rectangle(xCurrent, yCurrent, xLen, yLen);
+    }
 }

@@ -7,17 +7,21 @@ public interface BuildingObject {
 
 	public int[] rectArray();
 
-	public int getxLimit();
+	public int getXLen();
 
-	public void setxLimit(int xLimit);
+	public void setXLen(int xLen);
 
-	public int getyLimit();
+	public int getYLen();
 
-	public void setyLimit(int yLimit);
+	public void setYLen(int yLen);
 
-	public int getstartX();
+	public int getXCurrent();
 
-	public int getstartY();
+	public int getYCurrent();
+
+	public void setXCurrent(int xCurrent);
+
+	public void setYCurrent(int yCurrent);
 
 	public Rectangle getRectangle();
 

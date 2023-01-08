@@ -43,10 +43,10 @@ public class IsKeyFoundTest {
 		BuildingObject object2 = room.getObjects().get(1);
 
 		// Case - 1.1: Player is near to object 1
-		player.setXCurrent(object1.getstartX());
-		player.setYCurrent(object1.getstartY());
+		player.setXCurrent(object1.getXCurrent());
+		player.setYCurrent(object1.getYCurrent());
 		// Case - 1.2: Player clicks on object 1
-		Rectangle object1Area = new Rectangle(object1.getstartX(), object1.getstartY(), mouseWidth, mouseHeight);
+		Rectangle object1Area = new Rectangle(object1.getXCurrent(), object1.getYCurrent(), mouseWidth, mouseHeight);
 		/*
 		 * Case - 1.3: Simulate clicking on object 1 while player is near to it, which
 		 * could return true or false depending on the whether the key is in the object
@@ -55,10 +55,10 @@ public class IsKeyFoundTest {
 		boolean isKeyFoundInObject1WhileNear = room.isKeyFound(object1Area);
 
 		// Case - 2.1: Player is near to object 2
-		player.setXCurrent(object2.getstartX());
-		player.setYCurrent(object2.getstartY());
+		player.setXCurrent(object2.getXCurrent());
+		player.setYCurrent(object2.getYCurrent());
 		// Case - 2.2: Player clicks on object 2
-		Rectangle object2Area = new Rectangle(object2.getstartX(), object2.getstartY(), mouseWidth, mouseHeight);
+		Rectangle object2Area = new Rectangle(object2.getXCurrent(), object2.getYCurrent(), mouseWidth, mouseHeight);
 		/*
 		 * Case - 2.3: Simulate clicking on object 2 while player is near to it, which
 		 * could return true or false depending on the whether the key is in the object
@@ -78,10 +78,10 @@ public class IsKeyFoundTest {
 		BuildingObject object2 = room.getObjects().get(1);
 
 		// Case - 1.1: Player is near to object 1
-		player.setXCurrent(object1.getstartX());
-		player.setYCurrent(object1.getstartY());
+		player.setXCurrent(object1.getXCurrent());
+		player.setYCurrent(object1.getYCurrent());
 		// Case - 1.2: Player clicks on object 1
-		Rectangle object1Area = new Rectangle(object1.getstartX(), object1.getstartY(), mouseWidth, mouseHeight);
+		Rectangle object1Area = new Rectangle(object1.getXCurrent(), object1.getYCurrent(), mouseWidth, mouseHeight);
 		/*
 		 * Case - 1.3: Simulate clicking on object 1 while player is near to it, which
 		 * could return true or false depending on the whether the key is in the object
@@ -90,10 +90,10 @@ public class IsKeyFoundTest {
 		boolean isKeyFoundInObject1WhileNear = room.isKeyFound(object1Area);
 
 		// Case - 2.1: Player is near to object 2
-		player.setXCurrent(object2.getstartX());
-		player.setYCurrent(object2.getstartY());
+		player.setXCurrent(object2.getXCurrent());
+		player.setYCurrent(object2.getYCurrent());
 		// Case - 2.2: Player clicks on object 2
-		Rectangle object2Area = new Rectangle(object2.getstartX(), object2.getstartY(), mouseWidth, mouseHeight);
+		Rectangle object2Area = new Rectangle(object2.getXCurrent(), object2.getYCurrent(), mouseWidth, mouseHeight);
 		/*
 		 * Case - 2.3: Simulate clicking on object 2 while player is near to it, which
 		 * could return true or false depending on the whether the key is in the object
@@ -115,10 +115,10 @@ public class IsKeyFoundTest {
 		BuildingObject object2 = room.getObjects().get(1);
 
 		// Case - 1.1: Player is far from object 1
-		player.setXCurrent(object1.getstartX() - 100);
-		player.setYCurrent(object1.getstartY() - 100);
+		player.setXCurrent(object1.getXCurrent() - 100);
+		player.setYCurrent(object1.getYCurrent() - 100);
 		// Case - 1.2: Player clicks on object 1
-		Rectangle object1Area = new Rectangle(object1.getstartX(), object1.getstartY(), mouseWidth, mouseHeight);
+		Rectangle object1Area = new Rectangle(object1.getXCurrent(), object1.getYCurrent(), mouseWidth, mouseHeight);
 		/*
 		 * Case - 1.3: Simulate clicking on object 1 while player is far from it, which
 		 * should return false
@@ -126,10 +126,10 @@ public class IsKeyFoundTest {
 		boolean isKeyFoundInObject1WhileFar = room.isKeyFound(object1Area);
 
 		// Case - 2.1: Player is far from object 2
-		player.setXCurrent(object2.getstartX() - 100);
-		player.setYCurrent(object2.getstartY() - 100);
+		player.setXCurrent(object2.getXCurrent() - 100);
+		player.setYCurrent(object2.getYCurrent() - 100);
 		// Case - 2.2: Player clicks on object 2
-		Rectangle object2Area = new Rectangle(object2.getstartX(), object2.getstartY(), mouseWidth, mouseHeight);
+		Rectangle object2Area = new Rectangle(object2.getXCurrent(), object2.getYCurrent(), mouseWidth, mouseHeight);
 		/*
 		 * Case - 2.3: Simulate clicking on object 2 while player is far from it, which
 		 * should return false
@@ -148,10 +148,10 @@ public class IsKeyFoundTest {
 		BuildingObject object2 = room.getObjects().get(1);
 
 		// Case - 1.1: Player is far from object 1
-		player.setXCurrent(object1.getstartX() - 100);
-		player.setYCurrent(object1.getstartY() - 100);
+		player.setXCurrent(object1.getXCurrent() - 100);
+		player.setYCurrent(object1.getYCurrent() - 100);
 		// Case - 1.2: Player clicks on object 1
-		Rectangle object1Area = new Rectangle(object1.getstartX(), object1.getstartY(), mouseWidth, mouseHeight);
+		Rectangle object1Area = new Rectangle(object1.getXCurrent(), object1.getYCurrent(), mouseWidth, mouseHeight);
 		/*
 		 * Case - 1.3: Simulate clicking on object 1 while player is far from it, which
 		 * should return false
@@ -159,10 +159,10 @@ public class IsKeyFoundTest {
 		boolean isKeyFoundInObject1WhileFar = room.isKeyFound(object1Area);
 
 		// Case - 2.1: Player is far from object 2
-		player.setXCurrent(object2.getstartX() - 100);
-		player.setYCurrent(object2.getstartY() - 100);
+		player.setXCurrent(object2.getXCurrent() - 100);
+		player.setYCurrent(object2.getYCurrent() - 100);
 		// Case - 2.2: Player clicks on object 2
-		Rectangle object2Area = new Rectangle(object2.getstartX(), object2.getstartY(), mouseWidth, mouseHeight);
+		Rectangle object2Area = new Rectangle(object2.getXCurrent(), object2.getYCurrent(), mouseWidth, mouseHeight);
 		/*
 		 * Case - 2.3: Simulate clicking on object 2 while player is far from it, which
 		 * should return false
