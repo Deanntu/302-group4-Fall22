@@ -47,7 +47,7 @@ public class Player {
 		g.setColor(playerColor);
 		g.fillOval((int) pos.getX(), (int) pos.getY(), size, size);*/
 	}
-	
+
 	public TimerOperationResults decrementTime(int delaymiliseconds) {
 		if (Game.getIsPaused()) return TimerOperationResults.PAUSED;
 		if (timeCounter%(1000/delaymiliseconds) == 0) {
@@ -81,7 +81,7 @@ public class Player {
 		}
 		return TimerOperationResults.TIME_DECREMENTED;
 	}
-	
+
 	public void moveRight() {
 		// MODIFIES: this
 		// REQUIRES: none
@@ -94,7 +94,7 @@ public class Player {
 			this.xCurrent = (this.xCurrent + 10);
 		}
 	}
-	
+
 	public void moveLeft() {
 		// MODIFIES: this
 		// REQUIRES: none
@@ -107,7 +107,7 @@ public class Player {
 			this.xCurrent = (this.xCurrent - 10);
 		}
 	}
-	
+
 	public void moveUp() {
 		// MODIFIES: this
 		// REQUIRES: none
@@ -120,7 +120,7 @@ public class Player {
 			this.yCurrent = (this.yCurrent - 10);
 		}
 	}
-	
+
 	public void moveDown() {
 		// MODIFIES: this
 		// REQUIRES: none
@@ -133,8 +133,8 @@ public class Player {
 			this.yCurrent = (this.yCurrent + 10);
 		}
 	}
-	
-	
+
+
 	public int getXStart() {
 		return xStart;
 	}
