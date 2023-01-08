@@ -3,26 +3,26 @@ package com.gurup.domain.room.buildingobjects;
 import java.awt.Rectangle;
 
 public interface BuildingObject {
-	public String getName();
+    String getName();
 
-	public int[] rectArray();
+    int[] rectArray();
 
-	public int getXLen();
+    int getXLen();
 
-	public void setXLen(int xLen);
+    void setXLen(int xLen);
 
-	public int getYLen();
+    int getYLen();
 
-	public void setYLen(int yLen);
+    void setYLen(int yLen);
 
-	public int getXCurrent();
+    int getXCurrent();
 
-	public int getYCurrent();
+    int getYCurrent();
 
-	public void setXCurrent(int xCurrent);
+    void setXCurrent(int xCurrent);
 
-	public void setYCurrent(int yCurrent);
+    void setYCurrent(int yCurrent);
 
-	public Rectangle getRectangle();
+    Rectangle getRectangle();
 
 }
