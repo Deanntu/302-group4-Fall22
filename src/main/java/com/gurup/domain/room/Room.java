@@ -19,6 +19,7 @@ import com.gurup.domain.powerups.ThrownBottlePowerUp;
 import com.gurup.domain.powerups.TimePowerUp;
 import com.gurup.domain.powerups.VestPowerUp;
 import com.gurup.domain.room.buildingobjects.BuildingObject;
+import com.gurup.domain.room.buildingobjects.BuildingObjectConstants;
 import com.gurup.domain.room.buildingobjects.BuildingObjectFactory;
 
 public class Room {
@@ -51,10 +52,20 @@ public class Room {
 		this.player = player;
 
 		BuildingObjectFactory buildingObjectFactory = new BuildingObjectFactory();
-		BuildingObject object1 = buildingObjectFactory.createBuildingObject("Bin", 500, 300, 30, 35);
-		BuildingObject object2 = buildingObjectFactory.createBuildingObject("Table", 800, 100, 60, 40);
-		objects.add(object1);
-		objects.add(object2);
+		BuildingObject bin = buildingObjectFactory.createBuildingObject("Bin", 500, 300, BuildingObjectConstants.binXLen.getValue(), BuildingObjectConstants.binYLen.getValue());
+		BuildingObject table = buildingObjectFactory.createBuildingObject("Table", 800, 100, BuildingObjectConstants.tableXLen.getValue(), BuildingObjectConstants.tableYLen.getValue());
+		BuildingObject book = buildingObjectFactory.createBuildingObject("Book", 100, 100, BuildingObjectConstants.bookXLen.getValue(), BuildingObjectConstants.bookYLen.getValue());
+		BuildingObject pen = buildingObjectFactory.createBuildingObject("Pen", 100, 300, BuildingObjectConstants.penXLen.getValue(), BuildingObjectConstants.penYLen.getValue());
+		BuildingObject printer = buildingObjectFactory.createBuildingObject("Printer", 800, 300, BuildingObjectConstants.printerXLen.getValue(), BuildingObjectConstants.printerYLen.getValue());
+
+
+
+		objects.add(bin);
+		objects.add(table);
+		objects.add(book);
+		objects.add(pen);
+		objects.add(printer);
+
 		key.hideKey(objects);
 		pauseButton = new Rectangle(0, 0, 50, 50);
 		exitButton = new Rectangle(0, 0, 50, 50);

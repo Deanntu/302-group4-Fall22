@@ -74,7 +74,7 @@ public class Game {
 					mainMenuScreen.dispose();
 					player = new Player(PlayerConstants.xStart.getValue(), PlayerConstants.yStart.getValue(),
 							PlayerConstants.xLen.getValue(), PlayerConstants.xLen.getValue(), 60);
-					buildMode();
+
 					inGame();
 				}
 			}
