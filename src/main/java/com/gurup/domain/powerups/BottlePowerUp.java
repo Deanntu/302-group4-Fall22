@@ -1,8 +1,6 @@
 package com.gurup.domain.powerups;
 
-import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.Toolkit;
 
 import com.gurup.domain.Player;
 
@@ -12,10 +10,10 @@ public class BottlePowerUp implements PowerUp {
 	private Player player;
 	private String name = "bottle";
 	private boolean storable = true;
-	private int xLimit;
-	private int yLimit;
-	private int x;
-	private int y;
+	private int xLen;
+	private int yLen;
+	private int xCurrent;
+	private int yCurrent;
 	private boolean isActive = false;
 	private boolean isUsable = false;
 	private boolean isUsed = false;
@@ -37,34 +35,6 @@ public class BottlePowerUp implements PowerUp {
 		activatePowerUp();
 	}
 
-	public void usePowerUp(String direction) {
-		if(isUsable) {	
-		switch (direction) {
-			case "up":
-				moveUp();
-				isUsable = false;
-				isUsed = true;
-				break;
-			case "down":
-				moveDown();
-				isUsable = false;
-				isUsed = true;
-				break;
-			case "left":
-				moveLeft();
-				System.out.println("Moved to left");
-				isUsable = false;
-				isUsed = true;
-				break;
-			case "right":
-				moveRight();
-				isUsable = false;
-				isUsed = true;
-				break;
-			}
-		}
-	}
-
 	private void activatePowerUp() {
 		this.isActive = false;
 		ThrownBottlePowerUp.getInstance(null).setUsable(true);
@@ -78,7 +48,7 @@ public class BottlePowerUp implements PowerUp {
 
 	@Override
 	public Rectangle getRectangle() {
-		return new Rectangle(x, y, xLimit, yLimit);
+		return new Rectangle(xCurrent, yCurrent, xLen, yLen);
 	}
 
 	@Override
@@ -91,50 +61,41 @@ public class BottlePowerUp implements PowerUp {
 		isActive = b;
 	}
 
-	private int getstartX() {
-		return Toolkit.getDefaultToolkit().getScreenSize().width - 100 + 50;
+	public int getXLen() {
+		return xLen;
 	}
 
-	private int getstartY() {
-		return Toolkit.getDefaultToolkit().getScreenSize().height - 175 + 50;
+	public void setXLen(int xLen) {
+		this.xLen = xLen;
 	}
 
-	public int getxLimit() {
-		return xLimit;
+	public int getYLen() {
+		return yLen;
 	}
 
-	public void setxLimit(int xLimit) {
-		this.xLimit = xLimit;
+	public void setYLen(int yLen) {
+		this.yLen = yLen;
 	}
 
-	public int getyLimit() {
-		return yLimit;
+	public int getXCurrent() {
+		return xCurrent;
 	}
 
-	public void setyLimit(int yLimit) {
-		this.yLimit = yLimit;
+	public void setXCurrent(int x) {
+		this.xCurrent = x;
 	}
 
-	public int getX() {
-		return x;
+	public int getYCurrent() {
+		return yCurrent;
 	}
 
-	public void setX(int x) {
-		this.x = x;
-	}
-
-	public int getY() {
-		return y;
-	}
-
-	public void setY(int y) {
-		this.y = y;
+	public void setYCurrent(int y) {
+		this.yCurrent = y;
 	}
 
 	@Override
 	public int[] rectArray() {
-		Point pos = new Point(getX(), getY());
-		int[] rectValues = { (int) pos.getX(), (int) pos.getY(), this.getxLimit(), this.getyLimit() };
+		int[] rectValues = { this.xCurrent, this.yCurrent, this.xLen, this.yLen };
 		return rectValues;
 	}
 
@@ -146,43 +107,6 @@ public class BottlePowerUp implements PowerUp {
 	@Override
 	public int getSlotId() {
 		return slotId;
-	}
-
-	public void moveRight() {
-		if (player.getX() >= this.getstartX()) {
-			this.setX(player.getX());
-		} else {
-			this.setX(player.getX() + 100);
-		}
-		this.setY(player.getY());
-	}
-
-	public void moveLeft() {
-		if (player.getX() <= this.getxLimit()) {
-			this.setX(this.getxLimit());
-		} else {
-			this.setX(player.getX() - 100);
-		}
-		this.setY(player.getY());
-		System.out.printf("%d , %d, %d, %d",this.x,this.y,this.xLimit,this.yLimit);
-	}
-
-	public void moveUp() {
-		if (player.getY()  <= this.getyLimit()) {
-			this.setY(this.getyLimit());
-		} else {
-			this.setY(player.getY() - 100);
-		}
-		this.setY(player.getX());
-	}
-
-	public void moveDown() {
-		if (player.getY()  >= this.getstartY()) {
-			this.setY(player.getY());
-		} else {
-			this.setY(player.getY() + 100);
-		}
-		this.setY(player.getX());
 	}
 
 	public boolean isUsed() {

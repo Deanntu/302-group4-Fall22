@@ -4,16 +4,17 @@ import java.awt.Graphics;
 
 public class Drawer {
 	DrawAdapter drawAdapter;
+
 	public Drawer(String type) {
-		if(type.equals("PowerUp")) {
+		if (type.equals("PowerUp")) {
 			drawAdapter = new PowerUpDrawerAdapter();
-		}
-		else if(type.equals("Object")) {
+		} else if (type.equals("Object")) {
 			drawAdapter = new ObjectDrawerAdapter();
-		}else if(type.equals("Alien")) {
+		} else if (type.equals("Alien")) {
 			drawAdapter = new AlienDrawerAdapter();
 		}
 	}
+
 	public void draw(Graphics g, int[] rectValues, String name) {
 		drawAdapter.draw(g, rectValues, name);
 	}

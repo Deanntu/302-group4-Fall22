@@ -35,8 +35,9 @@ public class Account {
 		this.userPassword = userPassword;
 		this.mailAddress = mailAddress;
 	}
+
 	public Account() {
-		
+
 	}
 
 	public String getMailAddress() {
