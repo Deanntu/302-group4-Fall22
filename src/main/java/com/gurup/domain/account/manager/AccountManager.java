@@ -18,6 +18,7 @@ public class AccountManager {
 	private String password = "123456";
 	private String driver = "org.postgresql.Driver";
 	private String emptyEntry = "";
+
 	public AccountManager() {
 		try {
 			Class.forName(driver);
@@ -26,60 +27,77 @@ public class AccountManager {
 			e.printStackTrace();
 		}
 	}
+
 	public AccountOperationResults loginAccount(String username, String password1, String password2, String mail) throws Exception {
 		// EFFECTS: Checks for the credentials and returns the login result to be processed by Game
 		// REQUIRES: An account that matches the given credentials to exist in the database to log in
 		// Also requires that password1 and password2 are equal as well as the mail to be in a valid email address format
 		Account account = new Account();
-		if(!password1.equals(password2)) return AccountOperationResults.PASSWORD_MISMATCH;
-		if(isEmptyField(username,password1,mail)) return AccountOperationResults.EMPTY_FIELD;
-		if(!checkProperMail(mail)) return AccountOperationResults.WRONG_MAIL_FORMAT;
+		if (!password1.equals(password2))
+			return AccountOperationResults.PASSWORD_MISMATCH;
+		if (isEmptyField(username, password1, mail))
+			return AccountOperationResults.EMPTY_FIELD;
+		if (!checkProperMail(mail))
+			return AccountOperationResults.WRONG_MAIL_FORMAT;
 		account.setUserName(username);
 		account.setUserPassword(password1);
 		account.setMailAddress(mail);
-		
+
 		return tryLoginAccount(account);
 	}
-	public AccountOperationResults createAccount(String username, String password1, String password2, String mail) throws Exception{
+
+	public AccountOperationResults createAccount(String username, String password1, String password2, String mail)
+			throws Exception {
 		Account account = new Account();
-		if(!password1.equals(password2)) return AccountOperationResults.PASSWORD_MISMATCH;
-		if(isEmptyField(username,password1,mail)) return AccountOperationResults.EMPTY_FIELD;
-		if(!checkProperMail(mail)) return AccountOperationResults.WRONG_MAIL_FORMAT;
+		if (!password1.equals(password2))
+			return AccountOperationResults.PASSWORD_MISMATCH;
+		if (isEmptyField(username, password1, mail))
+			return AccountOperationResults.EMPTY_FIELD;
+		if (!checkProperMail(mail))
+			return AccountOperationResults.WRONG_MAIL_FORMAT;
 		account.setUserName(username);
 		account.setUserPassword(password1);
 		account.setMailAddress(mail);
-		
+
 		return tryCreateAccount(account);
 	}
+
 	private boolean isEmptyField(String username, String password, String mail) {
 		return username.equals(emptyEntry) || password.equals(emptyEntry) || mail.equals(emptyEntry);
 	}
+
 	private boolean checkProperMail(String mail) {
 		String regexPattern = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{1,6}$";
 		return patternMatches(mail, regexPattern);
 	}
+
 	private static boolean patternMatches(String emailAddress, String regexPattern) {
-	    return Pattern.compile(regexPattern)
-	      .matcher(emailAddress)
-	      .matches();
+		return Pattern.compile(regexPattern).matcher(emailAddress).matches();
 	}
+
 	private AccountOperationResults tryLoginAccount(Account account) throws Exception {
-		
-		if(findByMail(account.getMailAddress()) == null || findByUserName(account.getUserName()) == null) 
+
+		if (findByMail(account.getMailAddress()) == null || findByUserName(account.getUserName()) == null)
 			return AccountOperationResults.WRONG_CREDENTIAL;
 		Account temp = findByUserName(account.getUserName());
-		if(temp.getMailAddress().equals(account.getMailAddress()) && temp.getUserPassword().equals(account.getUserPassword())) {
+		if (temp.getMailAddress().equals(account.getMailAddress())
+				&& temp.getUserPassword().equals(account.getUserPassword())) {
 			return AccountOperationResults.SUCCESS;
 		}
 		return AccountOperationResults.WRONG_CREDENTIAL;
 	}
+
 	private AccountOperationResults tryCreateAccount(Account account) throws Exception {
-		if(findByMail(account.getMailAddress()) != null) return AccountOperationResults.MAIL_EXISTS;
-		if(findByUserName(account.getUserName()) != null) return AccountOperationResults.USERNAME_EXISTS;
-		if(create(account)) return AccountOperationResults.SUCCESS;
+		if (findByMail(account.getMailAddress()) != null)
+			return AccountOperationResults.MAIL_EXISTS;
+		if (findByUserName(account.getUserName()) != null)
+			return AccountOperationResults.USERNAME_EXISTS;
+		if (create(account))
+			return AccountOperationResults.SUCCESS;
 		return AccountOperationResults.FAILED;
-		
+
 	}
+
 	private boolean create(Account user) throws Exception {
 		Connection connection = DriverManager.getConnection(url, username, password);
 
@@ -109,12 +127,10 @@ public class AccountManager {
 
 	public boolean delete(String username) throws Exception {
 		Connection connection = DriverManager.getConnection(url, this.username, password);
-
 		String sql = "delete from useraccount where username =?";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setString(1, username);
 		int affected = statement.executeUpdate();
-
 		connection.close();
 		return affected > 0;
 	}
