@@ -72,9 +72,10 @@ public class Game {
 				// System.out.println(isPlayButtonPressed);
 				if (isPlayButtonPressed) {
 					mainMenuScreen.dispose();
+					// TODO: player's initial position should be random.
 					player = new Player(PlayerConstants.xStart.getValue(), PlayerConstants.yStart.getValue(),
 							PlayerConstants.xLen.getValue(), PlayerConstants.xLen.getValue(), 60);
-
+					buildMode();
 					inGame();
 				}
 			}
