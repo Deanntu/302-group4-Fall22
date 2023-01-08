@@ -43,9 +43,15 @@ public class AccountManager {
 
 		return tryLoginAccount(account);
 	}
-
 	public AccountOperationResults createAccount(String username, String password1, String password2, String mail)
 			throws Exception {
+		/*
+		 *EFFECTS: Checks for the credentials and creates an account if they match the requirements
+		 *REQUIRES: A set of credentials to be given that do not already exist in the database
+		 *Also requires that password1 and password2 are equal as well as the mail to be in a valid email address format
+		 *MODIFIES: The database
+		 */
+
 		Account account = new Account();
 		if (!password1.equals(password2))
 			return AccountOperationResults.PASSWORD_MISMATCH;
