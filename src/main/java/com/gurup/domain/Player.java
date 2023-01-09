@@ -223,4 +223,7 @@ public class Player {
 	public String getCurrentSelectedObject() {
 		return objectToBuild;
 	}
+
+    public void setObjectToBuild(String book) {
+    }
 }

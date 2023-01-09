@@ -100,7 +100,7 @@ public class BuildingModeRoom {
     }
 
 
-    public ArrayList<BuildingObject> getObjects() {
+    public ArrayList<BuildingObject> getBuildingObjects() {
         return buildingObjects;
     }
 

@@ -252,4 +252,7 @@ public class Game {
 	public static void setBag(Bag bag) {
 		Game.bag = bag;
 	}
+
+	public static void startGame() {
+	}
 }
