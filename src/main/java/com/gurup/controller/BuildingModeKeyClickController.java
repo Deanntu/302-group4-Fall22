@@ -12,6 +12,7 @@ public class BuildingModeKeyClickController implements MouseListener {
 
     private BuildingModeRoom buildingModeRoom;
 
+
     public BuildingModeKeyClickController(BuildingModeScreen buildingModeScreen, BuildingModeRoom buildingModeRoom) {
         this.buildingModeRoom = buildingModeRoom;
         buildingModeScreen.addMouseListener(this);
@@ -22,13 +23,16 @@ public class BuildingModeKeyClickController implements MouseListener {
         int xMouse = e.getX();
         int yMouse = e.getY();
         Rectangle mouseRect = new Rectangle(xMouse, yMouse, 1, 1);
-        if (e.getButton() == e.BUTTON1) {
-
+        if (e.getButton() == MouseEvent.BUTTON1) {
+            buildingModeRoom.leftClick(mouseRect);
+        } else if (e.getButton() == MouseEvent.BUTTON1) {
+            buildingModeRoom.rightClick(mouseRect);
         }
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
+
     }
 
     @Override
@@ -45,6 +49,4 @@ public class BuildingModeKeyClickController implements MouseListener {
 
     }
 
-    public void setObjectToBuild(String table) {
-    }
 }

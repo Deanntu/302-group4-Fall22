@@ -26,7 +26,7 @@ public class Player {
 	private int life;
 	private boolean isProtected;
 	private int remainingProtectionSeconds;
-
+	private String objectToBuild;
 
 
 	public Player(int xStart, int yStart, int xLen, int yLen, int startingTime) {
@@ -214,5 +214,13 @@ public class Player {
 			throw new RuntimeException(e);
 		}
 		return student_image;
+	}
+
+    public void setCurrentSelectedObject(String name) {
+		this.objectToBuild = name;
+    }
+
+	public String getCurrentSelectedObject() {
+		return objectToBuild;
 	}
 }

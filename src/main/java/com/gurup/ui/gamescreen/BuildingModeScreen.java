@@ -28,20 +28,19 @@ public class BuildingModeScreen extends JPanel {
     private Drawer buildObjectDrawer = new Drawer("Object");
     private FontMetrics metrics;
     private Font font;
-    private JButton binButton = new JButton(new ImageIcon(ImageLoader.bin_image.getScaledInstance(BuildingObjectConstants.allObjectsXLenForButtons.getValue(), BuildingObjectConstants.allObjectsYLenForButtons.getValue(),  Image.SCALE_SMOOTH)));
-    private JButton bookButton = new JButton(new ImageIcon(ImageLoader.book_image.getScaledInstance(BuildingObjectConstants.allObjectsXLenForButtons.getValue(), BuildingObjectConstants.allObjectsYLenForButtons.getValue(),  Image.SCALE_SMOOTH)));
-    private JButton penButton = new JButton(new ImageIcon(ImageLoader.pen_image.getScaledInstance(BuildingObjectConstants.allObjectsXLenForButtons.getValue(), BuildingObjectConstants.allObjectsYLenForButtons.getValue(),  Image.SCALE_SMOOTH)));
-    private JButton printerButton = new JButton(new ImageIcon(ImageLoader.printer_image.getScaledInstance(BuildingObjectConstants.allObjectsXLenForButtons.getValue(), BuildingObjectConstants.allObjectsYLenForButtons.getValue(),  Image.SCALE_SMOOTH)));
-    private JButton tableButton = new JButton(new ImageIcon(ImageLoader.table_image.getScaledInstance(BuildingObjectConstants.allObjectsXLenForButtons.getValue(), BuildingObjectConstants.allObjectsYLenForButtons.getValue(),  Image.SCALE_SMOOTH)));
+    private JButton binButton = new JButton(new ImageIcon(ImageLoader.bin_image.getScaledInstance(BuildingObjectConstants.allObjectsXLenForButtons.getValue(), BuildingObjectConstants.allObjectsYLenForButtons.getValue(), Image.SCALE_SMOOTH)));
+    private JButton bookButton = new JButton(new ImageIcon(ImageLoader.book_image.getScaledInstance(BuildingObjectConstants.allObjectsXLenForButtons.getValue(), BuildingObjectConstants.allObjectsYLenForButtons.getValue(), Image.SCALE_SMOOTH)));
+    private JButton penButton = new JButton(new ImageIcon(ImageLoader.pen_image.getScaledInstance(BuildingObjectConstants.allObjectsXLenForButtons.getValue(), BuildingObjectConstants.allObjectsYLenForButtons.getValue(), Image.SCALE_SMOOTH)));
+    private JButton printerButton = new JButton(new ImageIcon(ImageLoader.printer_image.getScaledInstance(BuildingObjectConstants.allObjectsXLenForButtons.getValue(), BuildingObjectConstants.allObjectsYLenForButtons.getValue(), Image.SCALE_SMOOTH)));
+    private JButton tableButton = new JButton(new ImageIcon(ImageLoader.table_image.getScaledInstance(BuildingObjectConstants.allObjectsXLenForButtons.getValue(), BuildingObjectConstants.allObjectsYLenForButtons.getValue(), Image.SCALE_SMOOTH)));
+    private JButton randomButton = new JButton("Random");
+    private JButton startButton = new JButton("Start");
+
     private final int xCurrentInitialForButtons = RoomConstants.xStart.getValue();
-    private final int yCurrentForButtons = RoomConstants.yStart.getValue()+RoomConstants.yLimit.getValue() + 5;
-    private final int xLenForButtons = BuildingObjectConstants.allObjectsXLenForButtons.getValue()+30; // magical number
-    private final int yLenForButtons = BuildingObjectConstants.allObjectsXLenForButtons.getValue()+20; // magical number
-    private final int buffer = 10;
-
-
-
-
+    private final int yCurrentForButtons = RoomConstants.yStart.getValue() + RoomConstants.yLimit.getValue() + 5;
+    private final int xLenForButtons = BuildingObjectConstants.allObjectsXLenForButtons.getValue() + 35; // magical number
+    private final int yLenForButtons = BuildingObjectConstants.allObjectsXLenForButtons.getValue() + 20; // magical number
+    private final int buffer = xLenForButtons + 10;
 
 
     public BuildingModeScreen(Game game, Player player, BuildingModeKeyClickController buildingModeKeyClickController, BuildingModeRoom buildingModeRoom) {
@@ -52,68 +51,79 @@ public class BuildingModeScreen extends JPanel {
         this.buildingModeKeyClickController = buildingModeKeyClickController;
         this.delayMiliSeconds = 20;
         this.setLayout(null); // absolute layout for the buttons
+        randomButton.setBounds(xCurrentInitialForButtons, yCurrentForButtons, xLenForButtons, yLenForButtons);
+        binButton.setBounds(randomButton.getX() + buffer, yCurrentForButtons, xLenForButtons, yLenForButtons);
+        bookButton.setBounds(binButton.getX() + buffer, yCurrentForButtons, xLenForButtons, yLenForButtons);
+        penButton.setBounds(bookButton.getX() + buffer, yCurrentForButtons, xLenForButtons, yLenForButtons);
+        printerButton.setBounds(penButton.getX() + buffer, yCurrentForButtons, xLenForButtons, yLenForButtons);
+        tableButton.setBounds(printerButton.getX() + buffer, yCurrentForButtons, xLenForButtons, yLenForButtons);
+        startButton.setBounds(tableButton.getX() + buffer, yCurrentForButtons, xLenForButtons, yLenForButtons);
 
-        binButton.setBounds(xCurrentInitialForButtons, yCurrentForButtons, xLenForButtons, yLenForButtons);
-        bookButton.setBounds(binButton.getX()+binButton.getWidth()+buffer, yCurrentForButtons, xLenForButtons, yLenForButtons);
-        penButton.setBounds(bookButton.getX()+bookButton.getWidth()+buffer, yCurrentForButtons, xLenForButtons, yLenForButtons);
-        printerButton.setBounds(penButton.getX()+penButton.getWidth()+buffer, yCurrentForButtons, xLenForButtons, yLenForButtons);
-        tableButton.setBounds(printerButton.getX()+printerButton.getWidth()+buffer, yCurrentForButtons, xLenForButtons, yLenForButtons);
-
-
+        randomButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // TODO: Randomize the objects
+            }
+        });
         binButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                buildingModeKeyClickController.setObjectToBuild("Bin");
+                buildingModeRoom.setObjectToBuild("Bin");
             }
         });
 
         bookButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                buildingModeKeyClickController.setObjectToBuild("Book");
+                buildingModeRoom.setObjectToBuild("Book");
             }
         });
 
         penButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                buildingModeKeyClickController.setObjectToBuild("Pen");
+                buildingModeRoom.setObjectToBuild("Pen");
             }
         });
 
         printerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                buildingModeKeyClickController.setObjectToBuild("Printer");
+                buildingModeRoom.setObjectToBuild("Printer");
             }
         });
 
         tableButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                buildingModeKeyClickController.setObjectToBuild("Table");
+                buildingModeRoom.setObjectToBuild("Table");
+            }
+        });
+
+        startButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
             }
         });
 
 
-
-
         // TODO: Button location fix
+        add(randomButton);
         add(binButton);
         add(bookButton);
         add(penButton);
         add(printerButton);
         add(tableButton);
+        add(startButton);
 
-
+        randomButton.setFocusable(false);
         binButton.setFocusable(false);
         bookButton.setFocusable(false);
         penButton.setFocusable(false);
         printerButton.setFocusable(false);
         tableButton.setFocusable(false);
-
-
-
+        startButton.setFocusable(false);
 
 
         Timer timer = new Timer(delayMiliSeconds, new ActionListener() {
@@ -135,7 +145,6 @@ public class BuildingModeScreen extends JPanel {
         font = new Font("Courier New", Font.BOLD, 20);
         metrics = g.getFontMetrics(font);
     }
-  // TODO
 
     private void paintRoomName(Graphics g) {
         g.setColor(Color.BLACK);
@@ -144,7 +153,6 @@ public class BuildingModeScreen extends JPanel {
         g.setFont(font);
         g.drawString(buildingModeRoom.getName(), x, y);
     }
-
 
 
     private void paintPlayer(Graphics g) {
@@ -161,13 +169,12 @@ public class BuildingModeScreen extends JPanel {
     }
 
 
-
     public BuildingModeKeyClickController getKeyClickController() {
         return buildingModeKeyClickController;
     }
 
     public void setBuildingModeKeyClickController(BuildingModeKeyClickController buildingModeKeyClickController) {
         this.buildingModeKeyClickController = buildingModeKeyClickController;
-	}
+    }
 
 }

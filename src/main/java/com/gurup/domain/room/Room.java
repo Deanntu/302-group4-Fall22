@@ -59,16 +59,12 @@ public class Room {
 		BuildingObject printer = buildingObjectFactory.createBuildingObject("Printer", 800, 300, BuildingObjectConstants.printerXLen.getValue(), BuildingObjectConstants.printerYLen.getValue());
 
 
-
 		objects.add(bin);
 		objects.add(table);
 		objects.add(book);
 		objects.add(pen);
 		objects.add(printer);
-
 		key.hideKey(objects);
-		pauseButton = new Rectangle(0, 0, 50, 50);
-		exitButton = new Rectangle(0, 0, 50, 50);
 		initPowerUps();
 
 	}

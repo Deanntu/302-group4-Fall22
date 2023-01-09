@@ -1,6 +1,8 @@
 package com.gurup.domain.buildingmode;
 import com.gurup.domain.Player;
 
+import java.awt.*;
+
 public class BuildingModeRoom {
     private static int xStart;
     private static int yStart;
@@ -41,5 +43,16 @@ public class BuildingModeRoom {
         this.player = player;
     }
 
+    public void setObjectToBuild(String name) {
+        player.setCurrentSelectedObject(name);
+    }
+
+    public void leftClick(Rectangle mouseRect) {
+        System.out.println(player.getCurrentSelectedObject());
+    }
+
+    public void rightClick(Rectangle mouseRect) {
+        System.out.println(player.getCurrentSelectedObject());
+    }
 }
 

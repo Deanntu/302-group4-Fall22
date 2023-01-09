@@ -102,6 +102,7 @@ public class Game {
 		buildingModeRoom = new BuildingModeRoom("Student Center", RoomConstants.xStart.getValue(), RoomConstants.yStart.getValue(), RoomConstants.xLimit.getValue(),
 				RoomConstants.yLimit.getValue(), player);
 		buildingModeScreen = screenMaker.createBuildingModeScreen(game, player, buildingModeKeyClickController, buildingModeRoom);
+		buildingModeKeyClickController = new BuildingModeKeyClickController(buildingModeScreen, buildingModeRoom);
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				screenMaker.showBuildingModeGUI(buildingModeScreen);
