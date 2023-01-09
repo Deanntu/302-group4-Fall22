@@ -68,10 +68,10 @@ public class RoomDatabaseGameSaver {
 		String sql = "INSERT INTO public.object(name, xstart, ystart, xlimit, ylimit, iskeyholder)VALUES (?, ?, ?, ?, ?,?);";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setString(1, b.getName());
-		statement.setInt(2, b.getstartX());
-		statement.setInt(3, b.getstartY());
-		statement.setInt(4, b.getxLimit());
-		statement.setInt(5, b.getyLimit());
+		statement.setInt(2, b.getXCurrent());
+		statement.setInt(3, b.getYCurrent());
+		statement.setInt(4, b.getXLen());
+		statement.setInt(5, b.getYLen());
 		statement.setBoolean(6, key.getBuildingObject().equals(b));
 		int affected = statement.executeUpdate();
 

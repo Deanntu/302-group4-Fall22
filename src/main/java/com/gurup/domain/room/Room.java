@@ -19,6 +19,7 @@ import com.gurup.domain.powerups.ThrownBottlePowerUp;
 import com.gurup.domain.powerups.TimePowerUp;
 import com.gurup.domain.powerups.VestPowerUp;
 import com.gurup.domain.room.buildingobjects.BuildingObject;
+import com.gurup.domain.room.buildingobjects.BuildingObjectConstants;
 import com.gurup.domain.room.buildingobjects.BuildingObjectFactory;
 
 public class Room {
@@ -51,13 +52,37 @@ public class Room {
 		this.player = player;
 
 		BuildingObjectFactory buildingObjectFactory = new BuildingObjectFactory();
-		BuildingObject object1 = buildingObjectFactory.createBuildingObject("Bin", 500, 300, 30, 35);
-		BuildingObject object2 = buildingObjectFactory.createBuildingObject("Table", 800, 100, 60, 40);
-		objects.add(object1);
-		objects.add(object2);
+		BuildingObject bin = buildingObjectFactory.createBuildingObject("Bin", 500, 300, BuildingObjectConstants.binXLen.getValue(), BuildingObjectConstants.binYLen.getValue());
+		BuildingObject table = buildingObjectFactory.createBuildingObject("Table", 800, 100, BuildingObjectConstants.tableXLen.getValue(), BuildingObjectConstants.tableYLen.getValue());
+		BuildingObject book = buildingObjectFactory.createBuildingObject("Book", 100, 100, BuildingObjectConstants.bookXLen.getValue(), BuildingObjectConstants.bookYLen.getValue());
+		BuildingObject pen = buildingObjectFactory.createBuildingObject("Pen", 100, 300, BuildingObjectConstants.penXLen.getValue(), BuildingObjectConstants.penYLen.getValue());
+		BuildingObject printer = buildingObjectFactory.createBuildingObject("Printer", 800, 300, BuildingObjectConstants.printerXLen.getValue(), BuildingObjectConstants.printerYLen.getValue());
+
+		objects.add(bin);
+		objects.add(table);
+		objects.add(book);
+		objects.add(pen);
+		objects.add(printer);
 		key.hideKey(objects);
-		pauseButton = new Rectangle(0, 0, 50, 50);
-		exitButton = new Rectangle(0, 0, 50, 50);
+		initPowerUps();
+
+	}
+
+	public Room(String name, int xStart, int yStart, int xLimit, int yLimit, Player player, ArrayList<BuildingObject> buildingObjects) {
+		this.name = name;
+		Room.xStart = xStart;
+		Room.yStart = yStart;
+		Room.xLimit = xLimit;
+		Room.yLimit = yLimit;
+		this.objects = new ArrayList<>();
+		this.key = new Key();
+		this.player = player;
+
+		for (BuildingObject buildingObject : buildingObjects) {
+			this.objects.add(buildingObject);
+		}
+
+		key.hideKey(objects);
 		initPowerUps();
 
 	}
@@ -286,24 +311,31 @@ public class Room {
 		BottlePowerUp b = BottlePowerUp.getInstance(player);
 		ThrownBottlePowerUp.getInstance(player);
 		t.setXCurrent(420);
-		t.setXLen(50);
 		t.setYCurrent(320);
-		t.setYLen(50);
+
+		t.setXLen(RoomConstants.timePowerUpXLen.getValue());
+		t.setYLen(RoomConstants.timePowerUpYLen.getValue());
 
 		h.setXCurrent(420);
-		h.setXLen(50);
 		h.setYCurrent(320);
-		h.setYLen(50);
+
+		h.setXLen(RoomConstants.healthPowerUpXLen.getValue());
+		h.setYLen(RoomConstants.healthPowerUpYLen.getValue());
+
 
 		v.setXCurrent(420);
-		v.setXLen(50);
 		v.setYCurrent(320);
-		v.setYLen(50);
+
+		v.setXLen(RoomConstants.vestPowerUpXLen.getValue());
+		v.setYLen(RoomConstants.vestPowerUpYLen.getValue());
 
 		b.setXCurrent(420);
-		b.setXLen(50);
 		b.setYCurrent(320);
-		b.setYLen(50);
+
+		b.setXLen(RoomConstants.bottlePowerUpXLen.getValue());
+		b.setYLen(RoomConstants.bottlePowerUpYLen.getValue());
+
+
 
 		powerUps.add(t);
 		powerUps.add(h);

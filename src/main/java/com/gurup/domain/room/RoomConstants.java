@@ -6,7 +6,22 @@ public enum RoomConstants {
 	xStart(50),
 	yStart(50),
 	xLimit(Toolkit.getDefaultToolkit().getScreenSize().width - 100),
-	yLimit(Toolkit.getDefaultToolkit().getScreenSize().height - 175);
+	yLimit(Toolkit.getDefaultToolkit().getScreenSize().height - 175),
+	timePowerUpXLen(50),
+	timePowerUpYLen(50),
+	healthPowerUpXLen(50),
+	healthPowerUpYLen(50),
+	vestPowerUpXLen(50),
+	vestPowerUpYLen(50),
+	bottlePowerUpXLen(25),
+	bottlePowerUpYLen(50),
+	doorXLen(60),
+	doorYLen(100),
+	doorXStart(xLimit.getValue()-doorXLen.getValue()+xStart.getValue()),
+	doorYStart(yLimit.getValue()-doorYLen.getValue()+yStart.getValue());
+
+
+
 	private final int value;
 	RoomConstants(int value) {
 		// TODO Auto-generated constructor stub
