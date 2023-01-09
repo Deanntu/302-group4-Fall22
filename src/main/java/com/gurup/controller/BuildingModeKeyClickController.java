@@ -25,8 +25,6 @@ public class BuildingModeKeyClickController implements MouseListener {
         Rectangle mouseRect = new Rectangle(xMouse, yMouse, 1, 1);
         if (e.getButton() == MouseEvent.BUTTON1) {
             buildingModeRoom.leftClick(mouseRect);
-        } else if (e.getButton() == MouseEvent.BUTTON1) {
-            buildingModeRoom.rightClick(mouseRect);
         }
     }
 

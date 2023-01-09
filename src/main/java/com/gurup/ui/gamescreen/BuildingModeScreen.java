@@ -15,6 +15,7 @@ import com.gurup.domain.Player;
 import com.gurup.domain.buildingmode.BuildingModeRoom;
 import com.gurup.domain.room.RoomConstants;
 import com.gurup.domain.room.buildingobjects.Bin;
+import com.gurup.domain.room.buildingobjects.BuildingObject;
 import com.gurup.domain.room.buildingobjects.BuildingObjectConstants;
 import com.gurup.ui.ImageLoader;
 import com.gurup.ui.drawer.Drawer;
@@ -51,7 +52,7 @@ public class BuildingModeScreen extends JPanel {
         this.player = player;
         this.buildingModeRoom = buildingModeRoom;
         this.buildingModeKeyClickController = buildingModeKeyClickController;
-        this.delayMiliSeconds = 20;
+        this.delayMiliSeconds = 5;
         this.setLayout(null); // absolute layout for the buttons
         randomButton.setBounds(xCurrentInitialForButtons, yCurrentForButtons, xLenForButtons, yLenForButtons);
         binButton.setBounds(randomButton.getX() + buffer + xLenForButtons, yCurrentForButtons, xLenForButtons, yLenForButtons);
@@ -128,12 +129,9 @@ public class BuildingModeScreen extends JPanel {
         startButton.setFocusable(false);
 
 
-        Timer timer = new Timer(delayMiliSeconds, new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                repaint();
-            }
-        });
-        timer.start();
+        new Timer(this.delayMiliSeconds, e -> {
+            repaint();
+        }).start();
     }
 
     public void paintComponent(Graphics g) {
@@ -142,6 +140,13 @@ public class BuildingModeScreen extends JPanel {
         paintRoomName(g);
         paintWall(g);
         paintDoor(g);
+        drawObjects(g);
+    }
+
+    private void drawObjects(Graphics g) {
+        for (BuildingObject bo : buildingModeRoom.getObjects()) {
+            buildObjectDrawer.draw(g, bo.rectArray(), bo.getName());
+        }
     }
 
     private void paintDoor(Graphics g) {
@@ -161,10 +166,6 @@ public class BuildingModeScreen extends JPanel {
         g.drawString(buildingModeRoom.getName(), x, y);
     }
 
-
-    private void paintPlayer(Graphics g) {
-        g.drawImage(ImageLoader.player_image, player.getXCurrent(), player.getYCurrent(), player.getXLen(), player.getYLen(), null);
-    }
 
     private void paintWall(Graphics g) {
         g.setColor(Color.BLACK);
