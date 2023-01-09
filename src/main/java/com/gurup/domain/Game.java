@@ -37,10 +37,19 @@ public class Game {
 	private static String session;
 	private static Boolean isPaused;
 
-	private static BuildingModeRoom buildingModeRoom;
+	private static BuildingModeRoom buildingModeRoomStudentCenter;
 	private static BuildingModeScreen buildingModeScreen;
 	private static PauseAndResumeScreen pauseAndResumeScreen;
 	private static BuildingModeKeyClickController buildingModeKeyClickController;
+
+	private static BuildingModeRoom buildingModeRoomCASE;
+	private static BuildingModeRoom buildingModeRoomSOS;
+	private static BuildingModeRoom buildingModeRoomSCI;
+	private static BuildingModeRoom buildingModeRoomENG;
+	private static BuildingModeRoom buildingModeRoomSNA;
+
+
+
 
 
 	private Game() {
@@ -75,8 +84,13 @@ public class Game {
 					// TODO: player's initial position should be random.
 					player = new Player(PlayerConstants.xStart.getValue(), PlayerConstants.yStart.getValue(),
 							PlayerConstants.xLen.getValue(), PlayerConstants.xLen.getValue(), 60);
-					buildMode();
-					inGame();
+					buildingModeRoomStudentCenter = buildMode("Student Center");
+					buildingModeRoomCASE = buildMode("CASE");
+					buildingModeRoomSOS = buildMode("SOS");
+					buildingModeRoomSCI = buildMode("SCI");
+					buildingModeRoomENG = buildMode("ENG");
+					buildingModeRoomSNA = buildMode("SNA");
+                    inGame(buildingModeRoomStudentCenter);
 				}
 			}
 		} catch (Exception e) {
@@ -98,8 +112,9 @@ public class Game {
 		}
 	}
 
-	private static void buildMode(){
-		buildingModeRoom = new BuildingModeRoom("Student Center", RoomConstants.xStart.getValue(), RoomConstants.yStart.getValue(), RoomConstants.xLimit.getValue(),
+	private static BuildingModeRoom buildMode(String roomName ) {
+		boolean isBuildModeFinished = false;
+		BuildingModeRoom buildingModeRoom = new BuildingModeRoom(roomName, RoomConstants.xStart.getValue(), RoomConstants.yStart.getValue(), RoomConstants.xLimit.getValue(),
 				RoomConstants.yLimit.getValue(), player);
 		buildingModeScreen = screenMaker.createBuildingModeScreen(game, player, buildingModeKeyClickController, buildingModeRoom);
 		buildingModeKeyClickController = new BuildingModeKeyClickController(buildingModeScreen, buildingModeRoom);
@@ -109,27 +124,24 @@ public class Game {
 			}
 		});
 
-
-		// running timer task as daemon thread
-		Timer timer = new Timer(true);
-		System.out.println(Thread.currentThread().getName() + " TimerTask started");
-		// cancel after sometime
-		try {
-			Thread.sleep(1000000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+		while (!isBuildModeFinished) {
+			isBuildModeFinished = buildingModeScreen.getIsFinished();
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
-		timer.cancel();
-
+		return buildingModeRoom;
 	}
 
-	private static void inGame() {
+	private static void inGame(BuildingModeRoom buildingModeRoomStudentCenter) {
 		System.out.println();
 		if (bag == null) {
 			bag = new Bag(player);
 		}
-		room = new Room("Student Center", RoomConstants.xStart.getValue(), RoomConstants.yStart.getValue(), RoomConstants.xLimit.getValue(),
-				RoomConstants.yLimit.getValue(), player);
+		room = new Room(buildingModeRoomStudentCenter.getName(), RoomConstants.xStart.getValue(), RoomConstants.yStart.getValue(), RoomConstants.xLimit.getValue(),
+				RoomConstants.yLimit.getValue(), player, buildingModeRoomStudentCenter.getBuildingObjects());
 		Game.getBag().setupBag(room.getPowerUps());
 		runningModeScreen = screenMaker.createRunningModeScreen(game, player, movementController, keyClickController,
 				powerUpController, room);

@@ -15,6 +15,7 @@ public enum BuildingObjectConstants {
     printerYLen(50),
     allObjectsXLenForButtons (30),
     allObjectsYLenForButtons (30);
+
     private final int value;
     BuildingObjectConstants(int value) {
         // TODO Auto-generated constructor stub

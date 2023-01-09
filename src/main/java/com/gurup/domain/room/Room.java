@@ -58,12 +58,30 @@ public class Room {
 		BuildingObject pen = buildingObjectFactory.createBuildingObject("Pen", 100, 300, BuildingObjectConstants.penXLen.getValue(), BuildingObjectConstants.penYLen.getValue());
 		BuildingObject printer = buildingObjectFactory.createBuildingObject("Printer", 800, 300, BuildingObjectConstants.printerXLen.getValue(), BuildingObjectConstants.printerYLen.getValue());
 
-
 		objects.add(bin);
 		objects.add(table);
 		objects.add(book);
 		objects.add(pen);
 		objects.add(printer);
+		key.hideKey(objects);
+		initPowerUps();
+
+	}
+
+	public Room(String name, int xStart, int yStart, int xLimit, int yLimit, Player player, ArrayList<BuildingObject> buildingObjects) {
+		this.name = name;
+		Room.xStart = xStart;
+		Room.yStart = yStart;
+		Room.xLimit = xLimit;
+		Room.yLimit = yLimit;
+		this.objects = new ArrayList<>();
+		this.key = new Key();
+		this.player = player;
+
+		for (BuildingObject buildingObject : buildingObjects) {
+			this.objects.add(buildingObject);
+		}
+
 		key.hideKey(objects);
 		initPowerUps();
 
