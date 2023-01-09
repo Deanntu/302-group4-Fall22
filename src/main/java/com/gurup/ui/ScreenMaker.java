@@ -17,6 +17,8 @@ import com.gurup.ui.gamescreen.MainMenuScreen;
 import com.gurup.ui.gamescreen.RunningModeScreen;
 
 public class ScreenMaker {
+	public static JFrame frame = new JFrame("OYUN");
+
 
 	public LoginScreen createMainModeScreen() {
 		LoginScreen loginScreen = new LoginScreen();
@@ -57,16 +59,16 @@ public class ScreenMaker {
 
 		System.out.println(Thread.currentThread().getName() + " Created GUI for Run " + SwingUtilities.isEventDispatchThread());
 
-		JFrame f = new JFrame("OYUN");
-		f.setExtendedState(f.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+		frame = new JFrame("OYUN");
+		frame.setExtendedState(frame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		f.add(runningModeScreen);
+		frame.add(runningModeScreen);
 
-		f.pack();
-		f.setLocationRelativeTo(null);
-		f.setVisible(true);
+		frame.pack();
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
 		return runningModeScreen;
 	}
 
@@ -80,15 +82,18 @@ public class ScreenMaker {
 
 		System.out.println(Thread.currentThread().getName() + " Created GUI for Run " + SwingUtilities.isEventDispatchThread());
 
-		JFrame f = new JFrame("OYUN");
-		f.setExtendedState(f.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+		frame.setExtendedState(frame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		f.add(buildingModeScreen);
-		f.pack();
-		f.setLocationRelativeTo(null);
-		f.setVisible(true);
+		frame.add(buildingModeScreen);
+		frame.pack();
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
 		return buildingModeScreen;
+	}
+
+	public void stopBuildingModeGUI(BuildingModeScreen buildingModeScreen) {
+		frame.remove(buildingModeScreen);
 	}
 }

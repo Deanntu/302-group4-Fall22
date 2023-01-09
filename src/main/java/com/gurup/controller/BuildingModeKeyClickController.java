@@ -24,7 +24,7 @@ public class BuildingModeKeyClickController implements MouseListener {
         int yMouse = e.getY();
         Rectangle mouseRect = new Rectangle(xMouse, yMouse, 1, 1);
         if (e.getButton() == MouseEvent.BUTTON1) {
-            buildingModeRoom.addObjects(mouseRect);
+            buildingModeRoom.addBuildingObjects(mouseRect);
         }
     }
 

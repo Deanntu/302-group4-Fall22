@@ -1,5 +1,6 @@
 package com.gurup.domain;
 
+import java.util.ArrayList;
 import java.util.Timer;
 
 import javax.swing.SwingUtilities;
@@ -37,16 +38,10 @@ public class Game {
 	private static String session;
 	private static Boolean isPaused;
 
-	private static BuildingModeRoom buildingModeRoomStudentCenter;
+	private static BuildingModeRoom buildingModeRoom;
 	private static BuildingModeScreen buildingModeScreen;
 	private static PauseAndResumeScreen pauseAndResumeScreen;
 	private static BuildingModeKeyClickController buildingModeKeyClickController;
-
-	private static BuildingModeRoom buildingModeRoomCASE;
-	private static BuildingModeRoom buildingModeRoomSOS;
-	private static BuildingModeRoom buildingModeRoomSCI;
-	private static BuildingModeRoom buildingModeRoomENG;
-	private static BuildingModeRoom buildingModeRoomSNA;
 
 
 
@@ -84,13 +79,15 @@ public class Game {
 					// TODO: player's initial position should be random.
 					player = new Player(PlayerConstants.xStart.getValue(), PlayerConstants.yStart.getValue(),
 							PlayerConstants.xLen.getValue(), PlayerConstants.xLen.getValue(), 60);
-					buildingModeRoomStudentCenter = buildMode("Student Center");
-					buildingModeRoomCASE = buildMode("CASE");
-					buildingModeRoomSOS = buildMode("SOS");
-					buildingModeRoomSCI = buildMode("SCI");
-					buildingModeRoomENG = buildMode("ENG");
-					buildingModeRoomSNA = buildMode("SNA");
-                    inGame(buildingModeRoomStudentCenter);
+
+					BuildingModeRoom buildingStudentCenter = buildMode("Student Center");
+					BuildingModeRoom buildingCASE = buildMode("CASE");
+					BuildingModeRoom buildingSOS = buildMode ("SOS");
+					BuildingModeRoom  buildingSCI = buildMode ("SCI");
+					BuildingModeRoom  buildingENG = buildMode ("ENG");
+					BuildingModeRoom  buildingSNA = buildMode ("SNA");
+
+					inGame(buildingStudentCenter);
 				}
 			}
 		} catch (Exception e) {
@@ -112,7 +109,7 @@ public class Game {
 		}
 	}
 
-	private static BuildingModeRoom buildMode(String roomName ) {
+	private static BuildingModeRoom buildMode(String roomName) {
 		boolean isBuildModeFinished = false;
 		BuildingModeRoom buildingModeRoom = new BuildingModeRoom(roomName, RoomConstants.xStart.getValue(), RoomConstants.yStart.getValue(), RoomConstants.xLimit.getValue(),
 				RoomConstants.yLimit.getValue(), player);
@@ -132,6 +129,7 @@ public class Game {
 				e.printStackTrace();
 			}
 		}
+		screenMaker.stopBuildingModeGUI(buildingModeScreen);
 		return buildingModeRoom;
 	}
 

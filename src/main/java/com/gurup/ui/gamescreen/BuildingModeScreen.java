@@ -43,6 +43,7 @@ public class BuildingModeScreen extends JPanel {
     private final int yCurrentForButtons = RoomConstants.yStart.getValue() + RoomConstants.yLimit.getValue() + 5;
 
     private boolean isFinished = false;
+    private boolean isRandomValid = true;
 
 
     public BuildingModeScreen(Game game, Player player, BuildingModeKeyClickController buildingModeKeyClickController, BuildingModeRoom buildingModeRoom) {
@@ -68,7 +69,12 @@ public class BuildingModeScreen extends JPanel {
         randomButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO: Randomize the objects
+
+                  if (isRandomValid) {
+                    buildingModeRoom.addRandomBuildingObjects();
+                  isRandomValid = false;
+                 }
+
             }
         });
         binButton.addActionListener(new ActionListener() {
@@ -230,4 +236,7 @@ public class BuildingModeScreen extends JPanel {
         this.buildingModeKeyClickController = buildingModeKeyClickController;
     }
 
+    public BuildingModeRoom getBuildingModeRoom(){
+        return buildingModeRoom;
+    }
 }

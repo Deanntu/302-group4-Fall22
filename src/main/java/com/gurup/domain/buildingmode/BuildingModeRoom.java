@@ -1,14 +1,18 @@
 package com.gurup.domain.buildingmode;
 
+import com.gurup.domain.Main;
 import com.gurup.domain.Player;
 import com.gurup.domain.room.RoomConstants;
 import com.gurup.domain.room.buildingobjects.BuildingObject;
 import com.gurup.domain.room.buildingobjects.BuildingObjectConstants;
 import com.gurup.domain.room.buildingobjects.BuildingObjectFactory;
 
+import java.math.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class BuildingModeRoom {
     private static int xStart;
@@ -67,34 +71,33 @@ public class BuildingModeRoom {
         player.setCurrentSelectedObject(name);
     }
 
-    public void addObjects(Rectangle mouseRect) {
+    public void addBuildingObjects(Rectangle mouseRect) {
         String buildingObjectName = this.player.getCurrentSelectedObject();
         if (buildingObjectName != null) {
-            int[] lenArray = this.getXLenAndYLen(buildingObjectName);
+            int[] lenArray = this.getXAndYForCandidateObject(buildingObjectName);
             int xLen = lenArray[0];
             int yLen = lenArray[1];
-            Rectangle objectRect = new Rectangle(mouseRect.x, mouseRect.y, xLen, yLen);
+            int xCurrent = mouseRect.x;
+            int yCurrent = mouseRect.y;
+            Rectangle objectRect = new Rectangle(xCurrent, yCurrent, xLen, yLen);
             Rectangle roomRect = new Rectangle(xStart, yStart, xLimit, yLimit);
             Rectangle doorRect = new Rectangle(RoomConstants.doorXStart.getValue(), RoomConstants.doorYStart.getValue(), RoomConstants.doorXLen.getValue(), RoomConstants.doorYLen.getValue());
-            if (objectRect.intersects(doorRect)) {
-                JOptionPane.showMessageDialog(null, "You can't build on the door!");
-            } else if (roomRect.contains(objectRect)) {
-                if (buildingObjects.size() == 0) {
-                    BuildingObject firstBuildingObject = buildingObjectFactory.createBuildingObject(buildingObjectName, mouseRect.x, mouseRect.y, xLen, yLen);
-                    buildingObjects.add(firstBuildingObject);
-                } else {
-                    for (BuildingObject buildingObject : buildingObjects) {
-                        if (buildingObject.getRectangle().intersects(mouseRect.x, mouseRect.y, 50, 50)) {
-                            JOptionPane.showMessageDialog(null, "You can't build on another object!");
-                            return;
-                        }
-                    }
-                    BuildingObject newBuildingObject = buildingObjectFactory.createBuildingObject(player.getCurrentSelectedObject(), mouseRect.x, mouseRect.y, xLen, yLen);
-                    buildingObjects.add(newBuildingObject);
+            for (BuildingObject buildingObject : buildingObjects) {
+                if (buildingObject.getRectangle().intersects(objectRect)) {
+                    JOptionPane.showMessageDialog(null, "You can't build on another object!");
+                    return;
                 }
-
-            } else {
+            }
+            if (doorRect.intersects(objectRect)) {
+                JOptionPane.showMessageDialog(null, "You can't build on the door!");
+                return;
+            } else if (!roomRect.contains(objectRect)) {
                 JOptionPane.showMessageDialog(null, "You can't build outside the room!");
+                return;
+            } else {
+                BuildingObject newBuildingObject = buildingObjectFactory.createBuildingObject(buildingObjectName, xCurrent, yCurrent, xLen, yLen);
+                buildingObjects.add(newBuildingObject);
+                return;
             }
         }
     }
@@ -104,7 +107,7 @@ public class BuildingModeRoom {
         return buildingObjects;
     }
 
-    public int[] getXLenAndYLen(String tempBuildingObjectName) {
+    private int[] getXAndYForCandidateObject(String tempBuildingObjectName) {
         int[] lenArray = new int[2];
 
         switch (tempBuildingObjectName) {
@@ -132,6 +135,86 @@ public class BuildingModeRoom {
                 throw new IllegalArgumentException("Unknown Building Object " + tempBuildingObjectName);
         }
         return lenArray;
+    }
+
+    public void addRandomBuildingObjects() {
+        Random random = new Random();
+        int numberOfObjects = getNumberOfObjects();
+        int i = 0;
+        while (i < numberOfObjects) {
+            boolean canBePlaced = true;
+            int objectID = random.nextInt(1, 6);
+            String buildingObjectName = getBuildingObjectName(objectID);
+            int[] lenArray = this.getXAndYForCandidateObject(buildingObjectName);
+            int xLen = lenArray[0];
+            int yLen = lenArray[1];
+            int xCurrent = random.nextInt(xStart, xLimit - xLen);
+            int yCurrent = random.nextInt(yStart, yLimit - yLen);
+            Rectangle objectRect = new Rectangle(xCurrent, yCurrent, xLen, yLen);
+            Rectangle roomRect = new Rectangle(xStart, yStart, xLimit, yLimit);
+            Rectangle doorRect = new Rectangle(RoomConstants.doorXStart.getValue(), RoomConstants.doorYStart.getValue(), RoomConstants.doorXLen.getValue(), RoomConstants.doorYLen.getValue());
+            for (BuildingObject buildingObject : buildingObjects) {
+                if (buildingObject.getRectangle().intersects(objectRect)) {
+                    canBePlaced = false;
+                }
+            }
+            if (doorRect.intersects(objectRect)) {
+                canBePlaced = false;
+            } else if (!roomRect.contains(objectRect)) {
+                canBePlaced = false;
+            } else {
+                if (canBePlaced) {
+                    BuildingObject newBuildingObject = buildingObjectFactory.createBuildingObject(buildingObjectName, xCurrent, yCurrent, xLen, yLen);
+                    buildingObjects.add(newBuildingObject);
+                    i++;
+                }
+            }
+        }
+        return;
+    }
+
+    private int getNumberOfObjects() {
+        int numberOfObjects;
+        switch (this.name) {
+            case "Student Center":
+                numberOfObjects = BuildingModeRoomConstants.minObjectsForStudentCenter.getValue();
+                break;
+            case "CASE":
+                numberOfObjects = BuildingModeRoomConstants.minObjectsForCASE.getValue();
+                break;
+            case "SOS":
+                numberOfObjects = BuildingModeRoomConstants.minObjectsForSOS.getValue();
+                break;
+            case "SCI":
+                numberOfObjects = BuildingModeRoomConstants.minObjectsForSCI.getValue();
+                break;
+            case "ENG":
+                numberOfObjects = BuildingModeRoomConstants.minObjectsForENG.getValue();
+                break;
+            case "SNA":
+                numberOfObjects = BuildingModeRoomConstants.minObjectsForSNA.getValue();
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown Room " + this.name);
+        }
+        return numberOfObjects;
+    }
+
+    private String getBuildingObjectName(int objectID) {
+        switch (objectID) {
+            case 1:
+                return "Bin";
+            case 2:
+                return "Book";
+            case 3:
+                return "Pen";
+            case 4:
+                return "Printer";
+            case 5:
+                return "Table";
+            default:
+                throw new IllegalArgumentException("Unknown Building Object ID " + objectID);
+        }
     }
 }
 
