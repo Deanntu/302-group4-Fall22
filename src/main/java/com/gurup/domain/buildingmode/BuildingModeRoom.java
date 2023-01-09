@@ -67,7 +67,7 @@ public class BuildingModeRoom {
         player.setCurrentSelectedObject(name);
     }
 
-    public void leftClick(Rectangle mouseRect) {
+    public void addObjects(Rectangle mouseRect) {
         String buildingObjectName = this.player.getCurrentSelectedObject();
         if (buildingObjectName != null) {
             int[] lenArray = this.getXLenAndYLen(buildingObjectName);

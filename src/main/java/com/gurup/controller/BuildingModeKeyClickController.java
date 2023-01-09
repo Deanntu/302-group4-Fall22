@@ -2,8 +2,6 @@ package com.gurup.controller;
 
 
 import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -26,7 +24,7 @@ public class BuildingModeKeyClickController implements MouseListener {
         int yMouse = e.getY();
         Rectangle mouseRect = new Rectangle(xMouse, yMouse, 1, 1);
         if (e.getButton() == MouseEvent.BUTTON1) {
-            buildingModeRoom.leftClick(mouseRect);
+            buildingModeRoom.addObjects(mouseRect);
         }
     }
 
