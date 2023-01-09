@@ -4,10 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.Timer;
+import javax.swing.*;
 
 import com.gurup.controller.BuildingModeKeyClickController;
 import com.gurup.domain.Game;
@@ -45,6 +42,8 @@ public class BuildingModeScreen extends JPanel {
     private final int xCurrentInitialForButtons = RoomConstants.xStart.getValue() + (RoomConstants.xLimit.getValue() - buttonsTotalLen) / 2;
     private final int yCurrentForButtons = RoomConstants.yStart.getValue() + RoomConstants.yLimit.getValue() + 5;
 
+    private boolean isFinished = false;
+
 
     public BuildingModeScreen(Game game, Player player, BuildingModeKeyClickController buildingModeKeyClickController, BuildingModeRoom buildingModeRoom) {
         setFocusable(true);
@@ -78,35 +77,42 @@ public class BuildingModeScreen extends JPanel {
         bookButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                buildingModeRoom.setObjectToBuild("Book");
+                player.setCurrentSelectedObject("Book");
             }
         });
 
         penButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                buildingModeRoom.setObjectToBuild("Pen");
+                player.setCurrentSelectedObject("Pen");
             }
         });
 
         printerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                buildingModeRoom.setObjectToBuild("Printer");
+                player.setCurrentSelectedObject("Printer");
             }
         });
 
         tableButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                buildingModeRoom.setObjectToBuild("Table");
+                player.setCurrentSelectedObject("Table");
             }
         });
 
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                if (buildingModeRoom.getBuildingObjects().size() < 5) {
+                    JOptionPane.showMessageDialog(null, "Please add some objects to the room");
+                } else {
+                    // TODO: Start the game
+                    System.out.println("Starting the game");
+                    System.out.println("isFinished: " + isFinished);
+                    isFinished = true;
+                }
             }
         });
 
@@ -144,7 +150,7 @@ public class BuildingModeScreen extends JPanel {
     }
 
     private void drawObjects(Graphics g) {
-        for (BuildingObject bo : buildingModeRoom.getObjects()) {
+        for (BuildingObject bo : buildingModeRoom.getBuildingObjects()) {
             buildObjectDrawer.draw(g, bo.rectArray(), bo.getName());
         }
     }
@@ -164,6 +170,11 @@ public class BuildingModeScreen extends JPanel {
         int y = buildingModeRoom.getYStart() - 5;
         g.setFont(font);
         g.drawString(buildingModeRoom.getName(), x, y);
+    }
+
+    public boolean getIsFinished() {
+        return isFinished;
+
     }
 
 
