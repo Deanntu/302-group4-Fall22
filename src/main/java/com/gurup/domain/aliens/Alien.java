@@ -1,18 +1,21 @@
 package com.gurup.domain.aliens;
 
-public interface Alien {
+import java.awt.Rectangle;
 
+public interface Alien {
 
 	void setActive(boolean b);
 
-	void setX(int i);
+	void setXCurrent(int i);
 
-	void setY(int i);
+	void setYCurrent(int i);
 
 	boolean isActive();
 
 	String getName();
 
 	int[] rectArray();
+	
+	Rectangle getRectangle();
 
 }

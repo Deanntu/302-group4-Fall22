@@ -11,10 +11,8 @@ public class MovementController implements KeyListener{
 	
 	private Player player;
 
-	private RunningModeScreen runningModeScreen;
 	
 	public MovementController(Player player, RunningModeScreen runningModeScreen) {
-		this.runningModeScreen = runningModeScreen;
 		this.player = player;
 		runningModeScreen.addKeyListener(this);
 	}

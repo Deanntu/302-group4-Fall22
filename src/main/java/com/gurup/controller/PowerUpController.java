@@ -1,6 +1,5 @@
 package com.gurup.controller;
 
-import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -15,13 +14,8 @@ import com.gurup.ui.gamescreen.RunningModeScreen;
 public class PowerUpController implements KeyListener{
 	
 	private Bag bag;
-
-	private RunningModeScreen runningModeScreen;
-	private boolean bottleFlag = false;
-	private Graphics g;
 	
 	public PowerUpController(Bag bag, RunningModeScreen runningModeScreen) {
-		this.runningModeScreen = runningModeScreen;
 		this.bag = bag;
 		runningModeScreen.addKeyListener(this);
 	}
@@ -41,7 +35,14 @@ public class PowerUpController implements KeyListener{
 		if (e.getKeyCode() == KeyEvent.VK_B) {
 			bag.selectPowerUp(BottlePowerUp.getInstance(null));
 			if(BottlePowerUp.getInstance(null).isUsable()) {
+				boolean temp = false;// TODO
+				if(BottlePowerUp.getInstance(null).isActive()) { // TODO
+					temp = true;// TODO
+				}// TODO
 				BottlePowerUp.getInstance(null).usePowerUp();
+				if(temp) { //TODO
+					BottlePowerUp.getInstance(null).setIsActive(temp);// TODO
+				}// TODO
 			}
 		}
 		// TODO Movement of Bottle;
