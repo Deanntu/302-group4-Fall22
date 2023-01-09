@@ -14,7 +14,13 @@ public enum RoomConstants {
 	vestPowerUpXLen(50),
 	vestPowerUpYLen(50),
 	bottlePowerUpXLen(25),
-	bottlePowerUpYLen(50);
+	bottlePowerUpYLen(50),
+	doorXLen(60),
+	doorYLen(100),
+	doorXStart(xLimit.getValue()-doorXLen.getValue()+xStart.getValue()),
+	doorYStart(yLimit.getValue()-doorYLen.getValue()+yStart.getValue());
+
+
 
 	private final int value;
 	RoomConstants(int value) {

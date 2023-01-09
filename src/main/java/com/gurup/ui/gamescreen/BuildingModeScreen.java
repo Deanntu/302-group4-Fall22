@@ -36,11 +36,13 @@ public class BuildingModeScreen extends JPanel {
     private JButton randomButton = new JButton("Random");
     private JButton startButton = new JButton("Start");
 
-    private final int xCurrentInitialForButtons = RoomConstants.xStart.getValue();
-    private final int yCurrentForButtons = RoomConstants.yStart.getValue() + RoomConstants.yLimit.getValue() + 5;
     private final int xLenForButtons = BuildingObjectConstants.allObjectsXLenForButtons.getValue() + 35; // magical number
     private final int yLenForButtons = BuildingObjectConstants.allObjectsXLenForButtons.getValue() + 20; // magical number
-    private final int buffer = xLenForButtons + 10;
+    private final int buffer = 10;
+    private final int numOfButtons = 7;
+    private final int buttonsTotalLen = numOfButtons * xLenForButtons + (numOfButtons - 1) * buffer;
+    private final int xCurrentInitialForButtons = RoomConstants.xStart.getValue() + (RoomConstants.xLimit.getValue() - buttonsTotalLen) / 2;
+    private final int yCurrentForButtons = RoomConstants.yStart.getValue() + RoomConstants.yLimit.getValue() + 5;
 
 
     public BuildingModeScreen(Game game, Player player, BuildingModeKeyClickController buildingModeKeyClickController, BuildingModeRoom buildingModeRoom) {
@@ -52,12 +54,12 @@ public class BuildingModeScreen extends JPanel {
         this.delayMiliSeconds = 20;
         this.setLayout(null); // absolute layout for the buttons
         randomButton.setBounds(xCurrentInitialForButtons, yCurrentForButtons, xLenForButtons, yLenForButtons);
-        binButton.setBounds(randomButton.getX() + buffer, yCurrentForButtons, xLenForButtons, yLenForButtons);
-        bookButton.setBounds(binButton.getX() + buffer, yCurrentForButtons, xLenForButtons, yLenForButtons);
-        penButton.setBounds(bookButton.getX() + buffer, yCurrentForButtons, xLenForButtons, yLenForButtons);
-        printerButton.setBounds(penButton.getX() + buffer, yCurrentForButtons, xLenForButtons, yLenForButtons);
-        tableButton.setBounds(printerButton.getX() + buffer, yCurrentForButtons, xLenForButtons, yLenForButtons);
-        startButton.setBounds(tableButton.getX() + buffer, yCurrentForButtons, xLenForButtons, yLenForButtons);
+        binButton.setBounds(randomButton.getX() + buffer + xLenForButtons, yCurrentForButtons, xLenForButtons, yLenForButtons);
+        bookButton.setBounds(binButton.getX() + buffer + xLenForButtons, yCurrentForButtons, xLenForButtons, yLenForButtons);
+        penButton.setBounds(bookButton.getX() + buffer + xLenForButtons, yCurrentForButtons, xLenForButtons, yLenForButtons);
+        printerButton.setBounds(penButton.getX() + buffer + xLenForButtons, yCurrentForButtons, xLenForButtons, yLenForButtons);
+        tableButton.setBounds(printerButton.getX() + buffer + xLenForButtons, yCurrentForButtons, xLenForButtons, yLenForButtons);
+        startButton.setBounds(tableButton.getX() + buffer + xLenForButtons, yCurrentForButtons, xLenForButtons, yLenForButtons);
 
         randomButton.addActionListener(new ActionListener() {
             @Override
@@ -139,6 +141,11 @@ public class BuildingModeScreen extends JPanel {
         setFont(g);
         paintRoomName(g);
         paintWall(g);
+        paintDoor(g);
+    }
+
+    private void paintDoor(Graphics g) {
+        g.drawImage(ImageLoader.closed_door_image, RoomConstants.doorXStart.getValue(), RoomConstants.doorYStart.getValue(), RoomConstants.doorXLen.getValue(), RoomConstants.doorYLen.getValue(), null);
     }
 
     private void setFont(Graphics g) {
