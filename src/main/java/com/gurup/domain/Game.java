@@ -1,6 +1,5 @@
 package com.gurup.domain;
 
-import java.util.ArrayList;
 import java.util.Timer;
 
 import javax.swing.SwingUtilities;
