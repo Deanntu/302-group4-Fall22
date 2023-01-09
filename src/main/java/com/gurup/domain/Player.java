@@ -47,7 +47,7 @@ public class Player {
 		g.setColor(playerColor);
 		g.fillOval((int) pos.getX(), (int) pos.getY(), size, size);*/
 	}
-	
+
 	public TimerOperationResults decrementTime(int delaymiliseconds) {
 		if (Game.getIsPaused()) return TimerOperationResults.PAUSED;
 		if (timeCounter%(1000/delaymiliseconds) == 0) {
@@ -81,40 +81,60 @@ public class Player {
 		}
 		return TimerOperationResults.TIME_DECREMENTED;
 	}
-	
+
 	public void moveRight() {
+		// MODIFIES: this
+		// REQUIRES: none
+		//
+		// EFFECTS: Decrements the Integer corresponding to the players current y position
+		// if new position outside the room does nothing
 		if (this.xCurrent >= Room.getXLimit()) {
 			this.xCurrent = (Room.getXLimit());
 		} else {
 			this.xCurrent = (this.xCurrent + 10);
 		}
 	}
-	
+
 	public void moveLeft() {
+		// MODIFIES: this
+		// REQUIRES: none
+		//
+		// EFFECTS: Increments the Integer corresponding to the players current x position
+		// if new position outside the room does nothing
 		if (this.xCurrent <= Room.getstartX()) {
 			this.xCurrent = (Room.getstartX());
 		} else {
 			this.xCurrent = (this.xCurrent - 10);
 		}
 	}
-	
+
 	public void moveUp() {
+		// MODIFIES: this
+		// REQUIRES: none
+		//
+		// EFFECTS: Decrements the Integer corresponding to the players current y position
+		// if new position outside the room does nothing
 		if (this.yCurrent <= Room.getstartY()) {
 			this.yCurrent = (Room.getstartY());
 		} else {
 			this.yCurrent = (this.yCurrent - 10);
 		}
 	}
-	
+
 	public void moveDown() {
+		// MODIFIES: this
+		// REQUIRES: none
+		//
+		// EFFECTS: Increments the Integer corresponding to the players current y position
+		// if new position outside the room does nothing
 		if (this.yCurrent >= Room.getYLimit()) {
 			this.yCurrent = (Room.getYLimit());
 		} else {
 			this.yCurrent = (this.yCurrent + 10);
 		}
 	}
-	
-	
+
+
 	public int getXStart() {
 		return xStart;
 	}
