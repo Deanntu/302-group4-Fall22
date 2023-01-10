@@ -23,8 +23,7 @@ public class Bin implements BuildingObject {
 
     @Override
     public int[] rectArray() {
-        int[] rectValues = {xCurrent, yCurrent, xLen, yLen};
-        return rectValues;
+        return new int[]{xCurrent, yCurrent, xLen, yLen};
     }
 
     public int getXLen() {

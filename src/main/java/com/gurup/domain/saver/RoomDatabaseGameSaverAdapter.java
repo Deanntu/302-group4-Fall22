@@ -3,7 +3,7 @@ package com.gurup.domain.saver;
 import com.gurup.domain.room.Room;
 
 public class RoomDatabaseGameSaverAdapter implements GameSaverAdapter {
-	RoomDatabaseGameSaver roomDatabaseGameSaver;
+	final RoomDatabaseGameSaver roomDatabaseGameSaver;
 
 	public RoomDatabaseGameSaverAdapter() {
 		roomDatabaseGameSaver = new RoomDatabaseGameSaver();

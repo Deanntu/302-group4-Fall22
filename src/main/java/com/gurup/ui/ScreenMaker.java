@@ -19,98 +19,96 @@ import com.gurup.ui.gamescreen.MainMenuScreen;
 import com.gurup.ui.gamescreen.RunningModeScreen;
 
 public class ScreenMaker {
-	public static JFrame frame = new JFrame("OYUN");
+    public static JFrame frame = new JFrame("OYUN");
 
 
-	public LoginScreen createMainModeScreen() {
-		LoginScreen loginScreen = new LoginScreen();
-		loginScreen.setTitle("Login Form");
+    public LoginScreen createMainModeScreen() {
+        LoginScreen loginScreen = new LoginScreen();
+        loginScreen.setTitle("Login Form");
 
-		loginScreen.setBounds(10, 10, 370, 600);
-		loginScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        loginScreen.setBounds(10, 10, 370, 600);
+        loginScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		loginScreen.setResizable(false);
+        loginScreen.setResizable(false);
 
-		loginScreen.setLocationRelativeTo(null);
-		loginScreen.setVisible(true);
-		return loginScreen;
-	}
+        loginScreen.setLocationRelativeTo(null);
+        loginScreen.setVisible(true);
+        return loginScreen;
+    }
 
-	public MainMenuScreen createMainMenuScreen() {
-		MainMenuScreen mainMenuScreen = new MainMenuScreen();
-		mainMenuScreen.setTitle("Main Menu");
+    public MainMenuScreen createMainMenuScreen() {
+        MainMenuScreen mainMenuScreen = new MainMenuScreen();
+        mainMenuScreen.setTitle("Main Menu");
 
-		mainMenuScreen.setBounds(10, 10, 370, 600);
-		mainMenuScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainMenuScreen.setBounds(10, 10, 370, 600);
+        mainMenuScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		mainMenuScreen.setResizable(false);
+        mainMenuScreen.setResizable(false);
 
-		mainMenuScreen.setLocationRelativeTo(null);
-		mainMenuScreen.setVisible(true);
-		return mainMenuScreen;
-	}
+        mainMenuScreen.setLocationRelativeTo(null);
+        mainMenuScreen.setVisible(true);
+        return mainMenuScreen;
+    }
 
-	public HelpScreen createHelpScreen() {
-		HelpScreen helpScreen = new HelpScreen();
-		helpScreen.setTitle("Help");
+    public HelpScreen createHelpScreen() {
+        HelpScreen helpScreen = new HelpScreen();
+        helpScreen.setTitle("Help");
 
-		helpScreen.setBounds(10, 10, 1000, 800);
-		helpScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        helpScreen.setBounds(10, 10, 1000, 800);
+        helpScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		helpScreen.setResizable(false);
+        helpScreen.setResizable(false);
 
-		helpScreen.setLocationRelativeTo(null);
-		helpScreen.setVisible(true);
+        helpScreen.setLocationRelativeTo(null);
+        helpScreen.setVisible(true);
 
-		return helpScreen;
-	}
+        return helpScreen;
+    }
 
-	public RunningModeScreen createRunningModeScreen(Game game, Player player, MovementController movementController,
-			KeyClickController keyClickController, PowerUpController powerUpController, Room room) {
-		RunningModeScreen runningModeScreen = new RunningModeScreen(game, player, movementController,
-				keyClickController, powerUpController, room);
-		return runningModeScreen;
-	}
+    public RunningModeScreen createRunningModeScreen(Game game, Player player, MovementController movementController,
+                                                     KeyClickController keyClickController, PowerUpController powerUpController, Room room) {
+        return new RunningModeScreen(game, player, movementController,
+                keyClickController, powerUpController, room);
+    }
 
-	public RunningModeScreen showRunningModeGUI(RunningModeScreen runningModeScreen) {
+    public RunningModeScreen showRunningModeGUI(RunningModeScreen runningModeScreen) {
 
-		System.out.println(Thread.currentThread().getName() + " Created GUI for Run " + SwingUtilities.isEventDispatchThread());
+        System.out.println(Thread.currentThread().getName() + " Created GUI for Run " + SwingUtilities.isEventDispatchThread());
 
-		frame = new JFrame("OYUN");
-		frame.setExtendedState(frame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+        frame = new JFrame("OYUN");
+        frame.setExtendedState(frame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		frame.add(runningModeScreen);
+        frame.add(runningModeScreen);
 
-		frame.pack();
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
-		return runningModeScreen;
-	}
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+        return runningModeScreen;
+    }
 
-	public BuildingModeScreen createBuildingModeScreen(Game game, Player player, BuildingModeKeyClickController buildingModeKeyClickController, BuildingModeRoom buildingModeRoom) {
-		BuildingModeScreen buildingModeScreen = new BuildingModeScreen(game, player, buildingModeKeyClickController, buildingModeRoom);
-		return buildingModeScreen;
-	}
+    public BuildingModeScreen createBuildingModeScreen(Game game, Player player, BuildingModeKeyClickController buildingModeKeyClickController, BuildingModeRoom buildingModeRoom) {
+        return new BuildingModeScreen(game, player, buildingModeKeyClickController, buildingModeRoom);
+    }
 
 
-	public BuildingModeScreen showBuildingModeGUI(BuildingModeScreen buildingModeScreen) {
+    public BuildingModeScreen showBuildingModeGUI(BuildingModeScreen buildingModeScreen) {
 
-		System.out.println(Thread.currentThread().getName() + " Created GUI for Run " + SwingUtilities.isEventDispatchThread());
+        System.out.println(Thread.currentThread().getName() + " Created GUI for Run " + SwingUtilities.isEventDispatchThread());
 
-		frame.setExtendedState(frame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+        frame.setExtendedState(frame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		frame.add(buildingModeScreen);
-		frame.pack();
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
-		return buildingModeScreen;
-	}
+        frame.add(buildingModeScreen);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+        return buildingModeScreen;
+    }
 
-	public void stopBuildingModeGUI(BuildingModeScreen buildingModeScreen) {
-		frame.remove(buildingModeScreen);
-	}
+    public void stopBuildingModeGUI(BuildingModeScreen buildingModeScreen) {
+        frame.remove(buildingModeScreen);
+    }
 }

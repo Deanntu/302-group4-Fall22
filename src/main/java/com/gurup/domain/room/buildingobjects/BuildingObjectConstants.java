@@ -1,7 +1,5 @@
 package com.gurup.domain.room.buildingobjects;
 
-import java.awt.Toolkit;
-
 public enum BuildingObjectConstants {
     binXLen(30),
     binYLen(30),
@@ -13,14 +11,16 @@ public enum BuildingObjectConstants {
     penYLen(25),
     printerXLen(50),
     printerYLen(50),
-    allObjectsXLenForButtons (30),
-    allObjectsYLenForButtons (30);
+    allObjectsXLenForButtons(30),
+    allObjectsYLenForButtons(30);
 
     private final int value;
+
     BuildingObjectConstants(int value) {
         // TODO Auto-generated constructor stub
         this.value = value;
     }
+
     public int getValue() {
         return value;
     }

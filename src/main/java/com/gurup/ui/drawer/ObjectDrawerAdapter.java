@@ -3,16 +3,16 @@ package com.gurup.ui.drawer;
 import java.awt.Graphics;
 
 public class ObjectDrawerAdapter implements DrawAdapter {
-	ObjectDrawer objectDrawer;
+    final ObjectDrawer objectDrawer;
 
-	public ObjectDrawerAdapter() {
-		objectDrawer = new ObjectDrawer();
-	}
+    public ObjectDrawerAdapter() {
+        objectDrawer = new ObjectDrawer();
+    }
 
-	@Override
-	public void draw(Graphics g, int[] rectValues, String name) {
-		// TODO Auto-generated method stub
-		objectDrawer.drawObject(g, rectValues, name);
-	}
+    @Override
+    public void draw(Graphics g, int[] rectValues, String name) {
+        // TODO Auto-generated method stub
+        objectDrawer.drawObject(g, rectValues, name);
+    }
 
 }

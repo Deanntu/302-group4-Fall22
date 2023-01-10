@@ -6,129 +6,128 @@ import com.gurup.domain.room.Room;
 
 public class BlindAlien implements Alien {
 
-	private String name = "Blind";
-	private int xStart;
-	private int yStart;
-	private int xLen;
-	private int yLen;
-	private int xCurrent;
-	private int yCurrent;
-	private boolean isActive = false;
+    private String name = "Blind";
+    private int xStart;
+    private int yStart;
+    private int xLen;
+    private int yLen;
+    private int xCurrent;
+    private int yCurrent;
+    private boolean isActive = false;
 
-	public BlindAlien(int xStart, int yStart, int xLen, int yLen) {
-		this.xStart = xStart;
-		this.yStart = yStart;
-		this.xLen = xLen;
-		this.yLen = yLen;
-	}
+    public BlindAlien(int xStart, int yStart, int xLen, int yLen) {
+        this.xStart = xStart;
+        this.yStart = yStart;
+        this.xLen = xLen;
+        this.yLen = yLen;
+    }
 
-	public BlindAlien() {
-		// TODO Auto-generated constructor stub
-	}
+    public BlindAlien() {
+        // TODO Auto-generated constructor stub
+    }
 
-	public void moveRight() {
-		if (this.xCurrent >= Room.getXLimit()) {
-			this.xCurrent = (Room.getXLimit());
-		} else {
-			this.xCurrent = (this.xCurrent + 10);
-		}
-	}
-	
-	public void moveLeft() {
-		if (this.xCurrent <= Room.getstartX()) {
-			this.xCurrent = (Room.getstartX());
-		} else {
-			this.xCurrent = (this.xCurrent - 10);
-		}
-	}
-	
-	public void moveUp() {
-		if (this.yCurrent <= Room.getstartY()) {
-			this.yCurrent = (Room.getstartY());
-		} else {
-			this.yCurrent = (this.yCurrent - 10);
-		}
-	}
-	
-	public void moveDown() {
-		if (this.yCurrent >= Room.getYLimit()) {
-			this.yCurrent = (Room.getYLimit());
-		} else {
-			this.yCurrent = (this.yCurrent + 10);
-		}
-	}
+    public void moveRight() {
+        if (this.xCurrent >= Room.getXLimit()) {
+            this.xCurrent = (Room.getXLimit());
+        } else {
+            this.xCurrent = (this.xCurrent + 10);
+        }
+    }
 
-	public Rectangle getRectangle() {
-		return new Rectangle(xCurrent, yCurrent, xLen, yLen);
-	}
+    public void moveLeft() {
+        if (this.xCurrent <= Room.getstartX()) {
+            this.xCurrent = (Room.getstartX());
+        } else {
+            this.xCurrent = (this.xCurrent - 10);
+        }
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void moveUp() {
+        if (this.yCurrent <= Room.getstartY()) {
+            this.yCurrent = (Room.getstartY());
+        } else {
+            this.yCurrent = (this.yCurrent - 10);
+        }
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void moveDown() {
+        if (this.yCurrent >= Room.getYLimit()) {
+            this.yCurrent = (Room.getYLimit());
+        } else {
+            this.yCurrent = (this.yCurrent + 10);
+        }
+    }
 
-	public boolean isActive() {
-		return isActive;
-	}
+    public Rectangle getRectangle() {
+        return new Rectangle(xCurrent, yCurrent, xLen, yLen);
+    }
 
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public int getXStart() {
-		return xStart;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setXStart(int xStart) {
-		this.xStart = xStart;
-	}
+    public boolean isActive() {
+        return isActive;
+    }
 
-	public int getYStart() {
-		return yStart;
-	}
+    public void setActive(boolean isActive) {
+        this.isActive = isActive;
+    }
 
-	public void setYStart(int yStart) {
-		this.yStart = yStart;
-	}
+    public int getXStart() {
+        return xStart;
+    }
 
-	public int getXLen() {
-		return xLen;
-	}
+    public void setXStart(int xStart) {
+        this.xStart = xStart;
+    }
 
-	public void setXLen(int xLen) {
-		this.xLen = xLen;
-	}
+    public int getYStart() {
+        return yStart;
+    }
 
-	public int getYLen() {
-		return yLen;
-	}
+    public void setYStart(int yStart) {
+        this.yStart = yStart;
+    }
 
-	public void setYLen(int yLen) {
-		this.yLen = yLen;
-	}
+    public int getXLen() {
+        return xLen;
+    }
 
-	public int getXCurrent() {
-		return xCurrent;
-	}
+    public void setXLen(int xLen) {
+        this.xLen = xLen;
+    }
 
-	public void setXCurrent(int xCurrent) {
-		this.xCurrent = xCurrent;
-	}
+    public int getYLen() {
+        return yLen;
+    }
 
-	public int getYCurrent() {
-		return yCurrent;
-	}
+    public void setYLen(int yLen) {
+        this.yLen = yLen;
+    }
 
-	public void setYCurrent(int yCurrent) {
-		this.yCurrent = yCurrent;
-	}
+    public int getXCurrent() {
+        return xCurrent;
+    }
 
-	@Override
-	public int[] rectArray() {
-		int[] rectValues = {xCurrent, yCurrent, xLen, yLen};
-		return rectValues;
-	}
+    public void setXCurrent(int xCurrent) {
+        this.xCurrent = xCurrent;
+    }
+
+    public int getYCurrent() {
+        return yCurrent;
+    }
+
+    public void setYCurrent(int yCurrent) {
+        this.yCurrent = yCurrent;
+    }
+
+    @Override
+    public int[] rectArray() {
+        return new int[]{xCurrent, yCurrent, xLen, yLen};
+    }
 }

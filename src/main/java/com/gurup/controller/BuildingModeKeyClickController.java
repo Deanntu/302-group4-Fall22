@@ -10,7 +10,7 @@ import com.gurup.ui.gamescreen.BuildingModeScreen;
 
 public class BuildingModeKeyClickController implements MouseListener {
 
-    private BuildingModeRoom buildingModeRoom;
+    private final BuildingModeRoom buildingModeRoom;
 
 
     public BuildingModeKeyClickController(BuildingModeScreen buildingModeScreen, BuildingModeRoom buildingModeRoom) {
