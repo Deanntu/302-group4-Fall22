@@ -31,6 +31,7 @@ public class Game {
     private static LoginScreen loginScreen;
     private static MainMenuScreen mainMenuScreen;
     private static SaverType saverType = SaverType.NOTINITIALIZED;
+    private static HelpScreen helpScreen;
 
 
     private static AccountManager accountManager;
@@ -54,6 +55,7 @@ public class Game {
         return game;
     }
 
+
     public static void play() {
         Game.screenMaker = new ScreenMaker();
         Game.accountManager = new AccountManager();
@@ -64,26 +66,40 @@ public class Game {
                 loginScreen.dispose();
                 mainMenuScreen = screenMaker.createMainMenuScreen();
                 boolean isPlayButtonPressed = mainMenuScreen.showPlayPressed();
+                boolean isHelpButtonPressed = mainMenuScreen.showHelpPressed();
 
-                do {
-                    isPlayButtonPressed = mainMenuScreen.showPlayPressed();
-                    Thread.sleep(10);
-                } while (!isPlayButtonPressed);
-                // System.out.println(isPlayButtonPressed);
-                if (isPlayButtonPressed) {
-                    mainMenuScreen.dispose();
-                    // TODO: player's initial position should be random.
-                    player = new Player(PlayerConstants.xStart.getValue(), PlayerConstants.yStart.getValue(),
-                            PlayerConstants.xLen.getValue(), PlayerConstants.xLen.getValue(), 60);
+                while(!isPlayButtonPressed){
+                    do {
+                        isPlayButtonPressed = mainMenuScreen.showPlayPressed();
+                        isHelpButtonPressed = mainMenuScreen.showHelpPressed();
+                        Thread.sleep(10);
+                    } while (!isPlayButtonPressed && !isHelpButtonPressed);
+                    if (isPlayButtonPressed) {
+                        mainMenuScreen.dispose();
+                        player = new Player(PlayerConstants.xStart.getValue(), PlayerConstants.yStart.getValue(),
+                                PlayerConstants.xLen.getValue(), PlayerConstants.xLen.getValue(), 60);
+                        BuildingModeRoom buildingStudentCenter = buildMode("Student Center");
+                        BuildingModeRoom buildingCASE = buildMode("CASE");
+                        BuildingModeRoom buildingSOS = buildMode("SOS");
+                        BuildingModeRoom buildingSCI = buildMode("SCI");
+                        BuildingModeRoom buildingENG = buildMode("ENG");
+                        BuildingModeRoom buildingSNA = buildMode("SNA");
 
-                    BuildingModeRoom buildingStudentCenter = buildMode("Student Center");
-                    BuildingModeRoom buildingCASE = buildMode("CASE");
-                    BuildingModeRoom buildingSOS = buildMode("SOS");
-                    BuildingModeRoom buildingSCI = buildMode("SCI");
-                    BuildingModeRoom buildingENG = buildMode("ENG");
-                    BuildingModeRoom buildingSNA = buildMode("SNA");
 
-                    inGame(buildingStudentCenter);
+                        inGame(buildingStudentCenter);
+                    }
+                    if (isHelpButtonPressed) {
+                        mainMenuScreen.dispose();
+                        helpScreen = screenMaker.createHelpScreen();
+                        boolean isBackButtonPressed;
+                        do {
+                            isBackButtonPressed = helpScreen.showBackPressed();
+                            Thread.sleep(10);
+                        } while (!isBackButtonPressed);
+                        helpScreen.dispose();
+                        mainMenuScreen = screenMaker.createMainMenuScreen();
+
+                    }
                 }
             }
         } catch (Exception e) {
