@@ -1,5 +1,7 @@
 package com.gurup.ui.gamescreen;
 
+import com.gurup.ui.ImageLoader;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
