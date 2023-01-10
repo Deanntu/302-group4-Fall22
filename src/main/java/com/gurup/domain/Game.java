@@ -68,7 +68,7 @@ public class Game {
                 boolean isPlayButtonPressed = mainMenuScreen.showPlayPressed();
                 boolean isHelpButtonPressed = mainMenuScreen.showHelpPressed();
 
-                while(!isPlayButtonPressed){
+                while (!isPlayButtonPressed) {
                     do {
                         isPlayButtonPressed = mainMenuScreen.showPlayPressed();
                         isHelpButtonPressed = mainMenuScreen.showHelpPressed();
@@ -127,11 +127,7 @@ public class Game {
                 RoomConstants.yLimit.getValue(), player);
         buildingModeScreen = screenMaker.createBuildingModeScreen(game, player, buildingModeKeyClickController, buildingModeRoom);
         buildingModeKeyClickController = new BuildingModeKeyClickController(buildingModeScreen, buildingModeRoom);
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                screenMaker.showBuildingModeGUI(buildingModeScreen);
-            }
-        });
+        SwingUtilities.invokeLater(() -> screenMaker.showBuildingModeGUI(buildingModeScreen));
 
         while (!isBuildModeFinished) {
             isBuildModeFinished = buildingModeScreen.getIsFinished();
@@ -155,11 +151,7 @@ public class Game {
         Game.getBag().setupBag(room.getPowerUps());
         runningModeScreen = screenMaker.createRunningModeScreen(game, player, movementController, keyClickController,
                 powerUpController, room);
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                screenMaker.showRunningModeGUI(runningModeScreen);
-            }
-        });
+        SwingUtilities.invokeLater(() -> screenMaker.showRunningModeGUI(runningModeScreen));
         movementController = new MovementController(player, runningModeScreen);
         keyClickController = new KeyClickController(runningModeScreen, room);
         powerUpController = new PowerUpController(bag, runningModeScreen);
@@ -177,7 +169,7 @@ public class Game {
     }
 
     private static boolean registerAndLoginScreen() throws Exception {
-        boolean registerFlag = loginScreen.isRegisterPressed();
+        boolean registerFlag;
         boolean loginFlag = loginScreen.isLoginPressed();
         boolean withoutLoginFlag = loginScreen.isWithoutLoginPressed();
 
@@ -226,7 +218,7 @@ public class Game {
             // change and delete this line
             setIsPaused(true);
             return true;
-        } catch (Exception e) {
+        } catch (Exception ignored) {
 
         }
         return false;
@@ -241,7 +233,7 @@ public class Game {
             // move to Domain layer
             setIsPaused(false);
             return true;
-        } catch (Exception e) {
+        } catch (Exception ignored) {
 
         }
         return false;
@@ -273,6 +265,4 @@ public class Game {
         Game.bag = bag;
     }
 
-    public static void startGame() {
-    }
 }

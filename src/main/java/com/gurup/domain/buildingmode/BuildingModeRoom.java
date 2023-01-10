@@ -1,13 +1,10 @@
 package com.gurup.domain.buildingmode;
 
-import com.gurup.domain.Main;
 import com.gurup.domain.Player;
 import com.gurup.domain.room.RoomConstants;
 import com.gurup.domain.room.buildingobjects.BuildingObject;
 import com.gurup.domain.room.buildingobjects.BuildingObjectConstants;
 import com.gurup.domain.room.buildingobjects.BuildingObjectFactory;
-
-import java.math.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,18 +18,18 @@ public class BuildingModeRoom {
     private static int yLimit;
     private String name;
     private Player player;
-    private ArrayList<BuildingObject> buildingObjects;
-    private BuildingObjectFactory buildingObjectFactory = new BuildingObjectFactory();
+    private final ArrayList<BuildingObject> buildingObjects;
+    private final BuildingObjectFactory buildingObjectFactory = new BuildingObjectFactory();
 
 
     public BuildingModeRoom(String name, int xStart, int yStart, int xLimit, int yLimit, Player player) {
         this.name = name;
-        this.xStart = xStart;
-        this.yStart = yStart;
-        this.xLimit = xLimit;
-        this.yLimit = yLimit;
+        BuildingModeRoom.xStart = xStart;
+        BuildingModeRoom.yStart = yStart;
+        BuildingModeRoom.xLimit = xLimit;
+        BuildingModeRoom.yLimit = yLimit;
         this.player = player;
-        this.buildingObjects = new ArrayList<BuildingObject>();
+        this.buildingObjects = new ArrayList<>();
     }
 
     public String getName() {
@@ -111,28 +108,27 @@ public class BuildingModeRoom {
         int[] lenArray = new int[2];
 
         switch (tempBuildingObjectName) {
-            case "Bin":
+            case "Bin" -> {
                 lenArray[0] = BuildingObjectConstants.binXLen.getValue();
                 lenArray[1] = BuildingObjectConstants.binYLen.getValue();
-                break;
-            case "Book":
+            }
+            case "Book" -> {
                 lenArray[0] = BuildingObjectConstants.bookXLen.getValue();
                 lenArray[1] = BuildingObjectConstants.bookYLen.getValue();
-                break;
-            case "Pen":
+            }
+            case "Pen" -> {
                 lenArray[0] = BuildingObjectConstants.penXLen.getValue();
                 lenArray[1] = BuildingObjectConstants.penYLen.getValue();
-                break;
-            case "Printer":
+            }
+            case "Printer" -> {
                 lenArray[0] = BuildingObjectConstants.printerXLen.getValue();
                 lenArray[1] = BuildingObjectConstants.printerYLen.getValue();
-                break;
-            case "Table":
+            }
+            case "Table" -> {
                 lenArray[0] = BuildingObjectConstants.tableXLen.getValue();
                 lenArray[1] = BuildingObjectConstants.tableYLen.getValue();
-                break;
-            default:
-                throw new IllegalArgumentException("Unknown Building Object " + tempBuildingObjectName);
+            }
+            default -> throw new IllegalArgumentException("Unknown Building Object " + tempBuildingObjectName);
         }
         return lenArray;
     }
@@ -174,47 +170,26 @@ public class BuildingModeRoom {
     }
 
     private int getNumberOfObjects() {
-        int numberOfObjects;
-        switch (this.name) {
-            case "Student Center":
-                numberOfObjects = BuildingModeRoomConstants.minObjectsForStudentCenter.getValue();
-                break;
-            case "CASE":
-                numberOfObjects = BuildingModeRoomConstants.minObjectsForCASE.getValue();
-                break;
-            case "SOS":
-                numberOfObjects = BuildingModeRoomConstants.minObjectsForSOS.getValue();
-                break;
-            case "SCI":
-                numberOfObjects = BuildingModeRoomConstants.minObjectsForSCI.getValue();
-                break;
-            case "ENG":
-                numberOfObjects = BuildingModeRoomConstants.minObjectsForENG.getValue();
-                break;
-            case "SNA":
-                numberOfObjects = BuildingModeRoomConstants.minObjectsForSNA.getValue();
-                break;
-            default:
-                throw new IllegalArgumentException("Unknown Room " + this.name);
-        }
-        return numberOfObjects;
+        return switch (this.name) {
+            case "Student Center" -> BuildingModeRoomConstants.minObjectsForStudentCenter.getValue();
+            case "CASE" -> BuildingModeRoomConstants.minObjectsForCASE.getValue();
+            case "SOS" -> BuildingModeRoomConstants.minObjectsForSOS.getValue();
+            case "SCI" -> BuildingModeRoomConstants.minObjectsForSCI.getValue();
+            case "ENG" -> BuildingModeRoomConstants.minObjectsForENG.getValue();
+            case "SNA" -> BuildingModeRoomConstants.minObjectsForSNA.getValue();
+            default -> throw new IllegalArgumentException("Unknown Room " + this.name);
+        };
     }
 
     private String getBuildingObjectName(int objectID) {
-        switch (objectID) {
-            case 1:
-                return "Bin";
-            case 2:
-                return "Book";
-            case 3:
-                return "Pen";
-            case 4:
-                return "Printer";
-            case 5:
-                return "Table";
-            default:
-                throw new IllegalArgumentException("Unknown Building Object ID " + objectID);
-        }
+        return switch (objectID) {
+            case 1 -> "Bin";
+            case 2 -> "Book";
+            case 3 -> "Pen";
+            case 4 -> "Printer";
+            case 5 -> "Table";
+            default -> throw new IllegalArgumentException("Unknown Building Object ID " + objectID);
+        };
     }
 }
 

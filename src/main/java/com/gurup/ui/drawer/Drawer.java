@@ -3,19 +3,17 @@ package com.gurup.ui.drawer;
 import java.awt.Graphics;
 
 public class Drawer {
-	DrawAdapter drawAdapter;
+    DrawAdapter drawAdapter;
 
-	public Drawer(String type) {
-		if (type.equals("PowerUp")) {
-			drawAdapter = new PowerUpDrawerAdapter();
-		} else if (type.equals("Object")) {
-			drawAdapter = new ObjectDrawerAdapter();
-		} else if (type.equals("Alien")) {
-			drawAdapter = new AlienDrawerAdapter();
-		}
-	}
+    public Drawer(String type) {
+        switch (type) {
+            case "PowerUp" -> drawAdapter = new PowerUpDrawerAdapter();
+            case "Object" -> drawAdapter = new ObjectDrawerAdapter();
+            case "Alien" -> drawAdapter = new AlienDrawerAdapter();
+        }
+    }
 
-	public void draw(Graphics g, int[] rectValues, String name) {
-		drawAdapter.draw(g, rectValues, name);
-	}
+    public void draw(Graphics g, int[] rectValues, String name) {
+        drawAdapter.draw(g, rectValues, name);
+    }
 }

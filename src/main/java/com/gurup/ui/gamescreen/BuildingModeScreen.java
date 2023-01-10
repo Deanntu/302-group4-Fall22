@@ -1,8 +1,6 @@
 package com.gurup.ui.gamescreen;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
@@ -19,20 +17,20 @@ import com.gurup.ui.drawer.Drawer;
 
 public class BuildingModeScreen extends JPanel {
 
-    private Player player;
+    private final Player player;
     private BuildingModeKeyClickController buildingModeKeyClickController;
-    private BuildingModeRoom buildingModeRoom;
-    private int delayMiliSeconds;
-    private Drawer buildObjectDrawer = new Drawer("Object");
+    private final BuildingModeRoom buildingModeRoom;
+    private final int delayMiliSeconds;
+    private final Drawer buildObjectDrawer = new Drawer("Object");
     private FontMetrics metrics;
     private Font font;
-    private JButton binButton = new JButton(new ImageIcon(ImageLoader.bin_image.getScaledInstance(BuildingObjectConstants.allObjectsXLenForButtons.getValue(), BuildingObjectConstants.allObjectsYLenForButtons.getValue(), Image.SCALE_SMOOTH)));
-    private JButton bookButton = new JButton(new ImageIcon(ImageLoader.book_image.getScaledInstance(BuildingObjectConstants.allObjectsXLenForButtons.getValue(), BuildingObjectConstants.allObjectsYLenForButtons.getValue(), Image.SCALE_SMOOTH)));
-    private JButton penButton = new JButton(new ImageIcon(ImageLoader.pen_image.getScaledInstance(BuildingObjectConstants.allObjectsXLenForButtons.getValue(), BuildingObjectConstants.allObjectsYLenForButtons.getValue(), Image.SCALE_SMOOTH)));
-    private JButton printerButton = new JButton(new ImageIcon(ImageLoader.printer_image.getScaledInstance(BuildingObjectConstants.allObjectsXLenForButtons.getValue(), BuildingObjectConstants.allObjectsYLenForButtons.getValue(), Image.SCALE_SMOOTH)));
-    private JButton tableButton = new JButton(new ImageIcon(ImageLoader.table_image.getScaledInstance(BuildingObjectConstants.allObjectsXLenForButtons.getValue(), BuildingObjectConstants.allObjectsYLenForButtons.getValue(), Image.SCALE_SMOOTH)));
-    private JButton randomButton = new JButton("Random");
-    private JButton nextButton = new JButton("Next");
+    private final JButton binButton = new JButton(new ImageIcon(ImageLoader.bin_image.getScaledInstance(BuildingObjectConstants.allObjectsXLenForButtons.getValue(), BuildingObjectConstants.allObjectsYLenForButtons.getValue(), Image.SCALE_SMOOTH)));
+    private final JButton bookButton = new JButton(new ImageIcon(ImageLoader.book_image.getScaledInstance(BuildingObjectConstants.allObjectsXLenForButtons.getValue(), BuildingObjectConstants.allObjectsYLenForButtons.getValue(), Image.SCALE_SMOOTH)));
+    private final JButton penButton = new JButton(new ImageIcon(ImageLoader.pen_image.getScaledInstance(BuildingObjectConstants.allObjectsXLenForButtons.getValue(), BuildingObjectConstants.allObjectsYLenForButtons.getValue(), Image.SCALE_SMOOTH)));
+    private final JButton printerButton = new JButton(new ImageIcon(ImageLoader.printer_image.getScaledInstance(BuildingObjectConstants.allObjectsXLenForButtons.getValue(), BuildingObjectConstants.allObjectsYLenForButtons.getValue(), Image.SCALE_SMOOTH)));
+    private final JButton tableButton = new JButton(new ImageIcon(ImageLoader.table_image.getScaledInstance(BuildingObjectConstants.allObjectsXLenForButtons.getValue(), BuildingObjectConstants.allObjectsYLenForButtons.getValue(), Image.SCALE_SMOOTH)));
+    private final JButton randomButton = new JButton("Random");
+    private final JButton nextButton = new JButton("Next");
 
     private final int xLenForButtons = BuildingObjectConstants.allObjectsXLenForButtons.getValue() + 35; // magical number
     private final int yLenForButtons = BuildingObjectConstants.allObjectsXLenForButtons.getValue() + 20; // magical number
@@ -66,86 +64,62 @@ public class BuildingModeScreen extends JPanel {
         tableButton.setBounds(printerButton.getX() + buffer + xLenForButtons, yCurrentForButtons, xLenForButtons, yLenForButtons);
         nextButton.setBounds(tableButton.getX() + buffer + xLenForButtons, yCurrentForButtons, xLenForButtons, yLenForButtons);
 
-        randomButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        randomButton.addActionListener(e -> {
 
-                  if (isRandomValid) {
-                    buildingModeRoom.addRandomBuildingObjects();
-                  isRandomValid = false;
-                 }
-
+            if (isRandomValid) {
+                buildingModeRoom.addRandomBuildingObjects();
+                isRandomValid = false;
             }
-        });
-        binButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                buildingModeRoom.setObjectToBuild("Bin");
-            }
-        });
 
-        bookButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                buildingModeRoom.setObjectToBuild("Book");
-            }
         });
+        binButton.addActionListener(e -> buildingModeRoom.setObjectToBuild("Bin"));
 
-        penButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                buildingModeRoom.setObjectToBuild("Pen");
-            }
-        });
+        bookButton.addActionListener(e -> buildingModeRoom.setObjectToBuild("Book"));
 
-        printerButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                buildingModeRoom.setObjectToBuild("Printer");
-            }
-        });
+        penButton.addActionListener(e -> buildingModeRoom.setObjectToBuild("Pen"));
 
-        tableButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                buildingModeRoom.setObjectToBuild("Table");
-            }
-        });
+        printerButton.addActionListener(e -> buildingModeRoom.setObjectToBuild("Printer"));
 
-        nextButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (buildingModeRoom.getName().equals("Student Center")) {
+        tableButton.addActionListener(e -> buildingModeRoom.setObjectToBuild("Table"));
+
+        nextButton.addActionListener(e -> {
+            switch (buildingModeRoom.getName()) {
+                case "Student Center" -> {
                     if (buildingModeRoom.getBuildingObjects().size() < BuildingModeRoomConstants.minObjectsForStudentCenter.getValue()) {
                         JOptionPane.showMessageDialog(null, "Please add " + (BuildingModeRoomConstants.minObjectsForStudentCenter.getValue() - buildingModeRoom.getBuildingObjects().size()) + " more objects");
                     } else {
                         isFinished = true;
                     }
-                } else if (buildingModeRoom.getName().equals("CASE")) {
+                }
+                case "CASE" -> {
                     if (buildingModeRoom.getBuildingObjects().size() < BuildingModeRoomConstants.minObjectsForCASE.getValue()) {
                         JOptionPane.showMessageDialog(null, "Please add " + (BuildingModeRoomConstants.minObjectsForCASE.getValue() - buildingModeRoom.getBuildingObjects().size()) + " more objects");
                     } else {
                         isFinished = true;
                     }
-                } else if (buildingModeRoom.getName().equals("SOS")) {
+                }
+                case "SOS" -> {
                     if (buildingModeRoom.getBuildingObjects().size() < BuildingModeRoomConstants.minObjectsForSOS.getValue()) {
                         JOptionPane.showMessageDialog(null, "Please add " + (BuildingModeRoomConstants.minObjectsForSOS.getValue() - buildingModeRoom.getBuildingObjects().size()) + " more objects");
                     } else {
                         isFinished = true;
                     }
-                } else if (buildingModeRoom.getName().equals("SCI")) {
+                }
+                case "SCI" -> {
                     if (buildingModeRoom.getBuildingObjects().size() < BuildingModeRoomConstants.minObjectsForSCI.getValue()) {
                         JOptionPane.showMessageDialog(null, "Please add " + (BuildingModeRoomConstants.minObjectsForSCI.getValue() - buildingModeRoom.getBuildingObjects().size()) + " more objects");
                     } else {
                         isFinished = true;
                     }
-                } else if (buildingModeRoom.getName().equals("ENG")) {
+                }
+                case "ENG" -> {
                     if (buildingModeRoom.getBuildingObjects().size() < BuildingModeRoomConstants.minObjectsForENG.getValue()) {
                         JOptionPane.showMessageDialog(null, "Please add " + (BuildingModeRoomConstants.minObjectsForENG.getValue() - buildingModeRoom.getBuildingObjects().size()) + " more objects");
                     } else {
                         isFinished = true;
                     }
-                } else if (buildingModeRoom.getName().equals("SNA")) {
+                }
+                case "SNA" -> {
                     if (buildingModeRoom.getBuildingObjects().size() < BuildingModeRoomConstants.minObjectsForSNA.getValue()) {
                         JOptionPane.showMessageDialog(null, "Please add " + (BuildingModeRoomConstants.minObjectsForSNA.getValue() - buildingModeRoom.getBuildingObjects().size()) + " more objects");
                     } else {
@@ -153,7 +127,6 @@ public class BuildingModeScreen extends JPanel {
                     }
                 }
             }
-
         });
 
 
@@ -175,9 +148,7 @@ public class BuildingModeScreen extends JPanel {
         nextButton.setFocusable(false);
 
 
-        new Timer(this.delayMiliSeconds, e -> {
-            repaint();
-        }).start();
+        new Timer(this.delayMiliSeconds, e -> repaint()).start();
     }
 
     public void paintComponent(Graphics g) {
@@ -206,8 +177,8 @@ public class BuildingModeScreen extends JPanel {
 
     private void paintRoomName(Graphics g) {
         g.setColor(Color.BLACK);
-        int x = buildingModeRoom.getXStart() + (buildingModeRoom.getXLimit() - metrics.stringWidth(buildingModeRoom.getName())) / 2;
-        int y = buildingModeRoom.getYStart() - 5;
+        int x = BuildingModeRoom.getXStart() + (BuildingModeRoom.getXLimit() - metrics.stringWidth(buildingModeRoom.getName())) / 2;
+        int y = BuildingModeRoom.getYStart() - 5;
         g.setFont(font);
         g.drawString(buildingModeRoom.getName(), x, y);
     }
@@ -236,7 +207,7 @@ public class BuildingModeScreen extends JPanel {
         this.buildingModeKeyClickController = buildingModeKeyClickController;
     }
 
-    public BuildingModeRoom getBuildingModeRoom(){
+    public BuildingModeRoom getBuildingModeRoom() {
         return buildingModeRoom;
     }
 }

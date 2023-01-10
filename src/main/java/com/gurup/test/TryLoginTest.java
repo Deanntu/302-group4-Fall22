@@ -8,7 +8,7 @@ import com.gurup.domain.account.entity.AccountOperationResults;
 import com.gurup.domain.account.manager.AccountManager;
 
 public class TryLoginTest {
-    
+
     @Test
     public void testLogin() {
         AccountManager Manager = new AccountManager();
