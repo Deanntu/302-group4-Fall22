@@ -1,15 +1,16 @@
 package com.gurup.domain.buildingmode;
 
+import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.Random;
+
+import javax.swing.JOptionPane;
+
 import com.gurup.domain.Player;
 import com.gurup.domain.room.RoomConstants;
 import com.gurup.domain.room.buildingobjects.BuildingObject;
 import com.gurup.domain.room.buildingobjects.BuildingObjectConstants;
 import com.gurup.domain.room.buildingobjects.BuildingObjectFactory;
-
-import javax.swing.*;
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Random;
 
 public class BuildingModeRoom {
     private static int xStart;
@@ -108,27 +109,28 @@ public class BuildingModeRoom {
         int[] lenArray = new int[2];
 
         switch (tempBuildingObjectName) {
-            case "Bin" -> {
+            case "Bin":
                 lenArray[0] = BuildingObjectConstants.binXLen.getValue();
                 lenArray[1] = BuildingObjectConstants.binYLen.getValue();
-            }
-            case "Book" -> {
+                break;
+            case "Book":
                 lenArray[0] = BuildingObjectConstants.bookXLen.getValue();
                 lenArray[1] = BuildingObjectConstants.bookYLen.getValue();
-            }
-            case "Pen" -> {
+                break;
+            case "Pen":
                 lenArray[0] = BuildingObjectConstants.penXLen.getValue();
                 lenArray[1] = BuildingObjectConstants.penYLen.getValue();
-            }
-            case "Printer" -> {
+                break;
+            case "Printer":
                 lenArray[0] = BuildingObjectConstants.printerXLen.getValue();
                 lenArray[1] = BuildingObjectConstants.printerYLen.getValue();
-            }
-            case "Table" -> {
+                break;
+            case "Table":
                 lenArray[0] = BuildingObjectConstants.tableXLen.getValue();
                 lenArray[1] = BuildingObjectConstants.tableYLen.getValue();
-            }
-            default -> throw new IllegalArgumentException("Unknown Building Object " + tempBuildingObjectName);
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown Building Object " + tempBuildingObjectName);
         }
         return lenArray;
     }
@@ -139,13 +141,19 @@ public class BuildingModeRoom {
         int i = 0;
         while (i < numberOfObjects) {
             boolean canBePlaced = true;
-            int objectID = random.nextInt(1, 6);
+            // int objectID = random.nextInt(1, 6); below lines imitate this behavior
+            int objectID = random.nextInt(5);
+            objectID += 1;
             String buildingObjectName = getBuildingObjectName(objectID);
             int[] lenArray = this.getXAndYForCandidateObject(buildingObjectName);
             int xLen = lenArray[0];
             int yLen = lenArray[1];
-            int xCurrent = random.nextInt(xStart, xLimit - xLen);
-            int yCurrent = random.nextInt(yStart, yLimit - yLen);
+            // int xCurrent = random.nextInt(xStart, xLimit - xLen); below lines imitate this behavior
+            int xCurrent = random.nextInt(xLimit - xLen - xStart);
+            xCurrent += xStart;
+            // int yCurrent = random.nextInt(yStart, yLimit - yLen); below lines imitate this behavior
+            int yCurrent = random.nextInt(yLimit - yLen - yStart);
+            yCurrent += yStart;
             Rectangle objectRect = new Rectangle(xCurrent, yCurrent, xLen, yLen);
             Rectangle roomRect = new Rectangle(xStart, yStart, xLimit, yLimit);
             Rectangle doorRect = new Rectangle(RoomConstants.doorXStart.getValue(), RoomConstants.doorYStart.getValue(), RoomConstants.doorXLen.getValue(), RoomConstants.doorYLen.getValue());
@@ -170,26 +178,54 @@ public class BuildingModeRoom {
     }
 
     private int getNumberOfObjects() {
-        return switch (this.name) {
-            case "Student Center" -> BuildingModeRoomConstants.minObjectsForStudentCenter.getValue();
-            case "CASE" -> BuildingModeRoomConstants.minObjectsForCASE.getValue();
-            case "SOS" -> BuildingModeRoomConstants.minObjectsForSOS.getValue();
-            case "SCI" -> BuildingModeRoomConstants.minObjectsForSCI.getValue();
-            case "ENG" -> BuildingModeRoomConstants.minObjectsForENG.getValue();
-            case "SNA" -> BuildingModeRoomConstants.minObjectsForSNA.getValue();
-            default -> throw new IllegalArgumentException("Unknown Room " + this.name);
-        };
+        int returnValue;
+        switch (this.name) {
+            case "Student Center":
+                returnValue = BuildingModeRoomConstants.minObjectsForStudentCenter.getValue();
+                break;
+            case "CASE":
+                returnValue = BuildingModeRoomConstants.minObjectsForCASE.getValue();
+                break;
+            case "SOS":
+                returnValue = BuildingModeRoomConstants.minObjectsForSOS.getValue();
+                break;
+            case "SCI":
+                returnValue = BuildingModeRoomConstants.minObjectsForSCI.getValue();
+                break;
+            case "ENG":
+                returnValue = BuildingModeRoomConstants.minObjectsForENG.getValue();
+                break;
+            case "SNA":
+                returnValue = BuildingModeRoomConstants.minObjectsForSNA.getValue();
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown Room " + this.name);
+        }
+        return returnValue;
     }
 
     private String getBuildingObjectName(int objectID) {
-        return switch (objectID) {
-            case 1 -> "Bin";
-            case 2 -> "Book";
-            case 3 -> "Pen";
-            case 4 -> "Printer";
-            case 5 -> "Table";
-            default -> throw new IllegalArgumentException("Unknown Building Object ID " + objectID);
-        };
+        String returnValue;
+        switch (objectID) {
+            case 1:
+                returnValue = "Bin";
+                break;
+            case 2:
+                returnValue = "Book";
+                break;
+            case 3:
+                returnValue = "Pen";
+                break;
+            case 4:
+                returnValue = "Printer";
+                break;
+            case 5:
+                returnValue = "Table";
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown Building Object ID " + objectID);
+        }
+        return returnValue;
     }
 }
 

@@ -8,18 +8,23 @@ public class PowerUpDrawer {
     public void drawPowerUp(Graphics g, int[] rectValues, String name) {
         // TODO Auto-generated method stub
         switch (name) {
-            case "health" ->
+            case "health":
                     g.drawImage(ImageLoader.health_image, rectValues[0], rectValues[1], rectValues[2], rectValues[3], null);
-            case "time" ->
+                    break;
+            case "time":
                     g.drawImage(ImageLoader.time_image, rectValues[0], rectValues[1], rectValues[2], rectValues[3], null);
-            case "vest" ->
+                    break;
+            case "vest":
                     g.drawImage(ImageLoader.vest_image, rectValues[0], rectValues[1], rectValues[2], rectValues[3], null);
-            case "bottle" ->
+                    break;
+            case "bottle":
                     g.drawImage(ImageLoader.plastic_bottle_image, rectValues[0], rectValues[1], rectValues[2], rectValues[3],
                             null);
-            case "thrownbottle" ->
+                    break;
+            case "thrownbottle":
                     g.drawImage(ImageLoader.thrown_plastic_bottle_image, rectValues[0], rectValues[1], rectValues[2],
                             rectValues[3], null);
+                    break;
         }
     }
 }

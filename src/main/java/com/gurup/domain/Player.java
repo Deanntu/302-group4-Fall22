@@ -21,6 +21,7 @@ public class Player {
 
 
     private int remainingTime;
+    private int startingTime;
     private int timeCounter;
     private int life;
     private boolean isProtected;
@@ -36,6 +37,7 @@ public class Player {
         this.xCurrent = xStart;
         this.yCurrent = yStart;
         this.remainingTime = startingTime;
+        this.startingTime = startingTime;
         timeCounter = 1;
         life = 3;
         setProtected(false);
@@ -230,6 +232,14 @@ public class Player {
 
     public String getCurrentSelectedObject() {
         return objectToBuild;
+    }
+
+    public int getStartingTime() {
+        return startingTime;
+    }
+
+    public void setStartingTime(int startingTime) {
+        this.startingTime = startingTime;
     }
 
 }
