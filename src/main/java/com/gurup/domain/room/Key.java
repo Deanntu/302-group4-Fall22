@@ -6,23 +6,23 @@ import com.gurup.domain.room.buildingobjects.BuildingObject;
 
 public class Key {
 
-	private BuildingObject buildingObject;
+	private static BuildingObject buildingObject;
 
 	public BuildingObject getBuildingObject() {
 		return buildingObject;
 	}
 
 	public void setBuildingObject(BuildingObject buildingObject) {
-		this.buildingObject = buildingObject;
+		Key.buildingObject = buildingObject;
 	}
 
-	public void hideKey(ArrayList<BuildingObject> objects) {
+	public static void hideKey(ArrayList<BuildingObject> objects) {
 		int index = getRandomNumber(0, objects.size());
 		System.out.println(index);
-		this.buildingObject = objects.get(index);
+		Key.buildingObject = objects.get(index);
 	}
 
-	private int getRandomNumber(int min, int max) {
+	private static int getRandomNumber(int min, int max) {
 		return (int) ((Math.random() * (max - min)) + min);
 	}
 

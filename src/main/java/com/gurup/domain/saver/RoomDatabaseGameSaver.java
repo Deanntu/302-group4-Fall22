@@ -43,7 +43,7 @@ public class RoomDatabaseGameSaver {
 		truncate("object");
 		truncate("alien");
 		truncate("powerup");
-		for (BuildingObject b : room.getObjects()) {
+		for (BuildingObject b : Room.getObjects()) {
 			// Save Object
 			saveObject(b, room.getKey());
 		}

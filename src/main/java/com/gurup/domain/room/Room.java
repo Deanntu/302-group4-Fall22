@@ -12,6 +12,7 @@ import com.gurup.domain.aliens.Alien;
 import com.gurup.domain.aliens.AlienConstants;
 import com.gurup.domain.aliens.BlindAlien;
 import com.gurup.domain.aliens.ShooterAlien;
+import com.gurup.domain.aliens.TimeWastingAlien;
 import com.gurup.domain.powerups.BottlePowerUp;
 import com.gurup.domain.powerups.HealthPowerUp;
 import com.gurup.domain.powerups.PowerUp;
@@ -28,7 +29,7 @@ public class Room {
 	private static int yLimit;
 	private String name;
 	private BuildingObject object1, object2;
-	private ArrayList<BuildingObject> objects;
+	private static ArrayList<BuildingObject> objects;
 	private ArrayList<PowerUp> powerUps;
 	private Key key;
 	private Player player;
@@ -46,7 +47,7 @@ public class Room {
 		Room.yStart = yStart;
 		Room.xLimit = xLimit;
 		Room.yLimit = yLimit;
-		this.objects = new ArrayList<>();
+		Room.objects = new ArrayList<>();
 		this.key = new Key();
 		this.player = player;
 
@@ -55,7 +56,7 @@ public class Room {
 		BuildingObject object2 = buildingObjectFactory.createBuildingObject("Table", 800, 100, 60, 40);
 		objects.add(object1);
 		objects.add(object2);
-		key.hideKey(objects);
+		Key.hideKey(objects);
 		pauseButton = new Rectangle(0, 0, 50, 50);
 		exitButton = new Rectangle(0, 0, 50, 50);
 		initPowerUps();
@@ -169,7 +170,7 @@ public class Room {
 			return TimerOperationResults.PAUSED;
 		Random random = new Random();
 		if (timeCounter % (1000 / delayMiliSeconds) == 0) {
-			if (alienCreationCounter == 2) {
+			if (alienCreationCounter == 2) { // TODO undo
 				int randomIndex = random.nextInt(2);
 				int[] newXandY = getRandomLocation();
 				switch (randomIndex) {
@@ -179,10 +180,11 @@ public class Room {
 				case 1:
 					createdAlien = new ShooterAlien(10, 10, AlienConstants.xLen.getValue(), AlienConstants.yLen.getValue());
 				}
+				createdAlien = new TimeWastingAlien(10, 10, AlienConstants.xLen.getValue(), AlienConstants.yLen.getValue(), player); // TODO undo
 				createdAlien.setXCurrent(newXandY[0]);
 				createdAlien.setYCurrent(newXandY[1]);
 				createdAlien.setActive(true);
-				alienCreationCounter = 1;
+				alienCreationCounter = 100; // TODO undo
 			} else {
 				alienCreationCounter++;
 			}
@@ -241,7 +243,7 @@ public class Room {
 		this.object2 = object2;
 	}
 
-	public ArrayList<BuildingObject> getObjects() {
+	public static ArrayList<BuildingObject> getObjects() {
 		return objects;
 	}
 
