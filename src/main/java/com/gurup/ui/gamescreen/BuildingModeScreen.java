@@ -1,8 +1,18 @@
 package com.gurup.ui.gamescreen;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
 
-import javax.swing.*;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.Timer;
 
 import com.gurup.controller.BuildingModeKeyClickController;
 import com.gurup.domain.Game;
@@ -84,48 +94,48 @@ public class BuildingModeScreen extends JPanel {
 
         nextButton.addActionListener(e -> {
             switch (buildingModeRoom.getName()) {
-                case "Student Center" -> {
+                case "Student Center":
                     if (buildingModeRoom.getBuildingObjects().size() < BuildingModeRoomConstants.minObjectsForStudentCenter.getValue()) {
                         JOptionPane.showMessageDialog(null, "Please add " + (BuildingModeRoomConstants.minObjectsForStudentCenter.getValue() - buildingModeRoom.getBuildingObjects().size()) + " more objects");
                     } else {
                         isFinished = true;
                     }
-                }
-                case "CASE" -> {
+                    break;
+                case "CASE":
                     if (buildingModeRoom.getBuildingObjects().size() < BuildingModeRoomConstants.minObjectsForCASE.getValue()) {
                         JOptionPane.showMessageDialog(null, "Please add " + (BuildingModeRoomConstants.minObjectsForCASE.getValue() - buildingModeRoom.getBuildingObjects().size()) + " more objects");
                     } else {
                         isFinished = true;
                     }
-                }
-                case "SOS" -> {
+                    break;
+                case "SOS":
                     if (buildingModeRoom.getBuildingObjects().size() < BuildingModeRoomConstants.minObjectsForSOS.getValue()) {
                         JOptionPane.showMessageDialog(null, "Please add " + (BuildingModeRoomConstants.minObjectsForSOS.getValue() - buildingModeRoom.getBuildingObjects().size()) + " more objects");
                     } else {
                         isFinished = true;
                     }
-                }
-                case "SCI" -> {
+                    break;
+                case "SCI":
                     if (buildingModeRoom.getBuildingObjects().size() < BuildingModeRoomConstants.minObjectsForSCI.getValue()) {
                         JOptionPane.showMessageDialog(null, "Please add " + (BuildingModeRoomConstants.minObjectsForSCI.getValue() - buildingModeRoom.getBuildingObjects().size()) + " more objects");
                     } else {
                         isFinished = true;
                     }
-                }
-                case "ENG" -> {
+                    break;
+                case "ENG":
                     if (buildingModeRoom.getBuildingObjects().size() < BuildingModeRoomConstants.minObjectsForENG.getValue()) {
                         JOptionPane.showMessageDialog(null, "Please add " + (BuildingModeRoomConstants.minObjectsForENG.getValue() - buildingModeRoom.getBuildingObjects().size()) + " more objects");
                     } else {
                         isFinished = true;
                     }
-                }
-                case "SNA" -> {
+                    break;
+                case "SNA":
                     if (buildingModeRoom.getBuildingObjects().size() < BuildingModeRoomConstants.minObjectsForSNA.getValue()) {
                         JOptionPane.showMessageDialog(null, "Please add " + (BuildingModeRoomConstants.minObjectsForSNA.getValue() - buildingModeRoom.getBuildingObjects().size()) + " more objects");
                     } else {
                         isFinished = true;
                     }
-                }
+                    break;
             }
         });
 

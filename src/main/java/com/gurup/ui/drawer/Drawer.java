@@ -7,9 +7,15 @@ public class Drawer {
 
     public Drawer(String type) {
         switch (type) {
-            case "PowerUp" -> drawAdapter = new PowerUpDrawerAdapter();
-            case "Object" -> drawAdapter = new ObjectDrawerAdapter();
-            case "Alien" -> drawAdapter = new AlienDrawerAdapter();
+            case "PowerUp":
+                drawAdapter = new PowerUpDrawerAdapter();
+                break;
+            case "Object":
+                drawAdapter = new ObjectDrawerAdapter();
+                break;
+            case "Alien":
+                drawAdapter = new AlienDrawerAdapter();
+                break;
         }
     }
 

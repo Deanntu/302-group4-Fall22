@@ -196,10 +196,12 @@ public class Room {
                 int randomIndex = random.nextInt(2);
                 int[] newXandY = getRandomLocation();
                 switch (randomIndex) {
-                    case 0 ->
+                    case 0:
                             createdAlien = new BlindAlien(10, 10, AlienConstants.xLen.getValue(), AlienConstants.yLen.getValue());
-                    case 1 ->
+                            break;
+                    case 1:
                             createdAlien = new ShooterAlien(10, 10, AlienConstants.xLen.getValue(), AlienConstants.yLen.getValue());
+                            break;
                 }
                 createdAlien = new TimeWastingAlien(10, 10, AlienConstants.xLen.getValue(),
                         AlienConstants.yLen.getValue(), player); // TODO undo

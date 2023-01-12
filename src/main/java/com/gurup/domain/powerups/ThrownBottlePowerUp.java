@@ -39,26 +39,26 @@ public class ThrownBottlePowerUp implements PowerUp {
         if (isUsable) {
             setThrowDestinationAndSource();
             switch (direction) {
-                case "up" -> {
+                case "up":
                     moveUp();
                     setUsable(false);
                     setUsed(true);
-                }
-                case "down" -> {
+                    break;
+                case "down":
                     moveDown();
                     setUsable(false);
                     setUsed(true);
-                }
-                case "left" -> {
+                    break;
+                case "left":
                     moveLeft();
                     setUsable(false);
                     setUsed(true);
-                }
-                case "right" -> {
+                    break;
+                case "right":
                     moveRight();
                     setUsable(false);
                     setUsed(true);
-                }
+                    break;
             }
         }
 
