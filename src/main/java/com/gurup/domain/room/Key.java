@@ -1,5 +1,6 @@
 package com.gurup.domain.room;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -31,8 +32,11 @@ public class Key {
 
     public static void hideKey(ArrayList<BuildingObject> objects) {
         int index = getRandomNumber(0, objects.size());
-        System.out.println(index);
         Key.buildingObject = objects.get(index);
+    }
+
+    public static Rectangle getKeyRectangle (){
+        return Key.buildingObject.getRectangle();
     }
 
     private static int getRandomNumber(int min, int max) {

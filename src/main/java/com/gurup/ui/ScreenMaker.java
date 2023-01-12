@@ -1,7 +1,6 @@
 package com.gurup.ui;
 
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 
 import com.gurup.controller.BuildingModeKeyClickController;
 import com.gurup.controller.KeyClickController;
@@ -17,6 +16,8 @@ import com.gurup.ui.gamescreen.HelpScreen;
 import com.gurup.ui.gamescreen.LoginScreen;
 import com.gurup.ui.gamescreen.MainMenuScreen;
 import com.gurup.ui.gamescreen.RunningModeScreen;
+
+import java.awt.*;
 
 public class ScreenMaker {
     public static JFrame frame = new JFrame("OYUN");
@@ -109,6 +110,17 @@ public class ScreenMaker {
     }
 
     public void stopBuildingModeGUI(BuildingModeScreen buildingModeScreen) {
+        // remove the screen from the frame
+        Window win = SwingUtilities.getWindowAncestor(buildingModeScreen);
+        win.dispose();
         frame.remove(buildingModeScreen);
+
+    }
+
+    public void stopRunningModeGUI(RunningModeScreen runningModeScreen) {
+        // remove the screen from the frame
+        Window win = SwingUtilities.getWindowAncestor(runningModeScreen);
+        win.dispose();
+        frame.remove(runningModeScreen);
     }
 }

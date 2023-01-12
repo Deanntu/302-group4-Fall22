@@ -19,8 +19,8 @@ public class BuildingModeRoom {
     private static int yLimit;
     private String name;
     private Player player;
-    private final ArrayList<BuildingObject> buildingObjects;
-    private final BuildingObjectFactory buildingObjectFactory = new BuildingObjectFactory();
+    private ArrayList<BuildingObject> buildingObjects = new ArrayList<BuildingObject>();
+    private BuildingObjectFactory buildingObjectFactory = new BuildingObjectFactory();
 
 
     public BuildingModeRoom(String name, int xStart, int yStart, int xLimit, int yLimit, Player player) {
@@ -227,5 +227,6 @@ public class BuildingModeRoom {
         }
         return returnValue;
     }
+
 }
 

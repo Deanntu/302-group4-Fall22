@@ -30,7 +30,7 @@ public class Room {
     private static int yLimit;
     private String name;
     private BuildingObject object1, object2;
-    private static final ArrayList<BuildingObject> objects = new ArrayList<>();
+    private static ArrayList<BuildingObject> objects;
     private ArrayList<PowerUp> powerUps;
     private Key key;
     private Player player;
@@ -41,6 +41,9 @@ public class Room {
     private PowerUp created;
     private Alien createdAlien;
     private int alienCreationCounter;
+    private boolean isPlayerFoundKeyForRoom;
+    private boolean isPlayerFoundKeyBefore;
+
 
     public Room(String name, int xStart, int yStart, int xLimit, int yLimit, Player player) {
         this.name = name;
@@ -48,9 +51,11 @@ public class Room {
         Room.yStart = yStart;
         Room.xLimit = xLimit;
         Room.yLimit = yLimit;
-        // Room.objects = new ArrayList<>();
+        this.objects = new ArrayList<>();
         this.key = Key.getInstance();
         this.player = player;
+        this.isPlayerFoundKeyForRoom = false;
+        this.isPlayerFoundKeyBefore = false;
 
         BuildingObjectFactory buildingObjectFactory = new BuildingObjectFactory();
         BuildingObject bin = buildingObjectFactory.createBuildingObject("Bin", 500, 300, BuildingObjectConstants.binXLen.getValue(), BuildingObjectConstants.binYLen.getValue());
@@ -75,15 +80,20 @@ public class Room {
         Room.yStart = yStart;
         Room.xLimit = xLimit;
         Room.yLimit = yLimit;
-        // Room.objects = new ArrayList<>();
         this.key = Key.getInstance();
         this.player = player;
-
-        Room.objects.addAll(buildingObjects);
+        this.objects = new ArrayList<>();
+        this.objects.addAll(buildingObjects);
 
         Key.hideKey(objects);
         initPowerUps();
 
+    }
+
+
+
+    public Boolean getIsPlayerFoundKeyForRoom() {
+        return isPlayerFoundKeyForRoom;
     }
 
     public Boolean isKeyFound(Rectangle rectMouseClick) {
@@ -94,6 +104,11 @@ public class Room {
         // If the game is paused, return false
         // If the mouseRectangle intersects with the key and player is near to object that contains the key, return true
         // If the mouseRectangle intersects with the key and player is not near to object that contains the key, return false
+
+        if (this.isPlayerFoundKeyBefore){
+            //System.out.println("You have already found the key for this room");
+            return false;
+        }
         if (!rectMouseClick.intersects(new Rectangle(xStart, yStart, xLimit, yLimit))) {
             // System.out.println("Did not click inside the room");
             return false;
@@ -114,6 +129,9 @@ public class Room {
                 }
                 if (bo.equals(containerObject)) {
                     System.out.println("Key Found");
+                    this.isPlayerFoundKeyForRoom = true;
+                    this.isPlayerFoundKeyBefore = true;
+                    player.setRemainingTime(player.getRemainingTime() + 50);
                     return true;
                 }
                 System.out.println("Key not found");
@@ -153,8 +171,6 @@ public class Room {
                 if (created != null)
                     created.setIsActive(false);
                 int randomIndex = random.nextInt(powerUps.size());
-                randomIndex = 3;
-                System.out.println(randomIndex);
                 created = powerUps.get(randomIndex);
                 created.setXCurrent(newXandY[0]);
                 created.setYCurrent(newXandY[1]);
