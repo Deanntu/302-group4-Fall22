@@ -1,6 +1,7 @@
 package com.gurup.domain.room;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import com.gurup.domain.room.buildingobjects.BuildingObject;
 
@@ -35,7 +36,8 @@ public class Key {
     }
 
     private static int getRandomNumber(int min, int max) {
-        return (int) ((Math.random() * (max - min)) + min);
+        return new Random().nextInt(max) + min;
+        // return (int) ((Math.random() * (max - min)) + min);
     }
 
 }

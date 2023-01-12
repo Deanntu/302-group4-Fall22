@@ -14,6 +14,7 @@ public class DoingWellWastingStrategy implements WastingStrategy {
 			wasteCounter = 1;
 			Key.hideKey(Room.getObjects());
 			System.out.println("Hid key by DoingWell");
+			System.out.println("New Key Coordinate is: x: " + Key.getInstance().getBuildingObject().getXCurrent() + " y: " + Key.getInstance().getBuildingObject().getYCurrent());
 		}
 		else {
 			wasteCounter++;

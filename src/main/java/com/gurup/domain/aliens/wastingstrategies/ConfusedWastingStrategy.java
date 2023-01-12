@@ -12,7 +12,7 @@ public class ConfusedWastingStrategy implements WastingStrategy {
 			return false;
 		}
 		confusionCounter++;
-		return false;
+		return true;
 	}
 
 }

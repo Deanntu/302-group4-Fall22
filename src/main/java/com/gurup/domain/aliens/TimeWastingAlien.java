@@ -33,16 +33,20 @@ public class TimeWastingAlien implements Alien {
 		double ratio = ((double) currentTime) / ((double) totalTime);
 		if (ratio > 0.7) {
 			wastingStrategy = new DoingWellWastingStrategy();
+			System.out.println("You are Doing Well");
 		}
 		else if (ratio < 0.3) {
 			wastingStrategy = new MercifulWastingStrategy();
+			System.out.println("Alien became Merciful");
 		}
 		else {
 			wastingStrategy = new ConfusedWastingStrategy();
+			System.out.println("Alien became Confused");
 		}
 	}
 	
-	public void wasteTime() {
+	private void wasteTime() {
+	    // called in setActive
 		if (!isActive) return; // cannot waste time if not active TODO, maybe wrong
 		// false means remove the alien
 		// true means all is good
@@ -70,11 +74,15 @@ public class TimeWastingAlien implements Alien {
 	private void remove() {
 		// TODO Auto-generated method stub
 		// TODO remove alien
+	    System.out.println("TW Alien removed (TODO)");
 	}
 
 	@Override
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
+		if (isActive) {
+		    wasteTime();
+		}
 	}
 
 	@Override

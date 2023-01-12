@@ -9,6 +9,7 @@ public class MercifulWastingStrategy implements WastingStrategy {
 	public boolean wasteTime() {
 		Key.hideKey(Room.getObjects());
 		System.out.println("Hid key by Merciful");
+		System.out.println("New Key Coordinate is: x: " + Key.getInstance().getBuildingObject().getXCurrent() + " y: " + Key.getInstance().getBuildingObject().getYCurrent());
 		return false;// should remove alien after replacement
 	}
 }
