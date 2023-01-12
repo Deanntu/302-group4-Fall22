@@ -131,7 +131,7 @@ public class RunningModeScreen extends JPanel {
 		if (room.getCreatedAlien() != null && room.getCreatedAlien().isActive()) {
 			alienDrawer.draw(g, room.getCreatedAlien().rectArray(), room.getCreatedAlien().getName());
 		}
-		for (BuildingObject bo : room.getObjects()) {
+		for (BuildingObject bo : Room.getObjects()) {
 			buildObjectDrawer.draw(g, bo.rectArray(), bo.getName());
 		}
 	}

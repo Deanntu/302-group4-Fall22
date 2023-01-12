@@ -13,6 +13,7 @@ public class ImageLoader {
 	private static final String PLAYER = "player.png";
 	private static final String SHOOTER_ALIEN = "shooter_alien.png";
 	private static final String BLIND_ALIEN = "blind_alien.png";
+	private static final String TIME_WASTING_ALIEN = "time_wasting_alien.png";
 	private static final String PLASTIC_BOTTLE = "plastic_bottle.png";
 	private static final String HEALTH = "health.png";
 	private static final String TIME = "time.png";
@@ -23,7 +24,7 @@ public class ImageLoader {
 	private static final String HELPSCREEN2 = "helpScreen2.png";
 	private static final String HELPSCREEN3 = "helpScreen3.png";
 
-	public static final BufferedImage table_image, bin_image, player_image, shooter_alien_image, blind_alien_image,
+	public static final BufferedImage table_image, bin_image, player_image, shooter_alien_image, blind_alien_image, time_wasting_alien_image,
 			plastic_bottle_image, health_image, time_image, vest_image, thrown_plastic_bottle_image,help_screen1,help_screen2,help_screen3;
 
 	static {
@@ -33,6 +34,7 @@ public class ImageLoader {
 			player_image = ImageIO.read(new File(PARENT_PATH, PLAYER));
 			shooter_alien_image = ImageIO.read(new File(PARENT_PATH, SHOOTER_ALIEN));
 			blind_alien_image = ImageIO.read(new File(PARENT_PATH, BLIND_ALIEN));
+			time_wasting_alien_image = ImageIO.read(new File(PARENT_PATH, TIME_WASTING_ALIEN));
 			plastic_bottle_image = ImageIO.read(new File(PARENT_PATH, PLASTIC_BOTTLE));
 			health_image = ImageIO.read(new File(PARENT_PATH, HEALTH));
 			time_image = ImageIO.read(new File(PARENT_PATH, TIME));
