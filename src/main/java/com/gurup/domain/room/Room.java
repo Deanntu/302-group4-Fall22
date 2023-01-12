@@ -12,6 +12,7 @@ import com.gurup.domain.aliens.Alien;
 import com.gurup.domain.aliens.AlienConstants;
 import com.gurup.domain.aliens.BlindAlien;
 import com.gurup.domain.aliens.ShooterAlien;
+import com.gurup.domain.aliens.TimeWastingAlien;
 import com.gurup.domain.powerups.BottlePowerUp;
 import com.gurup.domain.powerups.HealthPowerUp;
 import com.gurup.domain.powerups.PowerUp;
@@ -29,7 +30,7 @@ public class Room {
     private static int yLimit;
     private String name;
     private BuildingObject object1, object2;
-    private final ArrayList<BuildingObject> objects;
+    private static final ArrayList<BuildingObject> objects = new ArrayList<>();
     private ArrayList<PowerUp> powerUps;
     private Key key;
     private Player player;
@@ -47,8 +48,8 @@ public class Room {
         Room.yStart = yStart;
         Room.xLimit = xLimit;
         Room.yLimit = yLimit;
-        this.objects = new ArrayList<>();
-        this.key = new Key();
+        // Room.objects = new ArrayList<>();
+        this.key = Key.getInstance();
         this.player = player;
 
         BuildingObjectFactory buildingObjectFactory = new BuildingObjectFactory();
@@ -63,7 +64,7 @@ public class Room {
         objects.add(book);
         objects.add(pen);
         objects.add(printer);
-        key.hideKey(objects);
+        Key.hideKey(objects);
         initPowerUps();
 
     }
@@ -74,13 +75,13 @@ public class Room {
         Room.yStart = yStart;
         Room.xLimit = xLimit;
         Room.yLimit = yLimit;
-        this.objects = new ArrayList<>();
-        this.key = new Key();
+        // Room.objects = new ArrayList<>();
+        this.key = Key.getInstance();
         this.player = player;
 
-        this.objects.addAll(buildingObjects);
+        Room.objects.addAll(buildingObjects);
 
-        key.hideKey(objects);
+        Key.hideKey(objects);
         initPowerUps();
 
     }
@@ -191,7 +192,7 @@ public class Room {
             return TimerOperationResults.PAUSED;
         Random random = new Random();
         if (timeCounter % (1000 / delayMiliSeconds) == 0) {
-            if (alienCreationCounter == 2) {
+            if (alienCreationCounter == 2) { // TODO undo
                 int randomIndex = random.nextInt(2);
                 int[] newXandY = getRandomLocation();
                 switch (randomIndex) {
@@ -200,10 +201,12 @@ public class Room {
                     case 1 ->
                             createdAlien = new ShooterAlien(10, 10, AlienConstants.xLen.getValue(), AlienConstants.yLen.getValue());
                 }
+                createdAlien = new TimeWastingAlien(10, 10, AlienConstants.xLen.getValue(),
+                        AlienConstants.yLen.getValue(), player); // TODO undo
                 createdAlien.setXCurrent(newXandY[0]);
                 createdAlien.setYCurrent(newXandY[1]);
                 createdAlien.setActive(true);
-                alienCreationCounter = 1;
+                alienCreationCounter = 100; // TODO undo
             } else {
                 alienCreationCounter++;
             }
@@ -219,8 +222,7 @@ public class Room {
     public void setName(String name) {
         this.name = name;
     }
-
-
+    
     public static int getXLimit() {
         return xLimit;
     }
@@ -261,7 +263,7 @@ public class Room {
         this.object2 = object2;
     }
 
-    public ArrayList<BuildingObject> getObjects() {
+    public static ArrayList<BuildingObject> getObjects() {
         return objects;
     }
 
