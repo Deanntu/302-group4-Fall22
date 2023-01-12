@@ -6,7 +6,19 @@ import com.gurup.domain.room.buildingobjects.BuildingObject;
 
 public class Key {
 
+    private static Key key;
     private static BuildingObject buildingObject;
+    
+    private Key() {
+        
+    }
+    
+    public static synchronized Key getInstance() {
+        if (key == null) {
+            key = new Key();
+        }
+        return key;
+    }
 
     public BuildingObject getBuildingObject() {
         return buildingObject;

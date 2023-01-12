@@ -48,7 +48,7 @@ public class Room {
         Room.xLimit = xLimit;
         Room.yLimit = yLimit;
         Room.objects = new ArrayList<>();
-        this.key = new Key();
+        this.key = Key.getInstance();
         this.player = player;
 
         BuildingObjectFactory buildingObjectFactory = new BuildingObjectFactory();
