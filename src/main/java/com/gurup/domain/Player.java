@@ -1,6 +1,5 @@
 package com.gurup.domain;
 
-import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -20,12 +19,15 @@ public class Player {
     private int yCurrent;
     BufferedImage student_image;
 
+
     private int remainingTime;
     private int startingTime;
     private int timeCounter;
     private int life;
     private boolean isProtected;
     private int remainingProtectionSeconds;
+    private String objectToBuild;
+
 
     public Player(int xStart, int yStart, int xLen, int yLen, int startingTime) {
         this.xStart = xStart;
@@ -41,16 +43,9 @@ public class Player {
         setProtected(false);
     }
 
-    public void draw(Graphics g) {
-        /*
-         * Point pos = new Point(getX(), getY()); g.setColor(playerColor);
-         * g.fillOval((int) pos.getX(), (int) pos.getY(), size, size);
-         */
-    }
 
     public TimerOperationResults decrementTime(int delaymiliseconds) {
-        if (Game.getIsPaused())
-            return TimerOperationResults.PAUSED;
+        if (Game.getIsPaused()) return TimerOperationResults.PAUSED;
         if (timeCounter % (1000 / delaymiliseconds) == 0) {
             timeCounter = 1;
             if (remainingTime <= 0) {
@@ -69,8 +64,6 @@ public class Player {
                         isProtected = false;
                     }
                 }
-                // System.out.println(remainingTime);
-                // System.out.printf("Is protected: %b%n",isProtected);
                 remainingTime--;
             }
         } else {
@@ -83,8 +76,7 @@ public class Player {
         // MODIFIES: this
         // REQUIRES: none
         //
-        // EFFECTS: Decrements the Integer corresponding to the players current y
-        // position
+        // EFFECTS: Decrements the Integer corresponding to the players current y position
         // if new position outside the room does nothing
         if (this.xCurrent >= Room.getXLimit()) {
             this.xCurrent = (Room.getXLimit());
@@ -97,8 +89,7 @@ public class Player {
         // MODIFIES: this
         // REQUIRES: none
         //
-        // EFFECTS: Increments the Integer corresponding to the players current x
-        // position
+        // EFFECTS: Increments the Integer corresponding to the players current x position
         // if new position outside the room does nothing
         if (this.xCurrent <= Room.getstartX()) {
             this.xCurrent = (Room.getstartX());
@@ -111,8 +102,7 @@ public class Player {
         // MODIFIES: this
         // REQUIRES: none
         //
-        // EFFECTS: Decrements the Integer corresponding to the players current y
-        // position
+        // EFFECTS: Decrements the Integer corresponding to the players current y position
         // if new position outside the room does nothing
         if (this.yCurrent <= Room.getstartY()) {
             this.yCurrent = (Room.getstartY());
@@ -125,8 +115,7 @@ public class Player {
         // MODIFIES: this
         // REQUIRES: none
         //
-        // EFFECTS: Increments the Integer corresponding to the players current y
-        // position
+        // EFFECTS: Increments the Integer corresponding to the players current y position
         // if new position outside the room does nothing
         if (this.yCurrent >= Room.getYLimit()) {
             this.yCurrent = (Room.getYLimit());
@@ -134,6 +123,7 @@ public class Player {
             this.yCurrent = (this.yCurrent + 10);
         }
     }
+
 
     public int getXStart() {
         return xStart;
@@ -236,6 +226,14 @@ public class Player {
         return student_image;
     }
 
+    public void setCurrentSelectedObject(String name) {
+        this.objectToBuild = name;
+    }
+
+    public String getCurrentSelectedObject() {
+        return objectToBuild;
+    }
+
     public int getStartingTime() {
         return startingTime;
     }
@@ -243,4 +241,5 @@ public class Player {
     public void setStartingTime(int startingTime) {
         this.startingTime = startingTime;
     }
+
 }

@@ -2,13 +2,13 @@ package com.gurup.domain.room.buildingobjects;
 
 import java.awt.Rectangle;
 
-public class Bin implements BuildingObject {
+public class Book implements BuildingObject {
 
     private int xCurrent, yCurrent;
     private int xLen, yLen;
-    private final String NAME = "Bin";
+    private final String NAME = "Book";
 
-    public Bin(int xCurrent, int yCurrent, int xLen, int yLen) {
+    public Book(int xCurrent, int yCurrent, int xLen, int yLen) {
         this.xCurrent = xCurrent;
         this.yCurrent = yCurrent;
         this.xLen = xLen;

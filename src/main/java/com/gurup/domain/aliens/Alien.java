@@ -4,18 +4,18 @@ import java.awt.Rectangle;
 
 public interface Alien {
 
-	void setActive(boolean b);
+    void setActive(boolean b);
 
-	void setXCurrent(int i);
+    void setXCurrent(int i);
 
-	void setYCurrent(int i);
+    void setYCurrent(int i);
 
-	boolean isActive();
+    boolean isActive();
 
-	String getName();
+    String getName();
 
-	int[] rectArray();
-	
-	Rectangle getRectangle();
+    int[] rectArray();
+
+    Rectangle getRectangle();
 
 }

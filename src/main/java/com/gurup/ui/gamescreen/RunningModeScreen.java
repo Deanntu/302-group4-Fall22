@@ -6,8 +6,6 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -29,21 +27,22 @@ import com.gurup.ui.drawer.Drawer;
 
 public class RunningModeScreen extends JPanel {
 
-    private Player player;
+    private final Player player;
     private MovementController movementController;
     private KeyClickController keyClickController;
     private PowerUpController powerUpController;
-    private Room room;
-    private int delayMiliSeconds;
-    private Drawer powerUpDrawer = new Drawer("PowerUp");
-    private Drawer buildObjectDrawer = new Drawer("Object");
-    private Drawer alienDrawer = new Drawer("Alien");
+    private final Room room;
+    private final int delayMiliSeconds;
+    private final Drawer powerUpDrawer = new Drawer("PowerUp");
+    private final Drawer buildObjectDrawer = new Drawer("Object");
+    private final Drawer alienDrawer = new Drawer("Alien");
+    private final int magicBagNumber = 5; // this is needed to make the bottle in the bag appear in correct position
     FontMetrics metrics;
     Font font;
-    Bag bag;
+    final Bag bag;
 
     public RunningModeScreen(Game game, Player player, MovementController movementController,
-            KeyClickController keyClickController, PowerUpController powerUpController, Room room) {
+                             KeyClickController keyClickController, PowerUpController powerUpController, Room room) {
 
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
@@ -57,14 +56,12 @@ public class RunningModeScreen extends JPanel {
 
         JButton pauseButton = new JButton("Pause");
 
-        pauseButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                Game.pauseUnpause();
-                if (Game.getIsPaused())
-                    pauseButton.setText("Resume");
-                else {
-                    pauseButton.setText("Pause");
-                }
+        pauseButton.addActionListener(e -> {
+            Game.pauseUnpause();
+            if (Game.getIsPaused())
+                pauseButton.setText("Resume");
+            else {
+                pauseButton.setText("Pause");
             }
         });
         add(pauseButton);
@@ -109,7 +106,7 @@ public class RunningModeScreen extends JPanel {
         g.drawImage(ImageLoader.vest_image, slotStartX + slotSizeX / 2 - itemSize / 2 - slotSizeX,
                 slotStartY + slotSizeY / 2 - itemSize / 2, itemSize, itemSize, null);
         // TODO: update bottle image in bag
-        g.drawImage(ImageLoader.plastic_bottle_image, slotStartX + slotSizeX / 2 - itemSize / 2 + slotSizeX,
+        g.drawImage(ImageLoader.plastic_bottle_image, slotStartX + slotSizeX / 2 - itemSize / 2 + slotSizeX + magicBagNumber,
                 slotStartY + slotSizeY / 2 - itemSize / 2, itemSize / 2, itemSize, null);
         g.setColor(Color.DARK_GRAY);
         g.setFont(new Font("Courier New", Font.BOLD, fontSize));
@@ -154,7 +151,6 @@ public class RunningModeScreen extends JPanel {
         String remainingLife = "Remaining life: " + player.getLife();
         int timeX = Room.getstartX();
         int timeY = Room.getstartY() - 5;
-        ;
         int lifeX = Room.getstartX() + (Room.getXLimit() - metrics.stringWidth(remainingLife));
         int lifeY = Room.getstartY() - 5;
         g.drawString(remainingTime, timeX, timeY);
@@ -162,8 +158,7 @@ public class RunningModeScreen extends JPanel {
     }
 
     private void paintPlayer(Graphics g) {
-        g.drawImage(ImageLoader.player_image, player.getXCurrent(), player.getYCurrent(), player.getXLen(),
-                player.getYLen(), null);
+        g.drawImage(ImageLoader.player_image, player.getXCurrent(), player.getYCurrent(), player.getXLen(), player.getYLen(), null);
     }
 
     private void paintWall(Graphics g) {

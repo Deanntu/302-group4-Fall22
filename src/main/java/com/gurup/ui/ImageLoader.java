@@ -19,14 +19,18 @@ public class ImageLoader {
     private static final String TIME = "time.png";
     private static final String VEST = "vest.png";
     private static final String THROWN_PLASTIC_BOTTLE = "thrown_plastic_bottle.png";
+    private static final String BOOK = "book.png";
+    private static final String PEN = "pen.png";
+    private static final String PRINTER = "printer.png";
+    private static final String CLOSED_DOOR = "closed_door.png";
+    private static final String OPEN_DOOR = "open_door.png";
+    private static final String HELP_SCREEN1 = "helpScreen1.png";
+    private static final String HELP_SCREEN2 = "helpScreen2.png";
+    private static final String HELP_SCREEN3 = "helpScreen3.png";
 
-    private static final String HELPSCREEN1 = "helpScreen1.png";
-    private static final String HELPSCREEN2 = "helpScreen2.png";
-    private static final String HELPSCREEN3 = "helpScreen3.png";
 
-    public static final BufferedImage table_image, bin_image, player_image, shooter_alien_image, blind_alien_image,
-            time_wasting_alien_image, plastic_bottle_image, health_image, time_image, vest_image,
-            thrown_plastic_bottle_image, help_screen1, help_screen2, help_screen3;
+    public static final BufferedImage table_image, bin_image, player_image, shooter_alien_image, blind_alien_image, time_wasting_alien_image,
+            plastic_bottle_image, health_image, time_image, vest_image, thrown_plastic_bottle_image, book_image, pen_image, printer_image, closed_door_image, open_door_image, help_screen1, help_screen2, help_screen3;
 
     static {
         try {
@@ -41,10 +45,14 @@ public class ImageLoader {
             time_image = ImageIO.read(new File(PARENT_PATH, TIME));
             vest_image = ImageIO.read(new File(PARENT_PATH, VEST));
             thrown_plastic_bottle_image = ImageIO.read(new File(PARENT_PATH, THROWN_PLASTIC_BOTTLE));
-            help_screen1 = ImageIO.read(new File(PARENT_PATH, HELPSCREEN1));
-            help_screen2 = ImageIO.read(new File(PARENT_PATH, HELPSCREEN2));
-            help_screen3 = ImageIO.read(new File(PARENT_PATH, HELPSCREEN3));
-
+            book_image = ImageIO.read(new File(PARENT_PATH, BOOK));
+            pen_image = ImageIO.read(new File(PARENT_PATH, PEN));
+            printer_image = ImageIO.read(new File(PARENT_PATH, PRINTER));
+            closed_door_image = ImageIO.read(new File(PARENT_PATH, CLOSED_DOOR));
+            open_door_image = ImageIO.read(new File(PARENT_PATH, OPEN_DOOR));
+            help_screen1 = ImageIO.read(new File(PARENT_PATH, HELP_SCREEN1));
+            help_screen2 = ImageIO.read(new File(PARENT_PATH, HELP_SCREEN2));
+            help_screen3 = ImageIO.read(new File(PARENT_PATH, HELP_SCREEN3));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -52,5 +60,6 @@ public class ImageLoader {
 
     private ImageLoader() throws IOException {
     }
+
 
 }

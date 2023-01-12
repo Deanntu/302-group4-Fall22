@@ -20,6 +20,7 @@ import com.gurup.domain.powerups.ThrownBottlePowerUp;
 import com.gurup.domain.powerups.TimePowerUp;
 import com.gurup.domain.powerups.VestPowerUp;
 import com.gurup.domain.room.buildingobjects.BuildingObject;
+import com.gurup.domain.room.buildingobjects.BuildingObjectConstants;
 import com.gurup.domain.room.buildingobjects.BuildingObjectFactory;
 
 public class Room {
@@ -29,7 +30,7 @@ public class Room {
     private static int yLimit;
     private String name;
     private BuildingObject object1, object2;
-    private static ArrayList<BuildingObject> objects;
+    private static final ArrayList<BuildingObject> objects = new ArrayList<>();
     private ArrayList<PowerUp> powerUps;
     private Key key;
     private Player player;
@@ -47,18 +48,40 @@ public class Room {
         Room.yStart = yStart;
         Room.xLimit = xLimit;
         Room.yLimit = yLimit;
-        Room.objects = new ArrayList<>();
+        // Room.objects = new ArrayList<>();
         this.key = Key.getInstance();
         this.player = player;
 
         BuildingObjectFactory buildingObjectFactory = new BuildingObjectFactory();
-        BuildingObject object1 = buildingObjectFactory.createBuildingObject("Bin", 500, 300, 30, 35);
-        BuildingObject object2 = buildingObjectFactory.createBuildingObject("Table", 800, 100, 60, 40);
-        objects.add(object1);
-        objects.add(object2);
+        BuildingObject bin = buildingObjectFactory.createBuildingObject("Bin", 500, 300, BuildingObjectConstants.binXLen.getValue(), BuildingObjectConstants.binYLen.getValue());
+        BuildingObject table = buildingObjectFactory.createBuildingObject("Table", 800, 100, BuildingObjectConstants.tableXLen.getValue(), BuildingObjectConstants.tableYLen.getValue());
+        BuildingObject book = buildingObjectFactory.createBuildingObject("Book", 100, 100, BuildingObjectConstants.bookXLen.getValue(), BuildingObjectConstants.bookYLen.getValue());
+        BuildingObject pen = buildingObjectFactory.createBuildingObject("Pen", 100, 300, BuildingObjectConstants.penXLen.getValue(), BuildingObjectConstants.penYLen.getValue());
+        BuildingObject printer = buildingObjectFactory.createBuildingObject("Printer", 800, 300, BuildingObjectConstants.printerXLen.getValue(), BuildingObjectConstants.printerYLen.getValue());
+
+        objects.add(bin);
+        objects.add(table);
+        objects.add(book);
+        objects.add(pen);
+        objects.add(printer);
         Key.hideKey(objects);
-        pauseButton = new Rectangle(0, 0, 50, 50);
-        exitButton = new Rectangle(0, 0, 50, 50);
+        initPowerUps();
+
+    }
+
+    public Room(String name, int xStart, int yStart, int xLimit, int yLimit, Player player, ArrayList<BuildingObject> buildingObjects) {
+        this.name = name;
+        Room.xStart = xStart;
+        Room.yStart = yStart;
+        Room.xLimit = xLimit;
+        Room.yLimit = yLimit;
+        // Room.objects = new ArrayList<>();
+        this.key = Key.getInstance();
+        this.player = player;
+
+        Room.objects.addAll(buildingObjects);
+
+        Key.hideKey(objects);
         initPowerUps();
 
     }
@@ -69,10 +92,8 @@ public class Room {
         // EFFECTS: Returns true if the key is found, false otherwise:
         // If the mouseRectangle does not intersect with the key, return false
         // If the game is paused, return false
-        // If the mouseRectangle intersects with the key and player is near to object
-        // that contains the key, return true
-        // If the mouseRectangle intersects with the key and player is not near to
-        // object that contains the key, return false
+        // If the mouseRectangle intersects with the key and player is near to object that contains the key, return true
+        // If the mouseRectangle intersects with the key and player is not near to object that contains the key, return false
         if (!rectMouseClick.intersects(new Rectangle(xStart, yStart, xLimit, yLimit))) {
             // System.out.println("Did not click inside the room");
             return false;
@@ -161,10 +182,9 @@ public class Room {
         int tempX = random.nextInt(Toolkit.getDefaultToolkit().getScreenSize().width - 100 - 50);
         int tempY = random.nextInt(Toolkit.getDefaultToolkit().getScreenSize().height - 175 - 50);
         tempX += 50; // These are added since random.nextInt with 2 arguments does not work on older
-                     // versions of Java.
+        // versions of Java.
         tempY += 50;
-        int[] locations = { tempX, tempY };
-        return locations;
+        return new int[]{tempX, tempY};
     }
 
     public TimerOperationResults createAlien(int delayMiliSeconds) {
@@ -176,13 +196,10 @@ public class Room {
                 int randomIndex = random.nextInt(2);
                 int[] newXandY = getRandomLocation();
                 switch (randomIndex) {
-                case 0:
-                    createdAlien = new BlindAlien(10, 10, AlienConstants.xLen.getValue(),
-                            AlienConstants.yLen.getValue());
-                    break;
-                case 1:
-                    createdAlien = new ShooterAlien(10, 10, AlienConstants.xLen.getValue(),
-                            AlienConstants.yLen.getValue());
+                    case 0 ->
+                            createdAlien = new BlindAlien(10, 10, AlienConstants.xLen.getValue(), AlienConstants.yLen.getValue());
+                    case 1 ->
+                            createdAlien = new ShooterAlien(10, 10, AlienConstants.xLen.getValue(), AlienConstants.yLen.getValue());
                 }
                 createdAlien = new TimeWastingAlien(10, 10, AlienConstants.xLen.getValue(),
                         AlienConstants.yLen.getValue(), player); // TODO undo
@@ -205,7 +222,7 @@ public class Room {
     public void setName(String name) {
         this.name = name;
     }
-
+    
     public static int getXLimit() {
         return xLimit;
     }
@@ -284,31 +301,37 @@ public class Room {
 
     // private methods
     private void initPowerUps() {
-        powerUps = new ArrayList<PowerUp>();
+        powerUps = new ArrayList<>();
         TimePowerUp t = TimePowerUp.getInstance(player);
         HealthPowerUp h = HealthPowerUp.getInstance(player);
         VestPowerUp v = VestPowerUp.getInstance(player);
         BottlePowerUp b = BottlePowerUp.getInstance(player);
         ThrownBottlePowerUp.getInstance(player);
         t.setXCurrent(420);
-        t.setXLen(50);
         t.setYCurrent(320);
-        t.setYLen(50);
+
+        t.setXLen(RoomConstants.timePowerUpXLen.getValue());
+        t.setYLen(RoomConstants.timePowerUpYLen.getValue());
 
         h.setXCurrent(420);
-        h.setXLen(50);
         h.setYCurrent(320);
-        h.setYLen(50);
+
+        h.setXLen(RoomConstants.healthPowerUpXLen.getValue());
+        h.setYLen(RoomConstants.healthPowerUpYLen.getValue());
+
 
         v.setXCurrent(420);
-        v.setXLen(50);
         v.setYCurrent(320);
-        v.setYLen(50);
+
+        v.setXLen(RoomConstants.vestPowerUpXLen.getValue());
+        v.setYLen(RoomConstants.vestPowerUpYLen.getValue());
 
         b.setXCurrent(420);
-        b.setXLen(50);
         b.setYCurrent(320);
-        b.setYLen(50);
+
+        b.setXLen(RoomConstants.bottlePowerUpXLen.getValue());
+        b.setYLen(RoomConstants.bottlePowerUpYLen.getValue());
+
 
         powerUps.add(t);
         powerUps.add(h);
@@ -329,5 +352,6 @@ public class Room {
     public void setKey(Key key) {
         this.key = key;
     }
+
 
 }

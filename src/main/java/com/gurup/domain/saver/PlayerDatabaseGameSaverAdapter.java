@@ -3,7 +3,7 @@ package com.gurup.domain.saver;
 import com.gurup.domain.Player;
 
 public class PlayerDatabaseGameSaverAdapter implements GameSaverAdapter {
-	PlayerDatabaseGameSaver playerDatabaseGameSaver;
+	final PlayerDatabaseGameSaver playerDatabaseGameSaver;
 
 	public PlayerDatabaseGameSaverAdapter() {
 		playerDatabaseGameSaver = new PlayerDatabaseGameSaver();

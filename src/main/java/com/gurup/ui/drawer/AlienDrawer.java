@@ -18,8 +18,8 @@ public class AlienDrawer {
             g.drawOval(rectValues[0] - 25, rectValues[1] - 25, rectValues[2] + 50, rectValues[3] + 50);
         }
         if (name.equals("TimeWasting")) {
-            g.drawImage(ImageLoader.time_wasting_alien_image, rectValues[0], rectValues[1], rectValues[2],
-                    rectValues[3], null);
+            g.drawImage(ImageLoader.time_wasting_alien_image, rectValues[0], rectValues[1], rectValues[2],rectValues[3],
+                    null);
         }
     }
 }
