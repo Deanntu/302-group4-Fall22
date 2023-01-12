@@ -33,12 +33,15 @@ public class TimeWastingAlien implements Alien {
 		double ratio = ((double) currentTime) / ((double) totalTime);
 		if (ratio > 0.7) {
 			wastingStrategy = new DoingWellWastingStrategy();
+			System.out.println("You are Doing Well");
 		}
 		else if (ratio < 0.3) {
 			wastingStrategy = new MercifulWastingStrategy();
+			System.out.println("Alien became Merciful");
 		}
 		else {
 			wastingStrategy = new ConfusedWastingStrategy();
+			System.out.println("Alien became Confused");
 		}
 	}
 	
