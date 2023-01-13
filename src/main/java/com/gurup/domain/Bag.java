@@ -64,7 +64,7 @@ public class Bag {
 		// EFFECTS: Initializes this so that the storable powerUps are put as the keys
 		// of powerUps
 		for (PowerUp p : powerUpList) {
-			if (p.isStorable()) {
+			if (p.isStorable() && !powerUps.containsKey(p)) {
 				powerUps.put(p, 0);
 			}
 		}

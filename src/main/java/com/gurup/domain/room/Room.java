@@ -49,7 +49,11 @@ public class Room {
 		this.objects = new ArrayList<>();
 		this.key = new Key();
 		this.player = player;
+		initObjects();
+		initPowerUps();
 
+	}
+	private void initObjects() {
 		BuildingObjectFactory buildingObjectFactory = new BuildingObjectFactory();
 		BuildingObject object1 = buildingObjectFactory.createBuildingObject("Bin", 500, 300, 30, 35);
 		BuildingObject object2 = buildingObjectFactory.createBuildingObject("Table", 800, 100, 60, 40);
@@ -58,10 +62,7 @@ public class Room {
 		key.hideKey(objects);
 		pauseButton = new Rectangle(0, 0, 50, 50);
 		exitButton = new Rectangle(0, 0, 50, 50);
-		initPowerUps();
-
 	}
-
 	public Boolean isKeyFound(Rectangle rectMouseClick) {
 		// MODIFIES: nothing
 		// REQUIRES: rectangle that represents the mouse click
@@ -323,6 +324,21 @@ public class Room {
 
 	public void setKey(Key key) {
 		this.key = key;
+	}
+
+	public void setObjects(ArrayList<BuildingObject> loadedObjects) {
+		this.objects = loadedObjects;
+		
+	}
+
+	public void setCreated(PowerUp powerUp) {
+		this.created = powerUp;
+		
+	}
+
+	public void setCreatedAlien(Alien alien) {
+		this.createdAlien = alien;
+		
 	}
 	
 
