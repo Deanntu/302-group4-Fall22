@@ -40,6 +40,7 @@ public class PlayerDatabaseGameLoader {
                     resultSet.getInt("remainingtime"));
             player.setLife(resultSet.getInt("remaininglife"));
             player.setProtected(resultSet.getBoolean("isprotected"));
+            player.setLevel(resultSet.getInt("level"));
             int count = resultSet.getInt("bottle");
             BottlePowerUp.getInstance(player);
             Game.setBag(new Bag(player));

@@ -1,12 +1,19 @@
 package com.gurup.ui.gamescreen;
 
-import com.gurup.domain.saver.SaverType;
-
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.*;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPasswordField;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+
+import com.gurup.domain.saver.SaverType;
 
 public class LoginScreen extends JFrame implements ActionListener {
 

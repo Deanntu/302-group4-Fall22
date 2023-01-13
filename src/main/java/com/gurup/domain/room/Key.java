@@ -1,6 +1,6 @@
 package com.gurup.domain.room;
 
-import java.awt.*;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -26,7 +26,7 @@ public class Key {
         return buildingObject;
     }
 
-    public void setBuildingObject(BuildingObject buildingObject) {
+    public static void setBuildingObject(BuildingObject buildingObject) {
         Key.buildingObject = buildingObject;
     }
 
