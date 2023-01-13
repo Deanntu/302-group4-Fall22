@@ -99,20 +99,33 @@ public class Game {
         }
     }
 
-    private static void stepByStepGame (){
+    private static void stepByStepGame() {
+        // If you comment out the following lines, players timer will be fixed, but aliens and powerups timers will not be fixed.
+        // So it is better to have fixed timers for all objects.
         boolean studentCenterStep = oneStep("Student Center");
-        if (studentCenterStep){
+        if (studentCenterStep) {
+            // player = new Player(PlayerConstants.xStart.getValue(), PlayerConstants.yStart.getValue(),
+            // PlayerConstants.xLen.getValue(), PlayerConstants.xLen.getValue(), 60);
             boolean caseStep = oneStep("CASE");
             if (caseStep) {
+                // player = new Player(PlayerConstants.xStart.getValue(), PlayerConstants.yStart.getValue(),
+                // PlayerConstants.xLen.getValue(), PlayerConstants.xLen.getValue(), 60);
                 boolean sosStep = oneStep("SOS");
-                if (sosStep){
+                if (sosStep) {
+                    // player = new Player(PlayerConstants.xStart.getValue(), PlayerConstants.yStart.getValue(),
+                    // PlayerConstants.xLen.getValue(), PlayerConstants.xLen.getValue(), 60);
                     boolean sciStep = oneStep("SCI");
-                    if (sciStep){
+                    if (sciStep) {
+                        // player = new Player(PlayerConstants.xStart.getValue(), PlayerConstants.yStart.getValue(),
+                        // PlayerConstants.xLen.getValue(), PlayerConstants.xLen.getValue(), 60);
                         boolean engStep = oneStep("ENG");
-                        if(engStep){
+                        if (engStep) {
+                            // player = new Player(PlayerConstants.xStart.getValue(), PlayerConstants.yStart.getValue(),
+                            // PlayerConstants.xLen.getValue(), PlayerConstants.xLen.getValue(), 60);
                             boolean snaStep = oneStep("SNA");
-                            if (snaStep){
-
+                            if (snaStep) {
+                                System.out.println("You won!");
+                                System.exit(0);
                             }
                         }
                     }
@@ -120,14 +133,15 @@ public class Game {
             }
         }
         System.out.println("You lost!");
+        System.exit(0);
     }
 
-    private static boolean oneStep(String buildingModeName){
+    private static boolean oneStep(String buildingModeName) {
         BuildingModeRoom buildingModeRoom = buildMode(buildingModeName);
         int playerRemainingTime = buildingModeRoom.getBuildingObjects().size() * 5;
         player.setRemainingTime(playerRemainingTime);
+        buildingModeRoom.findRandomLocationFoPlayer(player);
         boolean isLevelPassed = inGame(buildingModeRoom);
-
         return isLevelPassed;
     }
 
@@ -192,7 +206,7 @@ public class Game {
             isStudentCenterFinished = runningModeScreen.isPlayerPassNextLevel();
             isPlayerDeadOrTimeIsOver = runningModeScreen.isPlayerDeadOrTimeIsOver();
             try {
-                Thread.sleep(1);
+                Thread.sleep(20);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

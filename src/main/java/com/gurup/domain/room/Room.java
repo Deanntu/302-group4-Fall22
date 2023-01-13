@@ -22,6 +22,7 @@ import com.gurup.domain.powerups.VestPowerUp;
 import com.gurup.domain.room.buildingobjects.BuildingObject;
 import com.gurup.domain.room.buildingobjects.BuildingObjectConstants;
 import com.gurup.domain.room.buildingobjects.BuildingObjectFactory;
+import com.gurup.ui.gamescreen.RunningModeScreen;
 
 public class Room {
     private static int xStart;
@@ -91,7 +92,6 @@ public class Room {
     }
 
 
-
     public Boolean getIsPlayerFoundKeyForRoom() {
         return isPlayerFoundKeyForRoom;
     }
@@ -105,7 +105,7 @@ public class Room {
         // If the mouseRectangle intersects with the key and player is near to object that contains the key, return true
         // If the mouseRectangle intersects with the key and player is not near to object that contains the key, return false
 
-        if (this.isPlayerFoundKeyBefore){
+        if (this.isPlayerFoundKeyBefore) {
             //System.out.println("You have already found the key for this room");
             return false;
         }
@@ -167,11 +167,11 @@ public class Room {
         if (timeCounter % (1000 / delayMiliSeconds) == 0) {
             timeCounter = 1;
             if (powerUpCreationCounter == 2) {
-                int[] newXandY = getRandomLocation();
                 if (created != null)
                     created.setIsActive(false);
                 int randomIndex = random.nextInt(powerUps.size());
                 created = powerUps.get(randomIndex);
+                int[] newXandY = getRandomLocation(created.getRectangle().width, created.getRectangle().height);
                 created.setXCurrent(newXandY[0]);
                 created.setYCurrent(newXandY[1]);
                 created.setIsActive(true);
@@ -193,14 +193,43 @@ public class Room {
         return TimerOperationResults.TIME_UP;
     }
 
-    private int[] getRandomLocation() {
+    private int[] getRandomLocation(int xLen, int yLen) {
         Random random = new Random();
-        int tempX = random.nextInt(Toolkit.getDefaultToolkit().getScreenSize().width - 100 - 50);
-        int tempY = random.nextInt(Toolkit.getDefaultToolkit().getScreenSize().height - 175 - 50);
-        tempX += 50; // These are added since random.nextInt with 2 arguments does not work on older
-        // versions of Java.
-        tempY += 50;
-        return new int[]{tempX, tempY};
+        boolean isLocationValid = false;
+        ArrayList<Rectangle> allRectangles = new ArrayList<>();
+
+        Rectangle doorRect = new Rectangle(RoomConstants.doorXStart.getValue(), RoomConstants.doorYStart.getValue(), RoomConstants.doorXLen.getValue(), RoomConstants.doorYLen.getValue());
+
+        for (BuildingObject bo : objects) {
+            allRectangles.add(bo.getRectangle());
+        }
+        for (PowerUp p : powerUps) {
+            allRectangles.add(p.getRectangle());
+        }
+        allRectangles.add(createdAlien.getRectangle());
+        allRectangles.add(player.getRectangle());
+        allRectangles.add(doorRect);
+
+        int xCurrent = 0;
+        int yCurrent = 0;
+
+        while (isLocationValid == false) {
+            xCurrent = random.nextInt(xLimit - xLen - xStart);
+            xCurrent+= xStart;
+            yCurrent = random.nextInt(yLimit - yLen - yStart);
+            yCurrent+= yStart;
+            Rectangle objectRect = new Rectangle(xCurrent, yCurrent, xLen, yLen);
+            for (Rectangle r : allRectangles) {
+                if (r.intersects(objectRect)) {
+                    isLocationValid = false;
+                    break;
+                }
+                isLocationValid = true;
+            }
+
+        }
+
+        return new int[] {xCurrent, yCurrent};
     }
 
     public TimerOperationResults createAlien(int delayMiliSeconds) {
@@ -210,17 +239,18 @@ public class Room {
         if (timeCounter % (1000 / delayMiliSeconds) == 0) {
             if (alienCreationCounter == 2) { // TODO undo
                 int randomIndex = random.nextInt(2);
-                int[] newXandY = getRandomLocation();
                 switch (randomIndex) {
                     case 0:
-                            createdAlien = new BlindAlien(10, 10, AlienConstants.xLen.getValue(), AlienConstants.yLen.getValue());
-                            break;
+                        createdAlien = new BlindAlien(10, 10, AlienConstants.xLen.getValue(), AlienConstants.yLen.getValue());
+                        break;
                     case 1:
-                            createdAlien = new ShooterAlien(10, 10, AlienConstants.xLen.getValue(), AlienConstants.yLen.getValue());
-                            break;
+                        createdAlien = new ShooterAlien(10, 10, AlienConstants.xLen.getValue(), AlienConstants.yLen.getValue());
+                        break;
                 }
                 createdAlien = new TimeWastingAlien(10, 10, AlienConstants.xLen.getValue(),
                         AlienConstants.yLen.getValue(), player); // TODO undo
+                int[] newXandY = getRandomLocation(AlienConstants.xLen.getValue(), AlienConstants.yLen.getValue());
+
                 createdAlien.setXCurrent(newXandY[0]);
                 createdAlien.setYCurrent(newXandY[1]);
                 createdAlien.setActive(true);
@@ -240,7 +270,7 @@ public class Room {
     public void setName(String name) {
         this.name = name;
     }
-    
+
     public static int getXLimit() {
         return xLimit;
     }

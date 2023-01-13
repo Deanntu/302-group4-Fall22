@@ -88,15 +88,15 @@ public class RunningModeScreen extends JPanel {
 
     private void drawKey(Graphics g) {
         Rectangle keyRect = Key.getKeyRectangle();
-        g.drawRect(keyRect.x-5, keyRect.y-5, keyRect.width+10, keyRect.height+10);
+        g.drawRect(keyRect.x - 5, keyRect.y - 5, keyRect.width + 10, keyRect.height + 10);
 
     }
 
-    public Boolean isPlayerPassNextLevel (){
+    public Boolean isPlayerPassNextLevel() {
         Rectangle doorRectangle = new Rectangle(RoomConstants.doorXStart.getValue(), RoomConstants.doorYStart.getValue(), RoomConstants.doorXLen.getValue(), RoomConstants.doorYLen.getValue());
         if (player.getRectangle().intersects(doorRectangle)) {
-            if (player.getRemainingTime()> 0 && player.getLife() > 0) {
-                if (room.getIsPlayerFoundKeyForRoom() == true){
+            if (player.getRemainingTime() > 0 && player.getLife() > 0) {
+                if (room.getIsPlayerFoundKeyForRoom() == true) {
                     return true;
                 }
             }
@@ -104,7 +104,7 @@ public class RunningModeScreen extends JPanel {
         return false;
     }
 
-    public Boolean isPlayerDeadOrTimeIsOver (){
+    public Boolean isPlayerDeadOrTimeIsOver() {
         if (player.getRemainingTime() <= 0 || player.getLife() <= 0) {
             return true;
         }
@@ -112,9 +112,9 @@ public class RunningModeScreen extends JPanel {
     }
 
     private void paintDoor(Graphics g) {
-        if (room.getIsPlayerFoundKeyForRoom() == false){
+        if (room.getIsPlayerFoundKeyForRoom() == false) {
             g.drawImage(ImageLoader.closed_door_image, RoomConstants.doorXStart.getValue(), RoomConstants.doorYStart.getValue(), RoomConstants.doorXLen.getValue(), RoomConstants.doorYLen.getValue(), null);
-        } else if (room.getIsPlayerFoundKeyForRoom() == true){
+        } else if (room.getIsPlayerFoundKeyForRoom() == true) {
             g.drawImage(ImageLoader.open_door_image, RoomConstants.doorXStart.getValue(), RoomConstants.doorYStart.getValue(), RoomConstants.doorXLen.getValue(), RoomConstants.doorYLen.getValue(), null);
         }
     }
