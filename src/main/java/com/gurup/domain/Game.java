@@ -1,8 +1,5 @@
 package com.gurup.domain;
 
-import java.util.ArrayList;
-import java.util.Timer;
-
 import javax.swing.SwingUtilities;
 
 import com.gurup.controller.BuildingModeKeyClickController;
@@ -14,11 +11,14 @@ import com.gurup.domain.account.manager.AccountManager;
 import com.gurup.domain.buildingmode.BuildingModeRoom;
 import com.gurup.domain.room.Room;
 import com.gurup.domain.room.RoomConstants;
-import com.gurup.domain.room.buildingobjects.BuildingObject;
 import com.gurup.domain.saver.GameSaver;
 import com.gurup.domain.saver.SaverType;
 import com.gurup.ui.ScreenMaker;
-import com.gurup.ui.gamescreen.*;
+import com.gurup.ui.gamescreen.BuildingModeScreen;
+import com.gurup.ui.gamescreen.HelpScreen;
+import com.gurup.ui.gamescreen.LoginScreen;
+import com.gurup.ui.gamescreen.MainMenuScreen;
+import com.gurup.ui.gamescreen.RunningModeScreen;
 
 public class Game {
     private static Game game;
@@ -187,6 +187,9 @@ public class Game {
         room = new Room(buildingModeRoom.getName(), RoomConstants.xStart.getValue(), RoomConstants.yStart.getValue(), RoomConstants.xLimit.getValue(),
                 RoomConstants.yLimit.getValue(), player, buildingModeRoom.getBuildingObjects());
         Game.getBag().setupBag(room.getPowerUps());
+        if (runningModeScreen != null) {
+            runningModeScreen.getTimer().stop();
+        }
         runningModeScreen = screenMaker.createRunningModeScreen(game, player, movementController, keyClickController,
                 powerUpController, room);
         SwingUtilities.invokeLater(() -> screenMaker.showRunningModeGUI(runningModeScreen));
