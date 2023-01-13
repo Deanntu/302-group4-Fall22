@@ -40,7 +40,7 @@ public class BuildingModeScreen extends JPanel {
     private final JButton printerButton = new JButton(new ImageIcon(ImageLoader.printer_image.getScaledInstance(BuildingObjectConstants.allObjectsXLenForButtons.getValue(), BuildingObjectConstants.allObjectsYLenForButtons.getValue(), Image.SCALE_SMOOTH)));
     private final JButton tableButton = new JButton(new ImageIcon(ImageLoader.table_image.getScaledInstance(BuildingObjectConstants.allObjectsXLenForButtons.getValue(), BuildingObjectConstants.allObjectsYLenForButtons.getValue(), Image.SCALE_SMOOTH)));
     private final JButton randomButton = new JButton("Random");
-    private final JButton nextButton = new JButton("Next");
+    private final JButton nextButton = new JButton("Start");
 
     private final int xLenForButtons = BuildingObjectConstants.allObjectsXLenForButtons.getValue() + 35; // magical number
     private final int yLenForButtons = BuildingObjectConstants.allObjectsXLenForButtons.getValue() + 20; // magical number
@@ -54,6 +54,7 @@ public class BuildingModeScreen extends JPanel {
     private boolean isRandomValid = true;
 
 
+
     public BuildingModeScreen(Game game, Player player, BuildingModeKeyClickController buildingModeKeyClickController, BuildingModeRoom buildingModeRoom) {
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
@@ -62,9 +63,6 @@ public class BuildingModeScreen extends JPanel {
         this.buildingModeKeyClickController = buildingModeKeyClickController;
         this.delayMiliSeconds = 5;
         this.setLayout(null); // absolute layout for the buttons
-        if (buildingModeRoom.getName().equals("SNA")) {
-            nextButton.setText("Start");
-        }
 
         randomButton.setBounds(xCurrentInitialForButtons, yCurrentForButtons, xLenForButtons, yLenForButtons);
         binButton.setBounds(randomButton.getX() + buffer + xLenForButtons, yCurrentForButtons, xLenForButtons, yLenForButtons);

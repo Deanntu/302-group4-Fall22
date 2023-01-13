@@ -19,8 +19,8 @@ public class BuildingModeRoom {
     private static int yLimit;
     private String name;
     private Player player;
-    private final ArrayList<BuildingObject> buildingObjects;
-    private final BuildingObjectFactory buildingObjectFactory = new BuildingObjectFactory();
+    private ArrayList<BuildingObject> buildingObjects = new ArrayList<BuildingObject>();
+    private BuildingObjectFactory buildingObjectFactory = new BuildingObjectFactory();
 
 
     public BuildingModeRoom(String name, int xStart, int yStart, int xLimit, int yLimit, Player player) {
@@ -226,6 +226,40 @@ public class BuildingModeRoom {
                 throw new IllegalArgumentException("Unknown Building Object ID " + objectID);
         }
         return returnValue;
+    }
+
+    public void findRandomLocationFoPlayer(Player player) {
+        Random random = new Random();
+        boolean isLocationValid = false;
+        ArrayList<Rectangle> allRectangles = new ArrayList<>();
+
+        Rectangle doorRect = new Rectangle(RoomConstants.doorXStart.getValue(), RoomConstants.doorYStart.getValue(), RoomConstants.doorXLen.getValue(), RoomConstants.doorYLen.getValue());
+        allRectangles.add(doorRect);
+
+        for (BuildingObject bo : buildingObjects) {
+            allRectangles.add(bo.getRectangle());
+        }
+
+        int xCurrent = 0;
+        int yCurrent = 0;
+
+        while (isLocationValid == false) {
+            xCurrent = random.nextInt(xLimit - player.getXLen() - xStart);
+            xCurrent += xStart;
+            yCurrent = random.nextInt(yLimit - player.getYLen() - yStart);
+            yCurrent += yStart;
+            Rectangle objectRect = new Rectangle(xCurrent, yCurrent, player.getXLen(), player.getYLen());
+            for (Rectangle r : allRectangles) {
+                if (r.intersects(objectRect)) {
+                    isLocationValid = false;
+                    break;
+                }
+                isLocationValid = true;
+            }
+
+        }
+        player.setXCurrent(xCurrent);
+        player.setYCurrent(yCurrent);
     }
 }
 

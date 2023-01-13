@@ -1,5 +1,6 @@
 package com.gurup.domain;
 
+import java.util.ArrayList;
 import java.util.Timer;
 
 import javax.swing.SwingUtilities;
@@ -13,6 +14,7 @@ import com.gurup.domain.account.manager.AccountManager;
 import com.gurup.domain.buildingmode.BuildingModeRoom;
 import com.gurup.domain.room.Room;
 import com.gurup.domain.room.RoomConstants;
+import com.gurup.domain.room.buildingobjects.BuildingObject;
 import com.gurup.domain.saver.GameSaver;
 import com.gurup.domain.saver.SaverType;
 import com.gurup.ui.ScreenMaker;
@@ -38,9 +40,7 @@ public class Game {
     private static String session;
     private static Boolean isPaused;
 
-    private static BuildingModeRoom buildingModeRoom;
     private static BuildingModeScreen buildingModeScreen;
-    private static PauseAndResumeScreen pauseAndResumeScreen;
     private static BuildingModeKeyClickController buildingModeKeyClickController;
 
 
@@ -78,15 +78,7 @@ public class Game {
                         mainMenuScreen.dispose();
                         player = new Player(PlayerConstants.xStart.getValue(), PlayerConstants.yStart.getValue(),
                                 PlayerConstants.xLen.getValue(), PlayerConstants.xLen.getValue(), 60);
-                        BuildingModeRoom buildingStudentCenter = buildMode("Student Center");
-                        BuildingModeRoom buildingCASE = buildMode("CASE");
-                        BuildingModeRoom buildingSOS = buildMode("SOS");
-                        BuildingModeRoom buildingSCI = buildMode("SCI");
-                        BuildingModeRoom buildingENG = buildMode("ENG");
-                        BuildingModeRoom buildingSNA = buildMode("SNA");
-
-
-                        inGame(buildingStudentCenter);
+                        stepByStepGame();
                     }
                     if (isHelpButtonPressed) {
                         mainMenuScreen.dispose();
@@ -105,6 +97,52 @@ public class Game {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private static void stepByStepGame() {
+        // If you comment out the following lines, players timer will be fixed, but aliens and powerups timers will not be fixed.
+        // So it is better to have fixed timers for all objects.
+        boolean studentCenterStep = oneStep("Student Center");
+        if (studentCenterStep) {
+            // player = new Player(PlayerConstants.xStart.getValue(), PlayerConstants.yStart.getValue(),
+            // PlayerConstants.xLen.getValue(), PlayerConstants.xLen.getValue(), 60);
+            boolean caseStep = oneStep("CASE");
+            if (caseStep) {
+                // player = new Player(PlayerConstants.xStart.getValue(), PlayerConstants.yStart.getValue(),
+                // PlayerConstants.xLen.getValue(), PlayerConstants.xLen.getValue(), 60);
+                boolean sosStep = oneStep("SOS");
+                if (sosStep) {
+                    // player = new Player(PlayerConstants.xStart.getValue(), PlayerConstants.yStart.getValue(),
+                    // PlayerConstants.xLen.getValue(), PlayerConstants.xLen.getValue(), 60);
+                    boolean sciStep = oneStep("SCI");
+                    if (sciStep) {
+                        // player = new Player(PlayerConstants.xStart.getValue(), PlayerConstants.yStart.getValue(),
+                        // PlayerConstants.xLen.getValue(), PlayerConstants.xLen.getValue(), 60);
+                        boolean engStep = oneStep("ENG");
+                        if (engStep) {
+                            // player = new Player(PlayerConstants.xStart.getValue(), PlayerConstants.yStart.getValue(),
+                            // PlayerConstants.xLen.getValue(), PlayerConstants.xLen.getValue(), 60);
+                            boolean snaStep = oneStep("SNA");
+                            if (snaStep) {
+                                System.out.println("You won!");
+                                System.exit(0);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        System.out.println("You lost!");
+        System.exit(0);
+    }
+
+    private static boolean oneStep(String buildingModeName) {
+        BuildingModeRoom buildingModeRoom = buildMode(buildingModeName);
+        int playerRemainingTime = buildingModeRoom.getBuildingObjects().size() * 5;
+        player.setRemainingTime(playerRemainingTime);
+        buildingModeRoom.findRandomLocationFoPlayer(player);
+        boolean isLevelPassed = inGame(buildingModeRoom);
+        return isLevelPassed;
     }
 
     private static void saveGame() { // TODO i am used, do not delete me
@@ -141,13 +179,13 @@ public class Game {
         return buildingModeRoom;
     }
 
-    private static void inGame(BuildingModeRoom buildingModeRoomStudentCenter) {
+    private static Boolean inGame(BuildingModeRoom buildingModeRoom) {
         System.out.println();
         if (bag == null) {
             bag = new Bag(player);
         }
-        room = new Room(buildingModeRoomStudentCenter.getName(), RoomConstants.xStart.getValue(), RoomConstants.yStart.getValue(), RoomConstants.xLimit.getValue(),
-                RoomConstants.yLimit.getValue(), player, buildingModeRoomStudentCenter.getBuildingObjects());
+        room = new Room(buildingModeRoom.getName(), RoomConstants.xStart.getValue(), RoomConstants.yStart.getValue(), RoomConstants.xLimit.getValue(),
+                RoomConstants.yLimit.getValue(), player, buildingModeRoom.getBuildingObjects());
         Game.getBag().setupBag(room.getPowerUps());
         runningModeScreen = screenMaker.createRunningModeScreen(game, player, movementController, keyClickController,
                 powerUpController, room);
@@ -156,16 +194,26 @@ public class Game {
         keyClickController = new KeyClickController(runningModeScreen, room);
         powerUpController = new PowerUpController(bag, runningModeScreen);
         isPaused = false;
+
         // running timer task as daemon thread
+        boolean isStudentCenterFinished = false;
+        boolean isPlayerDeadOrTimeIsOver = false;
+
         Timer timer = new Timer(true);
         System.out.println(Thread.currentThread().getName() + " TimerTask started");
-        // cancel after sometime
-        try {
-            Thread.sleep(10000000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+
+        while (isStudentCenterFinished == false && isPlayerDeadOrTimeIsOver == false) {
+            isStudentCenterFinished = runningModeScreen.isPlayerPassNextLevel();
+            isPlayerDeadOrTimeIsOver = runningModeScreen.isPlayerDeadOrTimeIsOver();
+            try {
+                Thread.sleep(20);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
         timer.cancel();
+        screenMaker.stopRunningModeGUI(runningModeScreen);
+        return isStudentCenterFinished;
     }
 
     private static boolean registerAndLoginScreen() throws Exception {

@@ -27,10 +27,12 @@ public class ImageLoader {
     private static final String HELP_SCREEN1 = "helpScreen1.png";
     private static final String HELP_SCREEN2 = "helpScreen2.png";
     private static final String HELP_SCREEN3 = "helpScreen3.png";
+    private static final String KEY = "key.png";
+
 
 
     public static final BufferedImage table_image, bin_image, player_image, shooter_alien_image, blind_alien_image, time_wasting_alien_image,
-            plastic_bottle_image, health_image, time_image, vest_image, thrown_plastic_bottle_image, book_image, pen_image, printer_image, closed_door_image, open_door_image, help_screen1, help_screen2, help_screen3;
+            plastic_bottle_image, health_image, time_image, vest_image, thrown_plastic_bottle_image, book_image, pen_image, printer_image, closed_door_image, open_door_image, help_screen1, help_screen2, help_screen3, key_image;
 
     static {
         try {
@@ -53,6 +55,7 @@ public class ImageLoader {
             help_screen1 = ImageIO.read(new File(PARENT_PATH, HELP_SCREEN1));
             help_screen2 = ImageIO.read(new File(PARENT_PATH, HELP_SCREEN2));
             help_screen3 = ImageIO.read(new File(PARENT_PATH, HELP_SCREEN3));
+            key_image = ImageIO.read(new File(PARENT_PATH, KEY));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

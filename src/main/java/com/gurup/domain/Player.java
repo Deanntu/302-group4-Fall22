@@ -81,7 +81,7 @@ public class Player {
         if (this.xCurrent >= Room.getXLimit()) {
             this.xCurrent = (Room.getXLimit());
         } else {
-            this.xCurrent = (this.xCurrent + 10);
+            this.xCurrent = (this.xCurrent + 20);
         }
     }
 
@@ -94,7 +94,7 @@ public class Player {
         if (this.xCurrent <= Room.getstartX()) {
             this.xCurrent = (Room.getstartX());
         } else {
-            this.xCurrent = (this.xCurrent - 10);
+            this.xCurrent = (this.xCurrent - 20);
         }
     }
 
@@ -107,7 +107,7 @@ public class Player {
         if (this.yCurrent <= Room.getstartY()) {
             this.yCurrent = (Room.getstartY());
         } else {
-            this.yCurrent = (this.yCurrent - 10);
+            this.yCurrent = (this.yCurrent - 20);
         }
     }
 
@@ -120,7 +120,7 @@ public class Player {
         if (this.yCurrent >= Room.getYLimit()) {
             this.yCurrent = (Room.getYLimit());
         } else {
-            this.yCurrent = (this.yCurrent + 10);
+            this.yCurrent = (this.yCurrent + 20);
         }
     }
 
@@ -241,5 +241,6 @@ public class Player {
     public void setStartingTime(int startingTime) {
         this.startingTime = startingTime;
     }
+
 
 }

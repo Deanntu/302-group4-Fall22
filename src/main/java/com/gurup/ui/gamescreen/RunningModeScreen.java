@@ -1,11 +1,6 @@
 package com.gurup.ui.gamescreen;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Toolkit;
+import java.awt.*;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -20,7 +15,9 @@ import com.gurup.domain.Player;
 import com.gurup.domain.powerups.BottlePowerUp;
 import com.gurup.domain.powerups.ThrownBottlePowerUp;
 import com.gurup.domain.powerups.VestPowerUp;
+import com.gurup.domain.room.Key;
 import com.gurup.domain.room.Room;
+import com.gurup.domain.room.RoomConstants;
 import com.gurup.domain.room.buildingobjects.BuildingObject;
 import com.gurup.ui.ImageLoader;
 import com.gurup.ui.drawer.Drawer;
@@ -83,8 +80,43 @@ public class RunningModeScreen extends JPanel {
         paintPlayer(g);
         drawObjects(g);
         paintWall(g);
+        paintDoor(g);
+        drawKey(g);
         drawBag(g);
         animateBottle(g);
+    }
+
+    private void drawKey(Graphics g) {
+        Rectangle keyRect = Key.getKeyRectangle();
+        g.drawRect(keyRect.x - 5, keyRect.y - 5, keyRect.width + 10, keyRect.height + 10);
+
+    }
+
+    public Boolean isPlayerPassNextLevel() {
+        Rectangle doorRectangle = new Rectangle(RoomConstants.doorXStart.getValue(), RoomConstants.doorYStart.getValue(), RoomConstants.doorXLen.getValue(), RoomConstants.doorYLen.getValue());
+        if (player.getRectangle().intersects(doorRectangle)) {
+            if (player.getRemainingTime() > 0 && player.getLife() > 0) {
+                if (room.getIsPlayerFoundKeyForRoom() == true) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public Boolean isPlayerDeadOrTimeIsOver() {
+        if (player.getRemainingTime() <= 0 || player.getLife() <= 0) {
+            return true;
+        }
+        return false;
+    }
+
+    private void paintDoor(Graphics g) {
+        if (room.getIsPlayerFoundKeyForRoom() == false) {
+            g.drawImage(ImageLoader.closed_door_image, RoomConstants.doorXStart.getValue(), RoomConstants.doorYStart.getValue(), RoomConstants.doorXLen.getValue(), RoomConstants.doorYLen.getValue(), null);
+        } else if (room.getIsPlayerFoundKeyForRoom() == true) {
+            g.drawImage(ImageLoader.open_door_image, RoomConstants.doorXStart.getValue(), RoomConstants.doorYStart.getValue(), RoomConstants.doorXLen.getValue(), RoomConstants.doorYLen.getValue(), null);
+        }
     }
 
     private void drawBag(Graphics g) {
