@@ -25,6 +25,7 @@ import com.gurup.domain.room.buildingobjects.BuildingObjectFactory;
 import com.gurup.ui.gamescreen.RunningModeScreen;
 
 public class Room {
+
     private static int xStart;
     private static int yStart;
     private static int xLimit;
@@ -400,6 +401,10 @@ public class Room {
     public void setKey(Key key) {
         this.key = key;
     }
-
-
+    public void setCreated(PowerUp powerUp) {
+		    this.created = powerUp;
+	  }
+	  public void setCreatedAlien(Alien alien) {
+		  this.createdAlien = alien;
+	  }
 }

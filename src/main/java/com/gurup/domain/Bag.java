@@ -57,16 +57,16 @@ public class Bag {
         }
     }
 
-    public void setupBag(ArrayList<PowerUp> powerUpList) {
-        // MODIFIES: this
-        // EFFECTS: Initializes this so that the storable powerUps are put as the keys
-        // of powerUps
-        for (PowerUp p : powerUpList) {
-            if (p.isStorable()) {
-                powerUps.put(p, 0);
-            }
-        }
-    }
+	public void setupBag(ArrayList<PowerUp> powerUpList) {
+		// MODIFIES: this
+		// EFFECTS: Initializes this so that the storable powerUps are put as the keys
+		// of powerUps
+		for (PowerUp p : powerUpList) {
+			if (p.isStorable() && !powerUps.containsKey(p)) {
+				powerUps.put(p, 0);
+			}
+		}
+	}
 
     public Map<PowerUp, Integer> getPowerUps() {
         // EFFECTS: returns the Map called powerUps
