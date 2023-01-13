@@ -36,7 +36,7 @@ public class Game {
     private static MainMenuScreen mainMenuScreen;
     private static SaverType saverType = SaverType.NOTINITIALIZED;
     private static HelpScreen helpScreen;
-    
+   
     private static AccountManager accountManager;
     private static String username;
     private static Boolean isPaused;
@@ -45,6 +45,7 @@ public class Game {
     private static BuildingModeScreen buildingModeScreen;
     private static BuildingModeKeyClickController buildingModeKeyClickController;
 
+    private static String[] rooms = {"Student Center", "CASE", "SOS", "SCI", "ENG", "SNA"};
 
     private Game() {
 
@@ -106,8 +107,16 @@ public class Game {
             e.printStackTrace();
         }
     }
+    private static Boolean loadAndPlayGame() throws Exception {
+        if (bag == null) {
+            bag = new Bag(player);
+        }
+        player = new PlayerDatabaseGameLoader().loadPlayer(username);
+        room = new RoomDatabaseGameLoader().loadRoam(username);
+        room.setName(rooms[player.getLevel()]);
+        return playGame();
+    }
     private static void stepByStepLoadedGame() throws Exception {
-        String[] rooms = {"Student Center", "CASE", "SOS", "SCI", "ENG", "SNA"};
         boolean gameState = loadAndPlayGame();
         while(gameState) {
             player.setLevel(player.getLevel()+1);
@@ -182,14 +191,6 @@ public class Game {
             // TODO Auto-generated catch block
             e1.printStackTrace();
         }
-    }
-    private static Boolean loadAndPlayGame() throws Exception {
-        if (bag == null) {
-            bag = new Bag(player);
-        }
-        player = new PlayerDatabaseGameLoader().loadPlayer(username);
-        room = new RoomDatabaseGameLoader().loadRoam(username);
-        return playGame();
     }
     private static Boolean playGame() {
         Game.getBag().setupBag(room.getPowerUps());
