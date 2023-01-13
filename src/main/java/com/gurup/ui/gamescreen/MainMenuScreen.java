@@ -8,7 +8,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 public class MainMenuScreen extends JFrame implements ActionListener {
-
 	private final Container mainMenuContainer = getContentPane();
 	private JButton playButton = new JButton("PLAY");
 	private JButton loadButton = new JButton("LOAD");
@@ -18,7 +17,7 @@ public class MainMenuScreen extends JFrame implements ActionListener {
 	private boolean showHelp = false;
 	private boolean showExit = false;
 	private boolean showPlay = false;
-    private boolean showLoad = false;
+  private boolean showLoad = false;
 
 	public MainMenuScreen() {
 		mainMenuContainer.setLayout(null);
@@ -93,5 +92,4 @@ public class MainMenuScreen extends JFrame implements ActionListener {
     public void setShowLoad(boolean showLoad) {
         this.showLoad = showLoad;
     };
-
 }

@@ -13,11 +13,11 @@ import com.gurup.domain.account.entity.AccountOperationResults;
 
 public class AccountManager {
 	// To be filled after deciding the database.
-	private String url = "jdbc:postgresql://localhost/gurup";
-	private String username = "postgres";
-	private String password = "123456";
-	private String driver = "org.postgresql.Driver";
-	private String emptyEntry = "";
+	private final String url = "jdbc:postgresql://localhost/gurup";
+	private final String username = "postgres";
+	private final String password = "123456";
+	private final String driver = "org.postgresql.Driver";
+	private final String emptyEntry = "";
 
 	public AccountManager() {
 		try {
