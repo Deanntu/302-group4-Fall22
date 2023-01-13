@@ -65,9 +65,11 @@ public class RunningModeScreen extends JPanel {
         pauseButton.setFocusable(false);
         new Timer(this.delayMiliSeconds, e -> {
             repaint();
-            player.decrementTime(this.delayMiliSeconds);
-            room.createPowerUp(this.delayMiliSeconds);
-            room.createAlien(this.delayMiliSeconds);
+            if (room.getName().equals("Student Center")) {
+                player.decrementTime(this.delayMiliSeconds);
+                room.createPowerUp(this.delayMiliSeconds);
+                room.createAlien(this.delayMiliSeconds);
+            }
         }).start();
     }
 

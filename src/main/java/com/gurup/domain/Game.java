@@ -199,8 +199,8 @@ public class Game {
         boolean isStudentCenterFinished = false;
         boolean isPlayerDeadOrTimeIsOver = false;
 
-        Timer timer = new Timer(true);
-        System.out.println(Thread.currentThread().getName() + " TimerTask started");
+        //Timer timer = new Timer(true);
+        //System.out.println(Thread.currentThread().getName() + " TimerTask started");
 
         while (isStudentCenterFinished == false && isPlayerDeadOrTimeIsOver == false) {
             isStudentCenterFinished = runningModeScreen.isPlayerPassNextLevel();
@@ -211,7 +211,7 @@ public class Game {
                 e.printStackTrace();
             }
         }
-        timer.cancel();
+        //timer.cancel();
         screenMaker.stopRunningModeGUI(runningModeScreen);
         return isStudentCenterFinished;
     }
