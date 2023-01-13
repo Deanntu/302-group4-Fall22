@@ -11,6 +11,7 @@ import com.gurup.domain.Game;
 import com.gurup.domain.aliens.Alien;
 import com.gurup.domain.aliens.BlindAlien;
 import com.gurup.domain.aliens.ShooterAlien;
+import com.gurup.domain.aliens.TimeWastingAlien;
 import com.gurup.domain.powerups.BottlePowerUp;
 import com.gurup.domain.powerups.PowerUp;
 import com.gurup.domain.powerups.VestPowerUp;
@@ -82,9 +83,9 @@ public class RoomDatabaseGameLoader {
         boolean isKeyHolder = resultSet.getBoolean("iskeyholder");
         BuildingObject bObj = b.createBuildingObject(name, xCurrent, yCurrent, xLen, yLen);
         if (isKeyHolder) {
-            Key k = new Key();
-            k.setBuildingObject(bObj);
-            room.setKey(k);
+            Key.getInstance();
+            Key.setBuildingObject(bObj);
+  
         }
         return bObj;
     }
@@ -129,6 +130,9 @@ public class RoomDatabaseGameLoader {
                 break;
             case "Shooter":
                 a = new ShooterAlien(xCurrent, yCurrent, xLen, yLen);
+                break;
+            case "TimeWasting":
+                a = new TimeWastingAlien(xCurrent, yCurrent, xLen, yLen,Game.getPlayer());
             }
             a.setXCurrent(xCurrent);
             a.setYCurrent(yCurrent);

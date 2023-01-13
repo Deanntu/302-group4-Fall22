@@ -19,7 +19,7 @@ public class Player {
     private int yCurrent;
     BufferedImage student_image;
 
-
+    private int level;
     private int remainingTime;
     private int startingTime;
     private int timeCounter;
@@ -240,6 +240,16 @@ public class Player {
 
     public void setStartingTime(int startingTime) {
         this.startingTime = startingTime;
+    }
+
+
+    public int getLevel() {
+        return level;
+    }
+
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 
 

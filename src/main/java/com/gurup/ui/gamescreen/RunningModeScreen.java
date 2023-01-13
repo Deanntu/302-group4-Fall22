@@ -7,6 +7,8 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -70,6 +72,17 @@ public class RunningModeScreen extends JPanel {
         });
         add(pauseButton);
         pauseButton.setFocusable(false);
+        add(pauseButton);
+        pauseButton.setFocusable(false);
+        JButton saveButton = new JButton("Save");
+
+        saveButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Game.saveGame();
+            }
+        });
+        add(saveButton);
+        saveButton.setFocusable(false);
         timer = new Timer(this.delayMiliSeconds, e -> {
             repaint();
             player.decrementTime(this.delayMiliSeconds);

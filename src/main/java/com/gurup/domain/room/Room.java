@@ -1,7 +1,6 @@
 package com.gurup.domain.room;
 
 import java.awt.Rectangle;
-import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -22,7 +21,6 @@ import com.gurup.domain.powerups.VestPowerUp;
 import com.gurup.domain.room.buildingobjects.BuildingObject;
 import com.gurup.domain.room.buildingobjects.BuildingObjectConstants;
 import com.gurup.domain.room.buildingobjects.BuildingObjectFactory;
-import com.gurup.ui.gamescreen.RunningModeScreen;
 
 public class Room {
 
@@ -407,4 +405,10 @@ public class Room {
 	  public void setCreatedAlien(Alien alien) {
 		  this.createdAlien = alien;
 	  }
+
+    public void setObjects(ArrayList<BuildingObject> loadedObjects) {
+        // TODO Auto-generated method stub
+        objects = loadedObjects;
+        
+    }
 }
