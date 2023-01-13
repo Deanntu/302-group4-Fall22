@@ -1,6 +1,12 @@
 package com.gurup.ui.gamescreen;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.awt.Toolkit;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -37,6 +43,7 @@ public class RunningModeScreen extends JPanel {
     FontMetrics metrics;
     Font font;
     final Bag bag;
+    private Timer timer;
 
     public RunningModeScreen(Game game, Player player, MovementController movementController,
                              KeyClickController keyClickController, PowerUpController powerUpController, Room room) {
@@ -63,14 +70,13 @@ public class RunningModeScreen extends JPanel {
         });
         add(pauseButton);
         pauseButton.setFocusable(false);
-        new Timer(this.delayMiliSeconds, e -> {
+        timer = new Timer(this.delayMiliSeconds, e -> {
             repaint();
-            if (room.getName().equals("Student Center")) {
-                player.decrementTime(this.delayMiliSeconds);
-                room.createPowerUp(this.delayMiliSeconds);
-                room.createAlien(this.delayMiliSeconds);
-            }
-        }).start();
+            player.decrementTime(this.delayMiliSeconds);
+            room.createPowerUp(this.delayMiliSeconds);
+            room.createAlien(this.delayMiliSeconds);
+        });
+        timer.start();
     }
 
     public void paintComponent(Graphics g) {
@@ -233,5 +239,9 @@ public class RunningModeScreen extends JPanel {
 
     public void setPowerUpController(PowerUpController powerUpController) {
         this.powerUpController = powerUpController;
+    }
+    
+    public Timer getTimer() {
+        return timer;
     }
 }
