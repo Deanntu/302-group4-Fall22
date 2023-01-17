@@ -117,7 +117,7 @@ public class RunningModeScreen extends JPanel {
         Rectangle doorRectangle = new Rectangle(RoomConstants.doorXStart.getValue(), RoomConstants.doorYStart.getValue(), RoomConstants.doorXLen.getValue(), RoomConstants.doorYLen.getValue());
         if (player.getRectangle().intersects(doorRectangle)) {
             if (player.getRemainingTime() > 0 && player.getLife() > 0) {
-                if (room.getIsPlayerFoundKeyForRoom() == true) {
+                if (Room.getIsPlayerFoundKeyForRoom() == true) {
                     return true;
                 }
             }
@@ -133,9 +133,9 @@ public class RunningModeScreen extends JPanel {
     }
 
     private void paintDoor(Graphics g) {
-        if (room.getIsPlayerFoundKeyForRoom() == false) {
+        if (Room.getIsPlayerFoundKeyForRoom() == false) {
             g.drawImage(ImageLoader.closed_door_image, RoomConstants.doorXStart.getValue(), RoomConstants.doorYStart.getValue(), RoomConstants.doorXLen.getValue(), RoomConstants.doorYLen.getValue(), null);
-        } else if (room.getIsPlayerFoundKeyForRoom() == true) {
+        } else if (Room.getIsPlayerFoundKeyForRoom() == true) {
             g.drawImage(ImageLoader.open_door_image, RoomConstants.doorXStart.getValue(), RoomConstants.doorYStart.getValue(), RoomConstants.doorXLen.getValue(), RoomConstants.doorYLen.getValue(), null);
         }
     }

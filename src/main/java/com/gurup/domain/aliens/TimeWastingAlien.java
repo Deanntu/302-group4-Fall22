@@ -8,6 +8,7 @@ import com.gurup.domain.aliens.wastingstrategies.ConfusedWastingStrategy;
 import com.gurup.domain.aliens.wastingstrategies.DoingWellWastingStrategy;
 import com.gurup.domain.aliens.wastingstrategies.MercifulWastingStrategy;
 import com.gurup.domain.aliens.wastingstrategies.WastingStrategy;
+import com.gurup.domain.room.Room;
 
 public class TimeWastingAlien implements Alien {
 
@@ -66,6 +67,10 @@ public class TimeWastingAlien implements Alien {
                             e.printStackTrace();
                         }
 				        continue;
+				    }
+				    if (Room.getIsPlayerFoundKeyForRoom()) {
+				        alienLives = false;
+				        break;
 				    }
 					setWastingStrategy(player.getRemainingTime(), player.getStartingTime());
 					alienLives = wastingStrategy.wasteTime();

@@ -41,8 +41,8 @@ public class Room {
     private PowerUp created;
     private Alien createdAlien;
     private int alienCreationCounter;
-    private boolean isPlayerFoundKeyForRoom;
-    private boolean isPlayerFoundKeyBefore;
+    private static boolean isPlayerFoundKeyForRoom;
+    private static boolean isPlayerFoundKeyBefore;
 
 
     public Room(String name, int xStart, int yStart, int xLimit, int yLimit, Player player) {
@@ -51,11 +51,11 @@ public class Room {
         Room.yStart = yStart;
         Room.xLimit = xLimit;
         Room.yLimit = yLimit;
-        this.objects = new ArrayList<>();
+        Room.objects = new ArrayList<>();
         this.key = Key.getInstance();
         this.player = player;
-        this.isPlayerFoundKeyForRoom = false;
-        this.isPlayerFoundKeyBefore = false;
+        Room.isPlayerFoundKeyForRoom = false;
+        Room.isPlayerFoundKeyBefore = false;
 
         BuildingObjectFactory buildingObjectFactory = new BuildingObjectFactory();
         BuildingObject bin = buildingObjectFactory.createBuildingObject("Bin", 500, 300, BuildingObjectConstants.binXLen.getValue(), BuildingObjectConstants.binYLen.getValue());
@@ -82,8 +82,10 @@ public class Room {
         Room.yLimit = yLimit;
         this.key = Key.getInstance();
         this.player = player;
-        this.objects = new ArrayList<>();
-        this.objects.addAll(buildingObjects);
+        Room.isPlayerFoundKeyForRoom = false;
+        Room.isPlayerFoundKeyBefore = false;
+        Room.objects = new ArrayList<>();
+        Room.objects.addAll(buildingObjects);
 
         Key.hideKey(objects);
         initPowerUps();
@@ -91,7 +93,7 @@ public class Room {
     }
 
 
-    public Boolean getIsPlayerFoundKeyForRoom() {
+    public static Boolean getIsPlayerFoundKeyForRoom() {
         return isPlayerFoundKeyForRoom;
     }
 
@@ -104,7 +106,7 @@ public class Room {
         // If the mouseRectangle intersects with the key and player is near to object that contains the key, return true
         // If the mouseRectangle intersects with the key and player is not near to object that contains the key, return false
 
-        if (this.isPlayerFoundKeyBefore) {
+        if (Room.isPlayerFoundKeyBefore) {
             //System.out.println("You have already found the key for this room");
             return false;
         }
@@ -128,8 +130,8 @@ public class Room {
                 }
                 if (bo.equals(containerObject)) {
                     System.out.println("Key Found");
-                    this.isPlayerFoundKeyForRoom = true;
-                    this.isPlayerFoundKeyBefore = true;
+                    Room.isPlayerFoundKeyForRoom = true;
+                    Room.isPlayerFoundKeyBefore = true;
                     player.setRemainingTime(player.getRemainingTime() + 50);
                     return true;
                 }
