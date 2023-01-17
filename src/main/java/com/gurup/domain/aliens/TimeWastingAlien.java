@@ -85,6 +85,7 @@ public class TimeWastingAlien implements Alien {
 		// TODO Auto-generated method stub
 		// TODO remove alien
 	    System.out.println("TW Alien removed (TODO)");
+	    setActive(false);
 	}
 
 	@Override
