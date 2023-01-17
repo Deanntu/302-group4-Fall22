@@ -2,6 +2,7 @@ package com.gurup.domain.aliens;
 
 import java.awt.Rectangle;
 
+import com.gurup.domain.Game;
 import com.gurup.domain.Player;
 import com.gurup.domain.aliens.wastingstrategies.ConfusedWastingStrategy;
 import com.gurup.domain.aliens.wastingstrategies.DoingWellWastingStrategy;
@@ -57,6 +58,15 @@ public class TimeWastingAlien implements Alien {
 			public void run() {
 				boolean alienLives = true;
 				while (alienLives) {
+				    if (Game.getIsPaused()) {
+				        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+				        continue;
+				    }
 					setWastingStrategy(player.getRemainingTime(), player.getStartingTime());
 					alienLives = wastingStrategy.wasteTime();
 					try {
