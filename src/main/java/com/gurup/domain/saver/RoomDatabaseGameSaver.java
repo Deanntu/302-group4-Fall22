@@ -49,7 +49,9 @@ public class RoomDatabaseGameSaver {
 			saveObject(b, room.getKey());
 		}
 		savePowerUp(room.getCreated());
-		saveAlien(room.getCreatedAlien());
+		for (Alien a : room.getCreatedAliens()) {
+		    saveAlien(a);
+		}
 		return null;
 	}
 
@@ -83,7 +85,7 @@ public class RoomDatabaseGameSaver {
 	}
 
 	private GameSaverOperationResults saveAlien(Alien a) throws Exception {
-		if (a == null)
+		if (a == null || !a.isActive())
 			return GameSaverOperationResults.SUCCESS;
 		Connection connection = DriverManager.getConnection(DatabaseRequirements.url.getValue(),
 				DatabaseRequirements.username.getValue(), DatabaseRequirements.password.getValue());
