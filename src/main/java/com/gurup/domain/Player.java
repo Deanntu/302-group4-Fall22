@@ -203,6 +203,9 @@ public class Player {
 
     public void setProtected(boolean isProtected) {
         this.isProtected = isProtected;
+        if (isProtected) {
+            remainingProtectionSeconds = Integer.MIN_VALUE;
+        }
     }
 
     public int getRemainingProtectionSeconds() {
