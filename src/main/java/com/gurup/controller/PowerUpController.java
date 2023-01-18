@@ -11,59 +11,59 @@ import com.gurup.domain.powerups.VestPowerUp;
 import com.gurup.ui.gamescreen.RunningModeScreen;
 
 
-public class PowerUpController implements KeyListener{
-	
-	private Bag bag;
-	
-	public PowerUpController(Bag bag, RunningModeScreen runningModeScreen) {
-		this.bag = bag;
-		runningModeScreen.addKeyListener(this);
-	}
+public class PowerUpController implements KeyListener {
 
-	@Override
-	public void keyTyped(KeyEvent e) {
-	}
+    private final Bag bag;
 
-	@Override
-	public void keyPressed(KeyEvent e) {
-		if (Game.getIsPaused()) {
-			return;
-		}
-		if (e.getKeyCode() == KeyEvent.VK_P) {
-			bag.selectPowerUp(VestPowerUp.getInstance(null));
-		}
-		if (e.getKeyCode() == KeyEvent.VK_B) {
-			bag.selectPowerUp(BottlePowerUp.getInstance(null));
-			if(BottlePowerUp.getInstance(null).isUsable()) {
-				boolean temp = false;// TODO
-				if(BottlePowerUp.getInstance(null).isActive()) { // TODO
-					temp = true;// TODO
-				}// TODO
-				BottlePowerUp.getInstance(null).usePowerUp();
-				if(temp) { //TODO
-					BottlePowerUp.getInstance(null).setIsActive(temp);// TODO
-				}// TODO
-			}
-		}
-		// TODO Movement of Bottle;
-		if (ThrownBottlePowerUp.getInstance(null).isUsable()){
-			if (e.getKeyCode() == KeyEvent.VK_A) {
-				ThrownBottlePowerUp.getInstance(null).usePowerUp("left");
-			}
-			if (e.getKeyCode() == KeyEvent.VK_W) {
-				ThrownBottlePowerUp.getInstance(null).usePowerUp("up");
-			}
-			if (e.getKeyCode() == KeyEvent.VK_X) {
-				ThrownBottlePowerUp.getInstance(null).usePowerUp("down");
-			}
-			if (e.getKeyCode() == KeyEvent.VK_D) {
-				ThrownBottlePowerUp.getInstance(null).usePowerUp("right");
-			}
-		}
-	}
+    public PowerUpController(Bag bag, RunningModeScreen runningModeScreen) {
+        this.bag = bag;
+        runningModeScreen.addKeyListener(this);
+    }
 
-	@Override
-	public void keyReleased(KeyEvent e) {
-	}
-	
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (Game.getIsPaused()) {
+            return;
+        }
+        if (e.getKeyCode() == KeyEvent.VK_P) {
+            bag.selectPowerUp(VestPowerUp.getInstance(null));
+        }
+        if (e.getKeyCode() == KeyEvent.VK_B) {
+            bag.selectPowerUp(BottlePowerUp.getInstance(null));
+            if (BottlePowerUp.getInstance(null).isUsable()) {
+                boolean temp = BottlePowerUp.getInstance(null).isActive();// TODO
+                // TODO
+                // TODO
+                // TODO
+                BottlePowerUp.getInstance(null).usePowerUp();
+                if (temp) { //TODO
+                    BottlePowerUp.getInstance(null).setIsActive(true);// TODO
+                }// TODO
+            }
+        }
+        // TODO Movement of Bottle;
+        if (ThrownBottlePowerUp.getInstance(null).isUsable()) {
+            if (e.getKeyCode() == KeyEvent.VK_A) {
+                ThrownBottlePowerUp.getInstance(null).usePowerUp("left");
+            }
+            if (e.getKeyCode() == KeyEvent.VK_W) {
+                ThrownBottlePowerUp.getInstance(null).usePowerUp("up");
+            }
+            if (e.getKeyCode() == KeyEvent.VK_X) {
+                ThrownBottlePowerUp.getInstance(null).usePowerUp("down");
+            }
+            if (e.getKeyCode() == KeyEvent.VK_D) {
+                ThrownBottlePowerUp.getInstance(null).usePowerUp("right");
+            }
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+    }
+
 }

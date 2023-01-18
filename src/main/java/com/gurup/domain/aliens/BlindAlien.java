@@ -9,6 +9,7 @@ import com.gurup.domain.room.Room;
 
 public class BlindAlien implements Alien {
 
+
 	private String name = "Blind";
 	private int xStart;
 	private int yStart;
@@ -193,4 +194,5 @@ public class BlindAlien implements Alien {
 		int[] rectValues = {xCurrent, yCurrent, xLen, yLen};
 		return rectValues;
 	}
+
 }

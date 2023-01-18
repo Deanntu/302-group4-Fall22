@@ -8,6 +8,7 @@ import com.gurup.domain.room.Room;
 
 public class ShooterAlien implements Alien {
 
+
 	private String name = "Shooter";
 	private int xStart;
 	private int yStart;
@@ -169,4 +170,5 @@ public class ShooterAlien implements Alien {
 		int[] rectValues = {xCurrent, yCurrent, xLen, yLen};
 		return rectValues;
 	}
+
 }

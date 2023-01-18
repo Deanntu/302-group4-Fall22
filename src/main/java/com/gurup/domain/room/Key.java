@@ -1,29 +1,47 @@
 package com.gurup.domain.room;
 
+import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.Random;
 
 import com.gurup.domain.room.buildingobjects.BuildingObject;
 
 public class Key {
 
-	private BuildingObject buildingObject;
+    private static Key key;
+    private static BuildingObject buildingObject;
+    
+    private Key() {
+        
+    }
+    
+    public static synchronized Key getInstance() {
+        if (key == null) {
+            key = new Key();
+        }
+        return key;
+    }
 
-	public BuildingObject getBuildingObject() {
-		return buildingObject;
-	}
+    public BuildingObject getBuildingObject() {
+        return buildingObject;
+    }
 
-	public void setBuildingObject(BuildingObject buildingObject) {
-		this.buildingObject = buildingObject;
-	}
+    public static void setBuildingObject(BuildingObject buildingObject) {
+        Key.buildingObject = buildingObject;
+    }
 
-	public void hideKey(ArrayList<BuildingObject> objects) {
-		int index = getRandomNumber(0, objects.size());
-		System.out.println(index);
-		this.buildingObject = objects.get(index);
-	}
+    public static void hideKey(ArrayList<BuildingObject> objects) {
+        int index = getRandomNumber(0, objects.size());
+        Key.buildingObject = objects.get(index);
+    }
 
-	private int getRandomNumber(int min, int max) {
-		return (int) ((Math.random() * (max - min)) + min);
-	}
+    public static Rectangle getKeyRectangle (){
+        return Key.buildingObject.getRectangle();
+    }
+
+    private static int getRandomNumber(int min, int max) {
+        return new Random().nextInt(max) + min;
+        // return (int) ((Math.random() * (max - min)) + min);
+    }
 
 }
