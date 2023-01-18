@@ -9,6 +9,7 @@ public class ConfusedWastingStrategy implements WastingStrategy {
 		// TODO Auto-generated method stub
 		if (confusionCounter == 2) {
 			// waited two seconds, remove alien
+		    confusionCounter = 0;
 			return false;
 		}
 		confusionCounter++;
