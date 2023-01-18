@@ -27,38 +27,12 @@ public class BlindAlien implements Alien {
 		this.yStart = yStart;
 		this.xLen = xLen;
 		this.yLen = yLen;
-		randomMove();
-
 	}
 
 	public BlindAlien() {
 		// TODO Auto-generated constructor stub
+		randomMove();
 
-
-	}
-
-	public void moveToBottle(){
-		if (thrownBottlePowerUp.isActive() && thrownBottlePowerUp.isUsed()) {
-			int bottleX = thrownBottlePowerUp.getXCurrent();
-			int bottleY = thrownBottlePowerUp.getYCurrent();
-			int blindX = getXCurrent();
-			int blindY = getYCurrent();
-
-			while(blindX == bottleX && blindY == bottleY){
-				if(blindX <= bottleX){
-					moveRight();
-				}else{
-					moveLeft();
-				}
-
-				if(blindY <= bottleY){
-					moveDown();
-				}else{
-					moveUp();
-				}
-			}
-
-		}
 	}
 
 	public void moveRight() {
