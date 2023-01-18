@@ -28,8 +28,6 @@ public class BlindAlien implements Alien {
 		this.xLen = xLen;
 		this.yLen = yLen;
 
-
-
 	}
 
 	public BlindAlien() {

@@ -35,7 +35,8 @@ import com.gurup.ui.drawer.Drawer;
 
 public class RunningModeScreen extends JPanel {
 
-    private final Player player;
+    private Player player;
+    private ThrownBottlePowerUp thrownBottlePowerUp = ThrownBottlePowerUp.getInstance(player);
     private MovementController movementController;
     private KeyClickController keyClickController;
     private PowerUpController powerUpController;
@@ -49,6 +50,7 @@ public class RunningModeScreen extends JPanel {
     Font font;
     final Bag bag;
     private Timer timer;
+
 
     public RunningModeScreen(Game game, Player player, MovementController movementController,
                              KeyClickController keyClickController, PowerUpController powerUpController, Room room) {
@@ -187,6 +189,9 @@ public class RunningModeScreen extends JPanel {
                 alienDrawer.draw(g, a.rectArray(), a.getName());
 
                 if (a.getName().equals("Blind")){
+                    if(thrownBottlePowerUp.isUsed()){
+                        ((BlindAlien)a).moveToBottle();
+                    }
                     System.out.println("Before Random Move");
                     ((BlindAlien)a).randomMove();
                     System.out.println("After Random Move");
