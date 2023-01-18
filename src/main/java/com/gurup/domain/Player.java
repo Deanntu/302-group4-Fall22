@@ -78,7 +78,7 @@ public class Player {
         //
         // EFFECTS: Decrements the Integer corresponding to the players current y position
         // if new position outside the room does nothing
-        if (this.xCurrent >= Room.getXLimit()) {
+        if (this.xCurrent + 20 >= Room.getXLimit()) {
             this.xCurrent = (Room.getXLimit());
         } else {
             this.xCurrent = (this.xCurrent + 20);
@@ -91,7 +91,7 @@ public class Player {
         //
         // EFFECTS: Increments the Integer corresponding to the players current x position
         // if new position outside the room does nothing
-        if (this.xCurrent <= Room.getstartX()) {
+        if (this.xCurrent - 20 <= Room.getstartX()) {
             this.xCurrent = (Room.getstartX());
         } else {
             this.xCurrent = (this.xCurrent - 20);
@@ -104,7 +104,7 @@ public class Player {
         //
         // EFFECTS: Decrements the Integer corresponding to the players current y position
         // if new position outside the room does nothing
-        if (this.yCurrent <= Room.getstartY()) {
+        if (this.yCurrent - 20 <= Room.getstartY()) {
             this.yCurrent = (Room.getstartY());
         } else {
             this.yCurrent = (this.yCurrent - 20);
@@ -117,7 +117,7 @@ public class Player {
         //
         // EFFECTS: Increments the Integer corresponding to the players current y position
         // if new position outside the room does nothing
-        if (this.yCurrent >= Room.getYLimit()) {
+        if (this.yCurrent + 20 >= Room.getYLimit()) {
             this.yCurrent = (Room.getYLimit());
         } else {
             this.yCurrent = (this.yCurrent + 20);

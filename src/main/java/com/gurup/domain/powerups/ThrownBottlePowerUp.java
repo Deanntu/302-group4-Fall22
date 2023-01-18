@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 
 import com.gurup.domain.Player;
 import com.gurup.domain.room.Room;
+import com.gurup.domain.room.RoomConstants;
 
 public class ThrownBottlePowerUp implements PowerUp {
 
@@ -73,7 +74,7 @@ public class ThrownBottlePowerUp implements PowerUp {
     }
 
     public void moveRight() {
-        this.xCurrent = Math.min(this.xCurrent + 100, Room.getXLimit());
+        this.xCurrent = Math.min(this.xCurrent + 100, Room.getXLimit() + 50 - RoomConstants.bottlePowerUpXLen.getValue());
         this.yCurrent = player.getYCurrent();
     }
 
