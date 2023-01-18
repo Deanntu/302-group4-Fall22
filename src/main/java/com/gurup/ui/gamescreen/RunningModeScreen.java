@@ -9,6 +9,7 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -21,6 +22,7 @@ import com.gurup.domain.Bag;
 import com.gurup.domain.Game;
 import com.gurup.domain.Player;
 import com.gurup.domain.aliens.Alien;
+import com.gurup.domain.aliens.BlindAlien;
 import com.gurup.domain.powerups.BottlePowerUp;
 import com.gurup.domain.powerups.ThrownBottlePowerUp;
 import com.gurup.domain.powerups.VestPowerUp;
@@ -181,12 +183,29 @@ public class RunningModeScreen extends JPanel {
         }
         for (Alien a : room.getCreatedAliens()) {
             if (a != null && a.isActive()) {
+
                 alienDrawer.draw(g, a.rectArray(), a.getName());
+
+                if (a.getName().equals("Blind")){
+                    System.out.println("Before Random Move");
+                    ((BlindAlien)a).randomMove();
+                    System.out.println("After Random Move");
+
+                }
+
+
+                System.out.println("drawObjects:" + a.getName() + " xCurrent: " + a.rectArray()[0]+ " yCurrent: " + a.rectArray()[1]);
             }
         }
         for (BuildingObject bo : Room.getObjects()) {
             buildObjectDrawer.draw(g, bo.rectArray(), bo.getName());
         }
+
+
+
+
+
+
     }
 
     private void setFont(Graphics g) {
@@ -256,7 +275,7 @@ public class RunningModeScreen extends JPanel {
     public void setPowerUpController(PowerUpController powerUpController) {
         this.powerUpController = powerUpController;
     }
-    
+
     public Timer getTimer() {
         return timer;
     }
