@@ -123,6 +123,10 @@ public class RunningModeScreen extends JPanel {
             g.setColor(Color.BLACK);
         }
 
+
+
+
+
     }
 
     public Boolean isPlayerPassNextLevel() {
@@ -193,6 +197,8 @@ public class RunningModeScreen extends JPanel {
     }
 
     private void drawObjects(Graphics g) {
+        Rectangle keyRect = Key.getKeyRectangle();
+
         if (room.getCreated() != null && room.getCreated().isActive()) {
             powerUpDrawer.draw(g, room.getCreated().rectArray(), room.getCreated().getName());
         }
@@ -202,6 +208,10 @@ public class RunningModeScreen extends JPanel {
             }
         }
         for (BuildingObject bo : Room.getObjects()) {
+            if (keyRect.intersects(bo.getRectangle()) && player.getDrawKeyStatus() == true) {
+                g.drawImage(ImageLoader.key_image, bo.getXCurrent()+bo.getXLen()/2-RoomConstants.keyXLen.getValue()/2 , bo.getYCurrent()+bo.getYLen()/2-RoomConstants.keyYLen.getValue()/2, RoomConstants.keyXLen.getValue(), RoomConstants.keyYLen.getValue(), this);
+                continue;
+            }
             buildObjectDrawer.draw(g, bo.rectArray(), bo.getName());
         }
     }
