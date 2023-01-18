@@ -20,6 +20,7 @@ import com.gurup.controller.PowerUpController;
 import com.gurup.domain.Bag;
 import com.gurup.domain.Game;
 import com.gurup.domain.Player;
+import com.gurup.domain.aliens.Alien;
 import com.gurup.domain.powerups.BottlePowerUp;
 import com.gurup.domain.powerups.ThrownBottlePowerUp;
 import com.gurup.domain.powerups.VestPowerUp;
@@ -178,8 +179,10 @@ public class RunningModeScreen extends JPanel {
         if (room.getCreated() != null && room.getCreated().isActive()) {
             powerUpDrawer.draw(g, room.getCreated().rectArray(), room.getCreated().getName());
         }
-        if (room.getCreatedAlien() != null && room.getCreatedAlien().isActive()) {
-            alienDrawer.draw(g, room.getCreatedAlien().rectArray(), room.getCreatedAlien().getName());
+        for (Alien a : room.getCreatedAliens()) {
+            if (a != null && a.isActive()) {
+                alienDrawer.draw(g, a.rectArray(), a.getName());
+            }
         }
         for (BuildingObject bo : Room.getObjects()) {
             buildObjectDrawer.draw(g, bo.rectArray(), bo.getName());

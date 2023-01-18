@@ -59,6 +59,12 @@ public class TimeWastingAlien implements Alien {
 			public void run() {
 				boolean alienLives = true;
 				while (alienLives) {
+				    try {
+                        Thread.sleep(20);
+                    } catch (InterruptedException e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }
 				    if (Game.getIsPaused()) {
 				        try {
                             Thread.sleep(1000);

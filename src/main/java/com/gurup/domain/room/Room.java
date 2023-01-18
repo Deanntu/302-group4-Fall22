@@ -39,7 +39,7 @@ public class Room {
     private int powerUpCreationCounter = 0;
     private int timeCounter = 1;
     private PowerUp created;
-    private Alien createdAlien;
+    private Alien[] createdAliens; // 0 -> blind, 1 -> shooter, 2 -> time-wasting
     private int alienCreationCounter;
     private static boolean isPlayerFoundKeyForRoom;
     private static boolean isPlayerFoundKeyBefore;
@@ -56,6 +56,7 @@ public class Room {
         this.player = player;
         Room.isPlayerFoundKeyForRoom = false;
         Room.isPlayerFoundKeyBefore = false;
+        createdAliens = new Alien[3];
 
         BuildingObjectFactory buildingObjectFactory = new BuildingObjectFactory();
         BuildingObject bin = buildingObjectFactory.createBuildingObject("Bin", 500, 300, BuildingObjectConstants.binXLen.getValue(), BuildingObjectConstants.binYLen.getValue());
@@ -86,6 +87,7 @@ public class Room {
         Room.isPlayerFoundKeyBefore = false;
         Room.objects = new ArrayList<>();
         Room.objects.addAll(buildingObjects);
+        createdAliens = new Alien[3];
 
         Key.hideKey(objects);
         initPowerUps();
@@ -207,7 +209,11 @@ public class Room {
         for (PowerUp p : powerUps) {
             allRectangles.add(p.getRectangle());
         }
-        allRectangles.add(createdAlien.getRectangle());
+        for (Alien createdAlien : createdAliens) {
+            if (createdAlien != null) {
+                allRectangles.add(createdAlien.getRectangle());
+            }
+        }
         allRectangles.add(player.getRectangle());
         allRectangles.add(doorRect);
 
@@ -238,23 +244,74 @@ public class Room {
             return TimerOperationResults.PAUSED;
         Random random = new Random();
         if (timeCounter % (1000 / delayMiliSeconds) == 0) {
-            if (alienCreationCounter == 5) { // TODO undo
-                int randomIndex = random.nextInt(2);
-                switch (randomIndex) {
-                    case 0:
-                        createdAlien = new BlindAlien(10, 10, AlienConstants.xLen.getValue(), AlienConstants.yLen.getValue());
-                        break;
-                    case 1:
-                        createdAlien = new ShooterAlien(10, 10, AlienConstants.xLen.getValue(), AlienConstants.yLen.getValue());
-                        break;
+            if (alienCreationCounter == 2) { // TODO undo
+                Alien createdAlien = null;
+                boolean goodIndexFound = false;
+                boolean alienCanBeCreated = false;
+                for (Alien a : createdAliens) {
+                    // if all aliens exist and they are active, return without creating new alien
+                    if (a == null || !a.isActive()) {
+                        alienCanBeCreated = true;
+                    }
                 }
-                createdAlien = new TimeWastingAlien(10, 10, AlienConstants.xLen.getValue(),
-                        AlienConstants.yLen.getValue(), player); // TODO undo
-                int[] newXandY = getRandomLocation(AlienConstants.xLen.getValue(), AlienConstants.yLen.getValue());
-
-                createdAlien.setXCurrent(newXandY[0]);
-                createdAlien.setYCurrent(newXandY[1]);
-                createdAlien.setActive(true);
+                if (!alienCanBeCreated) {
+                    alienCreationCounter = 1;
+                    return TimerOperationResults.TIME_UP;
+                }
+                while(!goodIndexFound) {
+                    int randomIndex = random.nextInt(3);
+                    System.out.println("Random index is: " + randomIndex);
+                    switch (randomIndex) {
+                        case 0:
+                            if (createdAliens[0] == null || !createdAliens[0].isActive()) {
+                                System.out.println("Blind alien created");
+                                createdAlien = new BlindAlien(10, 10, AlienConstants.xLen.getValue(), AlienConstants.yLen.getValue());
+                                int[] newXandY = getRandomLocation(AlienConstants.xLen.getValue(), AlienConstants.yLen.getValue());
+                                createdAlien.setXCurrent(newXandY[0]);
+                                createdAlien.setYCurrent(newXandY[1]);
+                                createdAlien.setActive(true);
+                                createdAliens[0] = createdAlien;
+                                goodIndexFound = true;
+                            }
+                            break;
+                        case 1:
+                            if (createdAliens[1] == null || !createdAliens[1].isActive()) {
+                                System.out.println("Shooter alien created");
+                                createdAlien = new ShooterAlien(10, 10, AlienConstants.xLen.getValue(), AlienConstants.yLen.getValue());
+                                int[] newXandY = getRandomLocation(AlienConstants.xLen.getValue(), AlienConstants.yLen.getValue());
+                                createdAlien.setXCurrent(newXandY[0]);
+                                createdAlien.setYCurrent(newXandY[1]);
+                                createdAlien.setActive(true);
+                                createdAliens[1] = createdAlien;
+                                goodIndexFound = true;
+                            }
+                            break;
+                        case 2:
+                            if (createdAliens[2] == null || !createdAliens[2].isActive()) {
+                                System.out.println("TimeWasting alien created");
+                                createdAlien = new TimeWastingAlien(10, 10, AlienConstants.xLen.getValue(),
+                                        AlienConstants.yLen.getValue(), player);
+                                int[] newXandY = getRandomLocation(AlienConstants.xLen.getValue(), AlienConstants.yLen.getValue());
+                                createdAlien.setXCurrent(newXandY[0]);
+                                createdAlien.setYCurrent(newXandY[1]);
+                                createdAlien.setActive(true);
+                                createdAliens[2] = createdAlien;
+                                goodIndexFound = true;
+                            }
+                            break;
+                        default:
+                            if (createdAliens[2] == null || !createdAliens[2].isActive()) {
+                                createdAlien = new TimeWastingAlien(10, 10, AlienConstants.xLen.getValue(),
+                                        AlienConstants.yLen.getValue(), player);
+                                int[] newXandY = getRandomLocation(AlienConstants.xLen.getValue(), AlienConstants.yLen.getValue());
+                                createdAlien.setXCurrent(newXandY[0]);
+                                createdAlien.setYCurrent(newXandY[1]);
+                                createdAlien.setActive(true);
+                                createdAliens[2] = createdAlien;
+                                goodIndexFound = true;
+                            }
+                    }
+                }
                 alienCreationCounter = 1;
             } else {
                 alienCreationCounter++;
@@ -389,9 +446,14 @@ public class Room {
 
     }
 
-    public Alien getCreatedAlien() {
+    public Alien[] getCreatedAliens() {
         // TODO Auto-generated method stub
-        return createdAlien;
+        return createdAliens;
+    }
+    
+    public Alien getCreatedAlien(int i) {
+        // TODO Auto-generated method stub
+        return createdAliens[i];
     }
 
     public Key getKey() {
@@ -401,12 +463,18 @@ public class Room {
     public void setKey(Key key) {
         this.key = key;
     }
+    
     public void setCreated(PowerUp powerUp) {
-		    this.created = powerUp;
-	  }
-	  public void setCreatedAlien(Alien alien) {
-		  this.createdAlien = alien;
-	  }
+        this.created = powerUp;
+	}
+    
+    public void setCreatedAliens(Alien[] aliens) {
+        this.createdAliens = aliens;
+    }
+    
+    public void setCreatedAlien(int i, Alien alien) {
+        this.createdAliens[i] = alien;
+    }
 
     public void setObjects(ArrayList<BuildingObject> loadedObjects) {
         // TODO Auto-generated method stub

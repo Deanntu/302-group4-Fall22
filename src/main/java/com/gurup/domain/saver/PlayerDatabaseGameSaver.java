@@ -20,6 +20,7 @@ public class PlayerDatabaseGameSaver {
 	private int bottlecount;
 	private int vestcount;
 	private int level;
+	private int startingTime;
 
 	public PlayerDatabaseGameSaver() {
 		try {
@@ -33,7 +34,7 @@ public class PlayerDatabaseGameSaver {
 	private void init() throws Exception {
 		Connection connection = DriverManager.getConnection(DatabaseRequirements.url.getValue(),
 				DatabaseRequirements.username.getValue(), DatabaseRequirements.password.getValue());
-		String sql = "CREATE TABLE IF NOT EXISTS public.player ( isprotected boolean, remainingtime integer, remaininglife integer, xlocation integer, ylocation integer, bottle integer, vest integer, level integer, username text COLLATE pg_catalog.\"default\" ) TABLESPACE pg_default;";
+		String sql = "CREATE TABLE IF NOT EXISTS public.player ( isprotected boolean, remainingtime integer, remaininglife integer, xlocation integer, ylocation integer, bottle integer, vest integer, level integer, startingtime integer, username text COLLATE pg_catalog.\"default\" ) TABLESPACE pg_default;";
 		PreparedStatement createPlayer = connection.prepareStatement(sql);
 		createPlayer.executeUpdate();
 		connection.close();
@@ -49,6 +50,7 @@ public class PlayerDatabaseGameSaver {
 		yLocation = player.getYCurrent();
 		bottlecount = Game.getBag().getPowerUps().get(BottlePowerUp.getInstance(player));
 		vestcount = Game.getBag().getPowerUps().get(VestPowerUp.getInstance(player));
+		startingTime = player.getStartingTime();
 
 		return findByUserName(username) ? update(username) : savePlayer(username);
 	}
@@ -57,7 +59,7 @@ public class PlayerDatabaseGameSaver {
 		// TODO Auto-generated method stub
 		Connection connection = DriverManager.getConnection(DatabaseRequirements.url.getValue(),
 				DatabaseRequirements.username.getValue(), DatabaseRequirements.password.getValue());
-		String sql = "INSERT INTO public.player(isprotected, remainingtime, remaininglife, xlocation, ylocation, bottle, vest, level, username)	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+		String sql = "INSERT INTO public.player(isprotected, remainingtime, remaininglife, xlocation, ylocation, bottle, vest, level, startingtime, username)	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setBoolean(1, isProtected);
 		statement.setInt(2, remainingTime);
@@ -67,7 +69,8 @@ public class PlayerDatabaseGameSaver {
 		statement.setInt(6, bottlecount);
 		statement.setInt(7, vestcount);
 		statement.setInt(8, level);
-		statement.setString(9, username);
+		statement.setInt(9, startingTime);
+		statement.setString(10, username);
 		int affected = statement.executeUpdate();
 
 		connection.close();
@@ -92,7 +95,7 @@ public class PlayerDatabaseGameSaver {
 		Connection connection = DriverManager.getConnection(DatabaseRequirements.url.getValue(),
 				DatabaseRequirements.username.getValue(), DatabaseRequirements.password.getValue());
 
-		String sql = "UPDATE public.player SET isprotected=?, remainingtime=?, remaininglife=?, xlocation=?, ylocation=?, bottle=?, vest=?, level=?, username=? WHERE username = ?";
+		String sql = "UPDATE public.player SET isprotected=?, remainingtime=?, remaininglife=?, xlocation=?, ylocation=?, bottle=?, vest=?, level=?, startingtime=?, username=? WHERE username = ?";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setBoolean(1, isProtected);
 		statement.setInt(2, remainingTime);
@@ -102,8 +105,9 @@ public class PlayerDatabaseGameSaver {
 		statement.setInt(6, bottlecount);
 		statement.setInt(7, vestcount);
 		statement.setInt(8, level);
-		statement.setString(9, username);
+		statement.setInt(9, startingTime);
 		statement.setString(10, username);
+		statement.setString(11, username);
 		int affected = statement.executeUpdate();
 
 		connection.close();
