@@ -31,7 +31,7 @@ public class TimeWastingAlien implements Alien {
 		setWastingStrategy(player.getRemainingTime(), player.getStartingTime());
 	}
 	
-	public void setWastingStrategy(int currentTime, int totalTime) {
+	private void setWastingStrategy(int currentTime, int totalTime) {
 		double ratio = ((double) currentTime) / ((double) totalTime);
 		if (ratio > 0.7) {
 			wastingStrategy = new DoingWellWastingStrategy();
@@ -87,9 +87,7 @@ public class TimeWastingAlien implements Alien {
 	}
 	
 	private void remove() {
-		// TODO Auto-generated method stub
-		// TODO remove alien
-	    System.out.println("TW Alien removed (TODO)");
+	    System.out.println("TW Alien removed");
 	    setActive(false);
 	}
 

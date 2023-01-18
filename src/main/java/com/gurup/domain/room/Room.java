@@ -238,7 +238,7 @@ public class Room {
             return TimerOperationResults.PAUSED;
         Random random = new Random();
         if (timeCounter % (1000 / delayMiliSeconds) == 0) {
-            if (alienCreationCounter == 2) { // TODO undo
+            if (alienCreationCounter == 5) { // TODO undo
                 int randomIndex = random.nextInt(2);
                 switch (randomIndex) {
                     case 0:
@@ -255,7 +255,7 @@ public class Room {
                 createdAlien.setXCurrent(newXandY[0]);
                 createdAlien.setYCurrent(newXandY[1]);
                 createdAlien.setActive(true);
-                alienCreationCounter = 100; // TODO undo
+                alienCreationCounter = 1;
             } else {
                 alienCreationCounter++;
             }
