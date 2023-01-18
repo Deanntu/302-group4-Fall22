@@ -24,6 +24,7 @@ public class BagTest {
     static final ArrayList<PowerUp> setupPowerUps = new ArrayList<>();
 
 
+
     @BeforeEach
     public void setUp() {
         player = new Player(PlayerConstants.xStart.getValue(), PlayerConstants.yStart.getValue(),
