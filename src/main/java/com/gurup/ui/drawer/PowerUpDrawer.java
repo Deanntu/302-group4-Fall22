@@ -8,6 +8,9 @@ public class PowerUpDrawer {
     public void drawPowerUp(Graphics g, int[] rectValues, String name) {
         // TODO Auto-generated method stub
         switch (name) {
+            case "hint":
+                g.drawImage(ImageLoader.hint_image, rectValues[0], rectValues[1], rectValues[2], rectValues[3], null);
+                break;
             case "health":
                     g.drawImage(ImageLoader.health_image, rectValues[0], rectValues[1], rectValues[2], rectValues[3], null);
                     break;

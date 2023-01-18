@@ -12,12 +12,7 @@ import com.gurup.domain.aliens.AlienConstants;
 import com.gurup.domain.aliens.BlindAlien;
 import com.gurup.domain.aliens.ShooterAlien;
 import com.gurup.domain.aliens.TimeWastingAlien;
-import com.gurup.domain.powerups.BottlePowerUp;
-import com.gurup.domain.powerups.HealthPowerUp;
-import com.gurup.domain.powerups.PowerUp;
-import com.gurup.domain.powerups.ThrownBottlePowerUp;
-import com.gurup.domain.powerups.TimePowerUp;
-import com.gurup.domain.powerups.VestPowerUp;
+import com.gurup.domain.powerups.*;
 import com.gurup.domain.room.buildingobjects.BuildingObject;
 import com.gurup.domain.room.buildingobjects.BuildingObjectConstants;
 import com.gurup.domain.room.buildingobjects.BuildingObjectFactory;
@@ -413,36 +408,41 @@ public class Room {
         VestPowerUp v = VestPowerUp.getInstance(player);
         BottlePowerUp b = BottlePowerUp.getInstance(player);
         ThrownBottlePowerUp.getInstance(player);
-        t.setXCurrent(420);
-        t.setYCurrent(320);
+        HintPowerUp hint = HintPowerUp.getInstance(player);
+
+
+
 
         t.setXLen(RoomConstants.timePowerUpXLen.getValue());
         t.setYLen(RoomConstants.timePowerUpYLen.getValue());
 
-        h.setXCurrent(420);
-        h.setYCurrent(320);
+
 
         h.setXLen(RoomConstants.healthPowerUpXLen.getValue());
         h.setYLen(RoomConstants.healthPowerUpYLen.getValue());
 
 
-        v.setXCurrent(420);
-        v.setYCurrent(320);
+
 
         v.setXLen(RoomConstants.vestPowerUpXLen.getValue());
         v.setYLen(RoomConstants.vestPowerUpYLen.getValue());
 
-        b.setXCurrent(420);
-        b.setYCurrent(320);
 
         b.setXLen(RoomConstants.bottlePowerUpXLen.getValue());
         b.setYLen(RoomConstants.bottlePowerUpYLen.getValue());
+
+
+
+
+        hint.setXLen(RoomConstants.hintPowerUpXLen.getValue());
+        hint.setYLen(RoomConstants.hintPowerUpYLen.getValue());
 
 
         powerUps.add(t);
         powerUps.add(h);
         powerUps.add(v);
         powerUps.add(b);
+        powerUps.add(hint);
 
     }
 

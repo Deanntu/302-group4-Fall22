@@ -6,6 +6,7 @@ import java.awt.event.KeyListener;
 import com.gurup.domain.Bag;
 import com.gurup.domain.Game;
 import com.gurup.domain.powerups.BottlePowerUp;
+import com.gurup.domain.powerups.HintPowerUp;
 import com.gurup.domain.powerups.ThrownBottlePowerUp;
 import com.gurup.domain.powerups.VestPowerUp;
 import com.gurup.ui.gamescreen.RunningModeScreen;
@@ -31,6 +32,9 @@ public class PowerUpController implements KeyListener {
         }
         if (e.getKeyCode() == KeyEvent.VK_P) {
             bag.selectPowerUp(VestPowerUp.getInstance(null));
+        }
+        if (e.getKeyCode() == KeyEvent.VK_H) {
+            bag.selectPowerUp(HintPowerUp.getInstance(null));
         }
         if (e.getKeyCode() == KeyEvent.VK_B) {
             bag.selectPowerUp(BottlePowerUp.getInstance(null));
