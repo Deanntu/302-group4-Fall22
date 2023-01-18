@@ -2,11 +2,13 @@ package com.gurup.domain.aliens;
 
 import java.awt.Rectangle;
 
+import com.gurup.domain.Game;
 import com.gurup.domain.Player;
 import com.gurup.domain.aliens.wastingstrategies.ConfusedWastingStrategy;
 import com.gurup.domain.aliens.wastingstrategies.DoingWellWastingStrategy;
 import com.gurup.domain.aliens.wastingstrategies.MercifulWastingStrategy;
 import com.gurup.domain.aliens.wastingstrategies.WastingStrategy;
+import com.gurup.domain.room.Room;
 
 public class TimeWastingAlien implements Alien {
 
@@ -29,7 +31,7 @@ public class TimeWastingAlien implements Alien {
 		setWastingStrategy(player.getRemainingTime(), player.getStartingTime());
 	}
 	
-	public void setWastingStrategy(int currentTime, int totalTime) {
+	private void setWastingStrategy(int currentTime, int totalTime) {
 		double ratio = ((double) currentTime) / ((double) totalTime);
 		if (ratio > 0.7) {
 			wastingStrategy = new DoingWellWastingStrategy();
@@ -57,6 +59,25 @@ public class TimeWastingAlien implements Alien {
 			public void run() {
 				boolean alienLives = true;
 				while (alienLives) {
+				    try {
+                        Thread.sleep(20);
+                    } catch (InterruptedException e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }
+				    if (Game.getIsPaused()) {
+				        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+				        continue;
+				    }
+				    if (Room.getIsPlayerFoundKeyForRoom()) {
+				        alienLives = false;
+				        break;
+				    }
 					setWastingStrategy(player.getRemainingTime(), player.getStartingTime());
 					alienLives = wastingStrategy.wasteTime();
 					try {
@@ -72,9 +93,8 @@ public class TimeWastingAlien implements Alien {
 	}
 	
 	private void remove() {
-		// TODO Auto-generated method stub
-		// TODO remove alien
-	    System.out.println("TW Alien removed (TODO)");
+	    System.out.println("TW Alien removed");
+	    setActive(false);
 	}
 
 	@Override

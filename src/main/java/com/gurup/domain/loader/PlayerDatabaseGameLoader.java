@@ -37,7 +37,8 @@ public class PlayerDatabaseGameLoader {
             // vest, username
             player = new Player(resultSet.getInt("xlocation"), resultSet.getInt("ylocation"),
                     PlayerConstants.xLen.getValue(), PlayerConstants.yLen.getValue(),
-                    resultSet.getInt("remainingtime"));
+                    resultSet.getInt("startingtime"));
+            player.setRemainingTime(resultSet.getInt("remainingtime"));
             player.setLife(resultSet.getInt("remaininglife"));
             player.setProtected(resultSet.getBoolean("isprotected"));
             player.setLevel(resultSet.getInt("level"));

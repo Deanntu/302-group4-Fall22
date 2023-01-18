@@ -20,6 +20,7 @@ import com.gurup.controller.PowerUpController;
 import com.gurup.domain.Bag;
 import com.gurup.domain.Game;
 import com.gurup.domain.Player;
+import com.gurup.domain.aliens.Alien;
 import com.gurup.domain.powerups.BottlePowerUp;
 import com.gurup.domain.powerups.ThrownBottlePowerUp;
 import com.gurup.domain.powerups.VestPowerUp;
@@ -117,7 +118,7 @@ public class RunningModeScreen extends JPanel {
         Rectangle doorRectangle = new Rectangle(RoomConstants.doorXStart.getValue(), RoomConstants.doorYStart.getValue(), RoomConstants.doorXLen.getValue(), RoomConstants.doorYLen.getValue());
         if (player.getRectangle().intersects(doorRectangle)) {
             if (player.getRemainingTime() > 0 && player.getLife() > 0) {
-                if (room.getIsPlayerFoundKeyForRoom() == true) {
+                if (Room.getIsPlayerFoundKeyForRoom() == true) {
                     return true;
                 }
             }
@@ -133,9 +134,9 @@ public class RunningModeScreen extends JPanel {
     }
 
     private void paintDoor(Graphics g) {
-        if (room.getIsPlayerFoundKeyForRoom() == false) {
+        if (Room.getIsPlayerFoundKeyForRoom() == false) {
             g.drawImage(ImageLoader.closed_door_image, RoomConstants.doorXStart.getValue(), RoomConstants.doorYStart.getValue(), RoomConstants.doorXLen.getValue(), RoomConstants.doorYLen.getValue(), null);
-        } else if (room.getIsPlayerFoundKeyForRoom() == true) {
+        } else if (Room.getIsPlayerFoundKeyForRoom() == true) {
             g.drawImage(ImageLoader.open_door_image, RoomConstants.doorXStart.getValue(), RoomConstants.doorYStart.getValue(), RoomConstants.doorXLen.getValue(), RoomConstants.doorYLen.getValue(), null);
         }
     }
@@ -178,8 +179,10 @@ public class RunningModeScreen extends JPanel {
         if (room.getCreated() != null && room.getCreated().isActive()) {
             powerUpDrawer.draw(g, room.getCreated().rectArray(), room.getCreated().getName());
         }
-        if (room.getCreatedAlien() != null && room.getCreatedAlien().isActive()) {
-            alienDrawer.draw(g, room.getCreatedAlien().rectArray(), room.getCreatedAlien().getName());
+        for (Alien a : room.getCreatedAliens()) {
+            if (a != null && a.isActive()) {
+                alienDrawer.draw(g, a.rectArray(), a.getName());
+            }
         }
         for (BuildingObject bo : Room.getObjects()) {
             buildObjectDrawer.draw(g, bo.rectArray(), bo.getName());
