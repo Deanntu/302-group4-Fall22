@@ -27,15 +27,15 @@ public class BlindAlien implements Alien {
 		this.yStart = yStart;
 		this.xLen = xLen;
 		this.yLen = yLen;
+		//randomMove();
 	}
 
 	public BlindAlien() {
 		// TODO Auto-generated constructor stub
-		randomMove();
-
 	}
 
 	public void moveRight() {
+		System.out.println("Random move right");
 		if (this.xCurrent >= Room.getXLimit()) {
 			this.xCurrent = (Room.getXLimit());
 		} else {
@@ -44,6 +44,7 @@ public class BlindAlien implements Alien {
 	}
 	
 	public void moveLeft() {
+		System.out.println("Random move left");
 		if (this.xCurrent <= Room.getstartX()) {
 			this.xCurrent = (Room.getstartX());
 		} else {
@@ -52,6 +53,7 @@ public class BlindAlien implements Alien {
 	}
 	
 	public void moveUp() {
+		System.out.println("Random move up");
 		if (this.yCurrent <= Room.getstartY()) {
 			this.yCurrent = (Room.getstartY());
 		} else {
@@ -60,6 +62,7 @@ public class BlindAlien implements Alien {
 	}
 	
 	public void moveDown() {
+		System.out.println("Random move down");
 		if (this.yCurrent >= Room.getYLimit()) {
 			this.yCurrent = (Room.getYLimit());
 		} else {
@@ -67,31 +70,39 @@ public class BlindAlien implements Alien {
 		}
 	}
 	public void randomMove() {
+		System.out.println("Random move");
 		int direction = random.nextInt(4);
 		int counter = random.nextInt(4);
 		switch (direction) {
 			case 0:
 				while (counter!=0){
 					moveRight();
+					System.out.println(counter +" " + xCurrent);
 					counter-=1;
 				}
+				break;
 			case 1:
 				while (counter!=0){
 					moveLeft();
+					System.out.println(counter +" " + xCurrent);
 					counter-=1;
 				}
+				break;
 			case 2:
 				while (counter!=0){
 					moveUp();
+					System.out.println(counter +" " + yCurrent);
 					counter-=1;
 				}
+				break;
 			case 3:
 				while (counter!=0){
 					moveDown();
+					System.out.println(counter +" " + yCurrent);
 					counter-=1;
 				}
-			default:
-				randomMove();
+				break;
+
 		}
 	}
 
