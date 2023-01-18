@@ -31,7 +31,7 @@ public class ShooterAlien implements Alien {
 
 	public ShooterAlien() {
 		// TODO Auto-generated constructor stub
-		shoot();
+
 	}
 
 	public void shoot(){
