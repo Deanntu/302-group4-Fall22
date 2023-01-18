@@ -35,8 +35,19 @@ public class ShooterAlien implements Alien {
 
 	public void shoot(){
 		if(!player.isProtected()&& playerInsideRange()){
+			shootAnimation();
 			player.setLife(player.getLife() - 1);
 		}
+	}
+	public void shootAnimation(){
+		int x = getXCurrent();
+		int y = getYCurrent();
+		int playerX = player.getXCurrent();
+		int playerY = player.getYCurrent();
+
+
+
+
 	}
 
 	public boolean playerInsideRange(){
