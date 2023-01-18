@@ -28,6 +28,7 @@ public class Player {
     private int remainingProtectionSeconds;
     private String objectToBuild;
     private boolean canSeeHintRect;
+    private boolean canSeeKeyImage;
 
 
     public Player(int xStart, int yStart, int xLen, int yLen, int startingTime) {
@@ -265,5 +266,13 @@ public class Player {
 
     public boolean getHintStatus() {
         return this.canSeeHintRect;
+    }
+
+    public void setDrawKeyStatus(boolean b) {
+        this.canSeeKeyImage = b;
+    }
+
+    public boolean getDrawKeyStatus() {
+        return this.canSeeKeyImage;
     }
 }

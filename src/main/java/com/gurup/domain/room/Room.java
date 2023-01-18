@@ -38,6 +38,7 @@ public class Room {
     private int alienCreationCounter;
     private static boolean isPlayerFoundKeyForRoom;
     private static boolean isPlayerFoundKeyBefore;
+    private final int keyDrawSeconds = 2;
 
 
     public Room(String name, int xStart, int yStart, int xLimit, int yLimit, Player player) {
@@ -89,6 +90,27 @@ public class Room {
 
     }
 
+    private void drawKeyForAMoment() {
+        player.setDrawKeyStatus(true);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(keyDrawSeconds * 1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                setDrawKeyStatusToFalse();
+            }
+
+        }).start();
+    }
+
+    private void setDrawKeyStatusToFalse() {
+        player.setDrawKeyStatus(false);
+    }
+
+
 
     public static Boolean getIsPlayerFoundKeyForRoom() {
         return isPlayerFoundKeyForRoom;
@@ -129,6 +151,7 @@ public class Room {
                     System.out.println("Key Found");
                     Room.isPlayerFoundKeyForRoom = true;
                     Room.isPlayerFoundKeyBefore = true;
+                    drawKeyForAMoment();
                     player.setRemainingTime(player.getRemainingTime() + 50);
                     return true;
                 }
