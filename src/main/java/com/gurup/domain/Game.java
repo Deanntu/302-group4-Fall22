@@ -174,6 +174,7 @@ public class Game {
         BuildingModeRoom buildingModeRoom = buildMode(buildingModeName);
         int playerRemainingTime = buildingModeRoom.getBuildingObjects().size() * 5;
         player.setRemainingTime(playerRemainingTime);
+        player.setStartingTime(playerRemainingTime);
         buildingModeRoom.findRandomLocationFoPlayer(player);
         boolean isLevelPassed = inGame(buildingModeRoom);
         return isLevelPassed;
