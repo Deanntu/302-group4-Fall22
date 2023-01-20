@@ -14,6 +14,7 @@ import com.gurup.domain.aliens.ShooterAlien;
 import com.gurup.domain.aliens.TimeWastingAlien;
 import com.gurup.domain.powerups.BottlePowerUp;
 import com.gurup.domain.powerups.HealthPowerUp;
+import com.gurup.domain.powerups.HintPowerUp;
 import com.gurup.domain.powerups.PowerUp;
 import com.gurup.domain.powerups.ThrownBottlePowerUp;
 import com.gurup.domain.powerups.TimePowerUp;
@@ -133,6 +134,9 @@ public class RoomDatabaseGameLoader {
                 break;
             case "time":
                 p = TimePowerUp.getInstance(Game.getPlayer());
+                break;
+            case "hint":
+                p = HintPowerUp.getInstance(Game.getPlayer());
                 break;
             }
             p.setXCurrent(xCurrent);
