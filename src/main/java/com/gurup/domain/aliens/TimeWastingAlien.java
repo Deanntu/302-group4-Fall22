@@ -138,4 +138,12 @@ public class TimeWastingAlien implements Alien {
 		return new Rectangle(xStart, yStart, xLen, yLen);
 	}
 
+    public void setXLen(int xLen) {
+        this.xLen = xLen;
+    }
+
+    public void setYLen(int yLen) {
+        this.yLen = yLen;
+    }
+
 }
