@@ -12,7 +12,11 @@ public class GameSaver {
 			}
 
 		} else if (type.equals(SaverType.TXT)) {
-			// gameSaverAdapter = new ObjectDrawerAdapter();
+		    if (state.equals(SaverType.PLAYER)) {
+                gameSaverAdapter = new PlayerTXTGameSaverAdapter();
+            } else if (state.equals(SaverType.ROOM)) {
+                gameSaverAdapter = new RoomTXTGameSaverAdapter();
+            }
 		}
 	}
 

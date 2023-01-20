@@ -14,11 +14,15 @@ public class GameLoader {
 			}
 
 		} else if (type.equals(SaverType.TXT)) {
-			// gameSaverAdapter = new ObjectDrawerAdapter();
+		    if (state.equals(SaverType.PLAYER)) {
+                gameLoaderAdapter = new PlayerTXTGameLoaderAdapter();
+            } else if (state.equals(SaverType.ROOM)) {
+                gameLoaderAdapter = new RoomTXTeGameLoaderAdapter();
+            }
 		}
 	}
 
-	public void load(String username) throws Exception {
-		gameLoaderAdapter.load(username);
+	public Object load(String username) throws Exception {
+		return gameLoaderAdapter.load(username);
 	}
 }

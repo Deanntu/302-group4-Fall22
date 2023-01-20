@@ -9,6 +9,10 @@ public interface Alien {
     void setXCurrent(int i);
 
     void setYCurrent(int i);
+    
+    void setXLen(int i);
+    
+    void setYLen(int i);
 
     boolean isActive();
 

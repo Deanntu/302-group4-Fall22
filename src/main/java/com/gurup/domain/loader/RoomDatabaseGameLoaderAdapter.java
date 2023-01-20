@@ -7,9 +7,9 @@ public class RoomDatabaseGameLoaderAdapter implements GameLoaderAdapter {
 		roomDatabaseGameLoader = new RoomDatabaseGameLoader();
 	}
 	@Override
-	public void load(String username) throws Exception {
+	public Object load(String username) throws Exception {
 		// TODO Auto-generated method stub
-
+	    return roomDatabaseGameLoader.loadRoam(username);
 	}
 
 }
