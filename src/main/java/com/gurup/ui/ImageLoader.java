@@ -31,10 +31,10 @@ public class ImageLoader {
 
 
 
-    public static final BufferedImage table_image, bin_image, player_image, shooter_alien_image, blind_alien_image, time_wasting_alien_image,
-
-            plastic_bottle_image, health_image, time_image, vest_image, thrown_plastic_bottle_image, book_image, pen_image, printer_image, closed_door_image, open_door_image, help, key_image;
-
+    public static final BufferedImage table_image, bin_image, player_image, shooter_alien_image, blind_alien_image,
+            time_wasting_alien_image, plastic_bottle_image, health_image, time_image, vest_image,
+            thrown_plastic_bottle_image, book_image, pen_image, printer_image, closed_door_image, open_door_image, help,
+            key_image, hint_image;
 
     static {
         try {
