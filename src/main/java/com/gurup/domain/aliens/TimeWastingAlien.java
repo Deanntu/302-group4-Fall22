@@ -49,7 +49,7 @@ public class TimeWastingAlien implements Alien {
 	
 	private void wasteTime() {
 	    // called in setActive
-		if (!isActive) return; // cannot waste time if not active TODO, maybe wrong
+		if (!isActive) return; // cannot waste time if not active 
 		// false means remove the alien
 		// true means all is good
 		Player player = this.player;
