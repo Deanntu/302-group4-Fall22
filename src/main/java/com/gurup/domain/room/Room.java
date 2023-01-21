@@ -12,12 +12,7 @@ import com.gurup.domain.aliens.AlienConstants;
 import com.gurup.domain.aliens.BlindAlien;
 import com.gurup.domain.aliens.ShooterAlien;
 import com.gurup.domain.aliens.TimeWastingAlien;
-import com.gurup.domain.powerups.BottlePowerUp;
-import com.gurup.domain.powerups.HealthPowerUp;
-import com.gurup.domain.powerups.PowerUp;
-import com.gurup.domain.powerups.ThrownBottlePowerUp;
-import com.gurup.domain.powerups.TimePowerUp;
-import com.gurup.domain.powerups.VestPowerUp;
+import com.gurup.domain.powerups.*;
 import com.gurup.domain.room.buildingobjects.BuildingObject;
 import com.gurup.domain.room.buildingobjects.BuildingObjectConstants;
 import com.gurup.domain.room.buildingobjects.BuildingObjectFactory;
@@ -43,6 +38,7 @@ public class Room {
     private int alienCreationCounter;
     private static boolean isPlayerFoundKeyForRoom;
     private static boolean isPlayerFoundKeyBefore;
+    private final int keyDrawSeconds = 2;
 
 
     public Room(String name, int xStart, int yStart, int xLimit, int yLimit, Player player) {
@@ -94,6 +90,27 @@ public class Room {
 
     }
 
+    private void drawKeyForAMoment() {
+        player.setDrawKeyStatus(true);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(keyDrawSeconds * 1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                setDrawKeyStatusToFalse();
+            }
+
+        }).start();
+    }
+
+    private void setDrawKeyStatusToFalse() {
+        player.setDrawKeyStatus(false);
+    }
+
+
 
     public static Boolean getIsPlayerFoundKeyForRoom() {
         return isPlayerFoundKeyForRoom;
@@ -134,6 +151,7 @@ public class Room {
                     System.out.println("Key Found");
                     Room.isPlayerFoundKeyForRoom = true;
                     Room.isPlayerFoundKeyBefore = true;
+                    drawKeyForAMoment();
                     player.setRemainingTime(player.getRemainingTime() + 50);
                     return true;
                 }
@@ -250,8 +268,15 @@ public class Room {
                 boolean alienCanBeCreated = false;
                 for (Alien a : createdAliens) {
                     // if all aliens exist and they are active, return without creating new alien
-                    if (a == null || !a.isActive()) {
-                        alienCanBeCreated = true;
+                    if ((a == null || !a.isActive())) {
+                        if (a instanceof TimeWastingAlien) {
+                            if (!isPlayerFoundKeyForRoom) {
+                                alienCanBeCreated = true;
+                            }
+                        }
+                        else {
+                            alienCanBeCreated = true;
+                        }
                     }
                 }
                 if (!alienCanBeCreated) {
@@ -290,7 +315,7 @@ public class Room {
                             }
                             break;
                         case 2:
-                            if (createdAliens[2] == null || !createdAliens[2].isActive()) {
+                            if (!isPlayerFoundKeyForRoom && (createdAliens[2] == null || !createdAliens[2].isActive())) {
                                 System.out.println("TimeWasting alien created");
                                 createdAlien = new TimeWastingAlien(10, 10, AlienConstants.xLen.getValue(),
                                         AlienConstants.yLen.getValue(), player);
@@ -417,36 +442,41 @@ public class Room {
         VestPowerUp v = VestPowerUp.getInstance(player);
         BottlePowerUp b = BottlePowerUp.getInstance(player);
         ThrownBottlePowerUp.getInstance(player);
-        t.setXCurrent(420);
-        t.setYCurrent(320);
+        HintPowerUp hint = HintPowerUp.getInstance(player);
+
+
+
 
         t.setXLen(RoomConstants.timePowerUpXLen.getValue());
         t.setYLen(RoomConstants.timePowerUpYLen.getValue());
 
-        h.setXCurrent(420);
-        h.setYCurrent(320);
+
 
         h.setXLen(RoomConstants.healthPowerUpXLen.getValue());
         h.setYLen(RoomConstants.healthPowerUpYLen.getValue());
 
 
-        v.setXCurrent(420);
-        v.setYCurrent(320);
+
 
         v.setXLen(RoomConstants.vestPowerUpXLen.getValue());
         v.setYLen(RoomConstants.vestPowerUpYLen.getValue());
 
-        b.setXCurrent(420);
-        b.setYCurrent(320);
 
         b.setXLen(RoomConstants.bottlePowerUpXLen.getValue());
         b.setYLen(RoomConstants.bottlePowerUpYLen.getValue());
+
+
+
+
+        hint.setXLen(RoomConstants.hintPowerUpXLen.getValue());
+        hint.setYLen(RoomConstants.hintPowerUpYLen.getValue());
 
 
         powerUps.add(t);
         powerUps.add(h);
         powerUps.add(v);
         powerUps.add(b);
+        powerUps.add(hint);
 
     }
 

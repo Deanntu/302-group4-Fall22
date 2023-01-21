@@ -34,6 +34,7 @@ public class BlindAlien implements Alien {
 		// TODO Auto-generated constructor stub
 
 
+
 	}
 
 	public void moveToBottle(){
@@ -58,6 +59,7 @@ public class BlindAlien implements Alien {
 			}
 
 		}
+
 	}
 
 	public void killPlayer(){
@@ -71,7 +73,7 @@ public class BlindAlien implements Alien {
 		}
 	}
 	public void moveRight() {
-		System.out.println("MOVE RIGHT START: xCurrent: " + xCurrent + " yCurrent:" + yCurrent);
+
 		if (this.xCurrent >= Room.getXLimit()) {
 			this.xCurrent = (Room.getXLimit());
 		} else {
@@ -82,7 +84,7 @@ public class BlindAlien implements Alien {
 	}
 
 	public void moveLeft() {
-		System.out.println("MOVE LEFT START: xCurrent: " + xCurrent + " yCurrent:" + yCurrent);
+
 		if (this.xCurrent <= Room.getstartX()) {
 			this.xCurrent = (Room.getstartX());
 		} else {
@@ -93,7 +95,6 @@ public class BlindAlien implements Alien {
 	}
 
 	public void moveUp() {
-		System.out.println("MOVE UP START: xCurrent: " + xCurrent + " yCurrent:" + yCurrent);
 
 		if (this.yCurrent <= Room.getstartY()) {
 			this.yCurrent = (Room.getstartY());
@@ -105,7 +106,6 @@ public class BlindAlien implements Alien {
 	}
 
 	public void moveDown() {
-		System.out.println("MOVE DOWN START: xCurrent: " + xCurrent + " yCurrent:" + yCurrent);
 
 		if (this.yCurrent >= Room.getYLimit()) {
 			this.yCurrent = (Room.getYLimit());
@@ -116,6 +116,7 @@ public class BlindAlien implements Alien {
 
 	}
 	public void randomMove() {
+		System.out.println("Random move");
 		int direction = random.nextInt(4);
 		int counter = 5;
 		System.out.println("RANDOM MOVE START: xCurrent: " + xCurrent + " yCurrent:" + yCurrent);
@@ -123,21 +124,28 @@ public class BlindAlien implements Alien {
 			case 0:
 				while (counter!=0){
 					moveRight();
+					System.out.println(counter +" " + xCurrent);
 					counter-=1;
 				}
+				break;
 			case 1:
 				while (counter!=0){
 					moveLeft();
+					System.out.println(counter +" " + xCurrent);
 					counter-=1;
 				}
+				break;
 			case 2:
 				while (counter!=0){
 					moveUp();
+					System.out.println(counter +" " + yCurrent);
 					counter-=1;
 				}
+				break;
 			case 3:
 				while (counter!=0){
 					moveDown();
+					System.out.println(counter +" " + yCurrent);
 					counter-=1;
 				}
 

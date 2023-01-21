@@ -24,6 +24,7 @@ import com.gurup.domain.Player;
 import com.gurup.domain.aliens.Alien;
 import com.gurup.domain.aliens.BlindAlien;
 import com.gurup.domain.powerups.BottlePowerUp;
+import com.gurup.domain.powerups.HintPowerUp;
 import com.gurup.domain.powerups.ThrownBottlePowerUp;
 import com.gurup.domain.powerups.VestPowerUp;
 import com.gurup.domain.room.Key;
@@ -113,8 +114,22 @@ public class RunningModeScreen extends JPanel {
     }
 
     private void drawKey(Graphics g) {
+
         Rectangle keyRect = Key.getKeyRectangle();
+
+        // TODO - Remove this later
         g.drawRect(keyRect.x - 5, keyRect.y - 5, keyRect.width + 10, keyRect.height + 10);
+        // End of remove
+
+        if (player.getHintStatus() == true){
+            g.setColor(Color.RED);
+            g.drawRect(keyRect.x - 10, keyRect.y - 10, keyRect.width + 20, keyRect.height + 20);
+            g.setColor(Color.BLACK);
+        }
+
+
+
+
 
     }
 
@@ -159,8 +174,8 @@ public class RunningModeScreen extends JPanel {
         g.draw3DRect(slotStartX - slotSizeX, slotStartY, slotSizeX, slotSizeY, true);
         g.draw3DRect(slotStartX + slotSizeX, slotStartY, slotSizeX, slotSizeY, true);
         g.setColor(Color.PINK);
-        g.fillOval(slotStartX + slotSizeX / 2 - itemSize / 2, slotStartY + slotSizeY / 2 - itemSize / 2, itemSize,
-                itemSize);
+        g.drawImage(ImageLoader.hint_image, slotStartX + slotSizeX / 2 - itemSize / 2, slotStartY + slotSizeY / 2 - itemSize / 2, itemSize,
+                itemSize, null);
         g.drawImage(ImageLoader.vest_image, slotStartX + slotSizeX / 2 - itemSize / 2 - slotSizeX,
                 slotStartY + slotSizeY / 2 - itemSize / 2, itemSize, itemSize, null);
         // TODO: update bottle image in bag
@@ -168,11 +183,17 @@ public class RunningModeScreen extends JPanel {
                 slotStartY + slotSizeY / 2 - itemSize / 2, itemSize / 2, itemSize, null);
         g.setColor(Color.DARK_GRAY);
         g.setFont(new Font("Courier New", Font.BOLD, fontSize));
-        g.drawString("0", slotStartX + slotSizeX - numberOffsetX, slotStartY + numberOffsetY);
         Integer vestCount = bag.getPowerUps().get(VestPowerUp.getInstance(player));
         Integer bottleCount = bag.getPowerUps().get(BottlePowerUp.getInstance(player));
+        Integer hintCount = bag.getPowerUps().get(HintPowerUp.getInstance(player));
+
+
         g.drawString(vestCount.toString(), slotStartX + slotSizeX - numberOffsetX - slotSizeX,
                 slotStartY + numberOffsetY);
+
+        g.drawString(hintCount.toString(), slotStartX + slotSizeX - numberOffsetX,
+                slotStartY + numberOffsetY);
+
         g.drawString(bottleCount.toString(), slotStartX + slotSizeX - numberOffsetX + slotSizeX,
                 slotStartY + numberOffsetY);
         // TODO get other power up counts from the bag
@@ -180,6 +201,8 @@ public class RunningModeScreen extends JPanel {
     }
 
     private void drawObjects(Graphics g) {
+        Rectangle keyRect = Key.getKeyRectangle();
+
         if (room.getCreated() != null && room.getCreated().isActive()) {
             powerUpDrawer.draw(g, room.getCreated().rectArray(), room.getCreated().getName());
         }
@@ -203,6 +226,10 @@ public class RunningModeScreen extends JPanel {
             }
         }
         for (BuildingObject bo : Room.getObjects()) {
+            if (keyRect.intersects(bo.getRectangle()) && player.getDrawKeyStatus() == true) {
+                g.drawImage(ImageLoader.key_image, bo.getXCurrent()+bo.getXLen()/2-RoomConstants.keyXLen.getValue()/2 , bo.getYCurrent()+bo.getYLen()/2-RoomConstants.keyYLen.getValue()/2, RoomConstants.keyXLen.getValue(), RoomConstants.keyYLen.getValue(), this);
+                continue;
+            }
             buildObjectDrawer.draw(g, bo.rectArray(), bo.getName());
         }
 

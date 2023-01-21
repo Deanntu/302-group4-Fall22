@@ -9,8 +9,7 @@ import com.gurup.controller.PowerUpController;
 import com.gurup.domain.account.entity.AccountOperationResults;
 import com.gurup.domain.account.manager.AccountManager;
 import com.gurup.domain.buildingmode.BuildingModeRoom;
-import com.gurup.domain.loader.PlayerDatabaseGameLoader;
-import com.gurup.domain.loader.RoomDatabaseGameLoader;
+import com.gurup.domain.loader.GameLoader;
 import com.gurup.domain.room.Room;
 import com.gurup.domain.room.RoomConstants;
 import com.gurup.domain.saver.GameSaver;
@@ -108,11 +107,26 @@ public class Game {
         }
     }
     private static Boolean loadAndPlayGame() throws Exception {
+        if(username == "DEFAULT" || saverType == SaverType.NOTINITIALIZED) {
+            player = new Player(PlayerConstants.xStart.getValue(), PlayerConstants.yStart.getValue(),
+                    PlayerConstants.xLen.getValue(), PlayerConstants.xLen.getValue(), 60);
+            player.setLevel(0);
+            stepByStepGame();
+        }
         if (bag == null) {
             bag = new Bag(player);
         }
-        player = new PlayerDatabaseGameLoader().loadPlayer(username);
-        room = new RoomDatabaseGameLoader().loadRoam(username);
+       
+        player = (Player) new GameLoader(saverType, SaverType.PLAYER).load(username);
+        room = (Room) new GameLoader(saverType, SaverType.ROOM).load(username);
+        
+        if(room.getObjects() == null) {
+            player = new Player(PlayerConstants.xStart.getValue(), PlayerConstants.yStart.getValue(),
+                    PlayerConstants.xLen.getValue(), PlayerConstants.xLen.getValue(), 60);
+            player.setLevel(0);
+            stepByStepGame();
+            return false;
+        }
         room.setName(rooms[player.getLevel()]);
         return playGame();
     }
@@ -183,8 +197,17 @@ public class Game {
     public static void saveGame() { // TODO i am used, do not delete me
 
         // TODO Change SaverType DATABASE to Variable
-        GameSaver roomSaver = new GameSaver(SaverType.DATABASE, SaverType.ROOM);
-        GameSaver playerSaver = new GameSaver(SaverType.DATABASE, SaverType.PLAYER);
+        if (saverType == SaverType.NOTINITIALIZED) {
+            if (username.equals("DEFAULT")) {
+                System.out.println("Player did not login!");
+            } else {
+                System.out.println("Player did not specify save location!");
+            }
+
+            return;
+        }
+        GameSaver roomSaver = new GameSaver(saverType, SaverType.ROOM);
+        GameSaver playerSaver = new GameSaver(saverType, SaverType.PLAYER);
         try {
             roomSaver.save(username, room);
             playerSaver.save(username, player);

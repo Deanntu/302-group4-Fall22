@@ -1,5 +1,7 @@
 package com.gurup.ui.gamescreen;
 
+import com.gurup.ui.ImageLoader;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -24,17 +26,11 @@ public class HelpScreen extends JFrame implements ActionListener {
         helpScreenContainer.add(backButton);
         backButton.addActionListener(this);
 
-        // text field
-        JLabel helpLabel = new JLabel("Help");
-        helpScreenContainer.add(helpLabel);
-        helpLabel.setBounds(50, 50, 200, 30);
+        JLabel helpPNG = new JLabel();
+        helpPNG.setIcon(new ImageIcon(help.getScaledInstance(900,800,600)));
+        helpScreenContainer.add(helpPNG);
+        helpPNG.setBounds(40,0,1000,800);
 
-        // png file
-        JLabel pngFile1 = new JLabel(new ImageIcon(help_screen1));
-        pngFile1.setVerticalAlignment(JLabel.CENTER);
-        pngFile1.setBounds(100, 100, 1000, 1000);
-        //pngFile1.resize(helpScreenContainer.getWidth(),helpScreenContainer.getHeight());
-        helpScreenContainer.add(pngFile1);
     }
 
     @Override

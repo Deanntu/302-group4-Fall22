@@ -24,15 +24,17 @@ public class ImageLoader {
     private static final String PRINTER = "printer.png";
     private static final String CLOSED_DOOR = "closed_door.png";
     private static final String OPEN_DOOR = "open_door.png";
-    private static final String HELP_SCREEN1 = "helpScreen1.png";
-    private static final String HELP_SCREEN2 = "helpScreen2.png";
-    private static final String HELP_SCREEN3 = "helpScreen3.png";
+    private static final String HELP = "help.png";
+
     private static final String KEY = "key.png";
+    private static final String HINT = "hint.png";
 
 
 
-    public static final BufferedImage table_image, bin_image, player_image, shooter_alien_image, blind_alien_image, time_wasting_alien_image,
-            plastic_bottle_image, health_image, time_image, vest_image, thrown_plastic_bottle_image, book_image, pen_image, printer_image, closed_door_image, open_door_image, help_screen1, help_screen2, help_screen3, key_image;
+    public static final BufferedImage table_image, bin_image, player_image, shooter_alien_image, blind_alien_image,
+            time_wasting_alien_image, plastic_bottle_image, health_image, time_image, vest_image,
+            thrown_plastic_bottle_image, book_image, pen_image, printer_image, closed_door_image, open_door_image, help,
+            key_image, hint_image;
 
     static {
         try {
@@ -52,10 +54,12 @@ public class ImageLoader {
             printer_image = ImageIO.read(new File(PARENT_PATH, PRINTER));
             closed_door_image = ImageIO.read(new File(PARENT_PATH, CLOSED_DOOR));
             open_door_image = ImageIO.read(new File(PARENT_PATH, OPEN_DOOR));
-            help_screen1 = ImageIO.read(new File(PARENT_PATH, HELP_SCREEN1));
-            help_screen2 = ImageIO.read(new File(PARENT_PATH, HELP_SCREEN2));
-            help_screen3 = ImageIO.read(new File(PARENT_PATH, HELP_SCREEN3));
+            help = ImageIO.read(new File(PARENT_PATH, HELP));
+
             key_image = ImageIO.read(new File(PARENT_PATH, KEY));
+            hint_image = ImageIO.read(new File(PARENT_PATH, HINT));
+
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
