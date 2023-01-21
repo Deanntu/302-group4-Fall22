@@ -122,6 +122,18 @@ public class Room {
         return isPlayerFoundKeyForRoom;
     }
 
+    public static boolean isPlayerFoundKeyBefore() {
+        return isPlayerFoundKeyBefore;
+    }
+
+    public static void setPlayerFoundKeyBefore(boolean isPlayerFoundKeyBefore) {
+        Room.isPlayerFoundKeyBefore = isPlayerFoundKeyBefore;
+    }
+
+    public static void setPlayerFoundKeyForRoom(boolean isPlayerFoundKeyForRoom) {
+        Room.isPlayerFoundKeyForRoom = isPlayerFoundKeyForRoom;
+    }
+
     public Boolean isKeyFound(Rectangle rectMouseClick) {
         // MODIFIES: nothing
         // REQUIRES: rectangle that represents the mouse click
@@ -155,6 +167,7 @@ public class Room {
                 if (bo.equals(containerObject)) {
                     Room.isPlayerFoundKeyForRoom = true;
                     Room.isPlayerFoundKeyBefore = true;
+                    player.setIsKeyFound(true);
                     drawKeyForAMoment();
                     player.setRemainingTime(player.getRemainingTime() + 50);
                     return true;

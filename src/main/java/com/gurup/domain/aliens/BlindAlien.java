@@ -95,7 +95,7 @@ public class BlindAlien implements Alien {
 	}
 	public void randomMove() {
 		int direction = random.nextInt(4);
-		int counter = 5;
+		int counter = 15;
 		switch (direction) {
 			case 0:
 				while (counter!=0){

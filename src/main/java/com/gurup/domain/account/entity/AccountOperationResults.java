@@ -8,5 +8,6 @@ public enum AccountOperationResults {
 	WRONG_CREDENTIAL,
 	FAILED,
 	WRONG_MAIL_FORMAT,
-	EMPTY_FIELD
+	EMPTY_FIELD,
+	SHORT_PASSWORD
 }

@@ -128,11 +128,15 @@ public class Game {
             stepByStepGame();
             return false;
         }
+        System.out.println("InGame:"+player.getLevel());
+        Room.setPlayerFoundKeyBefore(player.getIsKeyFound());
+        Room.setPlayerFoundKeyForRoom(player.getIsKeyFound());
         room.setName(rooms[player.getLevel()]);
         return playGame();
     }
     private static void stepByStepLoadedGame() throws Exception {
         boolean gameState = loadAndPlayGame();
+        player.setIsKeyFound(false);
         while(gameState) {
             player.setLevel(player.getLevel()+1);
             if(player.getLevel() > 5) {

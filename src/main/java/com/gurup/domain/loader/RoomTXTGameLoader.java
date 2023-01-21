@@ -96,9 +96,8 @@ public class RoomTXTGameLoader {
                 case "Shooter":
                     alienArray[2] = a;
                 }
-                System.out.print(" - ");
+
             }
-            System.out.println();
         }
 
         return alienArray;
@@ -141,9 +140,7 @@ public class RoomTXTGameLoader {
                     }
                 }
                 buildingObjects.add(bo);
-                System.out.print(" - ");
             }
-            System.out.println();
         }
 
         return buildingObjects;
@@ -181,9 +178,9 @@ public class RoomTXTGameLoader {
                     powerUp.setYLen((int) cell.getNumericCellValue());
                 }
                 powerUp.setIsActive(true);
-                System.out.print(" - ");
+                
             }
-            System.out.println();
+            
         }
         return powerUp;
 

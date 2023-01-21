@@ -24,7 +24,6 @@ public class PlayerTXTGameLoader {
     public Player readData(String username) throws Exception {
         String path = System.getProperty("user.dir") + "\\GameData\\Player" + username + ".xlsx";
         file = new File(path);
-        System.out.println(path);
         if (file.isFile()) {
             player = new Player(100, 100, PlayerConstants.xLen.getValue(), PlayerConstants.xLen.getValue(), 100); 
 
@@ -47,14 +46,12 @@ public class PlayerTXTGameLoader {
                            break;
                         case 1:
                             player.setRemainingTime((int)cell.getNumericCellValue());
-                            System.out.println((int)cell.getNumericCellValue());
                             break;
                         case 2:
                             player.setLife((int)cell.getNumericCellValue());
                             break;
                         case 3:
                             player.setStartingTime((int)cell.getNumericCellValue());
-                            System.out.println((int)cell.getNumericCellValue());
                             break;
                         case 4:
                             player.setXCurrent((int)cell.getNumericCellValue());
@@ -72,10 +69,11 @@ public class PlayerTXTGameLoader {
                         case 8:
                             player.setLevel((int)cell.getNumericCellValue());
                             break;
+                        case 10:
+                            player.setIsKeyFound(cell.getBooleanCellValue());
+                            break;
                     }
-                    System.out.print(" - ");
                 }
-                System.out.println();
             }
 
             workbook.close();

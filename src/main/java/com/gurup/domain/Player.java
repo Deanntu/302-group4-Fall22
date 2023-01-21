@@ -32,7 +32,7 @@ public class Player {
     private boolean canSeeKeyImage;
     private int hintXRandom;
     private int hintYRandom;
-
+    private Boolean isKeyFound = false;
 
     public Player(int xStart, int yStart, int xLen, int yLen, int startingTime) {
         this.xStart = xStart;
@@ -301,4 +301,14 @@ public class Player {
 	public void setHintYRandom(int hintYRandom) {
 		this.hintYRandom = hintYRandom;
 	}
+
+
+    public Boolean getIsKeyFound() {
+        return isKeyFound;
+    }
+
+
+    public void setIsKeyFound(Boolean isKeyFound) {
+        this.isKeyFound = isKeyFound;
+    }
 }

@@ -28,6 +28,7 @@ public class PlayerTXTGameSaver {
     private int vestcount;
     private int level;
     private int startingTime;
+    private Boolean isKeyFound;
 
     public void writeData(String username, Player player) throws Exception {
         level = player.getLevel();
@@ -39,6 +40,7 @@ public class PlayerTXTGameSaver {
         bottlecount = Game.getBag().getPowerUps().get(BottlePowerUp.getInstance(player));
         vestcount = Game.getBag().getPowerUps().get(VestPowerUp.getInstance(player));
         startingTime = player.getStartingTime();
+        isKeyFound = player.getIsKeyFound();
         String path = System.getProperty("user.dir") + "\\GameData\\Player"+username+".xlsx";
         file = new File(path);
         OutputStream fileOut = new FileOutputStream(file);
@@ -65,6 +67,7 @@ public class PlayerTXTGameSaver {
         values.add(vestcount);
         values.add(level);
         values.add(username);
+        values.add(isKeyFound);
         int columnCount = 0;
         for (Object value : values) {
             Cell cell = row.createCell(columnCount);
