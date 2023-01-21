@@ -55,7 +55,7 @@ public class ScreenMaker {
         HelpScreen helpScreen = new HelpScreen();
         helpScreen.setTitle("Help");
 
-        helpScreen.setBounds(10, 10, 1000, 800);
+        helpScreen.setBounds(10, 10, 1000, 900);
         helpScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         helpScreen.setResizable(false);
