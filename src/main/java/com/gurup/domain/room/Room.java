@@ -171,6 +171,12 @@ public class Room {
                     player.setIsKeyFound(true);
                     drawKeyForAMoment();
                     player.setRemainingTime(player.getRemainingTime() + 50);
+                    for (Alien a : createdAliens) {
+                        if(a != null) {
+                            a.setActive(false);
+                        }
+                    }
+                    createdAliens = new Alien[3];
                     return true;
                 }
                 return false; // will be changed to bo.shake() to shake object
@@ -207,7 +213,7 @@ public class Room {
                 if (created != null)
                     created.setIsActive(false);
                 int randomIndex = random.nextInt(powerUps.size());
-                created = powerUps.get(randomIndex);
+                created = powerUps.get(3);
                 int[] newXandY = getRandomLocation(created.getRectangle().width, created.getRectangle().height);
                 created.setXCurrent(newXandY[0]);
                 created.setYCurrent(newXandY[1]);
@@ -285,6 +291,9 @@ public class Room {
     public TimerOperationResults createAlien(int delayMiliSeconds) {
         if (Game.getIsPaused())
             return TimerOperationResults.PAUSED;
+        if (isPlayerFoundKeyForRoom) {
+            return TimerOperationResults.KEYFOUND;
+        }
         Random random = new Random();
         if (timeCounter % (1000 / delayMiliSeconds) == 0) {
             if (alienCreationCounter == 10) { 

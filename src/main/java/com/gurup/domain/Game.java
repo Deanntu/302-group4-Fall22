@@ -250,8 +250,8 @@ public class Game {
                 e.printStackTrace();
             }
         }
-        ThrownBottlePowerUp.setNull();
         screenMaker.stopRunningModeGUI(runningModeScreen);
+        ThrownBottlePowerUp.setNull();
         return isStudentCenterFinished;
     }
     private static BuildingModeRoom buildMode(String roomName) {

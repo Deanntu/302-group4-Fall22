@@ -52,16 +52,16 @@ public class PowerUpController implements KeyListener {
         // TODO Movement of Bottle;
         if (ThrownBottlePowerUp.getInstance(null).isUsable()) {
             if (e.getKeyCode() == KeyEvent.VK_A) {
-                ThrownBottlePowerUp.getInstance(null).usePowerUp("left");
+                ThrownBottlePowerUp.getInstance(Game.getPlayer()).usePowerUp("left");
             }
             if (e.getKeyCode() == KeyEvent.VK_W) {
-                ThrownBottlePowerUp.getInstance(null).usePowerUp("up");
+                ThrownBottlePowerUp.getInstance(Game.getPlayer()).usePowerUp("up");
             }
             if (e.getKeyCode() == KeyEvent.VK_X) {
-                ThrownBottlePowerUp.getInstance(null).usePowerUp("down");
+                ThrownBottlePowerUp.getInstance(Game.getPlayer()).usePowerUp("down");
             }
             if (e.getKeyCode() == KeyEvent.VK_D) {
-                ThrownBottlePowerUp.getInstance(null).usePowerUp("right");
+                ThrownBottlePowerUp.getInstance(Game.getPlayer()).usePowerUp("right");
             }
         }
     }

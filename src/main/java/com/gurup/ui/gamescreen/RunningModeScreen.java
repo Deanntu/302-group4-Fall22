@@ -273,9 +273,9 @@ public class RunningModeScreen extends JPanel {
     }
 
     private void animateBottle(Graphics g) {
-        if (ThrownBottlePowerUp.getInstance(null).isUsed()) {
-            powerUpDrawer.draw(g, ThrownBottlePowerUp.getInstance(null).rectArray(),
-                    ThrownBottlePowerUp.getInstance(null).getName());
+        if (ThrownBottlePowerUp.getInstance(Game.getPlayer()).isUsed()) {
+            powerUpDrawer.draw(g, ThrownBottlePowerUp.getInstance(Game.getPlayer()).rectArray(),
+                    ThrownBottlePowerUp.getInstance(Game.getPlayer()).getName());
         }
     }
 
