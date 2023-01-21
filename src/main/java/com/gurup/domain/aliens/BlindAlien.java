@@ -27,7 +27,6 @@ public class BlindAlien implements Alien {
 		this.yStart = yStart;
 		this.xLen = xLen;
 		this.yLen = yLen;
-		//randomMove();
 
 	}
 
@@ -63,45 +62,64 @@ public class BlindAlien implements Alien {
 
 	}
 
+	public void killPlayer(){
+		int playerX = player.getXCurrent();
+		int playerY = player.getYCurrent();
+		int blindX = getXCurrent();
+		int blindY = getYCurrent();
+
+		if(playerX - blindX <5 || playerY - blindY < 5 || blindX -playerX < 5 || blindY - playerY <5){
+			player.setLife(player.getLife()-1);
+		}
+	}
 	public void moveRight() {
-		System.out.println("Random move right");
+
 		if (this.xCurrent >= Room.getXLimit()) {
 			this.xCurrent = (Room.getXLimit());
 		} else {
-			this.xCurrent = (this.xCurrent + 10);
+			this.xCurrent = (this.xCurrent + 1);
 		}
+		System.out.println("MOVE RIGHT END: xCurrent: " + xCurrent + " yCurrent:" + yCurrent);
+
 	}
-	
+
 	public void moveLeft() {
-		System.out.println("Random move left");
+
 		if (this.xCurrent <= Room.getstartX()) {
 			this.xCurrent = (Room.getstartX());
 		} else {
-			this.xCurrent = (this.xCurrent - 10);
+			this.xCurrent = (this.xCurrent - 1);
 		}
+		System.out.println("MOVE LEFT END: xCurrent: " + xCurrent + " yCurrent:" + yCurrent);
+
 	}
-	
+
 	public void moveUp() {
-		System.out.println("Random move up");
+
 		if (this.yCurrent <= Room.getstartY()) {
 			this.yCurrent = (Room.getstartY());
 		} else {
-			this.yCurrent = (this.yCurrent - 10);
+			this.yCurrent = (this.yCurrent - 1);
 		}
+		System.out.println("MOVE UP END: xCurrent: " + xCurrent + " yCurrent:" + yCurrent);
+
 	}
-	
+
 	public void moveDown() {
-		System.out.println("Random move down");
+
 		if (this.yCurrent >= Room.getYLimit()) {
 			this.yCurrent = (Room.getYLimit());
 		} else {
-			this.yCurrent = (this.yCurrent + 10);
+			this.yCurrent = (this.yCurrent + 1);
 		}
+		System.out.println("MOVE DOWN START: xCurrent: " + xCurrent + " yCurrent:" + yCurrent);
+
 	}
 	public void randomMove() {
 		System.out.println("Random move");
 		int direction = random.nextInt(4);
-		int counter = random.nextInt(4);
+		int counter = 5;
+		System.out.println("RANDOM MOVE START: xCurrent: " + xCurrent + " yCurrent:" + yCurrent);
 		switch (direction) {
 			case 0:
 				while (counter!=0){
@@ -131,10 +149,9 @@ public class BlindAlien implements Alien {
 					counter-=1;
 				}
 
-				break;
-
-
 		}
+		System.out.println("RANDOM MOVE END: xCurrent: " + xCurrent + " yCurrent:" + yCurrent);
+
 	}
 
 	public Rectangle getRectangle() {

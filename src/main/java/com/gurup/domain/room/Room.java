@@ -297,6 +297,9 @@ public class Room {
                                 createdAlien.setActive(true);
                                 createdAliens[0] = createdAlien;
                                 goodIndexFound = true;
+
+
+
                             }
                             break;
                         case 1:
@@ -342,6 +345,7 @@ public class Room {
                 alienCreationCounter++;
             }
         }
+
         return TimerOperationResults.TIME_UP;
     }
 
@@ -480,7 +484,7 @@ public class Room {
         // TODO Auto-generated method stub
         return createdAliens;
     }
-    
+
     public Alien getCreatedAlien(int i) {
         // TODO Auto-generated method stub
         return createdAliens[i];
@@ -493,15 +497,15 @@ public class Room {
     public void setKey(Key key) {
         this.key = key;
     }
-    
+
     public void setCreated(PowerUp powerUp) {
         this.created = powerUp;
-	}
-    
+    }
+
     public void setCreatedAliens(Alien[] aliens) {
         this.createdAliens = aliens;
     }
-    
+
     public void setCreatedAlien(int i, Alien alien) {
         this.createdAliens[i] = alien;
     }
@@ -509,6 +513,6 @@ public class Room {
     public void setObjects(ArrayList<BuildingObject> loadedObjects) {
         // TODO Auto-generated method stub
         objects = loadedObjects;
-        
+
     }
 }
