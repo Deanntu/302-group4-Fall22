@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 
@@ -29,6 +30,8 @@ public class Player {
     private String objectToBuild;
     private boolean canSeeHintRect;
     private boolean canSeeKeyImage;
+    private int hintXRandom;
+    private int hintYRandom;
 
 
     public Player(int xStart, int yStart, int xLen, int yLen, int startingTime) {
@@ -42,6 +45,9 @@ public class Player {
         this.startingTime = startingTime;
         timeCounter = 1;
         life = 3;
+        Random random = new Random();
+        hintXRandom = random.nextInt(100);
+        hintYRandom = random.nextInt(100);
         setProtected(false);
         setHintStatus(false);
 
@@ -275,4 +281,24 @@ public class Player {
     public boolean getDrawKeyStatus() {
         return this.canSeeKeyImage;
     }
+
+
+	public int getHintXRandom() {
+		return hintXRandom;
+	}
+
+
+	public void setHintXRandom(int hintXRandom) {
+		this.hintXRandom = hintXRandom;
+	}
+
+
+	public int getHintYRandom() {
+		return hintYRandom;
+	}
+
+
+	public void setHintYRandom(int hintYRandom) {
+		this.hintYRandom = hintYRandom;
+	}
 }
