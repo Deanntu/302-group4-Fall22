@@ -309,7 +309,6 @@ public class Player {
 
 
     public void setIsKeyFound(Boolean isKeyFound) {
-        System.out.println(isKeyFound);
         this.isKeyFound = isKeyFound;
     }
 }

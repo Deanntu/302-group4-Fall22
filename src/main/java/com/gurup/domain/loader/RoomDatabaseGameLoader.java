@@ -118,7 +118,6 @@ public class RoomDatabaseGameLoader {
             int yCurrent = resultSet.getInt("ystart");
             int xLen = resultSet.getInt("xlimit");
             int yLen = resultSet.getInt("ylimit");
-            System.out.println(name);
             switch (name) {
             case "bottle":
                 p = BottlePowerUp.getInstance(Game.getPlayer());
