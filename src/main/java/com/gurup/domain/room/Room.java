@@ -268,8 +268,15 @@ public class Room {
                 boolean alienCanBeCreated = false;
                 for (Alien a : createdAliens) {
                     // if all aliens exist and they are active, return without creating new alien
-                    if (a == null || !a.isActive()) {
-                        alienCanBeCreated = true;
+                    if ((a == null || !a.isActive())) {
+                        if (a instanceof TimeWastingAlien) {
+                            if (!isPlayerFoundKeyForRoom) {
+                                alienCanBeCreated = true;
+                            }
+                        }
+                        else {
+                            alienCanBeCreated = true;
+                        }
                     }
                 }
                 if (!alienCanBeCreated) {
@@ -305,7 +312,7 @@ public class Room {
                             }
                             break;
                         case 2:
-                            if (createdAliens[2] == null || !createdAliens[2].isActive()) {
+                            if (!isPlayerFoundKeyForRoom && (createdAliens[2] == null || !createdAliens[2].isActive())) {
                                 System.out.println("TimeWasting alien created");
                                 createdAlien = new TimeWastingAlien(10, 10, AlienConstants.xLen.getValue(),
                                         AlienConstants.yLen.getValue(), player);
