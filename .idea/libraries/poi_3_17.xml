@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="poi-3.17">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libraries/poi-3.17.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
