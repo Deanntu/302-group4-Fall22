@@ -36,14 +36,13 @@ public class ShooterAlien implements Alien {
         new Thread (new Runnable() {
             @Override
             public void run() {
-                System.out.println("here");
                 while (true) {
-                    /*try {
+                    try {
                         Thread.sleep(20);
                     } catch (InterruptedException e1) {
                         // TODO Auto-generated catch block
                         e1.printStackTrace();
-                    }*/
+                    }
                     if (Game.getIsPaused()) {
                         try {
                             Thread.sleep(1000);
