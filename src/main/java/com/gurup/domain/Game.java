@@ -10,6 +10,7 @@ import com.gurup.domain.account.entity.AccountOperationResults;
 import com.gurup.domain.account.manager.AccountManager;
 import com.gurup.domain.buildingmode.BuildingModeRoom;
 import com.gurup.domain.loader.GameLoader;
+import com.gurup.domain.powerups.ThrownBottlePowerUp;
 import com.gurup.domain.room.Room;
 import com.gurup.domain.room.RoomConstants;
 import com.gurup.domain.saver.GameSaver;
@@ -245,7 +246,7 @@ public class Game {
                 e.printStackTrace();
             }
         }
-        //timer.cancel();
+        ThrownBottlePowerUp.setNull();
         screenMaker.stopRunningModeGUI(runningModeScreen);
         return isStudentCenterFinished;
     }

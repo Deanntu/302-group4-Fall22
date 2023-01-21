@@ -121,16 +121,13 @@ public class RunningModeScreen extends JPanel {
         g.drawRect(keyRect.x - 5, keyRect.y - 5, keyRect.width + 10, keyRect.height + 10);
         // End of remove
 
-        if (player.getHintStatus() == true){
+        if (player.getHintStatus() == true) {
             g.setColor(Color.RED);
             int xRandom = player.getHintXRandom();
             int yRandom = player.getHintYRandom();
             g.drawRect(keyRect.x - 5 - xRandom, keyRect.y - 5 - yRandom, keyRect.width + 110, keyRect.height + 110);
             g.setColor(Color.BLACK);
         }
-
-
-
 
 
     }
@@ -213,36 +210,31 @@ public class RunningModeScreen extends JPanel {
 
                 alienDrawer.draw(g, a.rectArray(), a.getName());
 
-                if (a.getName().equals("Blind")){
-                    if(thrownBottlePowerUp.isUsed()){
-                        ((BlindAlien)a).moveToBottle();
-                    }
-                    System.out.println("Before Random Move");
-                    ((BlindAlien)a).randomMove();
-                    System.out.println("After Random Move");
+                if (a.getName().equals("Blind")) {
 
                     if (a.getRectangle().intersects(player.getRectangle())) {
                         player.setLife(player.getLife() - 1);
-                        System.out.println("Player Life: " + player.getLife());
                         a.setActive(false);
                     }
 
+                    if (thrownBottlePowerUp.isUsed()) {
+                        ((BlindAlien) a).moveToBottle();
+                    } else {
+
+                    ((BlindAlien) a).randomMove();
+
+                    }
                 }
 
-                System.out.println("drawObjects:" + a.getName() + " xCurrent: " + a.rectArray()[0]+ " yCurrent: " + a.rectArray()[1]);
             }
         }
         for (BuildingObject bo : Room.getObjects()) {
             if (keyRect.intersects(bo.getRectangle()) && player.getDrawKeyStatus() == true) {
-                g.drawImage(ImageLoader.key_image, bo.getXCurrent()+bo.getXLen()/2-RoomConstants.keyXLen.getValue()/2 , bo.getYCurrent()+bo.getYLen()/2-RoomConstants.keyYLen.getValue()/2, RoomConstants.keyXLen.getValue(), RoomConstants.keyYLen.getValue(), this);
+                g.drawImage(ImageLoader.key_image, bo.getXCurrent() + bo.getXLen() / 2 - RoomConstants.keyXLen.getValue() / 2, bo.getYCurrent() + bo.getYLen() / 2 - RoomConstants.keyYLen.getValue() / 2, RoomConstants.keyXLen.getValue(), RoomConstants.keyYLen.getValue(), this);
                 continue;
             }
             buildObjectDrawer.draw(g, bo.rectArray(), bo.getName());
         }
-
-
-
-
 
 
     }

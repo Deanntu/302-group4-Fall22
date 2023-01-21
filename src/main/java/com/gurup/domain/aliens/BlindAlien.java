@@ -33,31 +33,23 @@ public class BlindAlien implements Alien {
 	public BlindAlien() {
 		// TODO Auto-generated constructor stub
 
-
-
 	}
 
-	public void moveToBottle(){
-		if (thrownBottlePowerUp.isActive() && thrownBottlePowerUp.isUsed()) {
-			int bottleX = thrownBottlePowerUp.getXCurrent();
-			int bottleY = thrownBottlePowerUp.getYCurrent();
-			int blindX = getXCurrent();
-			int blindY = getYCurrent();
+	public void moveToBottle() {
+		int bottleX = thrownBottlePowerUp.getXCurrent();
+		int bottleY = thrownBottlePowerUp.getYCurrent();
 
-			while(blindX == bottleX && blindY == bottleY){
-				if(blindX <= bottleX){
-					moveRight();
-				}else{
-					moveLeft();
-				}
+		int blindX = getXCurrent();
+		int blindY = getYCurrent();
 
-				if(blindY <= bottleY){
-					moveDown();
-				}else{
-					moveUp();
-				}
-			}
-
+		if (bottleX > blindX && bottleY > blindY) {
+			moveRight();
+		} else if (bottleX < blindX) {
+			moveLeft();
+		} else if (bottleY > blindY) {
+			moveDown();
+		} else if (bottleY < blindY) {
+			moveUp();
 		}
 
 	}
@@ -79,7 +71,6 @@ public class BlindAlien implements Alien {
 		} else {
 			this.xCurrent = (this.xCurrent + 1);
 		}
-		System.out.println("MOVE RIGHT END: xCurrent: " + xCurrent + " yCurrent:" + yCurrent);
 
 	}
 
@@ -90,7 +81,6 @@ public class BlindAlien implements Alien {
 		} else {
 			this.xCurrent = (this.xCurrent - 1);
 		}
-		System.out.println("MOVE LEFT END: xCurrent: " + xCurrent + " yCurrent:" + yCurrent);
 
 	}
 
@@ -101,7 +91,6 @@ public class BlindAlien implements Alien {
 		} else {
 			this.yCurrent = (this.yCurrent - 1);
 		}
-		System.out.println("MOVE UP END: xCurrent: " + xCurrent + " yCurrent:" + yCurrent);
 
 	}
 
@@ -112,45 +101,37 @@ public class BlindAlien implements Alien {
 		} else {
 			this.yCurrent = (this.yCurrent + 1);
 		}
-		System.out.println("MOVE DOWN START: xCurrent: " + xCurrent + " yCurrent:" + yCurrent);
 
 	}
 	public void randomMove() {
-		System.out.println("Random move");
 		int direction = random.nextInt(4);
 		int counter = 5;
-		System.out.println("RANDOM MOVE START: xCurrent: " + xCurrent + " yCurrent:" + yCurrent);
 		switch (direction) {
 			case 0:
 				while (counter!=0){
 					moveRight();
-					System.out.println(counter +" " + xCurrent);
 					counter-=1;
 				}
 				break;
 			case 1:
 				while (counter!=0){
 					moveLeft();
-					System.out.println(counter +" " + xCurrent);
 					counter-=1;
 				}
 				break;
 			case 2:
 				while (counter!=0){
 					moveUp();
-					System.out.println(counter +" " + yCurrent);
 					counter-=1;
 				}
 				break;
 			case 3:
 				while (counter!=0){
 					moveDown();
-					System.out.println(counter +" " + yCurrent);
 					counter-=1;
 				}
 
 		}
-		System.out.println("RANDOM MOVE END: xCurrent: " + xCurrent + " yCurrent:" + yCurrent);
 
 	}
 

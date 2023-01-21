@@ -150,22 +150,18 @@ public class Room {
         for (BuildingObject bo : objects) {
             if (bo.getRectangle().intersects(rectMouseClick)) {
                 if (!playerRect.intersects(bo.getRectangle())) {
-                    System.out.println("Player is not next to the object");
                     return false;
                 }
                 if (bo.equals(containerObject)) {
-                    System.out.println("Key Found");
                     Room.isPlayerFoundKeyForRoom = true;
                     Room.isPlayerFoundKeyBefore = true;
                     drawKeyForAMoment();
                     player.setRemainingTime(player.getRemainingTime() + 50);
                     return true;
                 }
-                System.out.println("Key not found");
                 return false; // will be changed to bo.shake() to shake object
             }
         }
-        System.out.println("Not an object!");
         return false;
     }
 
@@ -291,7 +287,6 @@ public class Room {
                 }
                 while(!goodIndexFound) {
                     int randomIndex = random.nextInt(3);
-                    System.out.println("Random index is: " + randomIndex);
                     switch (randomIndex) {
                         case 0:
                             if (createdAliens[0] == null || !createdAliens[0].isActive()) {
