@@ -9,7 +9,6 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -152,9 +151,9 @@ public class RunningModeScreen extends JPanel {
     }
 
     private void paintDoor(Graphics g) {
-        if (Room.getIsPlayerFoundKeyForRoom() == false) {
+        if (Room.getIsPlayerFoundKeyForRoom() == false || player.getIsKeyFound() == false) {
             g.drawImage(ImageLoader.closed_door_image, RoomConstants.doorXStart.getValue(), RoomConstants.doorYStart.getValue(), RoomConstants.doorXLen.getValue(), RoomConstants.doorYLen.getValue(), null);
-        } else if (Room.getIsPlayerFoundKeyForRoom() == true) {
+        } else if (Room.getIsPlayerFoundKeyForRoom() == true || player.getIsKeyFound()) {
             g.drawImage(ImageLoader.open_door_image, RoomConstants.doorXStart.getValue(), RoomConstants.doorYStart.getValue(), RoomConstants.doorXLen.getValue(), RoomConstants.doorYLen.getValue(), null);
         }
     }

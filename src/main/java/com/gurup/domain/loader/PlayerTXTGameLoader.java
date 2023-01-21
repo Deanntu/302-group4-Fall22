@@ -72,10 +72,11 @@ public class PlayerTXTGameLoader {
                         case 8:
                             player.setLevel((int)cell.getNumericCellValue());
                             break;
+                        case 10:
+                            player.setIsKeyFound(cell.getBooleanCellValue());
+                            break;
                     }
-                    System.out.print(" - ");
                 }
-                System.out.println();
             }
 
             workbook.close();
