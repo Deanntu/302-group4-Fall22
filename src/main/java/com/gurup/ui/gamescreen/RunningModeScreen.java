@@ -221,8 +221,13 @@ public class RunningModeScreen extends JPanel {
                     ((BlindAlien)a).randomMove();
                     System.out.println("After Random Move");
 
-                }
+                    if (a.getRectangle().intersects(player.getRectangle())) {
+                        player.setLife(player.getLife() - 1);
+                        System.out.println("Player Life: " + player.getLife());
+                        a.setActive(false);
+                    }
 
+                }
 
                 System.out.println("drawObjects:" + a.getName() + " xCurrent: " + a.rectArray()[0]+ " yCurrent: " + a.rectArray()[1]);
             }
@@ -268,6 +273,7 @@ public class RunningModeScreen extends JPanel {
 
     private void paintPlayer(Graphics g) {
         g.drawImage(ImageLoader.player_image, player.getXCurrent(), player.getYCurrent(), player.getXLen(), player.getYLen(), null);
+
     }
 
     private void paintWall(Graphics g) {
