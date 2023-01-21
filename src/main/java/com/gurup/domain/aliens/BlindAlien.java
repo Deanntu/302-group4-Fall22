@@ -36,12 +36,17 @@ public class BlindAlien implements Alien {
 	}
 
 	public void moveToBottle() {
+	    
 		int bottleX = thrownBottlePowerUp.getXCurrent();
 		int bottleY = thrownBottlePowerUp.getYCurrent();
 
 		int blindX = getXCurrent();
 		int blindY = getYCurrent();
-
+		if (blindX == bottleX && blindY == bottleY){
+		    randomMove();
+		    thrownBottlePowerUp.setUsed(false);
+		    return;
+		}
 		if (bottleX > blindX) {
 			moveRight();
 		}  if (bottleX < blindX) {
@@ -51,6 +56,7 @@ public class BlindAlien implements Alien {
 		}  if (bottleY < blindY) {
 			moveUp();
 		}
+		
 
 	}
 

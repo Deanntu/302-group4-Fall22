@@ -33,10 +33,14 @@ public class ShooterAlien implements Alien {
 	private void shoot(){
 	    if (!isActive) return;
 	    Player player = this.player;
+	    ShooterAlien alien = this;
         new Thread (new Runnable() {
             @Override
             public void run() {
                 while (true) {
+                    if(!(alien.isActive())) {
+                        return;
+                    }
                     try {
                         Thread.sleep(20);
                     } catch (InterruptedException e1) {

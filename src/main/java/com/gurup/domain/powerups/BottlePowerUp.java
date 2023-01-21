@@ -2,6 +2,7 @@ package com.gurup.domain.powerups;
 
 import java.awt.Rectangle;
 
+import com.gurup.domain.Game;
 import com.gurup.domain.Player;
 
 public class BottlePowerUp implements PowerUp {
@@ -37,8 +38,8 @@ public class BottlePowerUp implements PowerUp {
 
     private void activatePowerUp() {
         this.isActive = false;
-        ThrownBottlePowerUp.getInstance(null).setUsable(true);
-        ThrownBottlePowerUp.getInstance(null).setUsed(false);
+        ThrownBottlePowerUp.getInstance(Game.getPlayer()).setUsable(true);
+        ThrownBottlePowerUp.getInstance(Game.getPlayer()).setUsed(false);
     }
 
     @Override

@@ -58,7 +58,7 @@ public class TimeWastingAlien implements Alien {
 			@Override
 			public void run() {
 				boolean alienLives = true;
-				while (alienLives) {
+				while (alienLives && alien.isActive()) {
 				    try {
                         Thread.sleep(20);
                     } catch (InterruptedException e1) {
