@@ -45,6 +45,7 @@ public class Room {
     private static boolean isPlayerFoundKeyForRoom;
     private static boolean isPlayerFoundKeyBefore;
     private final int keyDrawSeconds = 2;
+    private int powerUpDeletionCounter = 0;
 
 
     public Room(String name, int xStart, int yStart, int xLimit, int yLimit, Player player) {
@@ -202,7 +203,7 @@ public class Room {
 
         if (timeCounter % (1000 / delayMiliSeconds) == 0) {
             timeCounter = 1;
-            if (powerUpCreationCounter == 2) {
+            if (powerUpCreationCounter == 12) {
                 if (created != null)
                     created.setIsActive(false);
                 int randomIndex = random.nextInt(powerUps.size());
@@ -212,6 +213,7 @@ public class Room {
                 created.setYCurrent(newXandY[1]);
                 created.setIsActive(true);
                 powerUpCreationCounter = 1;
+                powerUpDeletionCounter = 1;
                 /*
                  * if(randomIndex == 0) { created = new TimePowerUp(player);
                  * created.setIsActive(true);
@@ -220,8 +222,16 @@ public class Room {
                  * created.setIsActive(true); } created.setX(420); created.setxLimit(50);
                  * created.setY(320); created.setyLimit(50); powerUps.add(created);
                  */
+            }else {
+                powerUpCreationCounter++;    
+            }
+            if (powerUpDeletionCounter == 6) {
+                if (created != null) {
+                    created.setIsActive(false);
+                }
+
             } else {
-                powerUpCreationCounter++;
+                powerUpDeletionCounter++;
             }
         } else {
             timeCounter++;
@@ -277,7 +287,7 @@ public class Room {
             return TimerOperationResults.PAUSED;
         Random random = new Random();
         if (timeCounter % (1000 / delayMiliSeconds) == 0) {
-            if (alienCreationCounter == 2) { // TODO undo
+            if (alienCreationCounter == 10) { 
                 Alien createdAlien = null;
                 boolean goodIndexFound = false;
                 boolean alienCanBeCreated = false;
