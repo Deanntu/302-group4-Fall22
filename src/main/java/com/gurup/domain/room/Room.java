@@ -12,7 +12,13 @@ import com.gurup.domain.aliens.AlienConstants;
 import com.gurup.domain.aliens.BlindAlien;
 import com.gurup.domain.aliens.ShooterAlien;
 import com.gurup.domain.aliens.TimeWastingAlien;
-import com.gurup.domain.powerups.*;
+import com.gurup.domain.powerups.BottlePowerUp;
+import com.gurup.domain.powerups.HealthPowerUp;
+import com.gurup.domain.powerups.HintPowerUp;
+import com.gurup.domain.powerups.PowerUp;
+import com.gurup.domain.powerups.ThrownBottlePowerUp;
+import com.gurup.domain.powerups.TimePowerUp;
+import com.gurup.domain.powerups.VestPowerUp;
 import com.gurup.domain.room.buildingobjects.BuildingObject;
 import com.gurup.domain.room.buildingobjects.BuildingObjectConstants;
 import com.gurup.domain.room.buildingobjects.BuildingObjectFactory;
@@ -266,11 +272,11 @@ public class Room {
                 Alien createdAlien = null;
                 boolean goodIndexFound = false;
                 boolean alienCanBeCreated = false;
-                for (Alien a : createdAliens) {
+                for (int i = 0; i < 3; i++) {
                     // if all aliens exist and they are active, return without creating new alien
-                    if ((a == null || !a.isActive())) {
-                        if (a instanceof TimeWastingAlien) {
-                            if (!isPlayerFoundKeyForRoom) {
+                    if ((createdAliens[i] == null || !createdAliens[i].isActive())) {
+                        if (i == 2) {
+                            if (!isPlayerFoundKeyBefore) {
                                 alienCanBeCreated = true;
                             }
                         }
