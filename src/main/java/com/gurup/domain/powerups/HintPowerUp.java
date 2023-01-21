@@ -1,6 +1,7 @@
 package com.gurup.domain.powerups;
 
 import java.awt.Rectangle;
+import java.util.Random;
 
 import com.gurup.domain.Player;
 
@@ -36,6 +37,9 @@ public class HintPowerUp implements PowerUp {
 
     private void activatePowerUp() {
         player.setHintStatus(true);
+        Random random = new Random();
+        player.setHintXRandom(random.nextInt(100));
+        player.setHintYRandom(random.nextInt(100));
         new Thread(new Runnable() {
             @Override
             public void run() {

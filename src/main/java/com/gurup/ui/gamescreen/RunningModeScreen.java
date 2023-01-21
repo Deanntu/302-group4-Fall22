@@ -123,7 +123,9 @@ public class RunningModeScreen extends JPanel {
 
         if (player.getHintStatus() == true){
             g.setColor(Color.RED);
-            g.drawRect(keyRect.x - 10, keyRect.y - 10, keyRect.width + 20, keyRect.height + 20);
+            int xRandom = player.getHintXRandom();
+            int yRandom = player.getHintYRandom();
+            g.drawRect(keyRect.x - 5 - xRandom, keyRect.y - 5 - yRandom, keyRect.width + 110, keyRect.height + 110);
             g.setColor(Color.BLACK);
         }
 
