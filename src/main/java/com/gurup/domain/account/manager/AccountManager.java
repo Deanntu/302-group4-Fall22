@@ -33,6 +33,8 @@ public class AccountManager {
 		// REQUIRES: An account that matches the given credentials to exist in the database to log in
 		// Also requires that password1 and password2 are equal as well as the mail to be in a valid email address format
 		Account account = new Account();
+		if(password1.length() < 8)
+		    return AccountOperationResults.SHORT_PASSWORD;
 		if (!password1.equals(password2))
 			return AccountOperationResults.PASSWORD_MISMATCH;
 		if (isEmptyField(username, password1, mail))
@@ -55,6 +57,8 @@ public class AccountManager {
 		 */
 
 		Account account = new Account();
+		if(password1.length() < 8)
+            return AccountOperationResults.SHORT_PASSWORD;
 		if (!password1.equals(password2))
 			return AccountOperationResults.PASSWORD_MISMATCH;
 		if (isEmptyField(username, password1, mail))
