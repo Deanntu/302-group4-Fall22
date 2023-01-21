@@ -161,7 +161,7 @@ public class RoomDatabaseGameLoader {
             a = new BlindAlien(xCurrent, yCurrent, xLen, yLen);
             break;
         case "Shooter":
-            a = new ShooterAlien(xCurrent, yCurrent, xLen, yLen);
+            a = new ShooterAlien(xCurrent, yCurrent, xLen, yLen,Game.getPlayer());
             break;
         case "TimeWasting":
             a = new TimeWastingAlien(xCurrent, yCurrent, xLen, yLen,Game.getPlayer());

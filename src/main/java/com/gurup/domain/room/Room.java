@@ -311,7 +311,7 @@ public class Room {
                         case 1:
                             if (createdAliens[1] == null || !createdAliens[1].isActive()) {
                                 System.out.println("Shooter alien created");
-                                createdAlien = new ShooterAlien(10, 10, AlienConstants.xLen.getValue(), AlienConstants.yLen.getValue());
+                                createdAlien = new ShooterAlien(10, 10, AlienConstants.xLen.getValue(), AlienConstants.yLen.getValue(), player);
                                 int[] newXandY = getRandomLocation(AlienConstants.xLen.getValue(), AlienConstants.yLen.getValue());
                                 createdAlien.setXCurrent(newXandY[0]);
                                 createdAlien.setYCurrent(newXandY[1]);

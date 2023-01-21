@@ -2,9 +2,8 @@ package com.gurup.domain.aliens;
 
 import java.awt.Rectangle;
 
+import com.gurup.domain.Game;
 import com.gurup.domain.Player;
-import com.gurup.domain.powerups.ThrownBottlePowerUp;
-import com.gurup.domain.room.Room;
 
 public class ShooterAlien implements Alien {
 
@@ -14,19 +13,16 @@ public class ShooterAlien implements Alien {
 	private int yStart;
 	private int xLen;
 	private int yLen;
-	private int xCurrent;
-	private int yCurrent;
 	private boolean isActive = false;
 
-	private int diff = 40;
 	private Player player;
-	private ThrownBottlePowerUp thrownBottlePowerUp = ThrownBottlePowerUp.getInstance(player);
 
-	public ShooterAlien(int xStart, int yStart, int xLen, int yLen) {
+	public ShooterAlien(int xStart, int yStart, int xLen, int yLen, Player player) {
 		this.xStart = xStart;
 		this.yStart = yStart;
 		this.xLen = xLen;
 		this.yLen = yLen;
+		this.player = player;
 	}
 
 	public ShooterAlien() {
@@ -34,60 +30,50 @@ public class ShooterAlien implements Alien {
 
 	}
 
-	public void shoot(){
-		if(!player.isProtected()&& playerInsideRange()){
-			player.setLife(player.getLife() - 1);
-		}
+	private void shoot(){
+	    if (!isActive) return;
+	    Player player = this.player;
+        new Thread (new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("here");
+                while (true) {
+                    /*try {
+                        Thread.sleep(20);
+                    } catch (InterruptedException e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }*/
+                    if (Game.getIsPaused()) {
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                        continue;
+                    }
+                    if(!player.isProtected() && playerInsideRange()){
+                        player.setLife(player.getLife() - 1);
+                    }
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
 	}
 
-	public boolean playerInsideRange(){
-		int playerX = player.getXCurrent();
-		int playerY = player.getYCurrent();
-
-		int diffX = playerX - getXCurrent();
-		int diffY = playerY - getYCurrent();
-
-		if(diffX < diff  && diffY < diff){
-			return true;
-		}
-		return false;
-
-	}
-
-	public void moveRight() {
-		if (this.xCurrent >= Room.getXLimit()) {
-			this.xCurrent = (Room.getXLimit());
-		} else {
-			this.xCurrent = (this.xCurrent + 10);
-		}
-	}
-	
-	public void moveLeft() {
-		if (this.xCurrent <= Room.getstartX()) {
-			this.xCurrent = (Room.getstartX());
-		} else {
-			this.xCurrent = (this.xCurrent - 10);
-		}
-	}
-	
-	public void moveUp() {
-		if (this.yCurrent <= Room.getstartY()) {
-			this.yCurrent = (Room.getstartY());
-		} else {
-			this.yCurrent = (this.yCurrent - 10);
-		}
-	}
-	
-	public void moveDown() {
-		if (this.yCurrent >= Room.getYLimit()) {
-			this.yCurrent = (Room.getYLimit());
-		} else {
-			this.yCurrent = (this.yCurrent + 10);
-		}
+	private boolean playerInsideRange(){
+		Rectangle range = new Rectangle(xStart-100, yStart-100, xLen+200, yLen+200);
+	    return range.intersects(player.getRectangle());
 	}
 
 	public Rectangle getRectangle() {
-		return new Rectangle(xCurrent, yCurrent, xLen, yLen);
+		return new Rectangle(xStart, yStart, xLen, yLen);
 	}
 
 	public String getName() {
@@ -104,6 +90,9 @@ public class ShooterAlien implements Alien {
 
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
+		if (isActive) {
+            shoot();
+        }
 	}
 
 	public int getXStart() {
@@ -139,24 +128,24 @@ public class ShooterAlien implements Alien {
 	}
 
 	public int getXCurrent() {
-		return xCurrent;
+		return xStart;
 	}
 
-	public void setXCurrent(int xCurrent) {
-		this.xCurrent = xCurrent;
+	public void setXCurrent(int xStart) {
+		this.xStart = xStart;
 	}
 
 	public int getYCurrent() {
-		return yCurrent;
+		return yStart;
 	}
 
-	public void setYCurrent(int yCurrent) {
-		this.yCurrent = yCurrent;
+	public void setYCurrent(int yStart) {
+		this.yStart = yStart;
 	}
 
 	@Override
 	public int[] rectArray() {
-		int[] rectValues = {xCurrent, yCurrent, xLen, yLen};
+		int[] rectValues = {xStart, yStart, xLen, yLen};
 		return rectValues;
 	}
 
