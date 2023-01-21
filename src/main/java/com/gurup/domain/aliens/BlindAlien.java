@@ -42,28 +42,18 @@ public class BlindAlien implements Alien {
 		int blindX = getXCurrent();
 		int blindY = getYCurrent();
 
-		if (bottleX > blindX && bottleY > blindY) {
+		if (bottleX > blindX) {
 			moveRight();
-		} else if (bottleX < blindX) {
+		}  if (bottleX < blindX) {
 			moveLeft();
-		} else if (bottleY > blindY) {
+		}  if (bottleY > blindY) {
 			moveDown();
-		} else if (bottleY < blindY) {
+		}  if (bottleY < blindY) {
 			moveUp();
 		}
 
 	}
 
-	public void killPlayer(){
-		int playerX = player.getXCurrent();
-		int playerY = player.getYCurrent();
-		int blindX = getXCurrent();
-		int blindY = getYCurrent();
-
-		if(playerX - blindX <5 || playerY - blindY < 5 || blindX -playerX < 5 || blindY - playerY <5){
-			player.setLife(player.getLife()-1);
-		}
-	}
 	public void moveRight() {
 
 		if (this.xCurrent >= Room.getXLimit()) {

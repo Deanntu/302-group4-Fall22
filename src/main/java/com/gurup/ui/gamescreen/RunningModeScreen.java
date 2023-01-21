@@ -210,7 +210,7 @@ public class RunningModeScreen extends JPanel {
 
                 alienDrawer.draw(g, a.rectArray(), a.getName());
 
-                if (a.getName().equals("Blind")) {
+                if (a.getName().equals("Blind") && Game.getIsPaused() == false) {
 
                     if (a.getRectangle().intersects(player.getRectangle())) {
                         player.setLife(player.getLife() - 1);
