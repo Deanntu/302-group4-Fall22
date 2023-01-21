@@ -1,19 +1,28 @@
 package com.gurup.domain.room.buildingobjects;
 
-import java.awt.*;
+import java.awt.Rectangle;
 
 public interface BuildingObject {
-    public String getName();
-    public int[] rectArray();
+    String getName();
 
-    public int getxLimit();
-    public void setxLimit(int xLimit);
+    int[] rectArray();
 
-    public int getyLimit();
-    public void setyLimit(int yLimit);
-    public int getstartX();
-    public int getstartY();
-    public Rectangle getRectangle();
+    int getXLen();
+
+    void setXLen(int xLen);
+
+    int getYLen();
+
+    void setYLen(int yLen);
+
+    int getXCurrent();
+
+    int getYCurrent();
+
+    void setXCurrent(int xCurrent);
+
+    void setYCurrent(int yCurrent);
+
+    Rectangle getRectangle();
 
 }
-

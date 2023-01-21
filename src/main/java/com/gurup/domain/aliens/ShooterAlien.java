@@ -1,119 +1,151 @@
 package com.gurup.domain.aliens;
 
-import java.awt.Color;
+import java.awt.Rectangle;
 
-import com.gurup.domain.Position;
+import com.gurup.domain.Game;
+import com.gurup.domain.Player;
 
-public class ShooterAlien implements Alien{
+public class ShooterAlien implements Alien {
 
-    private String name = "Shooter";
-    private int xStart;
-    private int yStart;
-    private int xLimit;
-    private int yLimit;
-    private int x;
-    private int y;
-    private boolean isActive = false;
 
-    public ShooterAlien(int xStart, int yStart, int xLimit, int yLimit) {
-        this.xStart = xStart;
-        this.yStart = yStart;
-        this.xLimit = xLimit;
-        this.yLimit = yLimit;
-    }
+	private String name = "Shooter";
+	private int xStart;
+	private int yStart;
+	private int xLen;
+	private int yLen;
+	private boolean isActive = false;
 
-    public ShooterAlien() {
-        // TODO Auto-generated constructor stub
-    }
+	private Player player;
 
-    public void moveRight() {
-        if (this.getX() >= this.getxLimit()) {
-            this.setX(this.getxLimit());
-        } else {
-            this.setX(this.getX() + 10);
+	public ShooterAlien(int xStart, int yStart, int xLen, int yLen, Player player) {
+		this.xStart = xStart;
+		this.yStart = yStart;
+		this.xLen = xLen;
+		this.yLen = yLen;
+		this.player = player;
+	}
+
+	public ShooterAlien() {
+		// TODO Auto-generated constructor stub
+
+	}
+
+	private void shoot(){
+	    if (!isActive) return;
+	    Player player = this.player;
+        new Thread (new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    try {
+                        Thread.sleep(20);
+                    } catch (InterruptedException e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }
+                    if (Game.getIsPaused()) {
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                        continue;
+                    }
+                    if(!player.isProtected() && playerInsideRange()){
+                        player.setLife(player.getLife() - 1);
+                    }
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+	}
+
+	private boolean playerInsideRange(){
+		Rectangle range = new Rectangle(xStart-100, yStart-100, xLen+200, yLen+200);
+	    return range.intersects(player.getRectangle());
+	}
+
+	public Rectangle getRectangle() {
+		return new Rectangle(xStart, yStart, xLen, yLen);
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+		if (isActive) {
+            shoot();
         }
-    }
+	}
 
-    public void moveLeft() {
-        if (this.getX() <= this.getstartX()) {
-            this.setX(this.getstartX());
-        } else {
-            this.setX(this.getX() - 10);
-        }
-    }
+	public int getXStart() {
+		return xStart;
+	}
 
-    public void moveUp() {
-        if (this.getY() <= this.getstartY()) {
-            this.setY(this.getstartY());
-        } else {
-            this.setY(this.getY() - 10);
-        }
-    }
+	public void setXStart(int xStart) {
+		this.xStart = xStart;
+	}
 
-    public void moveDown() {
-        if (this.getY() >= this.getyLimit()) {
-            this.setY(this.getyLimit());
-        } else {
-            this.setY(this.getY() + 10);
-        }
-    }
+	public int getYStart() {
+		return yStart;
+	}
 
-    public int[] rectArray() {
-        int[] rectValues = { getX(), getY(), this.getxLimit(), this.getyLimit() };
-        return rectValues;
-    }
-    public int getX() {
-        return x;
-    }
+	public void setYStart(int yStart) {
+		this.yStart = yStart;
+	}
 
-    public void setX(int x) {
-        this.x = x;
-    }
+	public int getXLen() {
+		return xLen;
+	}
 
-    public int getxLimit() {
-        return xLimit;
-    }
+	public void setXLen(int xLen) {
+		this.xLen = xLen;
+	}
 
-    public void setxLimit(int xLimit) {
-        this.xLimit = xLimit;
-    }
-    public int getY() {
-        return y;
-    }
+	public int getYLen() {
+		return yLen;
+	}
 
-    public void setY(int y) {
-        this.y = y;
-    }
+	public void setYLen(int yLen) {
+		this.yLen = yLen;
+	}
 
-    public int getyLimit() {
-        return yLimit;
-    }
+	public int getXCurrent() {
+		return xStart;
+	}
 
-    public void setyLimit(int yLimit) {
-        this.yLimit = yLimit;
-    }
+	public void setXCurrent(int xStart) {
+		this.xStart = xStart;
+	}
 
-    public int getstartX() {
-        return xStart;
-    }
+	public int getYCurrent() {
+		return yStart;
+	}
 
-    public int getstartY() {
-        return yStart;
-    }
+	public void setYCurrent(int yStart) {
+		this.yStart = yStart;
+	}
 
-    public boolean isActive() {
-        return isActive;
-    }
+	@Override
+	public int[] rectArray() {
+		int[] rectValues = {xStart, yStart, xLen, yLen};
+		return rectValues;
+	}
 
-    public void setActive(boolean isActive) {
-        this.isActive = isActive;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

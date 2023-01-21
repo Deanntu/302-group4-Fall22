@@ -1,9 +1,11 @@
 package com.gurup.ui.gamescreen;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
 
 public class PauseAndResumeScreen extends JFrame implements ActionListener {
 
@@ -17,16 +19,15 @@ public class PauseAndResumeScreen extends JFrame implements ActionListener {
     private boolean showExit = false;
     private boolean continueGame = false;
 
-
     public PauseAndResumeScreen() {
         pauseAndResumeScreen.setLayout(null);
         setSizeandAdd();
     }
 
-    private void setSizeandAdd(){
-        resumeButton.setBounds(125,100,100,30);
-        helpButton.setBounds(125,150,100,30);
-        exitButton.setBounds(125,200,100,30);
+    private void setSizeandAdd() {
+        resumeButton.setBounds(125, 100, 100, 30);
+        helpButton.setBounds(125, 150, 100, 30);
+        exitButton.setBounds(125, 200, 100, 30);
 
         pauseAndResumeScreen.add(resumeButton);
         pauseAndResumeScreen.add(helpButton);
@@ -56,14 +57,25 @@ public class PauseAndResumeScreen extends JFrame implements ActionListener {
     public boolean isContinueGame() {
         return continueGame;
     }
-    public void setContinueGame(boolean flag) {continueGame = flag;};
 
-    public boolean showHelpPressed() {return showHelp;
+    public void setContinueGame(boolean flag) {
+        continueGame = flag;
     }
-    public void setShowHelp(Boolean flag) {showHelp = flag;};
 
-    public boolean showExitPressed() {return showExit;
+    public boolean showHelpPressed() {
+        return showHelp;
     }
-    public void setShowExit(Boolean flag) {showExit = flag;};
+
+    public void setShowHelp(Boolean flag) {
+        showHelp = flag;
+    }
+
+    public boolean showExitPressed() {
+        return showExit;
+    }
+
+    public void setShowExit(Boolean flag) {
+        showExit = flag;
+    }
 
 }

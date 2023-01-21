@@ -2,8 +2,8 @@ package com.gurup.ui.drawer;
 
 import java.awt.Graphics;
 
-public class AlienDrawerAdapter implements DrawAdapter{
-    AlienDrawer alienDrawer;
+public class AlienDrawerAdapter implements DrawAdapter {
+    final AlienDrawer alienDrawer;
 
     public AlienDrawerAdapter() {
         alienDrawer = new AlienDrawer();

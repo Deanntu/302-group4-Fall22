@@ -1,18 +1,27 @@
 package com.gurup.domain.room.buildingobjects;
 
 public class BuildingObjectFactory {
-    public BuildingObject createBuildingObject(String name, int xStart, int yStart, int xLimit, int yLimit) {
-        BuildingObject buildingObject = null;
+    public BuildingObject createBuildingObject(String name, int xCurrent, int yCurrent, int xLen, int yLen) {
+        BuildingObject returnValue;
         switch (name) {
-            case "Table":
-                buildingObject = new Table(xStart, yStart, xLimit, yLimit);
-                break;
             case "Bin":
-                buildingObject = new Bin(xStart, yStart, xLimit, yLimit);
+                returnValue = new Bin(xCurrent, yCurrent, xLen, yLen);
+                break;
+            case "Book":
+                returnValue = new Book(xCurrent, yCurrent, xLen, yLen);
+                break;
+            case "Pen":
+                returnValue = new Pen(xCurrent, yCurrent, xLen, yLen);
+                break;
+            case "Printer":
+                returnValue = new Printer(xCurrent, yCurrent, xLen, yLen);
+                break;
+            case "Table":
+                returnValue = new Table(xCurrent, yCurrent, xLen, yLen);
                 break;
             default:
-                throw new IllegalArgumentException("Unknown Building Object "+name);
+                throw new IllegalArgumentException("Unknown Building Object " + name);
         }
-        return buildingObject;
+        return returnValue;
     }
 }

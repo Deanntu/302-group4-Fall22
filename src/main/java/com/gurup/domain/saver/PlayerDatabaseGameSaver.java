@@ -19,6 +19,9 @@ public class PlayerDatabaseGameSaver {
 	private int yLocation;
 	private int bottlecount;
 	private int vestcount;
+	private int level;
+	private int startingTime;
+	private Boolean isKeyFound;
 
 	public PlayerDatabaseGameSaver() {
 		try {
@@ -28,23 +31,29 @@ public class PlayerDatabaseGameSaver {
 			e.printStackTrace();
 		}
 	}
+
 	private void init() throws Exception {
 		Connection connection = DriverManager.getConnection(DatabaseRequirements.url.getValue(),
 				DatabaseRequirements.username.getValue(), DatabaseRequirements.password.getValue());
-		String sql = "CREATE TABLE IF NOT EXISTS public.player ( isprotected boolean, remainingtime integer, remaininglife integer, xlocation integer, ylocation integer, bottle integer, vest integer, username text COLLATE pg_catalog.\"default\" ) TABLESPACE pg_default;";
+		String sql = "CREATE TABLE IF NOT EXISTS public.player ( isprotected boolean, remainingtime integer, remaininglife integer, xlocation integer, ylocation integer, bottle integer, vest integer, level integer, startingtime integer, iskeyfound boolean, username text COLLATE pg_catalog.\"default\" ) TABLESPACE pg_default;";
 		PreparedStatement createPlayer = connection.prepareStatement(sql);
 		createPlayer.executeUpdate();
 		connection.close();
 	}
+
 	public GameSaverOperationResults trySavePlayer(String username, Player player) throws Exception {
 		// TODO Create table according to the requirements below.
-		isProtected = player.getIsProtected();
+	    level = player.getLevel();
+		isProtected = player.isProtected();
 		remainingTime = player.getRemainingTime();
-		remainingLife = player.getRemainingLife();
-		xLocation = player.getX();
-		yLocation = player.getY();
+		remainingLife = player.getLife();
+		xLocation = player.getXCurrent();
+		yLocation = player.getYCurrent();
 		bottlecount = Game.getBag().getPowerUps().get(BottlePowerUp.getInstance(player));
 		vestcount = Game.getBag().getPowerUps().get(VestPowerUp.getInstance(player));
+		startingTime = player.getStartingTime();
+		isKeyFound = player.getIsKeyFound();
+		System.out.println(isKeyFound);
 		
 		return findByUserName(username) ? update(username) : savePlayer(username);
 	}
@@ -53,7 +62,7 @@ public class PlayerDatabaseGameSaver {
 		// TODO Auto-generated method stub
 		Connection connection = DriverManager.getConnection(DatabaseRequirements.url.getValue(),
 				DatabaseRequirements.username.getValue(), DatabaseRequirements.password.getValue());
-		String sql = "INSERT INTO public.player(isprotected, remainingtime, remaininglife, xlocation, ylocation, bottle, vest, username)	VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+		String sql = "INSERT INTO public.player(isprotected, remainingtime, remaininglife, xlocation, ylocation, bottle, vest, level, startingtime, iskeyfound, username)	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setBoolean(1, isProtected);
 		statement.setInt(2, remainingTime);
@@ -62,7 +71,10 @@ public class PlayerDatabaseGameSaver {
 		statement.setInt(5, yLocation);
 		statement.setInt(6, bottlecount);
 		statement.setInt(7, vestcount);
-		statement.setString(8, username);
+		statement.setInt(8, level);
+		statement.setInt(9, startingTime);
+		statement.setBoolean(10, isKeyFound);
+		statement.setString(11, username);
 		int affected = statement.executeUpdate();
 
 		connection.close();
@@ -87,7 +99,7 @@ public class PlayerDatabaseGameSaver {
 		Connection connection = DriverManager.getConnection(DatabaseRequirements.url.getValue(),
 				DatabaseRequirements.username.getValue(), DatabaseRequirements.password.getValue());
 
-		String sql = "UPDATE public.player SET isprotected=?, remainingtime=?, remaininglife=?, xlocation=?, ylocation=?, bottle=?, vest=?, username=? WHERE username = ?";
+		String sql = "UPDATE public.player SET isprotected=?, remainingtime=?, remaininglife=?, xlocation=?, ylocation=?, bottle=?, vest=?, level=?, startingtime=?, iskeyfound=?, username=? WHERE username = ?";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		statement.setBoolean(1, isProtected);
 		statement.setInt(2, remainingTime);
@@ -96,8 +108,11 @@ public class PlayerDatabaseGameSaver {
 		statement.setInt(5, yLocation);
 		statement.setInt(6, bottlecount);
 		statement.setInt(7, vestcount);
-		statement.setString(8, username);
-		statement.setString(9, username);
+		statement.setInt(8, level);
+		statement.setInt(9, startingTime);
+		statement.setBoolean(10, isKeyFound);
+		statement.setString(11, username);
+		statement.setString(12, username);
 		int affected = statement.executeUpdate();
 
 		connection.close();

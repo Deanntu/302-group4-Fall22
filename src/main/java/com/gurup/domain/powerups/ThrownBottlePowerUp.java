@@ -1,240 +1,207 @@
 package com.gurup.domain.powerups;
 
 import java.awt.Rectangle;
-import java.awt.Toolkit;
 
 import com.gurup.domain.Player;
+import com.gurup.domain.room.Room;
+import com.gurup.domain.room.RoomConstants;
 
 public class ThrownBottlePowerUp implements PowerUp {
 
-	private static ThrownBottlePowerUp thrownBottlePowerUp;
-	private Player player;
-	private String name = "thrownbottle";
-	private int xLimit;
-	private int yLimit;
-	private int x;
-	private int y;
-	private int minX;
-	private int minY;
-	private int maxX;
-	private int maxY;
-	private boolean isUsable = false;
-	private boolean isUsed = false;
-	private int[] throwDestination;
-	private int[] throwSource;
+    private static ThrownBottlePowerUp thrownBottlePowerUp;
+    private final Player player;
+    private String name = "thrownbottle";
+    private int xLen;
+    private int yLen;
+    private int xCurrent;
+    private int yCurrent;
+    private boolean isUsable = false;
+    private boolean isUsed = false;
+    private int[] throwDestination;
+    private int[] throwSource;
 
-	private ThrownBottlePowerUp(Player player) {
-		this.player = player;
-		minX = player.getstartX();
-		minY = player.getstartY();
-		maxX = player.getxLimit();
-		maxY = player.getyLimit();
-		//System.out.printf("player's minx: %d, miny: %d, maxx: %d, maxy: %d%n", player.getstartX(), player.getstartY(), player.getxLimit(), player.getyLimit());
-	}
+    private ThrownBottlePowerUp(Player player) {
+        this.player = player;
+    }
 
-	public static synchronized ThrownBottlePowerUp getInstance(Player player) {
-		if (thrownBottlePowerUp == null) {
-			thrownBottlePowerUp = new ThrownBottlePowerUp(player);
-		}
-		return thrownBottlePowerUp;
-	}
+    public static synchronized ThrownBottlePowerUp getInstance(Player player) {
+        if (thrownBottlePowerUp == null) {
+            thrownBottlePowerUp = new ThrownBottlePowerUp(player);
+        }
+        return thrownBottlePowerUp;
+    }
 
-	public void usePowerUp(String direction) {
-		// EFFECTS: if not used yet, create a thrown bottle at the target direction
-		// else, do nothing
-		// if the range extends further than a wall, put it within the borders of the room
-		if (isUsable) {
-			setThrowDestinationAndSource();
-			switch (direction) {
-			case "up":
-				moveUp();
-				setUsable(false);
-				setUsed(true);
-				break;
-			case "down":
-				moveDown();
-				setUsable(false);
-				setUsed(true);
-				break;
-			case "left":
-				moveLeft();
-				//System.out.println("Moved to left");
-				setUsable(false);
-				setUsed(true);
-				break;
-			case "right":
-				moveRight();
-				setUsable(false);
-				setUsed(true);
-				break;
-			}
-		}
-		
-	}
+    public void usePowerUp(String direction) {
+        // MODIFIES: this
+        // EFFECTS: if not used yet, create a thrown bottle at the target direction
+        // else, do nothing
+        // if the range extends further than a wall, put it within the borders of the
+        // room
+        if (isUsable) {
+            setThrowDestinationAndSource();
+            switch (direction) {
+                case "up":
+                    moveUp();
+                    setUsable(false);
+                    setUsed(true);
+                    break;
+                case "down":
+                    moveDown();
+                    setUsable(false);
+                    setUsed(true);
+                    break;
+                case "left":
+                    moveLeft();
+                    setUsable(false);
+                    setUsed(true);
+                    break;
+                case "right":
+                    moveRight();
+                    setUsable(false);
+                    setUsed(true);
+                    break;
+            }
+        }
 
-	public boolean isUsable() {
-		return isUsable;
-	}
+    }
 
-	public void setUsable(boolean isUsable) {
-		this.isUsable = isUsable;
-	}
+    public boolean isUsable() {
+        return isUsable;
+    }
 
-	public void moveRight() {
-		if (player.getX() + 100 >= this.maxX) {
-			this.setX(player.getxLimit());
-		} else {
-			this.setX(player.getX() + 100);
-		}
-		this.setY(player.getY());
-	}
+    public void setUsable(boolean isUsable) {
+        this.isUsable = isUsable;
+    }
 
-	public void moveLeft() {
-		if (player.getX() - 100 <= this.minX) {
-			this.setX(player.getstartX());
-		} else {
-			this.setX(player.getX() - 100);
-		}
-		this.setY(player.getY());
-		//System.out.printf("bottle x: %d , bottle y: %d, bottle xlimit: %d, bottle ylimit: %d%n", this.x, this.y, this.xLimit, this.yLimit);
-	}
+    public void moveRight() {
+        this.xCurrent = Math.min(this.xCurrent + 100, Room.getXLimit() + 50 - RoomConstants.bottlePowerUpXLen.getValue());
+        this.yCurrent = player.getYCurrent();
+    }
 
-	public void moveUp() {
-		if (player.getY() - 100 <= this.minY) {
-			this.setY(player.getstartY());
-		} else {
-			this.setY(player.getY() - 100);
-		}
-		this.setX(player.getX());
-	}
+    public void moveLeft() {
+        this.xCurrent = Math.max(this.xCurrent - 100, Room.getstartX());
+        this.yCurrent = player.getYCurrent();
+    }
 
-	public void moveDown() {
-		if (player.getY() + 100 >= this.maxY) {
-			this.setY(player.getyLimit());
-		} else {
-			this.setY(player.getY() + 100);
-		}
-		this.setX(player.getX());
-	}
+    public void moveUp() {
+        this.yCurrent = Math.max(this.yCurrent - 100, Room.getstartY());
+        this.xCurrent = player.getXCurrent();
+    }
 
-	@Override
-	public void usePowerUp() {
-		// TODO Auto-generated method stub
+    public void moveDown() {
+        this.yCurrent = Math.min(this.yCurrent + 100, Room.getYLimit());
+        this.xCurrent = player.getXCurrent();
+    }
 
-	}
+    @Override
+    public void usePowerUp() {
+        // TODO Auto-generated method stub
 
-	@Override
-	public boolean isStorable() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    }
 
-	@Override
-	public Rectangle getRectangle() {
-		return new Rectangle(x, y, xLimit, yLimit);
-	}
+    @Override
+    public boolean isStorable() {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
-	@Override
-	public boolean isActive() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public Rectangle getRectangle() {
+        return new Rectangle(xCurrent, yCurrent, xLen, yLen);
+    }
 
-	@Override
-	public void setIsActive(boolean b) {
-		// TODO Auto-generated method stub
+    @Override
+    public boolean isActive() {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
-	}
+    @Override
+    public void setIsActive(boolean b) {
+        // TODO Auto-generated method stub
 
-	private int getstartX() {
-		return Toolkit.getDefaultToolkit().getScreenSize().width - 100 + 50;
-	}
+    }
 
-	private int getstartY() {
-		return Toolkit.getDefaultToolkit().getScreenSize().height - 175 + 50;
-	}
+    public int getXLen() {
+        return xLen;
+    }
 
-	public int getxLimit() {
-		return xLimit;
-	}
+    public void setXLen(int xLen) {
+        this.xLen = xLen;
+    }
 
-	public void setxLimit(int xLimit) {
-		this.xLimit = xLimit;
-	}
+    public int getYLen() {
+        return yLen;
+    }
 
-	public int getyLimit() {
-		return yLimit;
-	}
+    public void setYLen(int yLen) {
+        this.yLen = yLen;
+    }
 
-	public void setyLimit(int yLimit) {
-		this.yLimit = yLimit;
-	}
+    public int getXCurrent() {
+        return xCurrent;
+    }
 
-	public int getX() {
-		return x;
-	}
+    public void setXCurrent(int x) {
+        this.xCurrent = x;
+    }
 
-	public void setX(int x) {
-		this.x = x;
-	}
+    public int getYCurrent() {
+        return yCurrent;
+    }
 
-	public int getY() {
-		return y;
-	}
+    public void setYCurrent(int y) {
+        this.yCurrent = y;
+    }
 
-	public void setY(int y) {
-		this.y = y;
-	}
+    @Override
+    public int[] rectArray() {
+        return new int[]{this.xCurrent, this.yCurrent, this.xLen, this.yLen};
+    }
 
-	@Override
-	public int[] rectArray() {
-		int[] rectValues = { getX(), getY(), this.getxLimit(), this.getyLimit() };
-		return rectValues;
-	}
+    @Override
+    public String getName() {
+        // TODO Auto-generated method stub
+        return name;
+    }
 
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return name;
-	}
+    @Override
+    public int getSlotId() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 
-	@Override
-	public int getSlotId() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    private void setThrowDestinationAndSource() {
+        this.throwDestination = rectArray();
+        this.xCurrent = player.getXCurrent();
+        this.yCurrent = player.getYCurrent();
+        this.xLen = BottlePowerUp.getInstance(null).getXLen();
+        this.yLen = BottlePowerUp.getInstance(null).getYLen();
+        this.throwSource = new int[]{xCurrent, yCurrent, xLen, yLen};
+    }
 
-	private void setThrowDestinationAndSource() {
-		this.throwDestination = rectArray();
-		this.x = player.getX();
-		this.y = player.getY();
-		this.xLimit = BottlePowerUp.getInstance(null).getxLimit();
-		this.yLimit = BottlePowerUp.getInstance(null).getyLimit();
-		this.throwSource = new int[] { x, y, xLimit, yLimit };
-	}
+    public boolean isUsed() {
+        return isUsed;
+    }
 
-	public boolean isUsed() {
-		return isUsed;
-	}
+    public void setUsed(boolean isUsed) {
+        this.isUsed = isUsed;
+    }
 
-	public void setUsed(boolean isUsed) {
-		this.isUsed = isUsed;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public int[] getThrowDestination() {
+        return throwDestination;
+    }
 
-	public int[] getThrowDestination() {
-		return throwDestination;
-	}
+    public int[] getThrowSource() {
+        return throwSource;
+    }
 
-	public int[] getThrowSource() {
-		return throwSource;
-	}
-	
-	public static void setNull() {
-		thrownBottlePowerUp = null;
-	}
+    public static void setNull() {
+        thrownBottlePowerUp = null;
+    }
 
 }
